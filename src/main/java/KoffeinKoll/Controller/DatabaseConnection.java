@@ -12,11 +12,10 @@ public class DatabaseConnection {
     private String url;
     private String username;
     private String password;
+    private DatabaseConnection databaseConnection;
 
-    public DatabaseConnection(String url, String username, String password) {
-        this.url = url;
-        this.username = username;
-        this.password = password;
+    public DatabaseConnection getDatabaseConnection() {
+        return databaseConnection;
     }
 
     public Connection getConnection() {

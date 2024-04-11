@@ -6,13 +6,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import KoffeinKoll.Controller.DatabaseConnection;
 
 public class LoginController {
 
-    DatabaseConnection databaseConnection;
+    private DatabaseConnection databaseConnection;
 
-    public LoginController(DatabaseConnection databaseConnection) {
-        this.databaseConnection = databaseConnection;
+    public LoginController() {
+        this.databaseConnection = new DatabaseConnection();
     }
 
     public boolean logIn(String username, String password) {

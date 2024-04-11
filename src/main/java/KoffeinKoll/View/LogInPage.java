@@ -1,6 +1,9 @@
 package KoffeinKoll.View;
 
+import KoffeinKoll.Controller.LoginController;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -101,6 +104,27 @@ public class LogInPage extends Application {
         topHBox.getChildren().add(titleLabel);
         topHBox.setAlignment(Pos.CENTER);
         borderPane.setTop(topHBox);
+
+        logInButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                String username = userNameField.getText();
+                String password = passwordField.getText();
+
+                LoginController loginController = new LoginController();
+                boolean loggedIn = loginController.logIn(username,password);
+
+                if(loggedIn) {
+                    logInStage.close();
+
+                    HomePage homePage = new HomePage();
+                    homePage.start(new Stage());
+                }
+                else {
+                    System.out.println("Login failed");
+                }
+            }
+        });
 
         Scene scene = new Scene(borderPane, 800, 800);
 
