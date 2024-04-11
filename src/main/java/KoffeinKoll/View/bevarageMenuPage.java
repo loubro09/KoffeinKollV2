@@ -1,6 +1,8 @@
 package KoffeinKoll.View;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -37,15 +39,15 @@ public class bevarageMenuPage extends Application{
             //Huvudtitel
             Label titleLabel = new Label("KoffeinKoll");
             titleLabel.setFont(Font.font("Arial", FontWeight.BOLD, 46));
-
+            //Undertitel
             Label littleTitleLabel = new Label("  Let's get started!\nChoose your drink:");
             littleTitleLabel.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.ITALIC, 23));
-            // Definierar den färg som all rubrikstext bör ha
+            //Här definieras den färg som all rubrikstext bör ha
             Color labelColor = Color.rgb(0, 60, 0);
             titleLabel.setTextFill(labelColor);
             littleTitleLabel.setTextFill(labelColor);
 
-
+            //Knappar till menyn med alla olika dryckor man kan välja (en åt gången)
             Button coffeButton = koffeinKollButtons("Regular Coffee");
             Button espresso1Button = koffeinKollButtons("Single Shot Espresso");
             Button espresso2Button =  koffeinKollButtons("Double Shot Espresso");
@@ -54,12 +56,26 @@ public class bevarageMenuPage extends Application{
             Button energyDrinkButton = koffeinKollButtons("Energy drink");
             Button sodaButton = koffeinKollButtons("Soda");
 
+            //Alla knappar ska vara samma storlek och centrerade
             for(Button button: new Button[]{
                     coffeButton,espresso1Button,espresso2Button,teaButton,mateButton,energyDrinkButton,sodaButton}){
                 button.setMaxWidth(Double.MAX_VALUE);
                 GridPane.setHalignment(button, HPos.CENTER);
             }
+            //Listner som väntar på anrop från användaren. När användaren trycker på en av knapparna i menyn stängs sidan och går vidare till nästa
+            for(Button button: new Button[]{
+                    coffeButton,espresso1Button,espresso2Button,teaButton,mateButton,energyDrinkButton,sodaButton}){
+                button.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent actionEvent) {
+                        menuStage.close();
+                        BevarageStatsPage bevarageStatsPage = new BevarageStatsPage();
+                        Stage bevarageStatsPage = new Stage();
+                        bevarageStatsPage.start(bevarageStage); //ändra sen när elias laddat upp
+                    }
+                });}
 
+            //Layout
             GridPane gridPane = new GridPane();
             gridPane.setAlignment(Pos.CENTER);
             gridPane.setVgap(10);
@@ -84,12 +100,12 @@ public class bevarageMenuPage extends Application{
             Scene scene = new Scene(borderPane,800,800);
 
 
-            // Setting background color as a gradient centered with yellow in the middle
+            //Bakgrundsfärg
             Stop[] stops = new Stop[]{new Stop(0, Color.web("#c0dbad")), new Stop(1, Color.web("#fcf1cb"))};
             LinearGradient gradient = new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE, stops);
             borderPane.setBackground(new javafx.scene.layout.Background(new javafx.scene.layout.BackgroundFill(gradient, null, null)));
 
-            // Setting the Scene to the Stage
+            // Scenen sätts till stagen så den visas
             menuStage.setScene(scene);
             menuStage.show();
         }
@@ -114,18 +130,6 @@ public class bevarageMenuPage extends Application{
             Button button = new Button(text);
             button.setStyle(styleButtons);
             return button;
-
-        }
-
-
-        //konstanter och skuggorna till TextFields
-        private TextField textField(){
-            TextField fieldStyle = new TextField();
-            fieldStyle.setFont(Font.font("Arial", 14));
-            fieldStyle.setPrefWidth(220);
-            fieldStyle.setPrefHeight(30);
-            fieldStyle.setStyle(" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
-            return fieldStyle;
         }
 
         public static void main(String[] args) {
