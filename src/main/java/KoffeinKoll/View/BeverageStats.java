@@ -130,16 +130,10 @@ public class BeverageStats extends Application {
         LinearGradient gradient = new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE, stops);
         borderPane1.setBackground(new javafx.scene.layout.Background(new javafx.scene.layout.BackgroundFill(gradient, null, null)));
 
-
-
-        // Set action for logout button
         homeButton.setOnAction(e -> {
-            // Close current main window
-            beverageStats.close();
-            // Open login window
-            //LoginWindow loginWindow = new LoginWindow();
-            //loginWindow.start(new Stage());
+            goToHomePage();
         });
+
 
         // Displaying the Stage, Setting the Scene to the Stage
         beverageStats.setScene(scene);
@@ -152,6 +146,10 @@ public class BeverageStats extends Application {
         fieldStyle.setPrefHeight(30);
         fieldStyle.setStyle(" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
         return fieldStyle;
+    }
+    private void goToHomePage() {
+        HomePage homePage = new HomePage();
+        homePage.start(beverageStats);
     }
 
     public static void main(String[] args) {
