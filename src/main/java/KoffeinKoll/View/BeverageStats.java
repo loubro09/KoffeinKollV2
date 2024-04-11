@@ -76,6 +76,8 @@ public class BeverageStats extends Application {
                 "    -fx-padding: 10 20 10 20;";
 
         Button logAmount = new Button("Log Amount");
+        goBackButton.setStyle(styleButtons);
+        homeButton.setStyle(styleButtons);
         logAmount.setStyle(styleButtons);
 
         GridPane gridPane = new GridPane();
