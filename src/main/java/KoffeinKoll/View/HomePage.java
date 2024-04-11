@@ -47,7 +47,7 @@ public class HomePage extends Application{
                 "    -fx-text-fill: white;\n" +
                 "    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );\n" +
                 "    -fx-font-family: \"Arial\";\n" +
-                "    -fx-text-fill: linear-gradient(black, black);\n" +
+                "    -fx-text-fill: linear-gradient(darkgreen, black);\n" +
                 "    -fx-font-size: 20px;\n" +
                 "    -fx-padding: 10 20 10 20;";
 
@@ -179,8 +179,8 @@ public class HomePage extends Application{
             // Close current main window
             primaryStage.close();
             // Open login window
-            LogInPage loginWindow = new LogInPage();
-            loginWindow.start(new Stage());
+           // LogInPage loginWindow = new LogInPage();
+            //loginWindow.start(new Stage());
         });
 
         // Displaying the Stage
