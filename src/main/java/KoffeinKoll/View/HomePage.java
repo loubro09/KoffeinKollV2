@@ -179,8 +179,8 @@ public class HomePage extends Application{
             // Close current main window
             primaryStage.close();
             // Open login window
-            //LoginWindow loginWindow = new LoginWindow();
-            //loginWindow.start(new Stage());
+            LogInPage loginWindow = new LogInPage();
+            loginWindow.start(new Stage());
         });
 
         // Displaying the Stage
