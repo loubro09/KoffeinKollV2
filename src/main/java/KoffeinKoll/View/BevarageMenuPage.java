@@ -8,15 +8,9 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
@@ -26,7 +20,7 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
-public class bevarageMenuPage extends Application{
+public class BevarageMenuPage extends Application{
         private Stage menuStage;
         @Override
         public void start(Stage menuStage) {
@@ -63,7 +57,7 @@ public class bevarageMenuPage extends Application{
                 GridPane.setHalignment(button, HPos.CENTER);
             }
             //Listner som väntar på anrop från användaren. När användaren trycker på en av knapparna i menyn stängs sidan och går vidare till nästa
-            for(Button button: new Button[]{
+            /*for(Button button: new Button[]{
                     coffeButton,espresso1Button,espresso2Button,teaButton,mateButton,energyDrinkButton,sodaButton}){
                 button.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
@@ -73,7 +67,7 @@ public class bevarageMenuPage extends Application{
                         Stage bevarageStatsPage = new Stage();
                         bevarageStatsPage.start(bevarageStage); //ändra sen när elias laddat upp
                     }
-                });}
+                });}*/
 
             //Layout
             GridPane gridPane = new GridPane();

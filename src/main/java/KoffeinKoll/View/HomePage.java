@@ -1,6 +1,8 @@
 package KoffeinKoll.View;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -14,6 +16,7 @@ import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+
 
 public class HomePage extends Application{
 
@@ -79,6 +82,17 @@ public class HomePage extends Application{
             //LoginWindow loginWindow = new LoginWindow();
             //loginWindow.start(new Stage());
         });
+        for(Button button: new Button[]{logBeverageButton}){
+            button.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    primaryStage.close();
+                    BevarageMenuPage bevarageMenuPage = new BevarageMenuPage();
+                    Stage menuStage= new Stage();
+                    bevarageMenuPage.start(menuStage);
+                }
+            });
+        }
 
         // Displaying the Stage
         primaryStage.show();
