@@ -47,7 +47,7 @@ public class LogInPage extends Application {
 
         TextField userNameField = textField();
         userNameField.setPromptText("Enter username");
-        PasswordField passwordField = new PasswordField();
+        TextField passwordField = textField();
         passwordField.setPromptText("Enter password ");
 
         Hyperlink registration = new Hyperlink("Not registered? Create an account!");
