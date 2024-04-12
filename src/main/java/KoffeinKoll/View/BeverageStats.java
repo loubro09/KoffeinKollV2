@@ -18,12 +18,15 @@ import javafx.scene.paint.CycleMethod;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import KoffeinKoll.Controller.*;
 
 public class BeverageStats extends Application {
     private static final String BUTTON_STYLE = "-fx-background-color: #090a0c, linear-gradient(#0a4a1d 0%, #8fbc8f 20%, #8fbc8f 50%, #c0dbad 100%), linear-gradient(#c0dbad, #8fbc8f), radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0)); -fx-background-radius: 5,4,3,5; -fx-background-insets: 0,1,2,0; -fx-text-fill: white; -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 ); -fx-font-family: \"Arial\"; -fx-text-fill: linear-gradient(black, darkgreen); -fx-font-size: 20px; -fx-padding: 10 20 10 20; -fx-font-weight: bold";
     private static final String LABEL_FONT = "Arial";
     private static final Color LABEL_COLOR = Color.rgb(0, 60, 0);
     private Stage stage;
+    private BeverageController beverageController = new BeverageController();
+    private TextField amountField, amountClField, timeField;
 
     @Override
     public void start(Stage stage) {
@@ -94,9 +97,11 @@ public class BeverageStats extends Application {
         gridPane.add(createLabel("Amount CL"), 0, 1);
         gridPane.add(createTextField("Enter Amount in CL"), 1, 1);
         gridPane.add(createLabel("Time"), 0, 2);
-        gridPane.add(createTextField("Enter Time"), 1, 2);
+        gridPane.add(createTextField("Enter Time yyyy-MM-dd HH:mm"), 1, 2);
+
         JFXButton logButton = new JFXButton("Log Amount");
         logButton.setStyle(BUTTON_STYLE);
+        logButton.setOnAction(e -> validateInputs());
         gridPane.add(logButton, 0, 3, 2, 1);
         GridPane.setHalignment(logButton, HPos.CENTER);
     }
@@ -125,6 +130,18 @@ public class BeverageStats extends Application {
     private void goBack() {
         BevarageMenuPage beverageMenuPage = new BevarageMenuPage();
         beverageMenuPage.start(stage);
+    }
+
+    private void validateInputs() {
+        if (!beverageController.validateAmount(amountField.getText())) {
+            beverageController.showAlert("Invalid Amount", "Please enter a valid amount.");
+        } else if (!beverageController.validateAmount(amountClField.getText())) {
+            beverageController.showAlert("Invalid Amount in CL", "Please enter a valid amount in CL.");
+        } else if (!beverageController.validateDateTime(timeField.getText())) {
+            beverageController.showAlert("Invalid Time", "Time should be in (yyyy-MM-dd HH:mm) format.");
+        } else {
+            beverageController.showAlert("Success", "All inputs are valid!");
+        }
     }
 
     public static void main(String[] args) {
