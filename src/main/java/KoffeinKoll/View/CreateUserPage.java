@@ -31,6 +31,8 @@ public class CreateUserPage extends Application {
         //Huvudtitel
         Label titleLabel = new Label("KoffeinKoll");
         titleLabel.setFont(Font.font("Arial", FontWeight.BOLD, 46));
+        titleLabel.setTextFill(Color.rgb(0, 60, 0));
+
 
         //Rubrik ovanför textrutor
         Label userNameLabel = new Label("Username");
@@ -44,12 +46,16 @@ public class CreateUserPage extends Application {
 
 
         //Weight
-        Label widthLabel = new Label("Width");
-        widthLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+        Label weightLabel = new Label("Weight");
+        weightLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
 
         //Date of birth
         Label dateOfBirthLabel = new Label("Date of Birth");
         dateOfBirthLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+
+        Label passwordRequirementsLabel = new Label("Password must contain at least 8 characters, one capital letter, and one number.");
+        passwordRequirementsLabel.setFont(Font.font("Arial", 12));
+        passwordRequirementsLabel.setTextFill(Color.rgb(0, 60, 0)); // You can adjust the color as needed
 
 
 
@@ -59,16 +65,28 @@ public class CreateUserPage extends Application {
         userNameLabel.setTextFill(labelColor);
         passwordLabel.setTextFill(labelColor);
         heightLabel.setTextFill(labelColor);
-        widthLabel.setTextFill(labelColor);
+        weightLabel.setTextFill(labelColor);
         dateOfBirthLabel.setTextFill(labelColor);
 
         //textrutorna
 
         TextField userNameField = textField();
-        userNameField.setPromptText("Enter username");
+        userNameField.setPromptText("Enter a username");
         PasswordField passwordField = new PasswordField();
-        passwordField.setPromptText("Enter password ");
-        
+        passwordField.setPromptText("Enter a password ");
+        // To mach the textbox and text size to the TextField
+        passwordField.setPrefWidth(220);
+        passwordField.setPrefHeight(30);
+        passwordField.setStyle("-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 ); -fx-padding: 5px;");
+        passwordField.setStyle("-fx-prompt-text-fill: derive(-fx-control-inner-background,-30%); -fx-font: 14px \"Arial\";");
+
+        TextField heightField = textField();
+        heightField.setPromptText("Enter height (cm)");
+        TextField weightField = textField();
+        weightField.setPromptText("Enter weight (kg)");
+        TextField dateOfBirthField = textField();
+        dateOfBirthField.setPromptText("YYYY-MM-DD");
+
 
 
 
@@ -87,8 +105,8 @@ public class CreateUserPage extends Application {
                 "    -fx-font-size: 20px;\n" +
                 "    -fx-padding: 10 20 10 20;";
 
-        Button logInButton = new Button("Create User");
-        logInButton.setStyle(styleButtons);
+        Button createUserButton = new Button("Create User");
+        createUserButton.setStyle(styleButtons);
 
 
         GridPane gridPane = new GridPane();
@@ -100,16 +118,26 @@ public class CreateUserPage extends Application {
         gridPane.add(passwordLabel, 0, 2);
         gridPane.add(passwordField, 0, 3);
         gridPane.add(heightLabel, 0, 4);
+        gridPane.add(heightField, 0, 5);
+        gridPane.add(weightLabel,0,6);
+        gridPane.add(weightField,0,7);
+        gridPane.add(dateOfBirthLabel,0,8);
+        gridPane.add(dateOfBirthField,0,9);
 
-        gridPane.add(logInButton, 0, 7);
-        gridPane.setHalignment(logInButton, Pos.CENTER.getHpos());
+        gridPane.add(createUserButton, 0, 13); // Remove this line
+        gridPane.add(passwordRequirementsLabel, 0, 15);
+
+        gridPane.setHalignment(createUserButton, Pos.CENTER.getHpos());
 
         BorderPane borderPane = new BorderPane();
         borderPane.setPadding(new Insets(20));
+        borderPane.setTop(titleLabel);
         borderPane.setCenter(gridPane);
+        BorderPane.setAlignment(titleLabel, Pos.CENTER);
 
         Scene scene = new Scene(borderPane, 800, 800);
-
+        stage.setScene(scene);
+        stage.show();
 
         // Setting background color as a gradient centered with yellow in the middle
         Stop[] stops = new Stop[]{new Stop(0, Color.web("#c0dbad")), new Stop(1, Color.web("#fcf1cb"))};
