@@ -4,6 +4,8 @@ import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -20,6 +22,7 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
 
 public class HomePage extends Application{
 
@@ -182,6 +185,17 @@ public class HomePage extends Application{
             LogInPage loginWindow = new LogInPage();
             loginWindow.start(new Stage());
         });
+        for(JFXButton button: new JFXButton[]{logBeverageButton}){
+            button.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    primaryStage.close();
+                    BevarageMenuPage bevarageMenuPage = new BevarageMenuPage();
+                    Stage menuStage= new Stage();
+                    bevarageMenuPage.start(menuStage);
+                }
+            });
+        }
 
         // Displaying the Stage
         primaryStage.show();
