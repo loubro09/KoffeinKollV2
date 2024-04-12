@@ -202,6 +202,22 @@ public class HomePage extends Application {
             });
         }
 
+        for (JFXButton button : new JFXButton[]{accountButton}) {
+            button.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    primaryStage.close();
+                    ProfilePage profilePage = new ProfilePage();
+                    Stage profileStage = new Stage();
+                    try {
+                        profilePage.start(profileStage);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
+
         for (JFXButton button : new JFXButton[]{statisticsButton}) {
             button.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
