@@ -20,6 +20,9 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import KoffeinKoll.Controller.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class BeverageStats extends Application {
     private static final String BUTTON_STYLE = "-fx-background-color: #090a0c, linear-gradient(#0a4a1d 0%, #8fbc8f 20%, #8fbc8f 50%, #c0dbad 100%), linear-gradient(#c0dbad, #8fbc8f), radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0)); -fx-background-radius: 5,4,3,5; -fx-background-insets: 0,1,2,0; -fx-text-fill: white; -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 ); -fx-font-family: \"Arial\"; -fx-text-fill: linear-gradient(black, darkgreen); -fx-font-size: 20px; -fx-padding: 10 20 10 20; -fx-font-weight: bold";
     private static final String LABEL_FONT = "Arial";
@@ -135,17 +138,33 @@ public class BeverageStats extends Application {
         BevarageMenuPage beverageMenuPage = new BevarageMenuPage();
         beverageMenuPage.start(stage);
     }
-
     private void validateInputs() {
         if (!beverageController.validateAmount(amountField.getText())) {
-            beverageController.showAlert("Invalid Amount", "Please enter a valid amount.");
+            showAlert("Invalid Amount", "Please enter a valid amount.");
         } else if (!beverageController.validateAmount(amountClField.getText())) {
-            beverageController.showAlert("Invalid Amount in CL", "Please enter a valid amount in CL.");
+            showAlert("Invalid Amount in CL", "Please enter a valid amount in CL.");
         } else if (!beverageController.validateDateTime(timeField.getText())) {
-            beverageController.showAlert("Invalid Time", "Time should be in (yyyy-MM-dd HH:mm) format.");
+            showAlert("Invalid Time", "Time should be in (yyyy-MM-dd HH:mm) format.");
         } else {
-            beverageController.showAlert("Success", "All inputs are valid!");
+            // If inputs are valid, proceed with further processing
+            processValidInputs();
         }
+    }
+
+    private void processValidInputs() {
+        int userId = 0; // Obtain the logged-in user's ID
+        int beverageId = 0; // Determine the beverage ID, possibly from a selection
+        LocalDate date = LocalDate.parse(timeField.getText(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+
+        if (beverageController.insertUserHistory(userId, beverageId, date)) {
+            showAlert("Success", "Consumption logged successfully!");
+        } else {
+            showAlert("Database Error", "Failed to log consumption.");
+        }
+    }
+
+    private void showAlert(String title, String content) {
+
     }
 
     public static void main(String[] args) {

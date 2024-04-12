@@ -1,13 +1,18 @@
 package KoffeinKoll.Controller;
 
 import javafx.scene.control.Alert;
-
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Optional;
+
 
 public class BeverageController {
+
+    private DatabaseConnection databaseConnection;
 
     public boolean validateAmount(String text) {
         if (text == null || text.trim().isEmpty()) {
@@ -30,6 +35,24 @@ public class BeverageController {
             LocalDateTime.parse(text, formatter);
             return true; // No error, validation passed
         } catch (DateTimeParseException e) {
+            return false;
+        }
+    }
+
+    public boolean insertUserHistory(int userId, int beverageId, LocalDate date) {
+        String sql = "INSERT INTO userhistory (user_id, beverage_id, date) VALUES (?, ?, ?)";
+
+        try (Connection conn = databaseConnection.getDatabaseConnection()) {
+            assert conn != null;
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setInt(1, userId);
+                pstmt.setInt(2, beverageId);
+                pstmt.setDate(3, java.sql.Date.valueOf(date));
+                pstmt.executeUpdate();
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
             return false;
         }
     }
