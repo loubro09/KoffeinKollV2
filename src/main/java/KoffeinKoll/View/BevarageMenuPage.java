@@ -75,7 +75,6 @@ public class BevarageMenuPage extends Application{
                 });
             }
 
-
             //Layout
             GridPane gridPane = new GridPane();
             gridPane.setAlignment(Pos.CENTER);
