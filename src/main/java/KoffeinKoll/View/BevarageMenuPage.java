@@ -19,6 +19,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import KoffeinKoll.View.BeverageStats;
 
 public class BevarageMenuPage extends Application{
         private Stage menuStage;
@@ -57,17 +58,20 @@ public class BevarageMenuPage extends Application{
                 GridPane.setHalignment(button, HPos.CENTER);
             }
             //Listner som väntar på anrop från användaren. När användaren trycker på en av knapparna i menyn stängs sidan och går vidare till nästa
-            /*for(Button button: new Button[]{
+
+            for(Button button: new Button[]{
                     coffeButton,espresso1Button,espresso2Button,teaButton,mateButton,energyDrinkButton,sodaButton}){
                 button.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent actionEvent) {
                         menuStage.close();
-                        BevarageStatsPage bevarageStatsPage = new BevarageStatsPage();
-                        Stage bevarageStatsPage = new Stage();
-                        bevarageStatsPage.start(bevarageStage); //ändra sen när elias laddat upp
+                        BeverageStats beverageStats = new BeverageStats();
+                        Stage bevarageStats = new Stage();
+                        beverageStats.start(bevarageStats);
                     }
-                });}*/
+                });
+            }
+
 
             //Layout
             GridPane gridPane = new GridPane();
