@@ -9,10 +9,10 @@ import java.sql.Date;
 
 public class CreateUserController {
 
-    private final DatabaseConnection databaseConnection;
+    private DatabaseConnection databaseConnection;
 
     public CreateUserController() {
-        this.databaseConnection = new DatabaseConnection();
+        this.databaseConnection = databaseConnection.getInstance();
     }
 
     public boolean createUser(int userId, String username, String password, double length, double weight, String birthday) {
