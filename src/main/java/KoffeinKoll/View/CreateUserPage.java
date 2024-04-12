@@ -123,6 +123,7 @@ public class CreateUserPage extends Application {
                 alert.setContentText("All fields are required.");
                 alert.show();
 
+
                 // Mark empty fields with red color
                 if (username.isEmpty()) userNameField.setStyle("-fx-border-color: red;");
                 if (password.isEmpty()) passwordField.setStyle("-fx-border-color: red;");
@@ -187,8 +188,6 @@ public class CreateUserPage extends Application {
         BorderPane.setAlignment(titleLabel, Pos.CENTER);
 
         Scene scene = new Scene(borderPane, 800, 800);
-        stage.setScene(scene);
-        stage.show();
 
         // Setting background color as a gradient centered with yellow in the middle
         Stop[] stops = new Stop[]{new Stop(0, Color.web("#c0dbad")), new Stop(1, Color.web("#fcf1cb"))};
@@ -198,8 +197,6 @@ public class CreateUserPage extends Application {
         // Setting the Scene to the Stage
         stage.setScene(scene);
         stage.show();
-
-
     }
 
     private TextField textField(){
@@ -213,6 +210,4 @@ public class CreateUserPage extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
-
 }

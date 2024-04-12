@@ -56,6 +56,18 @@ public class LogInPage extends Application {
         Hyperlink registration = new Hyperlink("Not registered? Create an account!");
         registration.setFont(Font.font("Arial", 14));
 
+        // Event for the create account page to open
+        registration.setOnAction(actionEvent -> {
+            logInStage.close();
+
+            CreateUserPage createUserPage = new CreateUserPage();
+            try {
+                createUserPage.start(new Stage());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
         String styleButtons = "-fx-background-color:\n" +
                 "            #090a0c,\n" +
                 "            linear-gradient(#8fbc8f 0%, #8fbc8f 20%, #8fbc8f 100%),\n" +
