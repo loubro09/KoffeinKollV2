@@ -132,6 +132,9 @@ public class BeverageStats extends Application {
         homeButton.setOnAction(e -> {
             goToHomePage();
         });
+        goBackButton.setOnAction(e -> {
+            goBack();
+        });
 
 
         // Displaying the Stage, Setting the Scene to the Stage
@@ -149,6 +152,10 @@ public class BeverageStats extends Application {
     private void goToHomePage() {
         HomePage homePage = new HomePage();
         homePage.start(beverageStats);
+    }
+    private void goBack() {
+        BevarageMenuPage bevarageMenuPage = new BevarageMenuPage();
+        bevarageMenuPage.start(beverageStats);
     }
 
     public static void main(String[] args) {
