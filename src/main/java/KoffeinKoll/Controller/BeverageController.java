@@ -8,7 +8,11 @@ import java.time.format.DateTimeParseException;
 import java.util.Optional;
 
 public class BeverageController {
+
     public boolean validateAmount(String text) {
+        if (text == null || text.trim().isEmpty()) {
+            return false; // Null or empty string is considered invalid
+        }
         try {
             double amount = Double.parseDouble(text);
             return amount >= 0;
@@ -17,15 +21,18 @@ public class BeverageController {
         }
     }
 
-    /*public boolean validateDateTime(String text) {
+    public boolean validateDateTime(String text) {
+        if (text == null || text.trim().isEmpty()) {
+            return false; // Null or empty string is considered invalid
+        }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         try {
             LocalDateTime.parse(text, formatter);
-            return Optional.empty(); // No error, validation passed
+            return true; // No error, validation passed
         } catch (DateTimeParseException e) {
-            return Optional.of("Invalid date and time format. Please use yyyy-MM-dd HH:mm.");
+            return false;
         }
-    }*/
+    }
 
     public void showAlert(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);

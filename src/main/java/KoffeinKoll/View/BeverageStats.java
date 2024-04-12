@@ -92,16 +92,20 @@ public class BeverageStats extends Application {
     }
 
     private void addGridContent(GridPane gridPane) {
+        amountField = createTextField("Enter Amount");  // Assign to class-level field
+        amountClField = createTextField("Enter Amount in CL");  // Assign to class-level field
+        timeField = createTextField("Enter Time yyyy-MM-dd HH:mm");  // Assign to class-level field
+
         gridPane.add(createLabel("Amount"), 0, 0);
-        gridPane.add(createTextField("Enter Amount"), 1, 0);
+        gridPane.add(amountField, 1, 0);  // Use the field
         gridPane.add(createLabel("Amount CL"), 0, 1);
-        gridPane.add(createTextField("Enter Amount in CL"), 1, 1);
+        gridPane.add(amountClField, 1, 1);  // Use the field
         gridPane.add(createLabel("Time"), 0, 2);
-        gridPane.add(createTextField("Enter Time yyyy-MM-dd HH:mm"), 1, 2);
+        gridPane.add(timeField, 1, 2);  // Use the field
 
         JFXButton logButton = new JFXButton("Log Amount");
         logButton.setStyle(BUTTON_STYLE);
-        //logButton.setOnAction(e -> validateInputs());
+        logButton.setOnAction(e -> validateInputs());
         gridPane.add(logButton, 0, 3, 2, 1);
         GridPane.setHalignment(logButton, HPos.CENTER);
     }
@@ -132,7 +136,7 @@ public class BeverageStats extends Application {
         beverageMenuPage.start(stage);
     }
 
-    /*private void validateInputs() {
+    private void validateInputs() {
         if (!beverageController.validateAmount(amountField.getText())) {
             beverageController.showAlert("Invalid Amount", "Please enter a valid amount.");
         } else if (!beverageController.validateAmount(amountClField.getText())) {
@@ -142,7 +146,7 @@ public class BeverageStats extends Application {
         } else {
             beverageController.showAlert("Success", "All inputs are valid!");
         }
-    }*/
+    }
 
     public static void main(String[] args) {
         launch(args);
