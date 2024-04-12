@@ -202,6 +202,22 @@ public class HomePage extends Application {
             });
         }
 
+        for (JFXButton button : new JFXButton[]{statisticsButton}) {
+            button.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    primaryStage.close();
+                    StatisticsPage statisticsPage = new StatisticsPage();
+                    Stage staiticsStage = new Stage();
+                    try {
+                        statisticsPage.start(staiticsStage);
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+        }
+
         // Displaying the Stage
         primaryStage.show();
     }
