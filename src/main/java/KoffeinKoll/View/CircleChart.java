@@ -17,12 +17,14 @@ public class CircleChart extends StackPane {
         donutChartTile.setSkinType(SkinType.DONUT_CHART);
         donutChartTile.setTitle("Weekly Statistics");
         donutChartTile.setTitleColor(Color.rgb(0, 70, 0)); // Ställ in textfärgen
+        donutChartTile.setTextColor(Color.ORANGERED);
+
 
         // Skapa data för sektorerna i cirkeldiagrammet
         List<ChartData> chartDataList = Arrays.asList(
-                new eu.hansolo.tilesfx.chart.ChartData("Sector 1", 25, Color.rgb(194, 255, 194)),
-                new eu.hansolo.tilesfx.chart.ChartData("Sector 2", 35, Color.rgb(66, 135, 66)),
-                new eu.hansolo.tilesfx.chart.ChartData("Sector 3", 40, Color.rgb(0, 70, 0))
+                new eu.hansolo.tilesfx.chart.ChartData("Sector 1", 25, Color.rgb(255, 238, 194)),
+                new eu.hansolo.tilesfx.chart.ChartData("Sector 2", 35, Color.rgb(255, 180, 88)),
+                new eu.hansolo.tilesfx.chart.ChartData("Sector 3", 40, Color.rgb(251, 101, 20))
         );
 
         // Lägg till data för cirkeldiagrammet
