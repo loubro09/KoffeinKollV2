@@ -1,165 +1,153 @@
 package KoffeinKoll.View;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
+import javafx.scene.paint.CycleMethod;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import KoffeinKoll.Controller.*;
 
 public class BeverageStats extends Application {
-    private Stage beverageStats;
+    private static final String BUTTON_STYLE = "-fx-background-color: #090a0c, linear-gradient(#0a4a1d 0%, #8fbc8f 20%, #8fbc8f 50%, #c0dbad 100%), linear-gradient(#c0dbad, #8fbc8f), radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0)); -fx-background-radius: 5,4,3,5; -fx-background-insets: 0,1,2,0; -fx-text-fill: white; -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 ); -fx-font-family: \"Arial\"; -fx-text-fill: linear-gradient(black, darkgreen); -fx-font-size: 20px; -fx-padding: 10 20 10 20; -fx-font-weight: bold";
+    private static final String LABEL_FONT = "Arial";
+    private static final Color LABEL_COLOR = Color.rgb(0, 60, 0);
+    private Stage stage;
+    private BeverageController beverageController = new BeverageController();
+    private TextField amountField, amountClField, timeField;
+
     @Override
-    public void start(Stage beverageStats) {
-        this.beverageStats = beverageStats;
-        beverageStats.setTitle("KoffeinKoll - Caffeine Management Tool");
-        beverageStats.setWidth(800);
-        beverageStats.setHeight(800);
-        // Creating labels
+    public void start(Stage stage) {
+        this.stage = stage;
+        setupStage();
+        stage.setScene(createScene());
+        stage.show();
+    }
+
+    private void setupStage() {
+        stage.setTitle("KoffeinKoll - Caffeine Management Tool");
+        stage.setWidth(800);
+        stage.setHeight(800);
+    }
+
+    private Scene createScene() {
+        BorderPane layout = new BorderPane();
+        layout.setPadding(new Insets(20));
+        layout.setCenter(createGridPane());
+        layout.setTop(createTopBox());
+        layout.setBottom(createButtonBox());
+        applyBackgroundGradient(layout);
+        return new Scene(layout, 800, 800);
+    }
+
+    private void applyBackgroundGradient(BorderPane pane) {
+        Stop[] stops = new Stop[] {
+                new Stop(0, Color.web("#c0dbad")),
+                new Stop(1, Color.web("#fcf1cb"))
+        };
+        LinearGradient gradient = new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE, stops);
+        pane.setBackground(new javafx.scene.layout.Background(new javafx.scene.layout.BackgroundFill(gradient, null, null)));
+    }
+
+    private HBox createTopBox() {
         Label titleLabel = new Label("Log Amount");
-        titleLabel.setFont(Font.font("Arial", 36));
+        titleLabel.setFont(Font.font(LABEL_FONT, FontWeight.BOLD, 46));
+        titleLabel.setTextFill(LABEL_COLOR);
+        HBox topBox = new HBox(titleLabel);
+        topBox.setAlignment(Pos.CENTER);
+        return topBox;
+    }
 
-        Label amountClLabel = new Label("Amount CL");
-        amountClLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+    private HBox createButtonBox() {
+        JFXButton goBackButton = new JFXButton("Go Back");
+        goBackButton.setStyle(BUTTON_STYLE);
+        goBackButton.setOnAction(e -> goBack());
+        JFXButton homeButton = new JFXButton("Home");
+        homeButton.setStyle(BUTTON_STYLE);
+        homeButton.setOnAction(e -> goToHomePage());
+        HBox buttonBox = new HBox(20, goBackButton, homeButton);
+        buttonBox.setAlignment(Pos.CENTER);
+        return buttonBox;
+    }
 
-        TextField timeField = new TextField();
-        timeField.setPromptText("Enter Time");
-        // Creating buttons
-        Button goBackButton = new Button("Go Back");
-        Button homeButton = new Button("Home");
-
-        //creating labels
-        Label amountOfBeverage = new Label("Amount");
-        amountOfBeverage.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-        Label timeLabel = new Label("Time");
-        timeLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-        TextField amountClField = new TextField();
-        amountClField.setPromptText("Enter Amount in CL");
-
-        // Definierar den färg som all rubrikstext bör ha
-        Color labelColor = Color.rgb(0, 60, 0);
-        timeLabel.setTextFill(labelColor); // Keeping the color scheme consistent
-        titleLabel.setTextFill(labelColor);
-        amountClLabel.setTextFill(labelColor);
-        amountOfBeverage.setTextFill(labelColor);
-
-
-        //textrutorna
-        TextField amountField = textField();
-        amountField.setPromptText("Enter Amount");
-
-        String styleButtons = "-fx-background-color:\n" +
-                "            #090a0c,\n" +
-                "            linear-gradient(#8fbc8f 0%, #8fbc8f 20%, #8fbc8f 100%),\n" +
-                "            linear-gradient(#c0dbad, #8fbc8f),\n" +
-                "            radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));\n" +
-                "    -fx-background-radius: 5,4,3,5;\n" +
-                "    -fx-background-insets: 0,1,2,0;\n" +
-                "    -fx-text-fill: white;\n" +
-                "    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );\n" +
-                "    -fx-font-family: \"Arial\";\n" +
-                "    -fx-text-fill: linear-gradient(black, black);\n" +
-                "    -fx-font-size: 20px;\n" +
-                "    -fx-padding: 10 20 10 20;";
-
-        Button logAmount = new Button("Log Amount");
-        goBackButton.setStyle(styleButtons);
-        homeButton.setStyle(styleButtons);
-        logAmount.setStyle(styleButtons);
-
+    private GridPane createGridPane() {
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setHgap(10);
         gridPane.setVgap(10);
-
-        gridPane.add(amountOfBeverage, 0, 0); // Add new label and field beverage
-        gridPane.add(amountField, 1, 0);
-
-        gridPane.add(amountClLabel, 0, 1); // Add new label and field for Amount CL
-        gridPane.add(amountClField, 1, 1);
-
-        gridPane.add(timeLabel, 0, 2); // Add new label and field for Time
-        gridPane.add(timeField, 1, 2);
-
-        gridPane.add(logAmount, 0, 3, 2, 1); // Spanning two columns for centering
-        gridPane.setHalignment(logAmount, HPos.CENTER);
-
-
-        BorderPane borderPane = new BorderPane();
-        borderPane.setPadding(new Insets(20));
-        borderPane.setCenter(gridPane);
-
-
-        // Creating a BorderPane layout for main page
-        BorderPane borderPane1 = new BorderPane();
-        borderPane1.setPadding(new Insets(20));
-        borderPane1.setCenter(borderPane);
-
-
-        // Creating a HBox for buttons
-        HBox buttonHBox = new HBox(20);
-        buttonHBox.setAlignment(Pos.CENTER);
-        buttonHBox.getChildren().addAll(goBackButton, homeButton);
-        borderPane1.setBottom(buttonHBox);
-
-        // Creating a VBox for main page
-        HBox topHBox = new HBox();
-        topHBox.getChildren().add(titleLabel);
-        topHBox.setAlignment(Pos.CENTER);
-        borderPane1.setTop(topHBox);
-
-
-        // Creating a Scene and adding the BorderPane to it
-        Scene scene = new Scene(borderPane1, 800, 800);
-
-        // Setting background color as a gradient centered with yellow in the middle
-        Stop[] stops = new Stop[]{new Stop(0, Color.web("#c0dbad")), new Stop(1, Color.web("#fcf1cb"))};
-        LinearGradient gradient = new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE, stops);
-        borderPane1.setBackground(new javafx.scene.layout.Background(new javafx.scene.layout.BackgroundFill(gradient, null, null)));
-
-        homeButton.setOnAction(e -> {
-            goToHomePage();
-        });
-        goBackButton.setOnAction(e -> {
-            goBack();
-        });
-
-
-        // Displaying the Stage, Setting the Scene to the Stage
-        beverageStats.setScene(scene);
-        beverageStats.show();
+        addGridContent(gridPane);
+        return gridPane;
     }
-    private TextField textField(){
-        TextField fieldStyle = new TextField();
-        fieldStyle.setFont(Font.font("Arial", 14));
-        fieldStyle.setPrefWidth(220);
-        fieldStyle.setPrefHeight(30);
-        fieldStyle.setStyle(" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
-        return fieldStyle;
+
+    private void addGridContent(GridPane gridPane) {
+        gridPane.add(createLabel("Amount"), 0, 0);
+        gridPane.add(createTextField("Enter Amount"), 1, 0);
+        gridPane.add(createLabel("Amount CL"), 0, 1);
+        gridPane.add(createTextField("Enter Amount in CL"), 1, 1);
+        gridPane.add(createLabel("Time"), 0, 2);
+        gridPane.add(createTextField("Enter Time yyyy-MM-dd HH:mm"), 1, 2);
+
+        JFXButton logButton = new JFXButton("Log Amount");
+        logButton.setStyle(BUTTON_STYLE);
+        logButton.setOnAction(e -> validateInputs());
+        gridPane.add(logButton, 0, 3, 2, 1);
+        GridPane.setHalignment(logButton, HPos.CENTER);
     }
+
+    private Label createLabel(String text) {
+        Label label = new Label(text);
+        label.setFont(Font.font(LABEL_FONT, FontWeight.BOLD, 20));
+        label.setTextFill(LABEL_COLOR);
+        return label;
+    }
+
+    private TextField createTextField(String prompt) {
+        TextField textField = new TextField();
+        textField.setFont(Font.font(LABEL_FONT, 14));
+        textField.setPrefWidth(220);
+        textField.setPromptText(prompt);
+        textField.setStyle("-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
+        return textField;
+    }
+
     private void goToHomePage() {
         HomePage homePage = new HomePage();
-        homePage.start(beverageStats);
+        homePage.start(stage);
     }
+
     private void goBack() {
-        BevarageMenuPage bevarageMenuPage = new BevarageMenuPage();
-        bevarageMenuPage.start(beverageStats);
+        BevarageMenuPage beverageMenuPage = new BevarageMenuPage();
+        beverageMenuPage.start(stage);
+    }
+
+    private void validateInputs() {
+        if (!beverageController.validateAmount(amountField.getText())) {
+            beverageController.showAlert("Invalid Amount", "Please enter a valid amount.");
+        } else if (!beverageController.validateAmount(amountClField.getText())) {
+            beverageController.showAlert("Invalid Amount in CL", "Please enter a valid amount in CL.");
+        } else if (!beverageController.validateDateTime(timeField.getText())) {
+            beverageController.showAlert("Invalid Time", "Time should be in (yyyy-MM-dd HH:mm) format.");
+        } else {
+            beverageController.showAlert("Success", "All inputs are valid!");
+        }
     }
 
     public static void main(String[] args) {
         launch(args);
     }
 }
+
+
 
