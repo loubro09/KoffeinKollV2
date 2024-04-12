@@ -1,5 +1,6 @@
 package KoffeinKoll.View;
 
+import KoffeinKoll.Controller.CreateUserController;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -107,6 +108,56 @@ public class CreateUserPage extends Application {
 
         Button createUserButton = new Button("Create User");
         createUserButton.setStyle(styleButtons);
+
+        createUserButton.setOnAction(event -> {
+            String username = userNameField.getText();
+            String password = passwordField.getText();
+            String heightText = heightField.getText();
+            String weightText = weightField.getText();
+            String dateOfBirth = dateOfBirthField.getText();
+
+            // Check if any of the fields are empty
+            if (username.isEmpty() || password.isEmpty() || heightText.isEmpty() || weightText.isEmpty() || dateOfBirth.isEmpty()) {
+                // Display error message
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("All fields are required.");
+                alert.show();
+
+                // Mark empty fields with red color
+                if (username.isEmpty()) userNameField.setStyle("-fx-border-color: red;");
+                if (password.isEmpty()) passwordField.setStyle("-fx-border-color: red;");
+                if (heightText.isEmpty()) heightField.setStyle("-fx-border-color: red;");
+                if (weightText.isEmpty()) weightField.setStyle("-fx-border-color: red;");
+                if (dateOfBirth.isEmpty()) dateOfBirthField.setStyle("-fx-border-color: red;");
+
+                return; // Stop further processing
+            }
+
+            // Convert height and weight to double
+            double height = Double.parseDouble(heightText);
+            double weight = Double.parseDouble(weightText);
+
+            CreateUserController createUserController = new CreateUserController();
+
+            //FIX THE USER ID IN THE DATABASE
+            boolean userCreated = createUserController.createUser(4,username, password, height, weight, dateOfBirth);
+
+            if (userCreated) {
+                Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                successAlert.setTitle("Success");
+                successAlert.setHeaderText(null);
+                successAlert.setContentText("User created successfully!");
+                successAlert.showAndWait();
+            } else {
+                // Display error message in a popup
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setTitle("Error");
+                errorAlert.setHeaderText(null);
+                errorAlert.setContentText("Failed to create user.");
+                errorAlert.showAndWait();
+            }
+        });
+
 
 
         GridPane gridPane = new GridPane();
