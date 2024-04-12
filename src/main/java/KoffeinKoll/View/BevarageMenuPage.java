@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
@@ -50,6 +51,7 @@ public class BevarageMenuPage extends Application{
             Button mateButton = koffeinKollButtons("Mate");
             Button energyDrinkButton = koffeinKollButtons("Energy drink");
             Button sodaButton = koffeinKollButtons("Soda");
+            Button goBack = koffeinKollButtons("Go Back");
 
             //Alla knappar ska vara samma storlek och centrerade
             for(Button button: new Button[]{
@@ -94,6 +96,11 @@ public class BevarageMenuPage extends Application{
             BorderPane.setAlignment(titleLabel, Pos.CENTER);
             borderPane.setCenter(gridPane);
             BorderPane.setAlignment(gridPane, Pos.CENTER);
+            // Creating a HBox for buttons
+            HBox buttonHBox = new HBox(20);
+            buttonHBox.setAlignment(Pos.CENTER);
+            buttonHBox.getChildren().addAll(goBack);
+            borderPane.setBottom(buttonHBox);
 
             Scene scene = new Scene(borderPane,800,800);
 
@@ -106,6 +113,9 @@ public class BevarageMenuPage extends Application{
             // Scenen sätts till stagen så den visas
             menuStage.setScene(scene);
             menuStage.show();
+            goBack.setOnAction(e -> {
+                goBack();
+            });
         }
 
         //konstant för hur knapparna ska se ut
@@ -130,6 +140,10 @@ public class BevarageMenuPage extends Application{
             return button;
         }
 
+    private void goBack() {
+        HomePage homePage = new HomePage();
+        homePage.start(menuStage);
+    }
         public static void main(String[] args) {
             launch(args);
         }
