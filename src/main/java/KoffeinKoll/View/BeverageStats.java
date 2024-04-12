@@ -99,7 +99,7 @@ public class BeverageStats extends Application {
         amountClField = createTextField("Enter Amount in CL");  // Assign to class-level field
         timeField = createTextField("Enter Time yyyy-MM-dd HH:mm");  // Assign to class-level field
 
-        gridPane.add(createLabel("Amount"), 0, 0);
+        gridPane.add(createLabel("Number of Beverages"), 0, 0);
         gridPane.add(amountField, 1, 0);  // Use the field
         gridPane.add(createLabel("Amount CL"), 0, 1);
         gridPane.add(amountClField, 1, 1);  // Use the field
