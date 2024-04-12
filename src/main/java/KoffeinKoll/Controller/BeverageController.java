@@ -39,7 +39,7 @@ public class BeverageController {
         }
     }
 
-    public boolean insertUserHistory(int userId, int beverageId, LocalDate date) {
+    /*public boolean insertUserHistory(int userId, int beverageId, LocalDate date) {
         String sql = "INSERT INTO userhistory (user_id, beverage_id, date) VALUES (?, ?, ?)";
 
         try (Connection conn = databaseConnection.getDatabaseConnection()) {
@@ -55,7 +55,7 @@ public class BeverageController {
             e.printStackTrace();
             return false;
         }
-    }
+    }*/
 
     public void showAlert(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
