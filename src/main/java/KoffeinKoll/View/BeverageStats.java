@@ -1,5 +1,8 @@
 package KoffeinKoll.View;
 
+import com.jfoenix.controls.JFXButton;
+import de.jensd.fx.glyphs.GlyphsDude;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -16,7 +19,9 @@ import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class BeverageStats extends Application {
@@ -29,24 +34,20 @@ public class BeverageStats extends Application {
         beverageStats.setHeight(800);
         // Creating labels
         Label titleLabel = new Label("Log Amount");
-        titleLabel.setFont(Font.font("Arial", 36));
+        titleLabel.setFont(Font.font("Arial",FontWeight.BOLD, 46));
 
-        Label amountClLabel = new Label("Amount CL");
-        amountClLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-
-        TextField timeField = new TextField();
-        timeField.setPromptText("Enter Time");
         // Creating buttons
-        Button goBackButton = new Button("Go Back");
-        Button homeButton = new Button("Home");
+        JFXButton goBackButton = new JFXButton("Go Back");
+        JFXButton homeButton = new JFXButton("Home");
+        JFXButton logAmount = new JFXButton("Log Amount");
 
         //creating labels
+        Label amountClLabel = new Label("Amount CL");
+        amountClLabel.setFont(Font.font("Arial", FontWeight.BOLD,20));
         Label amountOfBeverage = new Label("Amount");
         amountOfBeverage.setFont(Font.font("Arial", FontWeight.BOLD, 20));
         Label timeLabel = new Label("Time");
         timeLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-        TextField amountClField = new TextField();
-        amountClField.setPromptText("Enter Amount in CL");
 
         // Definierar den färg som all rubrikstext bör ha
         Color labelColor = Color.rgb(0, 60, 0);
@@ -55,14 +56,20 @@ public class BeverageStats extends Application {
         amountClLabel.setTextFill(labelColor);
         amountOfBeverage.setTextFill(labelColor);
 
-
         //textrutorna
         TextField amountField = textField();
         amountField.setPromptText("Enter Amount");
 
+        TextField amountClField = textField();
+        amountClField.setPromptText("Enter Amount in CL");
+
+        TextField timeField = textField();
+        timeField.setPromptText("Enter Time");
+
+
         String styleButtons = "-fx-background-color:\n" +
                 "            #090a0c,\n" +
-                "            linear-gradient(#8fbc8f 0%, #8fbc8f 20%, #8fbc8f 100%),\n" +
+                "            linear-gradient(#0a4a1d 0%, #8fbc8f 20%, #8fbc8f 50%, #c0dbad 100%),\n" +
                 "            linear-gradient(#c0dbad, #8fbc8f),\n" +
                 "            radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));\n" +
                 "    -fx-background-radius: 5,4,3,5;\n" +
@@ -70,11 +77,11 @@ public class BeverageStats extends Application {
                 "    -fx-text-fill: white;\n" +
                 "    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );\n" +
                 "    -fx-font-family: \"Arial\";\n" +
-                "    -fx-text-fill: linear-gradient(black, black);\n" +
+                "    -fx-text-fill: linear-gradient(black, darkgreen);\n" +
                 "    -fx-font-size: 20px;\n" +
-                "    -fx-padding: 10 20 10 20;";
+                "    -fx-padding: 10 20 10 20;"+
+                "    -fx-font-weight: bold";
 
-        Button logAmount = new Button("Log Amount");
         goBackButton.setStyle(styleButtons);
         homeButton.setStyle(styleButtons);
         logAmount.setStyle(styleButtons);
@@ -96,17 +103,14 @@ public class BeverageStats extends Application {
         gridPane.add(logAmount, 0, 3, 2, 1); // Spanning two columns for centering
         gridPane.setHalignment(logAmount, HPos.CENTER);
 
-
         BorderPane borderPane = new BorderPane();
         borderPane.setPadding(new Insets(20));
         borderPane.setCenter(gridPane);
-
 
         // Creating a BorderPane layout for main page
         BorderPane borderPane1 = new BorderPane();
         borderPane1.setPadding(new Insets(20));
         borderPane1.setCenter(borderPane);
-
 
         // Creating a HBox for buttons
         HBox buttonHBox = new HBox(20);
@@ -129,6 +133,7 @@ public class BeverageStats extends Application {
         LinearGradient gradient = new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE, stops);
         borderPane1.setBackground(new javafx.scene.layout.Background(new javafx.scene.layout.BackgroundFill(gradient, null, null)));
 
+        // Buttons to go back one step and to go to homepage
         homeButton.setOnAction(e -> {
             goToHomePage();
         });

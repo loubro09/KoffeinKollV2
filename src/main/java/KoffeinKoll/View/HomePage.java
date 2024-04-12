@@ -24,7 +24,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 
-public class HomePage extends Application{
+public class HomePage extends Application {
 
     private Stage primaryStage;
 
@@ -67,25 +67,25 @@ public class HomePage extends Application{
         Text chart = GlyphsDude.createIcon(FontAwesomeIcon.AREA_CHART, "2em");
         chart.setFill(Color.WHITE);
 
-// Add FontAwesomeIcon to the button
+        // Add FontAwesomeIcon to the button
         statisticsButton.setGraphic(chart);
 
         Text info = GlyphsDude.createIcon(FontAwesomeIcon.INFO_CIRCLE, "2em");
         info.setFill(Color.WHITE);
 
-// Add FontAwesomeIcon to the button
+        // Add FontAwesomeIcon to the button
         infoButton.setGraphic(info);
 
         Text account = GlyphsDude.createIcon(FontAwesomeIcon.USER, "2em");
         account.setFill(Color.WHITE);
 
-// Add FontAwesomeIcon to the button
+        // Add FontAwesomeIcon to the button
         accountButton.setGraphic(account);
 
         Text log = GlyphsDude.createIcon(FontAwesomeIcon.SIGN_OUT, "2em");
         log.setFill(Color.WHITE);
 
-// Add FontAwesomeIcon to the button
+        // Add FontAwesomeIcon to the button
         logoutButton.setGraphic(log);
 
 
@@ -104,8 +104,6 @@ public class HomePage extends Application{
                 "    -fx-font-size: 30px;\n" +
                 "    -fx-padding: 10 20 10 20;");
 
-
-
         // Creating a BorderPane layout for main page
         BorderPane borderPane = new BorderPane();
 
@@ -115,9 +113,6 @@ public class HomePage extends Application{
         buttonHBox.getChildren().addAll(accountButton, statisticsButton, infoButton, logoutButton);
         buttonHBox.setPadding(new Insets(20));
         borderPane.setBottom(buttonHBox);
-
-
-
 
         // Apply style to button panel
         buttonHBox.setStyle("-fx-background-color:\n" +
@@ -131,8 +126,6 @@ public class HomePage extends Application{
         Insets gaugeMargins = new Insets(100, 200, 100, 200); // Top, Right, Bottom, Left
         BorderPane.setMargin(customGauge, gaugeMargins);
         borderPane.setCenter(customGauge);
-
-
 
         // Creating a VBox for main page
         HBox topHBox = new HBox();
@@ -148,10 +141,10 @@ public class HomePage extends Application{
         Text coffeeIcon = GlyphsDude.createIcon(FontAwesomeIcon.COFFEE, "2em");
         coffeeIcon.setFill(Color.WHITE);
 
-// Add FontAwesomeIcon to the button
+        // Add FontAwesomeIcon to the button
         logBeverageButton.setGraphic(coffeeIcon);
 
-// Apply styles to the button
+        // Apply styles to the button
         logBeverageButton.setStyle("-fx-background-color: #090a0c, linear-gradient(#8fbc8f 0%, #8fbc8f 20%, #8fbc8f 100%), linear-gradient(#8fbc8f, #8fbc8f), radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0)); -fx-background-radius: 5,4,3,5; -fx-background-insets: 0,1,2,0; -fx-text-fill: white; -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 ); -fx-font-family: \"Arial\"; -fx-font-size: 20px; -fx-padding: 10 20 10 20;");
 
 
@@ -163,7 +156,6 @@ public class HomePage extends Application{
 
         // Placera den kombinerade VBox i BorderPane, men placera den i botten
         borderPane.setBottom(combinedButtonVBox);
-
 
 
         // Creating a Scene and adding the BorderPane to it
@@ -185,13 +177,13 @@ public class HomePage extends Application{
             LogInPage loginWindow = new LogInPage();
             loginWindow.start(new Stage());
         });
-        for(JFXButton button: new JFXButton[]{logBeverageButton}){
+        for (JFXButton button : new JFXButton[]{logBeverageButton}) {
             button.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
                     primaryStage.close();
                     BevarageMenuPage bevarageMenuPage = new BevarageMenuPage();
-                    Stage menuStage= new Stage();
+                    Stage menuStage = new Stage();
                     bevarageMenuPage.start(menuStage);
                 }
             });
@@ -199,11 +191,7 @@ public class HomePage extends Application{
 
         // Displaying the Stage
         primaryStage.show();
-
-
     }
-
-
 
     public static void main(String[] args) {
         launch(args);
