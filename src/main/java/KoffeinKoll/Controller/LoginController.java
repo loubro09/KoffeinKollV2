@@ -11,7 +11,7 @@ public class LoginController {
     private DatabaseConnection databaseConnection;
 
     public LoginController() {
-        this.databaseConnection = new DatabaseConnection();
+        this.databaseConnection = databaseConnection.getInstance();
     }
 
     public boolean logIn(String username, String password) {

@@ -152,15 +152,17 @@ public class BeverageStats extends Application {
     }
 
     private void processValidInputs() {
-        int userId = 0; // Obtain the logged-in user's ID
-        int beverageId = 0; // Determine the beverage ID, possibly from a selection
+        int userId = 1; // Obtain the logged-in user's ID
+        int beverageId = 1; // Determine the beverage ID, possibly from a selection
         LocalDate date = LocalDate.parse(timeField.getText(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
 
-        /*if (beverageController.insertUserHistory(userId, beverageId, date)) {
+        if (beverageController.insertUserHistory(userId, beverageId, date)) {
             showAlert("Success", "Consumption logged successfully!");
+            System.out.println("Funka");
         } else {
             showAlert("Database Error", "Failed to log consumption.");
-        }*/
+            System.out.println("Inte");
+        }
     }
 
     private void showAlert(String title, String content) {
