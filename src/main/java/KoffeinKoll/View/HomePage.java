@@ -177,6 +177,19 @@ public class HomePage extends Application {
            // LogInPage loginWindow = new LogInPage();
             //loginWindow.start(new Stage());
         });
+
+        for (JFXButton button : new JFXButton[]{infoButton}) {
+            button.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    primaryStage.close();
+                    InfoPage infoPage = new InfoPage();
+                    Stage infoStage = new Stage();
+                    infoPage.start(infoStage);
+                }
+            });
+        }
+
         for (JFXButton button : new JFXButton[]{logBeverageButton}) {
             button.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
