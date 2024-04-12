@@ -1,6 +1,7 @@
 package KoffeinKoll.View;
 
 import KoffeinKoll.Controller.LoginController;
+import com.jfoenix.controls.JFXButton;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -70,7 +71,7 @@ public class LogInPage extends Application {
                 "    -fx-font-size: 20px;\n" +
                 "    -fx-padding: 10 20 10 20;";
 
-        Button logInButton = new Button("Log in");
+        JFXButton logInButton = new JFXButton("Log in");
         logInButton.setStyle(styleButtons);
 
         //event som hanterar att login knappens metod körs när du klickar på enter i lösenordsfältet

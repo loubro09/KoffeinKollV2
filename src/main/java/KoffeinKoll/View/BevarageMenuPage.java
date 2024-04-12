@@ -1,5 +1,6 @@
 package KoffeinKoll.View;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -44,24 +45,24 @@ public class BevarageMenuPage extends Application{
             littleTitleLabel.setTextFill(labelColor);
 
             //Knappar till menyn med alla olika dryckor man kan välja (en åt gången)
-            Button coffeButton = koffeinKollButtons("Regular Coffee");
-            Button espresso1Button = koffeinKollButtons("Single Shot Espresso");
-            Button espresso2Button =  koffeinKollButtons("Double Shot Espresso");
-            Button teaButton = koffeinKollButtons("Tea");
-            Button mateButton = koffeinKollButtons("Mate");
-            Button energyDrinkButton = koffeinKollButtons("Energy drink");
-            Button sodaButton = koffeinKollButtons("Soda");
-            Button goBack = koffeinKollButtons("Go Back");
+            JFXButton coffeButton = koffeinKollButtons("Regular Coffee");
+            JFXButton espresso1Button = koffeinKollButtons("Single Shot Espresso");
+            JFXButton espresso2Button =  koffeinKollButtons("Double Shot Espresso");
+            JFXButton teaButton = koffeinKollButtons("Tea");
+            JFXButton mateButton = koffeinKollButtons("Mate");
+            JFXButton energyDrinkButton = koffeinKollButtons("Energy drink");
+            JFXButton sodaButton = koffeinKollButtons("Soda");
+            JFXButton goBack = koffeinKollButtons("Go Back");
 
             //Alla knappar ska vara samma storlek och centrerade
-            for(Button button: new Button[]{
+            for(JFXButton button: new JFXButton[]{
                     coffeButton,espresso1Button,espresso2Button,teaButton,mateButton,energyDrinkButton,sodaButton}){
                 button.setMaxWidth(Double.MAX_VALUE);
                 GridPane.setHalignment(button, HPos.CENTER);
             }
             //Listner som väntar på anrop från användaren. När användaren trycker på en av knapparna i menyn stängs sidan och går vidare till nästa
 
-            for(Button button: new Button[]{
+            for(JFXButton button: new JFXButton[]{
                     coffeButton,espresso1Button,espresso2Button,teaButton,mateButton,energyDrinkButton,sodaButton}){
                 button.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
@@ -119,7 +120,7 @@ public class BevarageMenuPage extends Application{
         }
 
         //konstant för hur knapparna ska se ut
-        private Button koffeinKollButtons(String text){
+        private JFXButton koffeinKollButtons(String text){
             String styleButtons = "-fx-background-color:\n" +
                     "            #090a0c,\n" +
                     "            linear-gradient(#0a4a1d 0%, #8fbc8f 20%, #8fbc8f 50%, #c0dbad 100%),\n" +
@@ -135,7 +136,7 @@ public class BevarageMenuPage extends Application{
                     "    -fx-padding: 10 20 10 20;"+
                     "    -fx-font-weight: bold";
 
-            Button button = new Button(text);
+            JFXButton button = new JFXButton(text);
             button.setStyle(styleButtons);
             return button;
         }
