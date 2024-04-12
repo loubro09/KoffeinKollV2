@@ -39,14 +39,19 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>us.ihmc</groupId>
-            <artifactId>jfoenix</artifactId>
-            <version>17-0.1.1</version>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.7.3</version>
         </dependency>
         <dependency>
             <groupId>de.jensd</groupId>
             <artifactId>fontawesomefx</artifactId>
             <version>8.6</version>
+        </dependency>
+        <dependency>
+            <groupId>us.ihmc</groupId>
+            <artifactId>jfoenix</artifactId>
+            <version>17-0.1.1</version>
         </dependency>
         <dependency>
             <groupId>eu.hansolo</groupId>
