@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
@@ -31,28 +32,50 @@ public class InfoPage extends Application {
         Label titleLabel = new Label("KoffeinKoll");
         titleLabel.setFont(Font.font("Arial", FontWeight.BOLD, 46));
         // Definierar den färg som all rubrikstext bör ha
+        Label littleTitle = new Label("About");
+        littleTitle.setFont(Font.font("Arial", FontWeight.BOLD, 36));
         Color labelColor = Color.rgb(0, 60, 0);
         titleLabel.setTextFill(labelColor);
+        littleTitle.setTextFill(labelColor);
+
+
+        String infoText ="Welcome to KoffeinKoll, Your Caffeine Companion!\n" +
+                "\n" +
+                "KoffeinKoll is a desktop application designed to help you monitor your caffeine intake. Personalize your profile, log your consumption, and gain insights into your habits.\n"+ "\n" + "Whether you're optimizing lifestyle choices or aiming to reduce caffeine intake, KoffeinKoll is here for you. Our app calculates your recommended daily intake, tracks consumption, and predicts caffeine processing time. Join us in enhancing health and wellness, one sip at a time.\n" +
+"\n"  + "Created 2024\n" + "Alanah Coleman, Elias Olsson, Kenan Al Tal, Louis Brown and Ida Nordenswan";
 
 
         JFXButton goBack = koffeinKollButtons("Go Back");
+
+        VBox titleBox= new VBox(60);
+        titleBox.setAlignment(Pos.CENTER);
+        titleBox.getChildren().addAll(titleLabel, littleTitle);
 
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
 
         BorderPane borderPane = new BorderPane();
-        borderPane.setPadding(new Insets(20));
+        borderPane.setPadding(new Insets(30));
         borderPane.setCenter(gridPane);
 
-        borderPane.setTop(titleLabel);
-        BorderPane.setAlignment(titleLabel, Pos.CENTER);
+        borderPane.setTop(titleBox);
+        BorderPane.setAlignment(titleBox, Pos.CENTER);
         borderPane.setCenter(gridPane);
         BorderPane.setAlignment(gridPane, Pos.CENTER);
+
+        Label info = new Label(infoText);
+        info.setWrapText(true);
+        info.setPadding(new Insets(20, 100, 20, 100));
+        info.setTextFill(labelColor);
+        info.setFont(Font.font("Arial" ,16));
+        borderPane.setCenter(info);
+
         // Creating a HBox for buttons
-        HBox buttonHBox = new HBox(20);
+        HBox buttonHBox = new HBox(0);
         buttonHBox.setAlignment(Pos.CENTER);
         buttonHBox.getChildren().addAll(goBack);
         borderPane.setBottom(buttonHBox);
+
 
         Scene scene = new Scene(borderPane, 800, 800);
 
