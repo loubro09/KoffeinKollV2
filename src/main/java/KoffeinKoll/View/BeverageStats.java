@@ -156,11 +156,11 @@ public class BeverageStats extends Application {
         int beverageId = 0; // Determine the beverage ID, possibly from a selection
         LocalDate date = LocalDate.parse(timeField.getText(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
 
-        if (beverageController.insertUserHistory(userId, beverageId, date)) {
+        /*if (beverageController.insertUserHistory(userId, beverageId, date)) {
             showAlert("Success", "Consumption logged successfully!");
         } else {
             showAlert("Database Error", "Failed to log consumption.");
-        }
+        }*/
     }
 
     private void showAlert(String title, String content) {
