@@ -101,7 +101,7 @@ public class BeverageStats extends Application {
 
         JFXButton logButton = new JFXButton("Log Amount");
         logButton.setStyle(BUTTON_STYLE);
-        logButton.setOnAction(e -> validateInputs());
+        //logButton.setOnAction(e -> validateInputs());
         gridPane.add(logButton, 0, 3, 2, 1);
         GridPane.setHalignment(logButton, HPos.CENTER);
     }
@@ -132,7 +132,7 @@ public class BeverageStats extends Application {
         beverageMenuPage.start(stage);
     }
 
-    private void validateInputs() {
+    /*private void validateInputs() {
         if (!beverageController.validateAmount(amountField.getText())) {
             beverageController.showAlert("Invalid Amount", "Please enter a valid amount.");
         } else if (!beverageController.validateAmount(amountClField.getText())) {
@@ -142,7 +142,7 @@ public class BeverageStats extends Application {
         } else {
             beverageController.showAlert("Success", "All inputs are valid!");
         }
-    }
+    }*/
 
     public static void main(String[] args) {
         launch(args);

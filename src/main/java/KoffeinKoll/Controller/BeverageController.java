@@ -17,7 +17,7 @@ public class BeverageController {
         }
     }
 
-    public boolean validateDateTime(String text) {
+    /*public boolean validateDateTime(String text) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         try {
             LocalDateTime.parse(text, formatter);
@@ -25,7 +25,7 @@ public class BeverageController {
         } catch (DateTimeParseException e) {
             return Optional.of("Invalid date and time format. Please use yyyy-MM-dd HH:mm.");
         }
-    }
+    }*/
 
     public void showAlert(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
