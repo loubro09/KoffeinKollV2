@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 public class StatisticsPage extends Application {
 
     private Stage statisticsStage;
-    private boolean isCircleChartShown = true; // Flag to track the currently shown chart
+    private boolean isCircleChartShown = false; // Flag to track the currently shown chart
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -35,6 +35,7 @@ public class StatisticsPage extends Application {
         Label titleLabel = new Label("KoffeinKoll");
         titleLabel.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.REGULAR, 46));
         titleLabel.setTextFill(Color.rgb(0, 70, 0));
+
 
         String styleButtons = "-fx-background-color:\n" +
                 "            #090a0c,\n" +
@@ -52,9 +53,9 @@ public class StatisticsPage extends Application {
                 "    -fx-font-weight: bold";
 
         JFXButton homeButton = new JFXButton("Home");
-        JFXButton weeklyButton = new JFXButton("Weekly Statistics");
-        JFXButton monthlyButton = new JFXButton("Monthly Statistics");
-        JFXButton infoButton = new JFXButton("Info");
+        JFXButton weeklyButton = new JFXButton("Weekly");
+        JFXButton monthlyButton = new JFXButton("Monthly");
+        JFXButton infoButton = new JFXButton("Statistics Info");
 
         homeButton.setStyle(styleButtons);
         weeklyButton.setStyle(styleButtons);
@@ -72,9 +73,9 @@ public class StatisticsPage extends Application {
 
         // Create a Pane for chart display
         StackPane chartPane = new StackPane();
-        CircleChart circleChart = new CircleChart();
-        circleChart.setMaxSize(400, 400);
-        chartPane.getChildren().add(circleChart);
+        StapelDiagram stapelDiagram = new StapelDiagram(); // Show the stapel diagram initially
+        stapelDiagram.setMaxSize(400, 400);
+        chartPane.getChildren().add(stapelDiagram);
         chartAndSwitchBox.getChildren().add(chartPane);
 
         // Create a VBox for the switch tile
@@ -88,7 +89,7 @@ public class StatisticsPage extends Application {
         // Create a VBox for buttons
         HBox buttonHBox = new HBox(40);
         buttonHBox.setAlignment(Pos.CENTER);
-        buttonHBox.getChildren().addAll(monthlyButton, homeButton, weeklyButton, infoButton);
+        buttonHBox.getChildren().addAll(homeButton, weeklyButton, monthlyButton, infoButton);
         buttonHBox.setPadding(new Insets(20));
 
         // Set the button box at the bottom of the BorderPane
@@ -107,6 +108,12 @@ public class StatisticsPage extends Application {
 
         // Displaying the Stage
         statisticsStage.show();
+
+        // Adding event handlers to buttons
+        homeButton.setOnAction(event -> goToHomePage());
+        weeklyButton.setOnAction(event -> goToWeeklyStatisticsPage());
+        monthlyButton.setOnAction(event -> goToMonthlyStatisticsPage());
+        infoButton.setOnAction(event -> goToInfoPage());
     }
 
     // Method to create the switch tile
@@ -139,6 +146,33 @@ public class StatisticsPage extends Application {
             chartPane.getChildren().add(circleChart);
         }
         isCircleChartShown = !isCircleChartShown; // Toggle the flag
+    }
+
+    // Method to navigate to the home page
+    private void goToHomePage() {
+        Stage homePage = new Stage();
+        HomePage homePageController = new HomePage();
+        homePageController.start(homePage);
+
+    }
+
+    // Method to navigate to the weekly statistics page
+    private void goToWeeklyStatisticsPage() {
+
+    }
+
+    // Method to navigate to the monthly statistics page
+    private void goToMonthlyStatisticsPage() {
+        // Code to navigate to the monthly statistics page goes here
+    }
+
+    // Method to navigate to the info page
+    private void goToInfoPage() {
+        Stage infoPage = new Stage();
+        DiagramInfoPage diagramInfoPage = new DiagramInfoPage();
+        diagramInfoPage.start(infoPage);
+
+
     }
 
     public static void main(String[] args) {
