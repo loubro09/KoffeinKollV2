@@ -6,6 +6,7 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -30,7 +31,14 @@ public class BeverageStats extends Application {
     private Stage stage;
     private BeverageController beverageController = new BeverageController();
     private TextField amountField, amountClField, timeField;
+    private int beverageId;
 
+    public BeverageStats(int beverageID) {
+        this.beverageId = beverageID;
+    }
+    public BeverageStats() {
+
+    }
     @Override
     public void start(Stage stage) {
         this.stage = stage;
@@ -135,7 +143,7 @@ public class BeverageStats extends Application {
     }
 
     private void goBack() {
-        BevarageMenuPage beverageMenuPage = new BevarageMenuPage();
+        BeverageMenuPage beverageMenuPage = new BeverageMenuPage();
         beverageMenuPage.start(stage);
     }
     private void validateInputs() {
@@ -165,8 +173,12 @@ public class BeverageStats extends Application {
         }
     }
 
-    private void showAlert(String title, String content) {
-
+    public void showAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
     public static void main(String[] args) {

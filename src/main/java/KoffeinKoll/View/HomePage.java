@@ -195,7 +195,7 @@ public class HomePage extends Application {
                 @Override
                 public void handle(ActionEvent actionEvent) {
                     primaryStage.close();
-                    BevarageMenuPage bevarageMenuPage = new BevarageMenuPage();
+                    BeverageMenuPage bevarageMenuPage = new BeverageMenuPage();
                     Stage menuStage = new Stage();
                     bevarageMenuPage.start(menuStage);
                 }
