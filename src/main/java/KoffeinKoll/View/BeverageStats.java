@@ -103,23 +103,31 @@ public class BeverageStats extends Application {
     }
 
     private void addGridContent(GridPane gridPane) {
-        amountField = createTextField("Enter Amount");  // Assign to class-level field
-        amountClField = createTextField("Enter Amount in CL");  // Assign to class-level field
-        timeField = createTextField("Enter Time yyyy-MM-dd HH:mm");  // Assign to class-level field
 
-        gridPane.add(createLabel("Number of Beverages"), 0, 0);
-        gridPane.add(amountField, 1, 0);  // Use the field
-        gridPane.add(createLabel("Amount CL"), 0, 1);
-        gridPane.add(amountClField, 1, 1);  // Use the field
-        gridPane.add(createLabel("Time"), 0, 2);
-        gridPane.add(timeField, 1, 2);  // Use the field
+        Label numberBeveragesLabel = createLabel("Number of Beverages");
+        amountField = createTextField("Enter Amount");
+        Label amountClLabel = createLabel("Amount CL");
+        amountClField = createTextField("Enter Amount in CL");
+        Label timeLabel = createLabel("Time");
+        timeField = createTextField("Enter Time yyyy-MM-dd HH:mm");
+
+        gridPane.add(numberBeveragesLabel, 0, 0);
+        gridPane.add(amountField, 0, 1);
+
+        gridPane.add(amountClLabel, 0, 2);
+        gridPane.add(amountClField, 0, 3);
+
+        gridPane.add(timeLabel, 0, 4);
+        gridPane.add(timeField, 0, 5);
+
 
         JFXButton logButton = new JFXButton("Log Amount");
         logButton.setStyle(BUTTON_STYLE);
         logButton.setOnAction(e -> validateInputs());
-        gridPane.add(logButton, 0, 3, 2, 1);
+        gridPane.add(logButton, 0, 6, 2, 1);
         GridPane.setHalignment(logButton, HPos.CENTER);
     }
+
 
     private Label createLabel(String text) {
         Label label = new Label(text);
