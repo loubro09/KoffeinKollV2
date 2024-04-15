@@ -9,10 +9,11 @@ import java.sql.Date;
 
 public class ProfileController {
 
-    private final DatabaseConnection databaseConnection;
+    private DatabaseConnection databaseConnection;
 
     public ProfileController() {
-        this.databaseConnection = new DatabaseConnection();
+        this.databaseConnection = databaseConnection.getInstance();
+        ;
     }
 
     public boolean updateUser(int userId, String newHeight, String newWeight, String newDateOfBirth) {
