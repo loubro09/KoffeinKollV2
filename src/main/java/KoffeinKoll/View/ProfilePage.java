@@ -1,6 +1,7 @@
 package KoffeinKoll.View;
 
 import KoffeinKoll.Controller.ProfileController;
+import com.jfoenix.controls.JFXButton;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -8,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
@@ -66,29 +68,16 @@ public class ProfilePage extends Application {
                 "    -fx-font-size: 20px;\n" +
                 "    -fx-padding: 10 20 10 20;";
 
-        Button backButton = new Button("Back");
+        JFXButton backButton = new JFXButton("Back");
         backButton.setStyle(styleButtons);
         backButton.setOnAction(event -> {
-            // Code to go back a step
+            goBack();
         });
 
-
-        Button saveButton = new Button("Save");
+        JFXButton saveButton = new JFXButton("Save");
         saveButton.setStyle(styleButtons);
         saveButton.setOnAction(event -> {
-            String newHeightText = newHeightField.getText();
-            String newWeightText = newWeightField.getText();
-            String newDateOfBirth = newDateOfBirthField.getText();
-
-            // Validate input and save new user information
-            // Implement your validation and saving logic here
-
-            // Display success or error message accordingly
-        });
-
-        ProfileController profileController = new ProfileController();
-
-        saveButton.setOnAction(event -> {
+            ProfileController profileController = new ProfileController();
             String newHeightText = newHeightField.getText();
             String newWeightText = newWeightField.getText();
             String newDateOfBirth = newDateOfBirthField.getText();
@@ -118,13 +107,11 @@ public class ProfilePage extends Application {
         gridPane.setHgap(10);
         gridPane.setVgap(10);
         gridPane.add(newHeightTextLabel, 0, 0);
-        gridPane.add(newHeightField, 1, 0);
-        gridPane.add(newWeightTextLabel, 0, 1);
-        gridPane.add(newWeightField, 1, 1);
-        gridPane.add(newDateOfBirthTextLabel, 0, 2);
-        gridPane.add(newDateOfBirthField, 1, 2);
-        gridPane.add(backButton, 0, 6);
-        gridPane.add(saveButton, 1, 6);
+        gridPane.add(newHeightField, 0, 1);
+        gridPane.add(newWeightTextLabel, 0, 2);
+        gridPane.add(newWeightField, 0, 3);
+        gridPane.add(newDateOfBirthTextLabel, 0, 4);
+        gridPane.add(newDateOfBirthField, 0, 5);
 
         BorderPane borderPane = new BorderPane();
         borderPane.setPadding(new Insets(20));
@@ -132,6 +119,11 @@ public class ProfilePage extends Application {
         borderPane.setCenter(gridPane);
         BorderPane.setAlignment(titleLabel, Pos.CENTER);
 
+        HBox buttonBox = new HBox(20, backButton, saveButton);
+        buttonBox.setAlignment(Pos.CENTER);
+
+        // Placing the button box at the bottom
+        borderPane.setBottom(buttonBox);
         Scene scene = new Scene(borderPane, 800, 800);
 
         // Setting background color as a gradient centered with yellow in the middle
@@ -141,10 +133,7 @@ public class ProfilePage extends Application {
 
         stage.setScene(scene);
         stage.show();
-
-
     }
-
     private TextField textField(){
         TextField fieldStyle = new TextField();
         fieldStyle.setFont(Font.font("Arial", 14));
@@ -153,9 +142,11 @@ public class ProfilePage extends Application {
         fieldStyle.setStyle(" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
         return fieldStyle;
     }
+    private void goBack() {
+        HomePage homePage = new HomePage();
+        homePage.start(stage);
+    }
     public static void main(String[] args) {
         launch(args);
     }
-
 }
-
