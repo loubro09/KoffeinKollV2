@@ -15,7 +15,7 @@ public class CreateUserController {
         this.databaseConnection = databaseConnection.getInstance();
     }
 
-    public boolean createUser(int userId, String username, String password, double length, double weight, String birthday) {
+    public boolean createUser(String username, String password, double length, double weight, String birthday) {
         // Validate input
         if (!isValidPassword(password)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -29,16 +29,16 @@ public class CreateUserController {
 
         try {
             connection = databaseConnection.getConnection();
-            preparedStatement = connection.prepareStatement("INSERT INTO users (user_id, username, length, weight, birthdate, password) VALUES (?, ?, ?, ?, ?, ?)");
-            preparedStatement.setInt(1, userId);
-            preparedStatement.setString(2, username);
-            preparedStatement.setDouble(3, length);
-            preparedStatement.setDouble(4, weight);
+            // Since user_id is now SERIAL, it will be generated automatically by the database
+            preparedStatement = connection.prepareStatement("INSERT INTO users (username, length, weight, birthdate, password) VALUES (?, ?, ?, ?, ?)");
+            preparedStatement.setString(1, username);
+            preparedStatement.setDouble(2, length);
+            preparedStatement.setDouble(3, weight);
 
             // Convert string date to java.sql.Date object
             Date date = Date.valueOf(birthday);
-            preparedStatement.setDate(5, date);
-            preparedStatement.setString(6, password); // Ensure password is set
+            preparedStatement.setDate(4, date);
+            preparedStatement.setString(5, password); // Ensure password is set
 
 
             int rowsAffected = preparedStatement.executeUpdate();
