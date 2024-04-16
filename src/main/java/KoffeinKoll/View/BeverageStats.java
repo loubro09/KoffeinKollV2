@@ -128,7 +128,6 @@ public class BeverageStats extends Application {
         GridPane.setHalignment(logButton, HPos.CENTER);
     }
 
-
     private Label createLabel(String text) {
         Label label = new Label(text);
         label.setFont(Font.font(LABEL_FONT, FontWeight.BOLD, 20));

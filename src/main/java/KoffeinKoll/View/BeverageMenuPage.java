@@ -54,7 +54,7 @@ public class BeverageMenuPage extends Application {
         JFXButton espresso2Button = createBeverageButton("Double Shot Espresso");
         JFXButton teaButton = createBeverageButton("Tea");
         JFXButton mateButton = createBeverageButton("Mate");
-        JFXButton energyDrinkButton = createBeverageButton("Energy drink");
+        JFXButton energyDrinkButton = createBeverageButton("Energy Drink");
         JFXButton sodaButton = createBeverageButton("Soda");
 
         // Create a button to go back
@@ -62,9 +62,13 @@ public class BeverageMenuPage extends Application {
 
         // Initialize the mapping of beverage names to their IDs
         beverageIdMap = new HashMap<>();
-        beverageIdMap.put("Regular Coffee", 1); // Use the actual IDs from your beverages table
+        beverageIdMap.put("Regular Coffee", 1);
         beverageIdMap.put("Single Shot Espresso", 2);
-        // ... add the rest of your beverages here ...
+        beverageIdMap.put("Double Shot Espresso", 3);
+        beverageIdMap.put("Tea", 4);
+        beverageIdMap.put("Mate", 5);
+        beverageIdMap.put("Energy Drink", 6);
+        beverageIdMap.put("Soda", 7);
 
         // Set up a GridPane to hold the buttons and labels
         GridPane gridPane = new GridPane();
@@ -126,7 +130,7 @@ public class BeverageMenuPage extends Application {
     private void handleBeverageSelection(String beverageName) {
         int beverageId = beverageIdMap.get(beverageName);
         menuStage.close(); // Close the current stage
-        BeverageStats beverageStats = new BeverageStats(beverageId); // Modify BeverageStats to accept an ID
+        BeverageStats beverageStats = new BeverageStats(beverageId);
         Stage beverageStatsStage = new Stage();
         beverageStats.start(beverageStatsStage); // Start the BeverageStats stage
     }
