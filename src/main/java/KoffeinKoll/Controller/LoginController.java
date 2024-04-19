@@ -19,7 +19,6 @@ public class LoginController {
         ResultSet resultSet = null;
         PreparedStatement preparedStatement = null;
 
-
         try {
             connection = databaseConnection.getConnection();
             preparedStatement = connection.prepareStatement("SELECT password FROM users WHERE username = ?");

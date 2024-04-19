@@ -19,7 +19,6 @@ public class CircleChart extends StackPane {
         donutChartTile.setTitleColor(Color.rgb(0, 70, 0)); // Ställ in textfärgen
         donutChartTile.setTextColor(Color.ORANGERED);
 
-
         // Skapa data för sektorerna i cirkeldiagrammet
         List<ChartData> chartDataList = Arrays.asList(
                 new eu.hansolo.tilesfx.chart.ChartData("Sector 1", 25, Color.rgb(255, 238, 194)),
@@ -33,9 +32,7 @@ public class CircleChart extends StackPane {
         // Ställ in färgen på cirkeln
         donutChartTile.setBackgroundColor(Color.WHITE); // Gör bakgrunden transparent
 
-
         // Lägg till Donut Chart Tile till StackPane
         getChildren().add(donutChartTile);
-
     }
 }

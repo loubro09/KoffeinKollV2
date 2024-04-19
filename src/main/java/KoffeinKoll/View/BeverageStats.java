@@ -30,15 +30,15 @@ public class BeverageStats extends Application {
     private static final Color LABEL_COLOR = Color.rgb(0, 60, 0);
     private Stage stage;
     private BeverageController beverageController = new BeverageController();
-    private TextField amountField, amountClField, timeField;
+    private TextField amountField;
+    private TextField amountClField;
+    private TextField timeField;
     private int beverageId;
 
     public BeverageStats(int beverageID) {
         this.beverageId = beverageID;
     }
-    public BeverageStats() {
 
-    }
     @Override
     public void start(Stage stage) {
         this.stage = stage;
@@ -64,7 +64,7 @@ public class BeverageStats extends Application {
     }
 
     private void applyBackgroundGradient(BorderPane pane) {
-        Stop[] stops = new Stop[] {
+        Stop[] stops = new Stop[]{
                 new Stop(0, Color.web("#c0dbad")),
                 new Stop(1, Color.web("#fcf1cb"))
         };
@@ -103,7 +103,6 @@ public class BeverageStats extends Application {
     }
 
     private void addGridContent(GridPane gridPane) {
-
         Label numberBeveragesLabel = createLabel("Number of Beverages");
         amountField = createTextField("Enter Amount");
         Label amountClLabel = createLabel("Amount CL");
@@ -119,7 +118,6 @@ public class BeverageStats extends Application {
 
         gridPane.add(timeLabel, 0, 4);
         gridPane.add(timeField, 0, 5);
-
 
         JFXButton logButton = new JFXButton("Log Amount");
         logButton.setStyle(BUTTON_STYLE);
@@ -153,6 +151,7 @@ public class BeverageStats extends Application {
         BeverageMenuPage beverageMenuPage = new BeverageMenuPage();
         beverageMenuPage.start(stage);
     }
+
     private void validateInputs() {
         if (!beverageController.validateAmount(amountField.getText())) {
             showAlert("Invalid Amount", "Please enter a valid amount.");
@@ -180,7 +179,7 @@ public class BeverageStats extends Application {
         }
     }
 
-    public void showAlert(String title, String content) {
+    private void showAlert(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
         alert.setHeaderText(null);

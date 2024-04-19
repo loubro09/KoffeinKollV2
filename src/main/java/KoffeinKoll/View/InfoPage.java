@@ -19,10 +19,9 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 public class InfoPage extends Application {
-
     private Stage infoStage;
 
-    public void start(Stage infoStage){
+    public void start(Stage infoStage) {
         this.infoStage = infoStage;
 
         infoStage.setTitle("KoffeinKoll - Caffeine Management Tool");
@@ -38,16 +37,14 @@ public class InfoPage extends Application {
         titleLabel.setTextFill(labelColor);
         littleTitle.setTextFill(labelColor);
 
-
-        String infoText ="Welcome to KoffeinKoll, Your Caffeine Companion!\n" +
+        String infoText = "Welcome to KoffeinKoll, Your Caffeine Companion!\n" +
                 "\n" +
-                "KoffeinKoll is a desktop application designed to help you monitor your caffeine intake. Personalize your profile, log your consumption, and gain insights into your habits.\n"+ "\n" + "Whether you're optimizing lifestyle choices or aiming to reduce caffeine intake, KoffeinKoll is here for you. Our app calculates your recommended daily intake, tracks consumption, and predicts caffeine processing time. Join us in enhancing health and wellness, one sip at a time.\n" +
-"\n"  + "Created 2024\n" + "Alanah Coleman, Elias Olsson, Kenan Al Tal, Louis Brown and Ida Nordenswan";
-
+                "KoffeinKoll is a desktop application designed to help you monitor your caffeine intake. Personalize your profile, log your consumption, and gain insights into your habits.\n" + "\n" + "Whether you're optimizing lifestyle choices or aiming to reduce caffeine intake, KoffeinKoll is here for you. Our app calculates your recommended daily intake, tracks consumption, and predicts caffeine processing time. Join us in enhancing health and wellness, one sip at a time.\n" +
+                "\n" + "Created 2024\n" + "Alanah Coleman, Elias Olsson, Kenan Al Tal, Louis Brown and Ida Nordenswan";
 
         JFXButton goBack = koffeinKollButtons("Go Back");
 
-        VBox titleBox= new VBox(60);
+        VBox titleBox = new VBox(60);
         titleBox.setAlignment(Pos.CENTER);
         titleBox.getChildren().addAll(titleLabel, littleTitle);
 
@@ -67,7 +64,7 @@ public class InfoPage extends Application {
         info.setWrapText(true);
         info.setPadding(new Insets(20, 100, 20, 100));
         info.setTextFill(labelColor);
-        info.setFont(Font.font("Arial" ,16));
+        info.setFont(Font.font("Arial", 16));
         borderPane.setCenter(info);
 
         // Creating a HBox for buttons
@@ -75,7 +72,6 @@ public class InfoPage extends Application {
         buttonHBox.setAlignment(Pos.CENTER);
         buttonHBox.getChildren().addAll(goBack);
         borderPane.setBottom(buttonHBox);
-
 
         Scene scene = new Scene(borderPane, 800, 800);
 
@@ -91,7 +87,8 @@ public class InfoPage extends Application {
         });
 
     }
-    private JFXButton koffeinKollButtons(String text){
+
+    private JFXButton koffeinKollButtons(String text) {
         String styleButtons = "-fx-background-color:\n" +
                 "            #090a0c,\n" +
                 "            linear-gradient(#0a4a1d 0%, #8fbc8f 20%, #8fbc8f 50%, #c0dbad 100%),\n" +
@@ -104,19 +101,20 @@ public class InfoPage extends Application {
                 "    -fx-font-family: \"Arial\";\n" +
                 "    -fx-text-fill: linear-gradient(black, darkgreen);\n" +
                 "    -fx-font-size: 20px;\n" +
-                "    -fx-padding: 10 20 10 20;"+
+                "    -fx-padding: 10 20 10 20;" +
                 "    -fx-font-weight: bold";
 
         JFXButton button = new JFXButton(text);
         button.setStyle(styleButtons);
         return button;
     }
+
     private void goBack() {
         HomePage homePage = new HomePage();
         homePage.start(infoStage);
     }
+
     public static void main(String[] args) {
         launch(args);
     }
-
 }

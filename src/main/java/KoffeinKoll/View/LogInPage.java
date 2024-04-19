@@ -24,6 +24,7 @@ import javafx.stage.Stage;
 
 public class LogInPage extends Application {
     private Stage logInStage;
+
     @Override
     public void start(Stage logInStage) {
         this.logInStage = logInStage;
@@ -48,7 +49,6 @@ public class LogInPage extends Application {
         passwordLabel.setTextFill(labelColor);
 
         //textrutorna
-
         TextField userNameField = textField();
         userNameField.setPromptText("Enter username");
         PasswordField passwordField = new PasswordField();
@@ -94,7 +94,6 @@ public class LogInPage extends Application {
             }
         });
 
-
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setHgap(10);
@@ -106,7 +105,6 @@ public class LogInPage extends Application {
         gridPane.add(registration,0,5);
         gridPane.add(logInButton, 0, 7);
         gridPane.setHalignment(logInButton, Pos.CENTER.getHpos());
-
 
         BorderPane borderPane = new BorderPane();
         borderPane.setPadding(new Insets(20));

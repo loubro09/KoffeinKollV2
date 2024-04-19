@@ -1,7 +1,5 @@
 package KoffeinKoll.Controller;
 
-import javafx.scene.control.Alert;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,10 +9,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-
 public class BeverageController {
-
-    private DatabaseConnection databaseConnection;
 
     public int getMaxUserHistoryId() {
         String sql = "SELECT MAX(userhistory_id) AS maxId FROM userhistory";
@@ -75,7 +70,6 @@ public class BeverageController {
             return false;
         }
     }
-
 }
 
 

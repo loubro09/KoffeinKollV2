@@ -23,9 +23,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-
 public class HomePage extends Application {
-
     private Stage primaryStage;
 
     @Override
@@ -88,7 +86,6 @@ public class HomePage extends Application {
         // Add FontAwesomeIcon to the button
         logoutButton.setGraphic(log);
 
-
         JFXButton logBeverageButton = new JFXButton("Log Beverage");
         logBeverageButton.setStyle("-fx-background-color:\n" +
                 "            #090a0c,\n" +
@@ -147,7 +144,6 @@ public class HomePage extends Application {
         // Apply styles to the button
         logBeverageButton.setStyle("-fx-background-color: #090a0c, linear-gradient(#8fbc8f 0%, #8fbc8f 20%, #8fbc8f 100%), linear-gradient(#8fbc8f, #8fbc8f), radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0)); -fx-background-radius: 5,4,3,5; -fx-background-insets: 0,1,2,0; -fx-text-fill: white; -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 ); -fx-font-family: \"Arial\"; -fx-font-size: 20px; -fx-padding: 10 20 10 20;");
 
-
         // Skapa en ny VBox för att innehålla den nya "Log Beverage" knappen och den befintliga knappanelen
         VBox combinedButtonVBox = new VBox();
         combinedButtonVBox.setAlignment(Pos.CENTER);
@@ -156,7 +152,6 @@ public class HomePage extends Application {
 
         // Placera den kombinerade VBox i BorderPane, men placera den i botten
         borderPane.setBottom(combinedButtonVBox);
-
 
         // Creating a Scene and adding the BorderPane to it
         Scene scene = new Scene(borderPane, 800, 800);
@@ -174,7 +169,7 @@ public class HomePage extends Application {
             // Close current main window
             primaryStage.close();
             // Open login window
-           // LogInPage loginWindow = new LogInPage();
+            // LogInPage loginWindow = new LogInPage();
             //loginWindow.start(new Stage());
         });
 
@@ -233,7 +228,6 @@ public class HomePage extends Application {
                 }
             });
         }
-
         // Displaying the Stage
         primaryStage.show();
     }

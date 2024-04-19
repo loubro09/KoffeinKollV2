@@ -25,7 +25,6 @@ public class StatisticsPage extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-
         this.statisticsStage = stage;
         statisticsStage.setTitle("KoffeinKoll Statistics");
         statisticsStage.setWidth(800);
@@ -35,7 +34,6 @@ public class StatisticsPage extends Application {
         Label titleLabel = new Label("KoffeinKoll");
         titleLabel.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.REGULAR, 46));
         titleLabel.setTextFill(Color.rgb(0, 70, 0));
-
 
         String styleButtons = "-fx-background-color:\n" +
                 "            #090a0c,\n" +
@@ -125,7 +123,7 @@ public class StatisticsPage extends Application {
                 .build();
         switchTile.setStyle("-fx-background-color: white;");
         switchTile.setBackgroundColor(Color.WHITE);
-        switchTile.setMaxSize(50,50);
+        switchTile.setMaxSize(50, 50);
         switchTile.setOnSwitchPressed(event -> toggleChart(chartPane));
         return switchTile;
     }
@@ -153,12 +151,11 @@ public class StatisticsPage extends Application {
         Stage homePage = new Stage();
         HomePage homePageController = new HomePage();
         homePageController.start(homePage);
-
     }
 
     // Method to navigate to the weekly statistics page
     private void goToWeeklyStatisticsPage() {
-
+    //add code
     }
 
     // Method to navigate to the monthly statistics page
@@ -171,8 +168,6 @@ public class StatisticsPage extends Application {
         Stage infoPage = new Stage();
         DiagramInfoPage diagramInfoPage = new DiagramInfoPage();
         diagramInfoPage.start(infoPage);
-
-
     }
 
     public static void main(String[] args) {

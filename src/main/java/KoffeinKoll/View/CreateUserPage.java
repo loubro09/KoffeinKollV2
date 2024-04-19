@@ -22,7 +22,6 @@ public class CreateUserPage extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-
         this.stage = stage;
 
         stage.setTitle("KoffeinKoll - Caffeine Management Tool");
@@ -34,7 +33,6 @@ public class CreateUserPage extends Application {
         titleLabel.setFont(Font.font("Arial", FontWeight.BOLD, 46));
         titleLabel.setTextFill(Color.rgb(0, 60, 0));
 
-
         //Rubrik ovanför textrutor
         Label userNameLabel = new Label("Username");
         userNameLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
@@ -44,7 +42,6 @@ public class CreateUserPage extends Application {
         //Height
         Label heightLabel = new Label("Height");
         heightLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-
 
         //Weight
         Label weightLabel = new Label("Weight");
@@ -58,8 +55,6 @@ public class CreateUserPage extends Application {
         passwordRequirementsLabel.setFont(Font.font("Arial", 12));
         passwordRequirementsLabel.setTextFill(Color.rgb(0, 60, 0)); // You can adjust the color as needed
 
-
-
         // Definierar den färg som all rubrikstext bör ha
         Color labelColor = Color.rgb(0, 60, 0);
         titleLabel.setTextFill(labelColor);
@@ -70,11 +65,11 @@ public class CreateUserPage extends Application {
         dateOfBirthLabel.setTextFill(labelColor);
 
         //textrutorna
-
         TextField userNameField = textField();
         userNameField.setPromptText("Enter a username");
         PasswordField passwordField = new PasswordField();
         passwordField.setPromptText("Enter a password ");
+
         // To mach the textbox and text size to the TextField
         passwordField.setPrefWidth(220);
         passwordField.setPrefHeight(30);
@@ -87,10 +82,6 @@ public class CreateUserPage extends Application {
         weightField.setPromptText("Enter weight (kg)");
         TextField dateOfBirthField = textField();
         dateOfBirthField.setPromptText("YYYY-MM-DD");
-
-
-
-
 
         String styleButtons = "-fx-background-color:\n" +
                 "            #090a0c,\n" +
@@ -122,7 +113,6 @@ public class CreateUserPage extends Application {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("All fields are required.");
                 alert.show();
-
 
                 // Mark empty fields with red color
                 if (username.isEmpty()) userNameField.setStyle("-fx-border-color: red;");
@@ -158,8 +148,6 @@ public class CreateUserPage extends Application {
                 errorAlert.showAndWait();
             }
         });
-
-
 
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);

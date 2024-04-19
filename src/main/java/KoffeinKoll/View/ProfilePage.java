@@ -17,13 +17,12 @@ import javafx.scene.paint.Stop;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-public class ProfilePage extends Application {
 
+public class ProfilePage extends Application {
     private Stage stage;
 
     @Override
     public void start(Stage stage) throws Exception {
-
         this.stage = stage;
 
         stage.setTitle("KoffeinKoll - Update User Information");

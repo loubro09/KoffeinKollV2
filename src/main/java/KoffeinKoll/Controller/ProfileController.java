@@ -1,7 +1,5 @@
 package KoffeinKoll.Controller;
 
-import javafx.scene.control.Alert;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -13,7 +11,6 @@ public class ProfileController {
 
     public ProfileController() {
         this.databaseConnection = databaseConnection.getInstance();
-        ;
     }
 
     public boolean updateUser(int userId, String newHeight, String newWeight, String newDateOfBirth) {

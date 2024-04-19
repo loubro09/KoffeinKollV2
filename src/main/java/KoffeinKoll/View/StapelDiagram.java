@@ -19,8 +19,6 @@ public class StapelDiagram extends BarChart<String, Number> {
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         series.setName("Weekly Caffeine Consumption");
 
-
-
         // Sample caffeine data for each weekday
         double[] caffeineAmount = {100, 150, 120, 180, 200, 90, 80}; // Sample data
 
@@ -39,6 +37,5 @@ public class StapelDiagram extends BarChart<String, Number> {
             series.getData().get(i).getNode().setStyle(barColorStyle);
 
         }*/
-
     }
 }
