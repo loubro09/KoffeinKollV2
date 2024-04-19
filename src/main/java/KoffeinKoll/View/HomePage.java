@@ -50,7 +50,7 @@ public class HomePage extends Application {
                 "    -fx-text-fill: white;\n" +
                 "    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );\n" +
                 "    -fx-font-family: \"Arial\";\n" +
-                "    -fx-text-fill: linear-gradient(black, black);\n" +
+                "    -fx-text-fill: linear-gradient(darkgreen, black);\n" +
                 "    -fx-font-size: 20px;\n" +
                 "    -fx-padding: 10 20 10 20;";
 
@@ -174,8 +174,8 @@ public class HomePage extends Application {
             // Close current main window
             primaryStage.close();
             // Open login window
-            LogInPage loginWindow = new LogInPage();
-            loginWindow.start(new Stage());
+           // LogInPage loginWindow = new LogInPage();
+            //loginWindow.start(new Stage());
         });
 
         for (JFXButton button : new JFXButton[]{infoButton}) {
@@ -198,6 +198,38 @@ public class HomePage extends Application {
                     BeverageMenuPage bevarageMenuPage = new BeverageMenuPage();
                     Stage menuStage = new Stage();
                     bevarageMenuPage.start(menuStage);
+                }
+            });
+        }
+
+        for (JFXButton button : new JFXButton[]{accountButton}) {
+            button.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    primaryStage.close();
+                    ProfilePage profilePage = new ProfilePage();
+                    Stage profileStage = new Stage();
+                    try {
+                        profilePage.start(profileStage);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
+
+        for (JFXButton button : new JFXButton[]{statisticsButton}) {
+            button.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    primaryStage.close();
+                    StatisticsPage statisticsPage = new StatisticsPage();
+                    Stage staiticsStage = new Stage();
+                    try {
+                        statisticsPage.start(staiticsStage);
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             });
         }

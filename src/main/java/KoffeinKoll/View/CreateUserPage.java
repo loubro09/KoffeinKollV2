@@ -141,7 +141,7 @@ public class CreateUserPage extends Application {
             CreateUserController createUserController = new CreateUserController();
 
             //FIX THE USER ID IN THE DATABASE
-            boolean userCreated = createUserController.createUser(4,username, password, height, weight, dateOfBirth);
+            boolean userCreated = createUserController.createUser(username, password, height, weight, dateOfBirth);
 
             if (userCreated) {
                 Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
