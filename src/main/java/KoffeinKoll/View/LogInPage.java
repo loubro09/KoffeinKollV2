@@ -1,6 +1,7 @@
 package KoffeinKoll.View;
 
 import KoffeinKoll.Controller.LoginController;
+import com.jfoenix.controls.JFXButton;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -23,6 +24,7 @@ import javafx.stage.Stage;
 
 public class LogInPage extends Application {
     private Stage logInStage;
+
     @Override
     public void start(Stage logInStage) {
         this.logInStage = logInStage;
@@ -47,7 +49,6 @@ public class LogInPage extends Application {
         passwordLabel.setTextFill(labelColor);
 
         //textrutorna
-
         TextField userNameField = textField();
         userNameField.setPromptText("Enter username");
         PasswordField passwordField = new PasswordField();
@@ -55,6 +56,18 @@ public class LogInPage extends Application {
 
         Hyperlink registration = new Hyperlink("Not registered? Create an account!");
         registration.setFont(Font.font("Arial", 14));
+
+        // Event for the create account page to open
+        registration.setOnAction(actionEvent -> {
+            logInStage.close();
+
+            CreateUserPage createUserPage = new CreateUserPage();
+            try {
+                createUserPage.start(new Stage());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
 
         String styleButtons = "-fx-background-color:\n" +
                 "            #090a0c,\n" +
@@ -70,7 +83,7 @@ public class LogInPage extends Application {
                 "    -fx-font-size: 20px;\n" +
                 "    -fx-padding: 10 20 10 20;";
 
-        Button logInButton = new Button("Log in");
+        JFXButton logInButton = new JFXButton("Log in");
         logInButton.setStyle(styleButtons);
 
         //event som hanterar att login knappens metod körs när du klickar på enter i lösenordsfältet
@@ -80,7 +93,6 @@ public class LogInPage extends Application {
                 ev.consume();
             }
         });
-
 
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
@@ -93,7 +105,6 @@ public class LogInPage extends Application {
         gridPane.add(registration,0,5);
         gridPane.add(logInButton, 0, 7);
         gridPane.setHalignment(logInButton, Pos.CENTER.getHpos());
-
 
         BorderPane borderPane = new BorderPane();
         borderPane.setPadding(new Insets(20));

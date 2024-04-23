@@ -11,14 +11,13 @@ public class LoginController {
     private DatabaseConnection databaseConnection;
 
     public LoginController() {
-        this.databaseConnection = new DatabaseConnection();
+        this.databaseConnection = databaseConnection.getInstance();
     }
 
     public boolean logIn(String username, String password) {
         Connection connection = null;
         ResultSet resultSet = null;
         PreparedStatement preparedStatement = null;
-
 
         try {
             connection = databaseConnection.getConnection();
@@ -73,7 +72,6 @@ public class LoginController {
                 }
             }
         }
-
         return false;
     }
 }
