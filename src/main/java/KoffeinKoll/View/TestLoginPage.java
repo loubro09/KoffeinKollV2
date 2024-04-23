@@ -4,7 +4,6 @@ import KoffeinKoll.Controller.LoginController;
 import com.jfoenix.controls.JFXButton;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -17,7 +16,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 public class TestLoginPage extends A_Page{
-    private Label titleLabel;
+
     private Label userNameLabel;
     private Label passwordLabel;
     private TextField userNameField;
@@ -27,8 +26,7 @@ public class TestLoginPage extends A_Page{
 
     @Override
     public void initializeUI() {
-        titleLabel = new Label("KoffeinKoll");
-        titleLabel.setFont(Font.font("Arial", FontWeight.BOLD, 46));
+        setTitle();
 
         //Rubrik ovanför textrutor
         userNameLabel = new Label("Username");
@@ -38,7 +36,6 @@ public class TestLoginPage extends A_Page{
 
         // Definierar den färg som all rubrikstext bör ha
         Color labelColor = Color.rgb(0, 60, 0);
-        titleLabel.setTextFill(labelColor);
         userNameLabel.setTextFill(labelColor);
         passwordLabel.setTextFill(labelColor);
 
@@ -51,13 +48,6 @@ public class TestLoginPage extends A_Page{
 
         logInButton = new JFXButton("Log in");
         logInButton.setStyle(setButtonStyle());
-
-        passwordField.addEventHandler(KeyEvent.KEY_PRESSED, ev -> {
-            if (ev.getCode() == KeyCode.ENTER) {
-                logInButton.fire();
-                ev.consume();
-            }
-        });
 
         registration = new Hyperlink("Not registered? Create an account!");
         registration.setFont(Font.font("Arial", 14));
@@ -127,7 +117,7 @@ public class TestLoginPage extends A_Page{
 
         if (loggedIn) {
             // If login successful, you might want to switch to another page
-            changePage(new TestHomePage());
+            changePage(new TestHomePage(getStage()));
         } else {
             System.out.println("Login failed");
         }

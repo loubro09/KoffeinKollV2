@@ -1,48 +1,37 @@
 package KoffeinKoll.View;
 
-import javafx.application.Application;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 public abstract class A_Page implements I_Page{
     protected Stage stage;
     protected BorderPane borderPane;
     protected Scene scene;
+    protected Label titleLabel;
 
     public void initialPage(Stage stage) {
         this.stage = stage;
-        this.borderPane = new BorderPane();
-        scene = new Scene(borderPane);
-        setUpStage();
-    }
-
-    public void setUpStage() {
         stage.setTitle("KoffeinKoll - Caffeine Management Tool");
         stage.setWidth(800);
         stage.setHeight(800);
+        this.borderPane = new BorderPane();
         initializeUI();
+        scene = new Scene(borderPane);
         createScene(borderPane);
         setBackground(scene);
     }
 
-    /*@Override
-    public void start(Stage primaryStage) {
-        this.stage = primaryStage;
-        stage.setTitle("KoffeinKoll - Caffeine Management Tool");
-        stage.setWidth(800);
-        stage.setHeight(800);
-        this.borderPane = new BorderPane();
-        initializeUI();
-        Scene scene = createScene(borderPane);
-        setBackground(scene);
-        stage.show();
-    }*/
+    public Stage getStage() { return stage; }
+    public BorderPane getBorderPane() { return borderPane; }
 
     @Override
     public String setButtonStyle() {
@@ -62,6 +51,12 @@ public abstract class A_Page implements I_Page{
         return styleButtons;
     }
 
+    public void setTitle() {
+        titleLabel = new Label("KoffeinKoll");
+        titleLabel.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.REGULAR, 46));
+        titleLabel.setTextFill(Color.rgb(0, 70, 0));
+    }
+
     @Override
     public void setBackground(Scene scene) {
         Stop[] stops = new Stop[]{new Stop(0, Color.web("#c0dbad")), new Stop(1, Color.web("#fcf1cb"))};
@@ -74,9 +69,5 @@ public abstract class A_Page implements I_Page{
     public void changePage(A_Page newPage) {
         newPage.initializeUI();
         borderPane.setCenter(newPage.getBorderPane());
-    }
-
-    public BorderPane getBorderPane() {
-        return borderPane;
     }
 }

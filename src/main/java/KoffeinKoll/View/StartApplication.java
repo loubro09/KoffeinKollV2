@@ -1,8 +1,6 @@
 package KoffeinKoll.View;
 
-import com.jfoenix.controls.JFXButton;
 import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class StartApplication extends Application {

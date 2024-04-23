@@ -4,22 +4,16 @@
     import de.jensd.fx.glyphs.GlyphsDude;
     import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
     import javafx.geometry.Pos;
-    import javafx.scene.Scene;
-    import javafx.scene.control.Label;
     import javafx.scene.layout.BorderPane;
     import javafx.scene.layout.HBox;
     import javafx.scene.layout.VBox;
     import javafx.scene.paint.Color;
-    import javafx.scene.text.Font;
-    import javafx.scene.text.FontPosture;
-    import javafx.scene.text.FontWeight;
     import javafx.scene.text.Text;
     import javafx.geometry.Insets;
     import javafx.stage.Stage;
 
     public class TestHomePage extends A_Page {
 
-        private Label titleLabel;
         private JFXButton statisticsButton;
         private JFXButton infoButton;
         private JFXButton accountButton;
@@ -27,13 +21,14 @@
         private JFXButton logBeverageButton;
         private CustomGauge customGauge;
 
+        public TestHomePage(Stage stage) {
+            this.stage = stage;
+            initialPage(stage);
+        }
+
         @Override
         public void initializeUI() {
-            stage = new Stage();
-            setUpStage();
-            titleLabel = new Label("KoffeinKoll");
-            titleLabel.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.REGULAR, 46));
-            titleLabel.setTextFill(Color.rgb(0, 70, 0));
+            setTitle();
             customGauge = new CustomGauge();
 
             createButtons();
@@ -90,83 +85,6 @@
 
         @Override
         public void createScene(BorderPane borderPane) {
-        /*    // Creating a HBox for buttons
-            HBox buttonHBox = new HBox(40);
-            buttonHBox.setAlignment(Pos.CENTER);
-            buttonHBox.getChildren().addAll(accountButton, statisticsButton, infoButton, logoutButton);
-            buttonHBox.setPadding(new Insets(20));
-            borderPane.setBottom(buttonHBox);
-
-            // Applying style to button panel
-            buttonHBox.setStyle("-fx-background-color:\n" +
-                    "            #090a0c,\n" +
-                    "            linear-gradient(#8fbc8f 0%, #8fbc8f 20%, #8fbc8f 100%),\n" +
-                    "            linear-gradient(#8fbc8f, #8fbc8f),\n" +
-                    "            radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));");
-
-            // Adding the custom gauge to the center of the layout
-            BorderPane.setAlignment(customGauge, Pos.TOP_CENTER); // Center the gauge
-            Insets gaugeMargins = new Insets(100, 200, 100, 200); // Top, Right, Bottom, Left
-            BorderPane.setMargin(customGauge, gaugeMargins);
-            borderPane.setCenter(customGauge);
-
-            // Creating a VBox for main page
-            HBox topHBox = new HBox();
-            topHBox.getChildren().add(titleLabel);
-            topHBox.setAlignment(Pos.CENTER);
-            borderPane.setTop(topHBox);
-
-            // Creating an HBox for the "Log Beverage" button
-            HBox logBeverageButtonHBox = new HBox(logBeverageButton);
-            logBeverageButtonHBox.setAlignment(Pos.CENTER);
-            logBeverageButtonHBox.setSpacing(20);
-
-            // Creating a VBox to contain the Log Beverage button and the button panel
-            VBox combinedButtonVBox = new VBox();
-            combinedButtonVBox.setAlignment(Pos.CENTER);
-            combinedButtonVBox.setSpacing(100);
-            combinedButtonVBox.getChildren().addAll(logBeverageButtonHBox, buttonHBox);
-
-            // Placing the combined VBox at the bottom of the BorderPane
-            borderPane.setBottom(combinedButtonVBox);*/
-
-            /*HBox buttonHBox = new HBox(40);
-            buttonHBox.setAlignment(Pos.CENTER);
-            buttonHBox.getChildren().addAll(accountButton, statisticsButton, infoButton, logoutButton);
-            buttonHBox.setPadding(new Insets(20));
-            borderPane.setBottom(buttonHBox);
-
-            // Applying style to button panel
-            buttonHBox.setStyle("-fx-background-color:\n" +
-                    "            #090a0c,\n" +
-                    "            linear-gradient(#8fbc8f 0%, #8fbc8f 20%, #8fbc8f 100%),\n" +
-                    "            linear-gradient(#8fbc8f, #8fbc8f),\n" +
-                    "            radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));");
-
-            // Adding the custom gauge to the center of the layout
-            BorderPane.setAlignment(customGauge, Pos.CENTER); // Center the gauge
-            borderPane.setCenter(customGauge);
-
-            // Creating a VBox for main page
-            HBox topHBox = new HBox();
-            topHBox.getChildren().add(titleLabel);
-            topHBox.setAlignment(Pos.CENTER);
-            borderPane.setTop(topHBox);
-
-            // Creating an HBox for the "Log Beverage" button
-            HBox logBeverageButtonHBox = new HBox(logBeverageButton);
-            logBeverageButtonHBox.setAlignment(Pos.CENTER);
-            logBeverageButtonHBox.setSpacing(20);
-
-            // Creating a VBox to contain the Log Beverage button and the button panel
-            VBox combinedButtonVBox = new VBox();
-            combinedButtonVBox.setAlignment(Pos.CENTER);
-            combinedButtonVBox.setSpacing(100);
-            combinedButtonVBox.getChildren().addAll(logBeverageButtonHBox, buttonHBox);
-
-            // Placing the combined VBox at the bottom of the BorderPane
-            borderPane.setBottom(combinedButtonVBox);*/
-
             VBox mainContent = new VBox();
             mainContent.setAlignment(Pos.CENTER);
             mainContent.setSpacing(20);
