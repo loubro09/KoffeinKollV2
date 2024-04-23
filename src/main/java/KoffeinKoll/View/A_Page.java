@@ -2,6 +2,7 @@ package KoffeinKoll.View;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
@@ -64,6 +65,15 @@ public abstract class A_Page implements I_Page{
         borderPane.setBackground(new javafx.scene.layout.Background(new javafx.scene.layout.BackgroundFill(gradient, null, null)));
 
         stage.setScene(scene);
+    }
+
+    protected TextField setTextField(){
+        TextField fieldStyle = new TextField();
+        fieldStyle.setFont(Font.font("Arial", 14));
+        fieldStyle.setPrefWidth(220);
+        fieldStyle.setPrefHeight(30);
+        fieldStyle.setStyle(" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
+        return fieldStyle;
     }
 
     public void changePage(A_Page newPage) {

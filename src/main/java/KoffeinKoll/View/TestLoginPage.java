@@ -10,7 +10,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -41,7 +40,7 @@ public class TestLoginPage extends A_Page{
 
         //textrutorna
 
-        userNameField = textField();
+        userNameField = setTextField();
         userNameField.setPromptText("Enter username");
         passwordField = new PasswordField();
         passwordField.setPromptText("Enter password ");
@@ -81,15 +80,6 @@ public class TestLoginPage extends A_Page{
         borderPane.setTop(topHBox);
     }
 
-    private TextField textField(){
-        TextField fieldStyle = new TextField();
-        fieldStyle.setFont(Font.font("Arial", 14));
-        fieldStyle.setPrefWidth(220);
-        fieldStyle.setPrefHeight(30);
-        fieldStyle.setStyle(" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
-        return fieldStyle;
-    }
-
     private void initializeEventHandlers() {
         // Log in button action handler
         logInButton.setOnAction(event -> handleLogin());
@@ -103,9 +93,7 @@ public class TestLoginPage extends A_Page{
         });
 
         // Registration link action handler
-        registration.setOnAction(event -> {
-            // Handle registration link click here
-        });
+        registration.setOnAction(event -> handleReg());
     }
     private void handleLogin() {
         String username = userNameField.getText();
@@ -121,5 +109,9 @@ public class TestLoginPage extends A_Page{
         } else {
             System.out.println("Login failed");
         }
+    }
+
+    private void handleReg() {
+        changePage(new TestCreateUserPage(getStage()));
     }
 }
