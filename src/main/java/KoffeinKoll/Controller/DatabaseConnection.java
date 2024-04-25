@@ -12,7 +12,7 @@ public class DatabaseConnection {
     private String password;
     private static DatabaseConnection instance;
 
-    private DatabaseConnection() {
+    DatabaseConnection() {
         loadConfiguration();
     }
 
