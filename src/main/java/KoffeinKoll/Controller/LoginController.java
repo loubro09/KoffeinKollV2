@@ -1,5 +1,6 @@
 package KoffeinKoll.Controller;
 
+import KoffeinKoll.Model.User;
 import javafx.scene.control.Alert;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,6 +10,7 @@ import java.sql.SQLException;
 public class LoginController {
 
     private DatabaseConnection databaseConnection;
+    private User user;
 
     public LoginController() {
         this.databaseConnection = databaseConnection.getInstance();
@@ -25,6 +27,7 @@ public class LoginController {
             preparedStatement.setString(1,username);
             resultSet = preparedStatement.executeQuery();
 
+
             if (!resultSet.isBeforeFirst()) {
                 System.out.println("User not found");
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -35,7 +38,14 @@ public class LoginController {
                 while(resultSet.next()) {
                     String retrievedPassword = resultSet.getString("password");
                     if (retrievedPassword.equals(password)) {
+                        if (retrievedPassword.equals(password)) {
+                            // Skapa ett nytt User-objekt och sätt användarnamnet
+                            user = new User();
+                            user.setUsername(username);
+                            return true;
+                        }
                         return true;
+
                     }
                     else {
                         System.out.println("Wrong password");
@@ -45,6 +55,8 @@ public class LoginController {
                         return false;
                     }
                 }
+
+
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
