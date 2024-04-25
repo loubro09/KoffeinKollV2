@@ -13,7 +13,7 @@ public class StartApplication extends Application {
     }
 
     public void showLoginPage() {
-        TestLoginPage loginPage = new TestLoginPage();
+        LogInPage loginPage = new LogInPage();
         loginPage.initialPage(stage); // Initialize the page directly
         stage.setScene(loginPage.scene); // Set the scene to the login page's scene
         stage.show();

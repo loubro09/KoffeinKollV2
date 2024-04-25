@@ -2,6 +2,7 @@ package KoffeinKoll.View;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
@@ -13,26 +14,49 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
-public abstract class A_Page implements I_Page{
+public abstract class A_Page implements I_Page {
     protected Stage stage;
     protected BorderPane borderPane;
     protected Scene scene;
-    protected Label titleLabel;
+    protected Label lbl_title;
 
     public void initialPage(Stage stage) {
-        this.stage = stage;
-        stage.setTitle("KoffeinKoll - Caffeine Management Tool");
-        stage.setWidth(800);
-        stage.setHeight(800);
-        this.borderPane = new BorderPane();
+        setStage(stage);
+        setStageSize();
+        setWindowTitle();
+        createBordePane();
+        createScene();
+        setBackground();
+        setTitle();
         initializeUI();
-        scene = new Scene(borderPane);
-        createScene(borderPane);
-        setBackground(scene);
     }
 
-    public Stage getStage() { return stage; }
     public BorderPane getBorderPane() { return borderPane; }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    @Override
+    public void setWindowTitle() {
+        stage.setTitle("KoffeinKoll - Caffeine Management Tool");
+    }
+
+    @Override
+    public void setStageSize() {
+        stage.setWidth(800);
+        stage.setHeight(800);
+    }
+
+    @Override
+    public void createScene() {
+        scene = new Scene(borderPane);
+    }
+
+    @Override
+    public void createBordePane() {
+        this.borderPane = new BorderPane();
+    }
 
     @Override
     public String setButtonStyle() {
@@ -52,19 +76,21 @@ public abstract class A_Page implements I_Page{
         return styleButtons;
     }
 
+    @Override
     public void setTitle() {
-        titleLabel = new Label("KoffeinKoll");
-        titleLabel.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.REGULAR, 46));
-        titleLabel.setTextFill(Color.rgb(0, 70, 0));
+        lbl_title = new Label("KoffeinKoll");
+        lbl_title.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.REGULAR, 46));
+        lbl_title.setTextFill(Color.rgb(0, 70, 0));
     }
 
     @Override
-    public void setBackground(Scene scene) {
+    public void setBackground() {
         Stop[] stops = new Stop[]{new Stop(0, Color.web("#c0dbad")), new Stop(1, Color.web("#fcf1cb"))};
         LinearGradient gradient = new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE, stops);
         borderPane.setBackground(new javafx.scene.layout.Background(new javafx.scene.layout.BackgroundFill(gradient, null, null)));
 
         stage.setScene(scene);
+        stage.show();
     }
 
     protected TextField setTextField(){
@@ -76,8 +102,27 @@ public abstract class A_Page implements I_Page{
         return fieldStyle;
     }
 
+    protected PasswordField setPasswordField(){
+        PasswordField fieldStyle = new PasswordField();
+        fieldStyle.setFont(Font.font("Arial", 14));
+        fieldStyle.setPrefWidth(220);
+        fieldStyle.setPrefHeight(30);
+        fieldStyle.setStyle(" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
+        //"-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 ); -fx-padding: 5px;"
+        return fieldStyle;
+    }
+
+    protected Label setLabelStyle(String text) {
+        Label lbl_labelStyle = new Label(text);
+        lbl_labelStyle.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+        Color labelColor = Color.rgb(0, 60, 0);
+        lbl_labelStyle.setTextFill(labelColor);
+        return lbl_labelStyle;
+    }
+
     public void changePage(A_Page newPage) {
-        newPage.initializeUI();
-        borderPane.setCenter(newPage.getBorderPane());
+        newPage.initialPage(stage);
+        stage.setScene(newPage.scene); // Set the scene to the login page's scene
+        stage.show();
     }
 }

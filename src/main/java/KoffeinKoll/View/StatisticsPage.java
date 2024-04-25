@@ -3,66 +3,41 @@ package KoffeinKoll.View;
 import com.jfoenix.controls.JFXButton;
 import eu.hansolo.tilesfx.Tile;
 import eu.hansolo.tilesfx.TileBuilder;
-import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.LinearGradient;
-import javafx.scene.paint.Stop;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
-import javafx.stage.Stage;
 
-public class StatisticsPage extends Application {
-
-    private Stage statisticsStage;
+public class StatisticsPage extends A_Page{
     private boolean isCircleChartShown = false; // Flag to track the currently shown chart
+    private JFXButton btn_goHome;
+    private JFXButton btn_weekly;
+    private JFXButton btn_monthly;
+    private JFXButton btn_info;
+    @Override
+    public void initializeUI() {
+        setComponents();
+        setEvents();
+        setScene();
+    }
 
     @Override
-    public void start(Stage stage) throws Exception {
-        this.statisticsStage = stage;
-        statisticsStage.setTitle("KoffeinKoll Statistics");
-        statisticsStage.setWidth(800);
-        statisticsStage.setHeight(800);
+    public void setComponents() {
+        setButtons();
+    }
 
-        // Creating labels
-        Label titleLabel = new Label("KoffeinKoll");
-        titleLabel.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.REGULAR, 46));
-        titleLabel.setTextFill(Color.rgb(0, 70, 0));
+    @Override
+    public void setEvents() {
+        btn_goHome.setOnAction(event -> goToHomePage());
+        btn_weekly.setOnAction(event -> goToWeeklyStatisticsPage());
+        btn_monthly.setOnAction(event -> goToMonthlyStatisticsPage());
+        btn_info.setOnAction(event -> goToInfoPage());
+    }
 
-        String styleButtons = "-fx-background-color:\n" +
-                "            #090a0c,\n" +
-                "            linear-gradient(#0a4a1d 0%, #8fbc8f 20%, #8fbc8f 50%, #c0dbad 100%),\n" +
-                "            linear-gradient(#c0dbad, #8fbc8f),\n" +
-                "            radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));\n" +
-                "    -fx-background-radius: 5,4,3,5;\n" +
-                "    -fx-background-insets: 0,1,2,0;\n" +
-                "    -fx-text-fill: white;\n" +
-                "    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );\n" +
-                "    -fx-font-family: \"Arial\";\n" +
-                "    -fx-text-fill: linear-gradient(black, darkgreen);\n" +
-                "    -fx-font-size: 20px;\n" +
-                "    -fx-padding: 10 20 10 20;" +
-                "    -fx-font-weight: bold";
-
-        JFXButton homeButton = new JFXButton("Home");
-        JFXButton weeklyButton = new JFXButton("Weekly");
-        JFXButton monthlyButton = new JFXButton("Monthly");
-        JFXButton infoButton = new JFXButton("Statistics Info");
-
-        homeButton.setStyle(styleButtons);
-        weeklyButton.setStyle(styleButtons);
-        monthlyButton.setStyle(styleButtons);
-        infoButton.setStyle(styleButtons);
-
-        // Creating a BorderPane layout for main page
-        BorderPane borderPane = new BorderPane();
-
+    @Override
+    public void setScene() {
         // Create a VBox for the switch tile and chart
         VBox chartAndSwitchBox = new VBox();
         chartAndSwitchBox.setAlignment(Pos.CENTER);
@@ -87,31 +62,23 @@ public class StatisticsPage extends Application {
         // Create a VBox for buttons
         HBox buttonHBox = new HBox(40);
         buttonHBox.setAlignment(Pos.CENTER);
-        buttonHBox.getChildren().addAll(homeButton, weeklyButton, monthlyButton, infoButton);
+        buttonHBox.getChildren().addAll(btn_goHome, btn_weekly, btn_monthly, btn_info);
         buttonHBox.setPadding(new Insets(20));
 
         // Set the button box at the bottom of the BorderPane
         borderPane.setBottom(buttonHBox);
+    }
 
-        // Create a Scene and adding the BorderPane to it
-        Scene scene = new Scene(borderPane, 800, 800);
+    private void setButtons() {
+        btn_goHome = new JFXButton("Home");
+        btn_weekly = new JFXButton("Weekly");
+        btn_monthly = new JFXButton("Monthly");
+        btn_info = new JFXButton("Statistics Info");
 
-        // Setting background color as a gradient centered with yellow in the middle
-        Stop[] stops = new Stop[]{new Stop(0, Color.web("#c0dbad")), new Stop(1, Color.web("#fcf1cb"))};
-        LinearGradient gradient = new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE, stops);
-        borderPane.setBackground(new Background(new BackgroundFill(gradient, null, null)));
-
-        // Setting the Scene to the Stage
-        statisticsStage.setScene(scene);
-
-        // Displaying the Stage
-        statisticsStage.show();
-
-        // Adding event handlers to buttons
-        homeButton.setOnAction(event -> goToHomePage());
-        weeklyButton.setOnAction(event -> goToWeeklyStatisticsPage());
-        monthlyButton.setOnAction(event -> goToMonthlyStatisticsPage());
-        infoButton.setOnAction(event -> goToInfoPage());
+        btn_goHome.setStyle(setButtonStyle());
+        btn_weekly.setStyle(setButtonStyle());
+        btn_monthly.setStyle(setButtonStyle());
+        btn_info.setStyle(setButtonStyle());
     }
 
     // Method to create the switch tile
@@ -148,14 +115,12 @@ public class StatisticsPage extends Application {
 
     // Method to navigate to the home page
     private void goToHomePage() {
-        Stage homePage = new Stage();
-        HomePage homePageController = new HomePage();
-        homePageController.start(homePage);
+        changePage(new HomePage());
     }
 
     // Method to navigate to the weekly statistics page
     private void goToWeeklyStatisticsPage() {
-    //add code
+        //add code
     }
 
     // Method to navigate to the monthly statistics page
@@ -165,12 +130,6 @@ public class StatisticsPage extends Application {
 
     // Method to navigate to the info page
     private void goToInfoPage() {
-        Stage infoPage = new Stage();
-        DiagramInfoPage diagramInfoPage = new DiagramInfoPage();
-        diagramInfoPage.start(infoPage);
-    }
-
-    public static void main(String[] args) {
-        launch(args);
+        changePage(new DiagramInfoPage());
     }
 }
