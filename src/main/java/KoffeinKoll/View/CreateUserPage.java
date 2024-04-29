@@ -1,120 +1,50 @@
 package KoffeinKoll.View;
 
 import KoffeinKoll.Controller.CreateUserController;
-import javafx.application.Application;
+import com.jfoenix.controls.JFXButton;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.LinearGradient;
-import javafx.scene.paint.Stop;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.stage.Stage;
 
-public class CreateUserPage extends Application {
-
-    private Stage stage;
+public class CreateUserPage extends A_Page{
+    private TextField tf_userName;
+    private PasswordField pf_password;
+    private TextField tf_height;
+    private TextField tf_weight;
+    private TextField tf_dateOfBirth;
+    private JFXButton btn_createUser;
+    private Label lbl_userName;
+    private Label lbl_password;
+    private Label lbl_passwordRequirements;
+    private Label lbl_height;
+    private Label lbl_weight;
+    private Label lbl_dateOfBirth;
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void initializeUI() {
+        setComponents();
+        setEvents();
+        setScene();
+    }
 
-        this.stage = stage;
+    @Override
+    public void setComponents() {
+        setLabels();
+        setTextfields();
+        setButtons();
+    }
 
-        stage.setTitle("KoffeinKoll - Caffeine Management Tool");
-        stage.setWidth(800);
-        stage.setHeight(800);
-
-        //Huvudtitel
-        Label titleLabel = new Label("KoffeinKoll");
-        titleLabel.setFont(Font.font("Arial", FontWeight.BOLD, 46));
-        titleLabel.setTextFill(Color.rgb(0, 60, 0));
-
-
-        //Rubrik ovanför textrutor
-        Label userNameLabel = new Label("Username");
-        userNameLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-        Label passwordLabel = new Label("Password");
-        passwordLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-
-        //Height
-        Label heightLabel = new Label("Height");
-        heightLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-
-
-        //Weight
-        Label weightLabel = new Label("Weight");
-        weightLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-
-        //Date of birth
-        Label dateOfBirthLabel = new Label("Date of Birth");
-        dateOfBirthLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-
-        Label passwordRequirementsLabel = new Label("Password must contain at least 8 characters, one capital letter, and one number.");
-        passwordRequirementsLabel.setFont(Font.font("Arial", 12));
-        passwordRequirementsLabel.setTextFill(Color.rgb(0, 60, 0)); // You can adjust the color as needed
-
-
-
-        // Definierar den färg som all rubrikstext bör ha
-        Color labelColor = Color.rgb(0, 60, 0);
-        titleLabel.setTextFill(labelColor);
-        userNameLabel.setTextFill(labelColor);
-        passwordLabel.setTextFill(labelColor);
-        heightLabel.setTextFill(labelColor);
-        weightLabel.setTextFill(labelColor);
-        dateOfBirthLabel.setTextFill(labelColor);
-
-        //textrutorna
-
-        TextField userNameField = textField();
-        userNameField.setPromptText("Enter a username");
-        PasswordField passwordField = new PasswordField();
-        passwordField.setPromptText("Enter a password ");
-        // To mach the textbox and text size to the TextField
-        passwordField.setPrefWidth(220);
-        passwordField.setPrefHeight(30);
-        passwordField.setStyle("-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 ); -fx-padding: 5px;");
-        passwordField.setStyle("-fx-prompt-text-fill: derive(-fx-control-inner-background,-30%); -fx-font: 14px \"Arial\";");
-
-        TextField heightField = textField();
-        heightField.setPromptText("Enter height (cm)");
-        TextField weightField = textField();
-        weightField.setPromptText("Enter weight (kg)");
-        TextField dateOfBirthField = textField();
-        dateOfBirthField.setPromptText("YYYY-MM-DD");
-
-
-
-
-
-        String styleButtons = "-fx-background-color:\n" +
-                "            #090a0c,\n" +
-                "            linear-gradient(#8fbc8f 0%, #8fbc8f 20%, #8fbc8f 100%),\n" +
-                "            linear-gradient(#c0dbad, #8fbc8f),\n" +
-                "            radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));\n" +
-                "    -fx-background-radius: 5,4,3,5;\n" +
-                "    -fx-background-insets: 0,1,2,0;\n" +
-                "    -fx-text-fill: white;\n" +
-                "    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );\n" +
-                "    -fx-font-family: \"Arial\";\n" +
-                "    -fx-text-fill: linear-gradient(black, black);\n" +
-                "    -fx-font-size: 20px;\n" +
-                "    -fx-padding: 10 20 10 20;";
-
-        Button createUserButton = new Button("Create User");
-        createUserButton.setStyle(styleButtons);
-
-        createUserButton.setOnAction(event -> {
-            String username = userNameField.getText();
-            String password = passwordField.getText();
-            String heightText = heightField.getText();
-            String weightText = weightField.getText();
-            String dateOfBirth = dateOfBirthField.getText();
+    @Override
+    public void setEvents() {
+        btn_createUser.setOnAction(event -> {
+            String username = tf_userName.getText();
+            String password = pf_password.getText();
+            String heightText = tf_height.getText();
+            String weightText = tf_weight.getText();
+            String dateOfBirth = tf_dateOfBirth.getText();
 
             // Check if any of the fields are empty
             if (username.isEmpty() || password.isEmpty() || heightText.isEmpty() || weightText.isEmpty() || dateOfBirth.isEmpty()) {
@@ -123,13 +53,12 @@ public class CreateUserPage extends Application {
                 alert.setContentText("All fields are required.");
                 alert.show();
 
-
                 // Mark empty fields with red color
-                if (username.isEmpty()) userNameField.setStyle("-fx-border-color: red;");
-                if (password.isEmpty()) passwordField.setStyle("-fx-border-color: red;");
-                if (heightText.isEmpty()) heightField.setStyle("-fx-border-color: red;");
-                if (weightText.isEmpty()) weightField.setStyle("-fx-border-color: red;");
-                if (dateOfBirth.isEmpty()) dateOfBirthField.setStyle("-fx-border-color: red;");
+                if (username.isEmpty()) tf_userName.setStyle("-fx-border-color: red;");
+                if (password.isEmpty()) pf_password.setStyle("-fx-border-color: red;");
+                if (heightText.isEmpty()) tf_height.setStyle("-fx-border-color: red;");
+                if (weightText.isEmpty()) tf_weight.setStyle("-fx-border-color: red;");
+                if (dateOfBirth.isEmpty()) tf_dateOfBirth.setStyle("-fx-border-color: red;");
 
                 return; // Stop further processing
             }
@@ -158,56 +87,64 @@ public class CreateUserPage extends Application {
                 errorAlert.showAndWait();
             }
         });
+    }
 
-
-
+    @Override
+    public void setScene() {
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setHgap(10);
         gridPane.setVgap(10);
-        gridPane.add(userNameLabel, 0, 0);
-        gridPane.add(userNameField, 0, 1);
-        gridPane.add(passwordLabel, 0, 2);
-        gridPane.add(passwordField, 0, 3);
-        gridPane.add(heightLabel, 0, 4);
-        gridPane.add(heightField, 0, 5);
-        gridPane.add(weightLabel,0,6);
-        gridPane.add(weightField,0,7);
-        gridPane.add(dateOfBirthLabel,0,8);
-        gridPane.add(dateOfBirthField,0,9);
+        gridPane.add(lbl_userName, 0, 0);
+        gridPane.add(tf_userName, 0, 1);
+        gridPane.add(lbl_password, 0, 2);
+        gridPane.add(pf_password, 0, 3);
+        gridPane.add(lbl_height, 0, 4);
+        gridPane.add(tf_height, 0, 5);
+        gridPane.add(lbl_weight,0,6);
+        gridPane.add(tf_weight,0,7);
+        gridPane.add(lbl_dateOfBirth,0,8);
+        gridPane.add(tf_dateOfBirth,0,9);
 
-        gridPane.add(createUserButton, 0, 13); // Remove this line
-        gridPane.add(passwordRequirementsLabel, 0, 15);
+        gridPane.add(btn_createUser, 0, 13); // Remove this line
+        gridPane.add(lbl_passwordRequirements, 0, 15);
 
-        gridPane.setHalignment(createUserButton, Pos.CENTER.getHpos());
+        gridPane.setHalignment(btn_createUser, Pos.CENTER.getHpos());
 
-        BorderPane borderPane = new BorderPane();
+        //BorderPane borderPane = new BorderPane();
+        //borderPane = getBorderPane();
         borderPane.setPadding(new Insets(20));
-        borderPane.setTop(titleLabel);
+        borderPane.setTop(lbl_title);
         borderPane.setCenter(gridPane);
-        BorderPane.setAlignment(titleLabel, Pos.CENTER);
-
-        Scene scene = new Scene(borderPane, 800, 800);
-
-        // Setting background color as a gradient centered with yellow in the middle
-        Stop[] stops = new Stop[]{new Stop(0, Color.web("#c0dbad")), new Stop(1, Color.web("#fcf1cb"))};
-        LinearGradient gradient = new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE, stops);
-        borderPane.setBackground(new javafx.scene.layout.Background(new javafx.scene.layout.BackgroundFill(gradient, null, null)));
-
-        // Setting the Scene to the Stage
-        stage.setScene(scene);
-        stage.show();
+        BorderPane.setAlignment(lbl_title, Pos.CENTER);
     }
 
-    private TextField textField(){
-        TextField fieldStyle = new TextField();
-        fieldStyle.setFont(Font.font("Arial", 14));
-        fieldStyle.setPrefWidth(220);
-        fieldStyle.setPrefHeight(30);
-        fieldStyle.setStyle(" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
-        return fieldStyle;
+    private void setLabels() {
+        lbl_userName = setLabelStyle("Username");
+        lbl_password = setLabelStyle("Password");
+        lbl_height = setLabelStyle("Height");
+        lbl_weight = setLabelStyle("Weight");
+        lbl_dateOfBirth = setLabelStyle("Date of Birth");
+        lbl_passwordRequirements = setLabelStyle("Password must contain at least 8 characters, one capital letter, and one number.");
+        lbl_passwordRequirements.setFont(Font.font("Arial", 12));
     }
-    public static void main(String[] args) {
-        launch(args);
+
+    private void setTextfields() {
+        tf_userName = setTextField();
+        tf_userName.setPromptText("Enter a username");
+        pf_password = setPasswordField();
+        pf_password.setPromptText("Enter a password ");
+
+        tf_height = setTextField();
+        tf_height.setPromptText("Enter height (cm)");
+        tf_weight = setTextField();
+        tf_weight.setPromptText("Enter weight (kg)");
+        tf_dateOfBirth = setTextField();
+        tf_dateOfBirth.setPromptText("YYYY-MM-DD");
+    }
+
+    private void setButtons() {
+        btn_createUser = new JFXButton("Create User");
+        btn_createUser.setStyle(setButtonStyle());
     }
 }

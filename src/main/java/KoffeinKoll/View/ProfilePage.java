@@ -2,85 +2,50 @@ package KoffeinKoll.View;
 
 import KoffeinKoll.Controller.ProfileController;
 import com.jfoenix.controls.JFXButton;
-import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.LinearGradient;
-import javafx.scene.paint.Stop;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.stage.Stage;
-public class ProfilePage extends Application {
 
-    private Stage stage;
+public class ProfilePage extends A_Page {
+    private Label lbl_newHeight;
+    private Label lbl_newWeight;
+    private Label lbl_newDateOfBirth;
+    private TextField tf_newHeight;
+    private TextField tf_newWeight;
+    private TextField tf_newDateOfBirth;
+    private JFXButton btn_goHome;
+    private JFXButton btn_save;
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void initializeUI() {
+        setComponents();
+        setEvents();
+        setScene();
+    }
 
-        this.stage = stage;
+    @Override
+    public void setComponents() {
+        setLabels();
+        setTextfields();
+        setButtons();
+    }
 
-        stage.setTitle("KoffeinKoll - Update User Information");
-        stage.setWidth(800);
-        stage.setHeight(800);
-
-        //Huvudtitel
-        Label titleLabel = new Label("KoffeinKoll - Update User Information");
-        titleLabel.setFont(Font.font("Arial", FontWeight.BOLD, 26));
-        titleLabel.setTextFill(Color.rgb(0, 60, 0));
-
-        //textrutorna to enter new values
-        TextField newHeightField = textField();
-        newHeightField.setPromptText("Height (cm)");
-        Label newHeightTextLabel = new Label("New Height:");
-        newHeightTextLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-        newHeightTextLabel.setTextFill(Color.rgb(0, 60, 0));
-
-        TextField newWeightField = textField();
-        newWeightField.setPromptText("Weight (kg)");
-        Label newWeightTextLabel = new Label("New Weight:");
-        newWeightTextLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-        newWeightTextLabel.setTextFill(Color.rgb(0, 60, 0));
-
-        TextField newDateOfBirthField = textField();
-        newDateOfBirthField.setPromptText("YYYY-MM-DD");
-        Label newDateOfBirthTextLabel = new Label("New Date of Birth:");
-        newDateOfBirthTextLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-        newDateOfBirthTextLabel.setTextFill(Color.rgb(0, 60, 0));
-
-        String styleButtons = "-fx-background-color:\n" +
-                "            #090a0c,\n" +
-                "            linear-gradient(#8fbc8f 0%, #8fbc8f 20%, #8fbc8f 100%),\n" +
-                "            linear-gradient(#c0dbad, #8fbc8f),\n" +
-                "            radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));\n" +
-                "    -fx-background-radius: 5,4,3,5;\n" +
-                "    -fx-background-insets: 0,1,2,0;\n" +
-                "    -fx-text-fill: white;\n" +
-                "    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );\n" +
-                "    -fx-font-family: \"Arial\";\n" +
-                "    -fx-text-fill: linear-gradient(black, black);\n" +
-                "    -fx-font-size: 20px;\n" +
-                "    -fx-padding: 10 20 10 20;";
-
-        JFXButton backButton = new JFXButton("Back");
-        backButton.setStyle(styleButtons);
-        backButton.setOnAction(event -> {
+    @Override
+    public void setEvents() {
+        btn_goHome.setOnAction(event -> {
             goBack();
         });
 
-        JFXButton saveButton = new JFXButton("Save");
-        saveButton.setStyle(styleButtons);
-        saveButton.setOnAction(event -> {
+        btn_save.setOnAction(event -> {
             ProfileController profileController = new ProfileController();
-            String newHeightText = newHeightField.getText();
-            String newWeightText = newWeightField.getText();
-            String newDateOfBirth = newDateOfBirthField.getText();
+            String newHeightText = tf_newHeight.getText();
+            String newWeightText = tf_newWeight.getText();
+            String newDateOfBirth = tf_newDateOfBirth.getText();
 
             // Validate input and save new user information
             boolean userUpdated = profileController.updateUser(2, newHeightText, newWeightText, newDateOfBirth);
@@ -101,52 +66,59 @@ public class ProfilePage extends Application {
                 errorAlert.showAndWait();
             }
         });
+    }
 
+    @Override
+    public void setScene() {
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setHgap(10);
         gridPane.setVgap(10);
-        gridPane.add(newHeightTextLabel, 0, 0);
-        gridPane.add(newHeightField, 0, 1);
-        gridPane.add(newWeightTextLabel, 0, 2);
-        gridPane.add(newWeightField, 0, 3);
-        gridPane.add(newDateOfBirthTextLabel, 0, 4);
-        gridPane.add(newDateOfBirthField, 0, 5);
+        gridPane.add(lbl_newHeight, 0, 0);
+        gridPane.add(tf_newHeight, 0, 1);
+        gridPane.add(lbl_newWeight, 0, 2);
+        gridPane.add(tf_newWeight, 0, 3);
+        gridPane.add(lbl_newDateOfBirth, 0, 4);
+        gridPane.add(tf_newDateOfBirth, 0, 5);
 
-        BorderPane borderPane = new BorderPane();
         borderPane.setPadding(new Insets(20));
-        borderPane.setTop(titleLabel);
+        borderPane.setTop(lbl_title);
         borderPane.setCenter(gridPane);
-        BorderPane.setAlignment(titleLabel, Pos.CENTER);
+        BorderPane.setAlignment(lbl_title, Pos.CENTER);
 
-        HBox buttonBox = new HBox(20, backButton, saveButton);
+        HBox buttonBox = new HBox(20, btn_goHome, btn_save);
         buttonBox.setAlignment(Pos.CENTER);
 
         // Placing the button box at the bottom
         borderPane.setBottom(buttonBox);
-        Scene scene = new Scene(borderPane, 800, 800);
-
-        // Setting background color as a gradient centered with yellow in the middle
-        Stop[] stops = new Stop[]{new Stop(0, Color.web("#c0dbad")), new Stop(1, Color.web("#fcf1cb"))};
-        LinearGradient gradient = new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE, stops);
-        borderPane.setBackground(new javafx.scene.layout.Background(new javafx.scene.layout.BackgroundFill(gradient, null, null)));
-
-        stage.setScene(scene);
-        stage.show();
     }
-    private TextField textField(){
-        TextField fieldStyle = new TextField();
-        fieldStyle.setFont(Font.font("Arial", 14));
-        fieldStyle.setPrefWidth(220);
-        fieldStyle.setPrefHeight(30);
-        fieldStyle.setStyle(" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
-        return fieldStyle;
+
+    private void setLabels() {
+        lbl_newHeight = setLabelStyle("New Height:");
+        lbl_newWeight = setLabelStyle("New Weight:");
+        lbl_newDateOfBirth = setLabelStyle("New Date of Birth:");
     }
+
+    private void setTextfields() {
+        tf_newHeight = setTextField();
+        tf_newHeight.setPromptText("Height (cm)");
+
+        tf_newWeight = setTextField();
+        tf_newWeight.setPromptText("Weight (kg)");
+
+        tf_newDateOfBirth = setTextField();
+        tf_newDateOfBirth.setPromptText("YYYY-MM-DD");
+    }
+
+    private void setButtons() {
+        btn_goHome = new JFXButton("Back");
+        btn_goHome.setStyle(setButtonStyle());
+
+        btn_save = new JFXButton("Save");
+        btn_save.setStyle(setButtonStyle());
+    }
+
     private void goBack() {
-        HomePage homePage = new HomePage();
-        homePage.start(stage);
-    }
-    public static void main(String[] args) {
-        launch(args);
+        changePage(new HomePage());
     }
 }

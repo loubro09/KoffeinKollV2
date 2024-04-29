@@ -11,8 +11,6 @@ import java.time.format.DateTimeParseException;
 
 public class BeverageController {
 
-    private DatabaseConnection databaseConnection;
-
     public int getMaxUserHistoryId() {
         String sql = "SELECT MAX(userhistory_id) AS maxId FROM userhistory";
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
@@ -72,7 +70,6 @@ public class BeverageController {
             return false;
         }
     }
-
 }
 
 
