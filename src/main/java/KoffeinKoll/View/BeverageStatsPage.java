@@ -24,7 +24,6 @@ public class BeverageStatsPage extends A_Page{
     private JFXButton btn_goBack;
     private JFXButton btn_goHome;
     private JFXButton btn_log;
-    private Label lbl_numberBeverages;
     private Label lbl_amountCL;
     private Label lbl_time;
     private BeverageController beverageController = new BeverageController();
@@ -68,9 +67,6 @@ public class BeverageStatsPage extends A_Page{
         gridPane.setHgap(10);
         gridPane.setVgap(10);
 
-        gridPane.add(lbl_numberBeverages, 0, 0);
-        gridPane.add(tf_amount, 0, 1);
-
         gridPane.add(lbl_amountCL, 0, 2);
         gridPane.add(tf_amountCL, 0, 3);
 
@@ -90,14 +86,11 @@ public class BeverageStatsPage extends A_Page{
         lbl_beverageTitle = setLabelStyle("Log Amount");
         lbl_beverageTitle.setFont(Font.font("Arial", FontWeight.BOLD, 46));
 
-        lbl_numberBeverages = setLabelStyle("Number of Beverages");
         lbl_amountCL = setLabelStyle("Amount CL");
         lbl_time = setLabelStyle("Time");
     }
 
     private void setTextfields() {
-        tf_amount = setTextField();
-        tf_amount.setPromptText("Enter Amount");
         tf_amountCL = setTextField();
         tf_amountCL.setPromptText("Enter Amount in CL");
         tf_time = setTextField();
@@ -116,9 +109,7 @@ public class BeverageStatsPage extends A_Page{
     }
 
     private void validateInputs() {
-        if (!beverageController.validateAmount(tf_amount.getText())) {
-            showAlert("Invalid Amount", "Please enter a valid amount.");
-        } else if (!beverageController.validateAmount(tf_amountCL.getText())) {
+        if (!beverageController.validateAmount(tf_amountCL.getText())) {
             showAlert("Invalid Amount in CL", "Please enter a valid amount in CL.");
         } else if (!beverageController.validateDateTime(tf_time.getText())) {
             showAlert("Invalid Time", "Time should be in (yyyy-MM-dd HH:mm) format.");
