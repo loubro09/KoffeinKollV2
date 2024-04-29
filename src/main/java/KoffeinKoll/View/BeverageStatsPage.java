@@ -30,7 +30,6 @@ public class BeverageStatsPage extends A_Page {
     private JFXButton btn_goHome;
     private JFXButton btn_log;
     private JFXButton btn_useCurrentTime;
-    private Label lbl_numberBeverages;
     private Label lbl_amountCL;
     private Label lbl_time;
     private BeverageController beverageController = new BeverageController();
@@ -101,7 +100,6 @@ public class BeverageStatsPage extends A_Page {
         lbl_beverageTitle = setLabelStyle("Log Amount");
         lbl_beverageTitle.setFont(Font.font("Arial", FontWeight.BOLD, 46));
 
-        lbl_numberBeverages = setLabelStyle("Number of Beverages");
         lbl_amountCL = setLabelStyle("Amount CL");
         lbl_time = setLabelStyle("Time");
     }
