@@ -4,13 +4,10 @@ import KoffeinKoll.Controller.ProfileController;
 import com.jfoenix.controls.JFXButton;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.control.DatePicker;
 
 
 public class ProfilePage extends A_Page {
@@ -23,6 +20,11 @@ public class ProfilePage extends A_Page {
     private JFXButton btn_goHome;
     private JFXButton btn_save;
     private DatePicker datePicker;
+    private ToggleGroup toggleGroup;
+    private RadioButton option1;
+    private RadioButton option2;
+    private RadioButton option3;
+
 
 
     @Override
@@ -37,6 +39,7 @@ public class ProfilePage extends A_Page {
         setLabels();
         setTextfields();
         setButtons();
+        setRadioButton();
     }
 
     @Override
@@ -80,6 +83,9 @@ public class ProfilePage extends A_Page {
         gridPane.setVgap(10);
         gridPane.add(lbl_newHabit, 0, 0);
         gridPane.add(tf_newHabit, 0, 1);
+        gridPane.add(option1, 0, 2);
+        gridPane.add(option2, 0, 3);
+        gridPane.add(option3, 0, 4);
         gridPane.add(lbl_newWeight, 0, 2);
         gridPane.add(tf_newWeight, 0, 3);
         gridPane.add(lbl_newDateOfBirth, 0, 4);
@@ -125,6 +131,23 @@ public class ProfilePage extends A_Page {
 
         btn_save = new JFXButton("Save");
         btn_save.setStyle(setButtonStyle());
+    }
+
+    private void setRadioButton() {
+        toggleGroup = new ToggleGroup();
+
+        // Create radio buttons
+        option1 = new RadioButton("0-1");
+        option1.setToggleGroup(toggleGroup);
+        option1.setUserData("1");
+
+        option2 = new RadioButton("1-2");
+        option2.setToggleGroup(toggleGroup);
+        option2.setUserData("2");
+
+        option3 = new RadioButton("2-5");
+        option3.setToggleGroup(toggleGroup);
+        option3.setUserData("3");
     }
 
     private void goBack() {
