@@ -13,7 +13,7 @@ public class ProfileController {
         this.databaseConnection = databaseConnection.getInstance();
     }
 
-    public boolean updateUser(int userId, String newHeight, String newWeight, String newDateOfBirth) {
+    public boolean updateUser(int userId, String newHabit, double newWeight, String newDateOfBirth) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
@@ -25,19 +25,19 @@ public class ProfileController {
             boolean hasUpdates = false;
 
             // Check and update height if provided
-            if (!newHeight.isEmpty()) {
-                updateStatement.append("length = ?, ");
+            if (newHabit != null && !newHabit.isEmpty()) {
+                updateStatement.append("habit = ?, ");
                 hasUpdates = true;
             }
 
             // Check and update weight if provided
-            if (!newWeight.isEmpty()) {
+            if (newWeight!=0) {
                 updateStatement.append("weight = ?, ");
                 hasUpdates = true;
             }
 
             // Check and update birthdate if provided
-            if (!newDateOfBirth.isEmpty()) {
+            if (newDateOfBirth != null && !newDateOfBirth.isEmpty()) {
                 updateStatement.append("birthdate = ?, ");
                 hasUpdates = true;
             }
@@ -52,13 +52,13 @@ public class ProfileController {
                 int parameterIndex = 1;
 
                 // Set parameters based on provided input
-                if (!newHeight.isEmpty()) {
-                    preparedStatement.setObject(parameterIndex++, Double.parseDouble(newHeight));
+                if (newHabit != null && !newHabit.isEmpty()) {
+                    preparedStatement.setObject(parameterIndex++, newHabit);
                 }
-                if (!newWeight.isEmpty()) {
-                    preparedStatement.setObject(parameterIndex++, Double.parseDouble(newWeight));
+                if (newWeight!=0) {
+                    preparedStatement.setObject(parameterIndex++, (newWeight));
                 }
-                if (!newDateOfBirth.isEmpty()) {
+                if (newDateOfBirth != null && !newDateOfBirth.isEmpty()) {
                     preparedStatement.setDate(parameterIndex++, Date.valueOf(newDateOfBirth));
                 }
                 preparedStatement.setInt(parameterIndex, userId);
@@ -68,7 +68,11 @@ public class ProfileController {
                 if (rowsAffected > 0) {
                     return true;
                 } else {
-                    System.out.println("Failed to update user information.");
+                    if (!hasUpdates) {
+                        System.out.println("No changes were made.");
+                    } else {
+                        System.out.println("Failed to update user information.");
+                    }
                     return false;
                 }
             } else {

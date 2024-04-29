@@ -9,21 +9,22 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 
 public class ProfilePage extends A_Page {
     private Label lbl_newHabit;
     private Label lbl_newWeight;
     private Label lbl_newDateOfBirth;
-    private TextField tf_newHabit;
     private TextField tf_newWeight;
-    private TextField tf_newDateOfBirth;
     private JFXButton btn_goHome;
     private JFXButton btn_save;
     private DatePicker datePicker;
     private ToggleGroup toggleGroup;
-    private RadioButton option1;
-    private RadioButton option2;
-    private RadioButton option3;
+    private RadioButton rb_option1;
+    private RadioButton rb_option2;
+    private RadioButton rb_option3;
 
 
 
@@ -40,6 +41,7 @@ public class ProfilePage extends A_Page {
         setTextfields();
         setButtons();
         setRadioButton();
+        setDatePicker();
     }
 
     @Override
@@ -50,12 +52,40 @@ public class ProfilePage extends A_Page {
 
         btn_save.setOnAction(event -> {
             ProfileController profileController = new ProfileController();
-            String newHabit = tf_newHabit.getText();
             String newWeightText = tf_newWeight.getText();
-            String newDateOfBirth = tf_newDateOfBirth.getText();
+            double weight = 0;
+            if (newWeightText != null && !newWeightText.isEmpty()) {
+                weight = Double.parseDouble(newWeightText);
+            }
+            else {
+                weight = 0;
+            }
+            LocalDate dateOfBirth = datePicker.getValue();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            String dateOfBirthText = "";
+            String newHabit = habitValue();
+
+            if (dateOfBirth != null) {
+                if (!isAtLeastFifteenYearsAgo(dateOfBirth)) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText(null);
+                    alert.setContentText("You have to be at least 15 years of age to use this application.");
+                    alert.show();
+                    return;
+                }
+                else {
+                    dateOfBirthText = dateOfBirth.format((formatter));
+                }
+            }
+            else {
+                dateOfBirthText = null;
+            }
+
+            //----------------HÄMTA INLOGGAD USER ID //
 
             // Validate input and save new user information
-            boolean userUpdated = profileController.updateUser(2, newHabit, newWeightText, newDateOfBirth);
+            boolean userUpdated = profileController.updateUser(2, newHabit, weight, dateOfBirthText);
 
             // Display success or error message accordingly
             if (userUpdated) {
@@ -81,16 +111,14 @@ public class ProfilePage extends A_Page {
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setHgap(10);
         gridPane.setVgap(10);
-        gridPane.add(lbl_newHabit, 0, 0);
-        gridPane.add(tf_newHabit, 0, 1);
-        gridPane.add(option1, 0, 2);
-        gridPane.add(option2, 0, 3);
-        gridPane.add(option3, 0, 4);
-        gridPane.add(lbl_newWeight, 0, 2);
-        gridPane.add(tf_newWeight, 0, 3);
-        gridPane.add(lbl_newDateOfBirth, 0, 4);
-       // gridPane.add(tf_newDateOfBirth, 0, 5);
-        gridPane.add(datePicker, 0, 5);
+        gridPane.add(lbl_newWeight, 0, 1);
+        gridPane.add(tf_newWeight, 0, 2);
+        gridPane.add(lbl_newDateOfBirth, 0, 3);
+        gridPane.add(datePicker, 0, 4);
+        gridPane.add(lbl_newHabit, 0, 5);
+        gridPane.add(rb_option1, 0, 6);
+        gridPane.add(rb_option2, 0, 7);
+        gridPane.add(rb_option3, 0, 8);
 
         borderPane.setPadding(new Insets(20));
         borderPane.setTop(lbl_title);
@@ -105,24 +133,14 @@ public class ProfilePage extends A_Page {
     }
 
     private void setLabels() {
-        lbl_newHabit = setLabelStyle("New Height:");
+        lbl_newHabit = setLabelStyle("New Habit:");
         lbl_newWeight = setLabelStyle("New Weight:");
         lbl_newDateOfBirth = setLabelStyle("New Date of Birth:");
     }
 
     private void setTextfields() {
-        tf_newHabit = setTextField();
-        tf_newHabit.setPromptText("Height (cm)");
-
         tf_newWeight = setTextField();
         tf_newWeight.setPromptText("Weight (kg)");
-
-       // tf_newDateOfBirth = setTextField();
-       // tf_newDateOfBirth.setPromptText("YYYY-MM-DD");
-
-        datePicker = new DatePicker();
-        datePicker.setPromptText("Select Date of Birth");
-
     }
 
     private void setButtons() {
@@ -137,17 +155,39 @@ public class ProfilePage extends A_Page {
         toggleGroup = new ToggleGroup();
 
         // Create radio buttons
-        option1 = new RadioButton("0-1");
-        option1.setToggleGroup(toggleGroup);
-        option1.setUserData("1");
+        rb_option1 = new RadioButton("0-1");
+        rb_option1.setToggleGroup(toggleGroup);
 
-        option2 = new RadioButton("1-2");
-        option2.setToggleGroup(toggleGroup);
-        option2.setUserData("2");
+        rb_option2 = new RadioButton("1-2");
+        rb_option2.setToggleGroup(toggleGroup);
 
-        option3 = new RadioButton("2-5");
-        option3.setToggleGroup(toggleGroup);
-        option3.setUserData("3");
+        rb_option3 = new RadioButton("2-5");
+        rb_option3.setToggleGroup(toggleGroup);
+    }
+
+    private String habitValue() {
+        if (toggleGroup.getSelectedToggle() != null) {
+            RadioButton selectedRadioButton = (RadioButton) toggleGroup.getSelectedToggle();
+            return selectedRadioButton.getText();
+        }
+        // Return a default value if no radio button is selected
+        return null;
+    }
+
+    private void setDatePicker() {
+        datePicker = new DatePicker(); // Skapa DatePicker-instans
+        datePicker.setPromptText("Select Date of Birth"); // Användarinformation
+    }
+
+    private boolean isAtLeastFifteenYearsAgo(LocalDate chosenDate) {
+        // Get the current date
+        LocalDate currentDate = LocalDate.now();
+
+        // Calculate the date 15 years ago
+        LocalDate fifteenYearsAgo = currentDate.minusYears(15);
+
+        // Check if the chosen date is at least 15 years ago
+        return chosenDate.isBefore(fifteenYearsAgo) || chosenDate.isEqual(fifteenYearsAgo);
     }
 
     private void goBack() {

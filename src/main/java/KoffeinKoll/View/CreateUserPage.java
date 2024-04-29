@@ -10,14 +10,14 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.control.DatePicker;
 
-import java.util.Enumeration;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 
 public class CreateUserPage extends A_Page {
     private TextField tf_userName;
     private PasswordField pf_password;
     private TextField tf_weight;
-    private TextField tf_dateOfBirth;
     private JFXButton btn_createUser;
     private Label lbl_userName;
     private Label lbl_password;
@@ -26,9 +26,9 @@ public class CreateUserPage extends A_Page {
     private Label lbl_weight;
     private Label lbl_dateOfBirth;
     private ToggleGroup toggleGroup;
-    private RadioButton option1;
-    private RadioButton option2;
-    private RadioButton option3;
+    private RadioButton rb_option1;
+    private RadioButton rb_option2;
+    private RadioButton rb_option3;
     private DatePicker datePicker;
 
 
@@ -45,6 +45,7 @@ public class CreateUserPage extends A_Page {
         setTextfields();
         setButtons();
         setRadioButton();
+        setDatePicker();
     }
 
     @Override
@@ -52,39 +53,48 @@ public class CreateUserPage extends A_Page {
         btn_createUser.setOnAction(event -> {
             String username = tf_userName.getText();
             String password = pf_password.getText();
-            int habit = habitValue();
+            String habit = habitValue();
             String weightText = tf_weight.getText();
-            String dateOfBirth = tf_dateOfBirth.getText();
+            LocalDate dateOfBirth = datePicker.getValue();
+
 
             // Check if any of the fields are empty
-            if (username.isEmpty() || password.isEmpty() || weightText.isEmpty() || dateOfBirth.isEmpty()) {
+            if (username.isEmpty() || password.isEmpty() || weightText.isEmpty() || dateOfBirth==null || habit == null) {
                 // Display error message
                 Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
                 alert.setContentText("All fields are required.");
                 alert.show();
 
                 // Mark empty fields with red color
                 if (username.isEmpty()) tf_userName.setStyle("-fx-border-color: red;");
-                if (habit == 0) {
-                    // Display error message for missing habit selection
-                    Alert habitAlert = new Alert(Alert.AlertType.ERROR);
-                    habitAlert.setContentText("Please select a habit value.");
-                    habitAlert.show();
-                }
-                    if (password.isEmpty()) pf_password.setStyle("-fx-border-color: red;");
+                if (password.isEmpty()) pf_password.setStyle("-fx-border-color: red;");
                 if (weightText.isEmpty()) tf_weight.setStyle("-fx-border-color: red;");
-                if (dateOfBirth.isEmpty()) tf_dateOfBirth.setStyle("-fx-border-color: red;");
+                if (dateOfBirth==null) datePicker.setStyle("-fx-border-color: red;");
+                if (habit == null) lbl_habit.setStyle("-fx-border-color: red;");
 
                 return; // Stop further processing
             }
 
+            if (!isAtLeastFifteenYearsAgo(dateOfBirth)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("You have to be at least 15 years of age to use this application.");
+                alert.show();
+                return;
+            }
+
             // Convert height and weight to double
             double weight = Double.parseDouble(weightText);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            String dateOfBirthText = dateOfBirth.format((formatter));
 
             CreateUserController createUserController = new CreateUserController();
 
             //FIX THE USER ID IN THE DATABASE
-            boolean userCreated = createUserController.createUser(username, password, habit, weight, dateOfBirth);
+            boolean userCreated = createUserController.createUser(username, password, habit, weight, dateOfBirthText);
 
             if (userCreated) {
                 Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
@@ -92,13 +102,7 @@ public class CreateUserPage extends A_Page {
                 successAlert.setHeaderText(null);
                 successAlert.setContentText("User created successfully!");
                 successAlert.showAndWait();
-            } else {
-                // Display error message in a popup
-                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                errorAlert.setTitle("Error");
-                errorAlert.setHeaderText(null);
-                errorAlert.setContentText("Failed to create user.");
-                errorAlert.showAndWait();
+                changePage(new LogInPage());
             }
         });
     }
@@ -114,23 +118,18 @@ public class CreateUserPage extends A_Page {
         gridPane.add(lbl_password, 0, 2);
         gridPane.add(pf_password, 0, 3);
         gridPane.add(lbl_habit, 0, 4);
-      //  gridPane.add(toggleGroup, 0, 5);
-        gridPane.add(option1, 0, 5);
-        gridPane.add(option2, 0, 6);
-        gridPane.add(option3, 0, 7);
+        gridPane.add(rb_option1, 0, 5);
+        gridPane.add(rb_option2, 0, 6);
+        gridPane.add(rb_option3, 0, 7);
         gridPane.add(lbl_weight, 0, 8);
         gridPane.add(tf_weight, 0, 9);
         gridPane.add(lbl_dateOfBirth, 0, 10);
-        //gridPane.add(tf_dateOfBirth,0,9);
         gridPane.add(datePicker, 0, 11);
-
         gridPane.add(btn_createUser, 0, 13); // Remove this line
         gridPane.add(lbl_passwordRequirements, 0, 15);
 
         gridPane.setHalignment(btn_createUser, Pos.CENTER.getHpos());
 
-        //BorderPane borderPane = new BorderPane();
-        //borderPane = getBorderPane();
         borderPane.setPadding(new Insets(20));
         borderPane.setTop(lbl_title);
         borderPane.setCenter(gridPane);
@@ -155,10 +154,6 @@ public class CreateUserPage extends A_Page {
 
         tf_weight = setTextField();
         tf_weight.setPromptText("Enter weight (kg)");
-        //  tf_dateOfBirth = setTextField();
-        // tf_dateOfBirth.setPromptText("YYYY-MM-DD");
-        datePicker = new DatePicker(); // Skapa DatePicker-instans
-        datePicker.setPromptText("Select Date of Birth"); // Användarinformation
     }
 
     private void setButtons() {
@@ -170,63 +165,39 @@ public class CreateUserPage extends A_Page {
         toggleGroup = new ToggleGroup();
 
         // Create radio buttons
-        option1 = new RadioButton("0-1");
-        option1.setToggleGroup(toggleGroup);
-        option1.setUserData("1");
+        rb_option1 = new RadioButton("0-1");
+        rb_option1.setToggleGroup(toggleGroup);
+        rb_option1.setSelected(true);
 
-        option2 = new RadioButton("1-2");
-        option2.setToggleGroup(toggleGroup);
-        option2.setUserData("2");
+        rb_option2 = new RadioButton("1-2");
+        rb_option2.setToggleGroup(toggleGroup);
 
-        option3 = new RadioButton("2-5");
-        option3.setToggleGroup(toggleGroup);
-        option3.setUserData("3");
-
-        setupRadioButtonListener();
+        rb_option3 = new RadioButton("2-5");
+        rb_option3.setToggleGroup(toggleGroup);
     }
 
-    private int habitValue() {
-        /*toggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
-            if (toggleGroup.getSelectedToggle() != null) {
-                RadioButton selectedRadioButton = (RadioButton) toggleGroup.getSelectedToggle();
-                String selectedOption = (String) selectedRadioButton.getUserData();
-
-                System.out.println("Selected: " + selectedRadioButton.getText());
-                if ("1".equals(selectedOption)) {
-                    value = 1;
-                } else if ("2".equals(selectedOption)) {
-                    value = 2;
-                } else if ("3".equals(selectedOption)) {
-                    value = 3;
-                }
-            }
-        });
-        return value;*/
+    private String habitValue() {
         if (toggleGroup.getSelectedToggle() != null) {
             RadioButton selectedRadioButton = (RadioButton) toggleGroup.getSelectedToggle();
-            String selectedOption = (String) selectedRadioButton.getUserData();
-
-            if ("1".equals(selectedOption)) {
-                return 1;
-            } else if ("2".equals(selectedOption)) {
-                return 2;
-            } else if ("3".equals(selectedOption)) {
-                return 3;
-            }
+            return selectedRadioButton.getText();
         }
         // Return a default value if no radio button is selected
-        return 0;
+        return null;
     }
 
-    private void setupRadioButtonListener() {
-        toggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
-            if (toggleGroup.getSelectedToggle() != null) {
-                RadioButton selectedRadioButton = (RadioButton) toggleGroup.getSelectedToggle();
-                String selectedOption = (String) selectedRadioButton.getUserData();
+    private void setDatePicker() {
+        datePicker = new DatePicker(); // Skapa DatePicker-instans
+        datePicker.setPromptText("Select Date of Birth"); // Användarinformation
+    }
 
-                System.out.println("Selected: " + selectedRadioButton.getText());
-                // Perform any actions you need based on the selected radio button
-            }
-        });
+    private boolean isAtLeastFifteenYearsAgo(LocalDate chosenDate) {
+        // Get the current date
+        LocalDate currentDate = LocalDate.now();
+
+        // Calculate the date 15 years ago
+        LocalDate fifteenYearsAgo = currentDate.minusYears(15);
+
+        // Check if the chosen date is at least 15 years ago
+        return chosenDate.isBefore(fifteenYearsAgo) || chosenDate.isEqual(fifteenYearsAgo);
     }
 }
