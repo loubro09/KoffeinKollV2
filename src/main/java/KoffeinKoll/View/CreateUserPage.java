@@ -10,8 +10,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.control.DatePicker;
 
+import java.util.Enumeration;
 
-public class CreateUserPage extends A_Page{
+
+public class CreateUserPage extends A_Page {
     private TextField tf_userName;
     private PasswordField pf_password;
     private TextField tf_weight;
@@ -53,7 +55,7 @@ public class CreateUserPage extends A_Page{
             String dateOfBirth = tf_dateOfBirth.getText();
 
             // Check if any of the fields are empty
-            if (username.isEmpty() || password.isEmpty() ||  weightText.isEmpty() || dateOfBirth.isEmpty()) {
+            if (username.isEmpty() || password.isEmpty() || weightText.isEmpty() || dateOfBirth.isEmpty()) {
                 // Display error message
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("All fields are required.");
@@ -61,8 +63,8 @@ public class CreateUserPage extends A_Page{
 
                 // Mark empty fields with red color
                 if (username.isEmpty()) tf_userName.setStyle("-fx-border-color: red;");
-                if(habit.)
-                if (password.isEmpty()) pf_password.setStyle("-fx-border-color: red;");
+                if (habit.)
+                    if (password.isEmpty()) pf_password.setStyle("-fx-border-color: red;");
                 if (weightText.isEmpty()) tf_weight.setStyle("-fx-border-color: red;");
                 if (dateOfBirth.isEmpty()) tf_dateOfBirth.setStyle("-fx-border-color: red;");
 
@@ -105,11 +107,11 @@ public class CreateUserPage extends A_Page{
         gridPane.add(lbl_password, 0, 2);
         gridPane.add(pf_password, 0, 3);
         gridPane.add(lbl_habit, 0, 4);
-        gridPane.add(toggleGroup,0,5);
-        gridPane.add(lbl_weight,0,6);
-        gridPane.add(tf_weight,0,7);
-        gridPane.add(lbl_dateOfBirth,0,8);
-      //gridPane.add(tf_dateOfBirth,0,9);
+      //  gridPane.add(toggleGroup, 0, 5);
+        gridPane.add(lbl_weight, 0, 6);
+        gridPane.add(tf_weight, 0, 7);
+        gridPane.add(lbl_dateOfBirth, 0, 8);
+        //gridPane.add(tf_dateOfBirth,0,9);
         gridPane.add(datePicker, 0, 8);
 
         gridPane.add(btn_createUser, 0, 13); // Remove this line
@@ -143,8 +145,8 @@ public class CreateUserPage extends A_Page{
 
         tf_weight = setTextField();
         tf_weight.setPromptText("Enter weight (kg)");
-      //  tf_dateOfBirth = setTextField();
-       // tf_dateOfBirth.setPromptText("YYYY-MM-DD");
+        //  tf_dateOfBirth = setTextField();
+        // tf_dateOfBirth.setPromptText("YYYY-MM-DD");
         datePicker = new DatePicker(); // Skapa DatePicker-instans
         datePicker.setPromptText("Select Date of Birth"); // Användarinformation
     }
@@ -170,14 +172,24 @@ public class CreateUserPage extends A_Page{
         option3.setToggleGroup(toggleGroup);
         option3.setUserData("3");
     }
-    private int habbitValue(){
+
+    private int habitValue() {
+        int value = 0; // Initialize value to a default value
         toggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
-            if (toggleGroup.getSelectedToggle() != null){
+            if (toggleGroup.getSelectedToggle() != null) {
                 RadioButton selectedRadioButton = (RadioButton) toggleGroup.getSelectedToggle();
+                String selectedOption = (String) selectedRadioButton.getUserData();
+
                 System.out.println("Selected: " + selectedRadioButton.getText());
-                if (selectedRadioButton.){}
+                if ("1".equals(selectedOption)) {
+                    value = 1;
+                } else if ("2".equals(selectedOption)) {
+                    value = 2;
+                } else if ("3".equals(selectedOption)) {
+                    value = 3;
+                }
             }
-        })
-        return 
+        });
+        return value;
     }
 }
