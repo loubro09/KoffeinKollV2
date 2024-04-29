@@ -26,6 +26,9 @@ public class CreateUserPage extends A_Page {
     private Label lbl_weight;
     private Label lbl_dateOfBirth;
     private ToggleGroup toggleGroup;
+    private RadioButton option1;
+    private RadioButton option2;
+    private RadioButton option3;
     private DatePicker datePicker;
 
 
@@ -49,8 +52,7 @@ public class CreateUserPage extends A_Page {
         btn_createUser.setOnAction(event -> {
             String username = tf_userName.getText();
             String password = pf_password.getText();
-
-            //hämta radiobutton
+            int habit = habitValue();
             String weightText = tf_weight.getText();
             String dateOfBirth = tf_dateOfBirth.getText();
 
@@ -63,7 +65,12 @@ public class CreateUserPage extends A_Page {
 
                 // Mark empty fields with red color
                 if (username.isEmpty()) tf_userName.setStyle("-fx-border-color: red;");
-                if (habit.)
+                if (habit == 0) {
+                    // Display error message for missing habit selection
+                    Alert habitAlert = new Alert(Alert.AlertType.ERROR);
+                    habitAlert.setContentText("Please select a habit value.");
+                    habitAlert.show();
+                }
                     if (password.isEmpty()) pf_password.setStyle("-fx-border-color: red;");
                 if (weightText.isEmpty()) tf_weight.setStyle("-fx-border-color: red;");
                 if (dateOfBirth.isEmpty()) tf_dateOfBirth.setStyle("-fx-border-color: red;");
@@ -108,11 +115,14 @@ public class CreateUserPage extends A_Page {
         gridPane.add(pf_password, 0, 3);
         gridPane.add(lbl_habit, 0, 4);
       //  gridPane.add(toggleGroup, 0, 5);
-        gridPane.add(lbl_weight, 0, 6);
-        gridPane.add(tf_weight, 0, 7);
-        gridPane.add(lbl_dateOfBirth, 0, 8);
+        gridPane.add(option1, 0, 5);
+        gridPane.add(option2, 0, 6);
+        gridPane.add(option3, 0, 7);
+        gridPane.add(lbl_weight, 0, 8);
+        gridPane.add(tf_weight, 0, 9);
+        gridPane.add(lbl_dateOfBirth, 0, 10);
         //gridPane.add(tf_dateOfBirth,0,9);
-        gridPane.add(datePicker, 0, 8);
+        gridPane.add(datePicker, 0, 11);
 
         gridPane.add(btn_createUser, 0, 13); // Remove this line
         gridPane.add(lbl_passwordRequirements, 0, 15);
@@ -160,22 +170,23 @@ public class CreateUserPage extends A_Page {
         toggleGroup = new ToggleGroup();
 
         // Create radio buttons
-        RadioButton option1 = new RadioButton("0-1");
+        option1 = new RadioButton("0-1");
         option1.setToggleGroup(toggleGroup);
         option1.setUserData("1");
 
-        RadioButton option2 = new RadioButton("1-2");
+        option2 = new RadioButton("1-2");
         option2.setToggleGroup(toggleGroup);
         option2.setUserData("2");
 
-        RadioButton option3 = new RadioButton("2-5");
+        option3 = new RadioButton("2-5");
         option3.setToggleGroup(toggleGroup);
         option3.setUserData("3");
+
+        setupRadioButtonListener();
     }
 
     private int habitValue() {
-        int value = 0; // Initialize value to a default value
-        toggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+        /*toggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
             if (toggleGroup.getSelectedToggle() != null) {
                 RadioButton selectedRadioButton = (RadioButton) toggleGroup.getSelectedToggle();
                 String selectedOption = (String) selectedRadioButton.getUserData();
@@ -190,6 +201,32 @@ public class CreateUserPage extends A_Page {
                 }
             }
         });
-        return value;
+        return value;*/
+        if (toggleGroup.getSelectedToggle() != null) {
+            RadioButton selectedRadioButton = (RadioButton) toggleGroup.getSelectedToggle();
+            String selectedOption = (String) selectedRadioButton.getUserData();
+
+            if ("1".equals(selectedOption)) {
+                return 1;
+            } else if ("2".equals(selectedOption)) {
+                return 2;
+            } else if ("3".equals(selectedOption)) {
+                return 3;
+            }
+        }
+        // Return a default value if no radio button is selected
+        return 0;
+    }
+
+    private void setupRadioButtonListener() {
+        toggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            if (toggleGroup.getSelectedToggle() != null) {
+                RadioButton selectedRadioButton = (RadioButton) toggleGroup.getSelectedToggle();
+                String selectedOption = (String) selectedRadioButton.getUserData();
+
+                System.out.println("Selected: " + selectedRadioButton.getText());
+                // Perform any actions you need based on the selected radio button
+            }
+        });
     }
 }
