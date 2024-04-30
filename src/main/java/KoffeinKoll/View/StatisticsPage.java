@@ -1,5 +1,6 @@
 package KoffeinKoll.View;
 
+import KoffeinKoll.Controller.StatisticsController;
 import com.jfoenix.controls.JFXButton;
 import eu.hansolo.tilesfx.Tile;
 import eu.hansolo.tilesfx.TileBuilder;
@@ -9,6 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.chart.XYChart;
 
 public class StatisticsPage extends A_Page{
     private boolean isCircleChartShown = false; // Flag to track the currently shown chart
@@ -16,11 +18,14 @@ public class StatisticsPage extends A_Page{
     private JFXButton btn_weekly;
     private JFXButton btn_monthly;
     private JFXButton btn_info;
+    private StatisticsController statisticsController;
+
     @Override
     public void initializeUI() {
         setComponents();
         setEvents();
         setScene();
+        statisticsController = new StatisticsController();
     }
 
     @Override
@@ -31,9 +36,9 @@ public class StatisticsPage extends A_Page{
     @Override
     public void setEvents() {
         btn_goHome.setOnAction(event -> goToHomePage());
-        btn_weekly.setOnAction(event -> goToWeeklyStatisticsPage());
-        btn_monthly.setOnAction(event -> goToMonthlyStatisticsPage());
-        btn_info.setOnAction(event -> goToInfoPage());
+        btn_weekly.setOnAction(event -> showWeeklyStatistics());
+        btn_monthly.setOnAction(event -> showMonthlyStatistics());
+        btn_info.setOnAction(event -> showInfoPage());
     }
 
     @Override
@@ -46,7 +51,7 @@ public class StatisticsPage extends A_Page{
 
         // Create a Pane for chart display
         StackPane chartPane = new StackPane();
-        StapelDiagram stapelDiagram = new StapelDiagram(); // Show the stapel diagram initially
+        StapelDiagram stapelDiagram = new StapelDiagram(null); // Initially no data
         stapelDiagram.setMaxSize(400, 400);
         chartPane.getChildren().add(stapelDiagram);
         chartAndSwitchBox.getChildren().add(chartPane);
@@ -100,7 +105,7 @@ public class StatisticsPage extends A_Page{
         if (isCircleChartShown) {
             // Remove the circle chart and add the stapel diagram
             chartPane.getChildren().clear();
-            StapelDiagram stapelDiagram = new StapelDiagram();
+            StapelDiagram stapelDiagram = new StapelDiagram(null); // Initially no data
             stapelDiagram.setMaxSize(400, 400);
             chartPane.getChildren().add(stapelDiagram);
         } else {
@@ -119,17 +124,35 @@ public class StatisticsPage extends A_Page{
     }
 
     // Method to navigate to the weekly statistics page
-    private void goToWeeklyStatisticsPage() {
-        //add code
+    private void showWeeklyStatistics() {
+        // Fetch weekly caffeine consumption data from the controller
+        XYChart.Series<String, Number> weeklyData = statisticsController.getWeeklyCaffeineConsumption(1); // Pass the user ID
+        // Create a new instance of StapelDiagram and set the weekly statistics
+        StapelDiagram stapelDiagram = new StapelDiagram(weeklyData);
+        // Update the chart displayed
+        updateChart(stapelDiagram);
     }
 
-    // Method to navigate to the monthly statistics page
-    private void goToMonthlyStatisticsPage() {
-        // Code to navigate to the monthly statistics page goes here
+    private void showMonthlyStatistics() {
+        // Fetch monthly caffeine consumption data from the controller
+        XYChart.Series<String, Number> monthlyData = statisticsController.getMonthlyCaffeineConsumption(1); // Pass the user ID
+        // Create a new instance of StapelDiagram and set the monthly statistics
+        StapelDiagram stapelDiagram = new StapelDiagram(monthlyData);
+        // Update the chart displayed
+        updateChart(stapelDiagram);
     }
 
     // Method to navigate to the info page
-    private void goToInfoPage() {
+    private void showInfoPage() {
         changePage(new DiagramInfoPage());
+    }
+
+    private void updateChart(StapelDiagram stapelDiagram) {
+        // Remove existing chart
+        VBox chartAndSwitchBox = (VBox) borderPane.getCenter();
+        StackPane chartPane = (StackPane) chartAndSwitchBox.getChildren().get(0);
+        chartPane.getChildren().clear();
+        // Add the new chart
+        chartPane.getChildren().add(stapelDiagram);
     }
 }
