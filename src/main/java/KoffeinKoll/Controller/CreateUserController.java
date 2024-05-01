@@ -1,19 +1,34 @@
 package KoffeinKoll.Controller;
 
 import javafx.scene.control.Alert;
-
 import java.sql.*;
 
+/**
+ * The CreateUserController class handles operations related to creating new users in the KoffeinKoll application.
+ */
 public class CreateUserController {
 
     private DatabaseConnection databaseConnection;
 
+    /**
+     * Constructs a new CreateUserController object.
+     * @author                                                                                          //AUTHOR
+     */
     public CreateUserController() {
         this.databaseConnection = databaseConnection.getInstance();
     }
 
+    /**
+     * Creates a new user with the provided information.
+     * @param username The username of the new user.
+     * @param password The password of the new user.
+     * @param habit    The habit of the new user.
+     * @param weight   The weight of the new user.
+     * @param birthday The birthday of the new user.
+     * @return True if the user was successfully created, false otherwise.
+     * @author                                                                                          //AUTHOR
+     */
     public boolean createUser(String username, String password, String habit, double weight, String birthday) {
-        // Validate input
         if (!isValidPassword(password)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -46,13 +61,11 @@ public class CreateUserController {
 
         try {
             connection = databaseConnection.getConnection();
-            // Since user_id is now SERIAL, it will be generated automatically by the database
             preparedStatement = connection.prepareStatement("INSERT INTO users (username, habit, weight, birthdate, password) VALUES (?, ?, ?, ?, ?)");
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, habit);
             preparedStatement.setDouble(3, weight);
 
-            // Convert string date to java.sql.Date object
             Date date = Date.valueOf(birthday);
             preparedStatement.setDate(4, date);
             preparedStatement.setString(5, password); // Ensure password is set
@@ -85,16 +98,35 @@ public class CreateUserController {
         }
     }
 
+    /**
+     * Checks if a password is valid.
+     * @param password The password to validate.
+     * @return True if the password is valid, false otherwise.
+     * @author                                                                                          //AUTHOR
+     */
     private boolean isValidPassword(String password) {
-        // Password must contain at least 8 characters, one capital letter, and one number
+        //Password must contain at least 8 characters, one capital letter, and one number
         return password.length() >= 8 && password.matches(".*[A-Z].*") && password.matches(".*\\d.*");
     }
 
+    /**
+     * Checks if a username is valid.
+     * @param username The username to validate.
+     * @return True if the username is valid, false otherwise.
+     * @author Louis Brown
+     */
     private boolean isUsernameValid(String username) {
+        //Username must be between 3 and 15 characters
         return username != null && username.length() >= 3 && username.length() <= 15;
     }
 
-    private boolean isUniqueUsername(String username) {
+    /**
+     * Checks if a username is unique.
+     * @param username The username to check.
+     * @return True if the username is unique, false otherwise.
+     * @author Louis Brown
+     */
+    private boolean isUniqueUsername(String username) {                                         //flytta in i createUser, slippa skapa connection två gånger?
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
