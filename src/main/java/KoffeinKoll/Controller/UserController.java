@@ -1,5 +1,7 @@
 package KoffeinKoll.Controller;
 
+import KoffeinKoll.View.LogInPage;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,8 +12,9 @@ public class UserController {
     private String username;
     private double weight;
     private DatabaseConnection databaseConnection;
+    private LogInPage logInPage;
 
-    public UserController() {
+    public UserController(String username) {
         this.id = id;
         this.username = username;
         this.weight = weight;
@@ -22,15 +25,10 @@ public class UserController {
         this.username = username;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
     public double getWeight() {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        double weight = 0;
 
         try {
             connection = databaseConnection.getConnection();
@@ -39,12 +37,13 @@ public class UserController {
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
+                // Set the weight field to the retrieved value from the database
                 weight = resultSet.getDouble("weight");
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
-            // Stäng resurser
+            // Close resources
             try {
                 if (resultSet != null) {
                     resultSet.close();
@@ -59,8 +58,10 @@ public class UserController {
                 throw new RuntimeException(e);
             }
         }
+
         return weight;
     }
+
 
     public int getId() {
         Connection connection = null;
@@ -98,5 +99,7 @@ public class UserController {
         return id;
     }
 
-
+    public String getUsername() {
+        return username;
+    }
 }

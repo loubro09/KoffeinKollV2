@@ -1,6 +1,8 @@
 package KoffeinKoll.View;
 
+import KoffeinKoll.Controller.BeverageController;
 import KoffeinKoll.Controller.CaffeineCalculator;
+import KoffeinKoll.Controller.UserController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -15,13 +17,22 @@ public class PercentageGauge extends StackPane {
     private ProgressBar progressBar;
     private Label percentageLabel;
     private double recommendedAmount;
+    private CaffeineCalculator caffeineCalculator;
+    private BeverageController beverageController;
+    private UserController userController;
+    private LogInPage logInPage;
 
 
+
+//TODO Måste hitta lösning på Andvändarnamn
     public PercentageGauge() {
-       // this.recommendedAmount =
+        this.beverageController = new BeverageController();
+        this.userController = new UserController("Alanah");
+        this.caffeineCalculator = new CaffeineCalculator(userController, beverageController);
+        this.recommendedAmount = caffeineCalculator.getRecommendedDose();
 
         // Title label
-        titleLabel = new Label("Recommended Caffeine");
+        titleLabel = new Label("Recommended Caffeine: " + recommendedAmount);
         titleLabel.setFont(Font.font("Arial", 14));
         titleLabel.setTextFill(Color.DARKGREEN);
 

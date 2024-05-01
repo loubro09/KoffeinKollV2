@@ -1,6 +1,7 @@
 package KoffeinKoll.Controller;
 
 import javafx.scene.control.Alert;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,30 +24,23 @@ public class LoginController {
         try {
             connection = databaseConnection.getConnection();
             preparedStatement = connection.prepareStatement("SELECT password FROM users WHERE username = ?");
-            preparedStatement.setString(1,username);
+            preparedStatement.setString(1, username);
             resultSet = preparedStatement.executeQuery();
-
 
             if (!resultSet.isBeforeFirst()) {
                 System.out.println("User not found");
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("User not found");
                 alert.show();
-            }
-            else {
-                while(resultSet.next()) {
+            } else {
+                while (resultSet.next()) {
                     String retrievedPassword = resultSet.getString("password");
                     if (retrievedPassword.equals(password)) {
-                        if (retrievedPassword.equals(password)) {
-                            // Skapa ett nytt User-objekt och sätt användarnamnet
-                            user = new UserController();
-                            user.setUsername(username);
-                            return true;
-                        }
+                        // Create a new UserController object and set the username
+                        user = new UserController(username);
+                        //user.setUsername(username);
                         return true;
-
-                    }
-                    else {
+                    } else {
                         System.out.println("Wrong password");
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setContentText("Wrong password");
@@ -54,13 +48,10 @@ public class LoginController {
                         return false;
                     }
                 }
-
-
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }
-        finally {
+        } finally {
             if (resultSet != null) {
                 try {
                     resultSet.close();
@@ -85,4 +76,9 @@ public class LoginController {
         }
         return false;
     }
+
+
 }
+
+
+

@@ -6,26 +6,28 @@ public class CaffeineCalculator {
     private double recommendedDose;
     private UserController user;
     private int loggedCaffeine;
+    final double CAFFEINE_PER_KG = 3.0;
     private BeverageController beverageController;
 
-
-    public CaffeineCalculator() {
-        this.weight = 0;
-        this.recommendedDose = 0;
+    public CaffeineCalculator(UserController user, BeverageController beverageController) {
+        this.user = user;
+        this.beverageController = beverageController;
+        this.weight = user.getWeight(); // Set the weight first
+        this.recommendedDose = calculateRecommendedDose(); // Then calculate recommended dose
+        System.out.println("Recommended Dose: " + recommendedDose);
     }
 
-    public double calculateRecommendedDose() {
-        weight = user.getWeight();
-        final double CAFFEINE_PER_KG = 3.0;
+    private double calculateRecommendedDose() {
         recommendedDose = weight * CAFFEINE_PER_KG;
         return recommendedDose;
     }
 
     public double getCaffeinePercentage() {
-        double recommendedDose = calculateRecommendedDose();
         int loggedCaffeine = beverageController.getDailyCaffeineIntake(user.getId());
         return (loggedCaffeine / recommendedDose) * 100;
     }
 
-
+    public double getRecommendedDose() {
+        return recommendedDose;
+    }
 }
