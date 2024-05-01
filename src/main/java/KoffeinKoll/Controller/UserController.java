@@ -1,19 +1,17 @@
-package KoffeinKoll.Model;
-
-import KoffeinKoll.Controller.DatabaseConnection;
+package KoffeinKoll.Controller;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class User {
+public class UserController {
     private int id;
     private String username;
     private double weight;
     private DatabaseConnection databaseConnection;
 
-    public User() {
+    public UserController() {
         this.id = id;
         this.username = username;
         this.weight = weight;

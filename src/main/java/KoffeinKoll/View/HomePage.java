@@ -21,6 +21,7 @@ public class HomePage extends A_Page {
     private JFXButton btn_logOut;
     private JFXButton btn_logBeverage;
     private CustomGauge customGauge;
+    private PercentageGauge percentageGauge;
 
     @Override
     public void initializeUI() {
@@ -32,6 +33,7 @@ public class HomePage extends A_Page {
     @Override
     public void setComponents() {
         setButtons();
+
     }
 
     @Override
@@ -43,6 +45,9 @@ public class HomePage extends A_Page {
         // Adding the custom gauge to the main content
         customGauge = new CustomGauge();
         mainContent.getChildren().addAll(lbl_title, customGauge);
+
+        percentageGauge = new PercentageGauge();
+        mainContent.getChildren().add(percentageGauge);
 
         // Creating an HBox for the buttons
         HBox buttonBox = new HBox();
