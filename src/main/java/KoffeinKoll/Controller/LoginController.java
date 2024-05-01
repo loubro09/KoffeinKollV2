@@ -1,6 +1,5 @@
 package KoffeinKoll.Controller;
 
-import KoffeinKoll.Model.User;
 import javafx.scene.control.Alert;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,7 +9,7 @@ import java.sql.SQLException;
 public class LoginController {
 
     private DatabaseConnection databaseConnection;
-    private User user;
+    private UserController user;
 
     public LoginController() {
         this.databaseConnection = databaseConnection.getInstance();
@@ -40,7 +39,7 @@ public class LoginController {
                     if (retrievedPassword.equals(password)) {
                         if (retrievedPassword.equals(password)) {
                             // Skapa ett nytt User-objekt och sätt användarnamnet
-                            user = new User();
+                            user = new UserController();
                             user.setUsername(username);
                             return true;
                         }
