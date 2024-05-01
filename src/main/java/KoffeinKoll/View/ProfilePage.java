@@ -80,11 +80,7 @@ public class ProfilePage extends A_Page {
 
             if (dateOfBirth != null) {
                 if (!isAtLeastFifteenYearsAgo(dateOfBirth)) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setHeaderText(null);
-                    alert.setContentText("You have to be at least 15 years of age to use this application.");
-                    alert.show();
+                    showAlert("Error", "You have to be at least 15 years of age to use this application.", Alert.AlertType.ERROR);
                     return;
                 }
                 else {
@@ -102,17 +98,9 @@ public class ProfilePage extends A_Page {
 
             //Display success or error message accordingly
             if (userUpdated) {
-                Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-                successAlert.setTitle("Success");
-                successAlert.setHeaderText(null);
-                successAlert.setContentText("User information updated successfully!");
-                successAlert.showAndWait();
+                showAlert("Success", "User information updated successfully!", Alert.AlertType.INFORMATION);
             } else {
-                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                errorAlert.setTitle("Error");
-                errorAlert.setHeaderText(null);
-                errorAlert.setContentText("Failed to update user information.");
-                errorAlert.showAndWait();
+                showAlert("Error", "Failed to update user information.", Alert.AlertType.ERROR);
             }
         });
     }

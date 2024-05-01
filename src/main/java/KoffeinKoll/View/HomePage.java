@@ -79,53 +79,17 @@ public class HomePage extends A_Page {
 
     /**
      * Sets the event handlers for UI controls on the home page.
-     * @author Ida Nordenswan, Kenan Al Tal, Alanah Coleman
+     *  @author                                                                                          //AUTHOR
      */
     @Override
     public void setEvents() {
-        btn_logOut.setOnAction(e -> {stage.close();});                                  //ÄNDRA TILL LOGINPAGE
+        btn_logOut.setOnAction(e -> {changePage(new LogInPage());});
 
-        for (JFXButton button : new JFXButton[]{btn_info}) {
+        for (JFXButton button : new JFXButton[]{btn_info, btn_logBeverage, btn_profile, btn_statistics}) {
             button.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
-                    changePage(new InfoPage());
-                }
-            });
-        }
-
-        for (JFXButton button : new JFXButton[]{btn_logBeverage}) {
-            button.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    changePage(new BeverageMenuPage());
-                }
-            });
-        }
-
-        for (JFXButton button : new JFXButton[]{btn_profile}) {
-            button.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    changePage(new ProfilePage());
-                }
-            });
-        }
-
-        for (JFXButton button : new JFXButton[]{btn_statistics}) {
-            button.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    changePage(new StatisticsPage());
-                }
-            });
-        }
-
-        /*for (JFXButton button : new JFXButton[]{btn_info, btn_logBeverage, btn_profile, btn_statistics}) {
-            button.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    // Change page based on the button clicked
+                    //Change page based on the button clicked
                     if (button == btn_info) {
                         changePage(new InfoPage());
                     } else if (button == btn_logBeverage) {
@@ -136,7 +100,8 @@ public class HomePage extends A_Page {
                         changePage(new StatisticsPage());
                     }
                 }
-            });*/
+            });
+        }
     }
 
     /**
