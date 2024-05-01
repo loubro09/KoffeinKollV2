@@ -12,7 +12,10 @@ import javafx.scene.layout.HBox;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-
+/**
+ * ProfilePage class represents the user profile page where users can update their information.
+ * It extends A_Page and implements methods to initialize UI components, set event handlers, and set the scene.
+ */
 public class ProfilePage extends A_Page {
     private Label lbl_newHabit;
     private Label lbl_newWeight;
@@ -26,8 +29,10 @@ public class ProfilePage extends A_Page {
     private RadioButton rb_option2;
     private RadioButton rb_option3;
 
-
-
+    /**
+     * Initializes the UI components.
+     * @author Louis Brown
+     */
     @Override
     public void initializeUI() {
         setComponents();
@@ -35,6 +40,10 @@ public class ProfilePage extends A_Page {
         setScene();
     }
 
+    /**
+     * Sets up UI components.
+     * @author Louis Brown
+     */
     @Override
     public void setComponents() {
         setLabels();
@@ -44,6 +53,10 @@ public class ProfilePage extends A_Page {
         setDatePicker();
     }
 
+    /**
+     * Sets event handlers for buttons.
+     * @author                                                                                          //AUTHOR
+     */
     @Override
     public void setEvents() {
         btn_goHome.setOnAction(event -> {
@@ -84,10 +97,10 @@ public class ProfilePage extends A_Page {
 
             //----------------HÄMTA INLOGGAD USER ID //
 
-            // Validate input and save new user information
+            //Validate input and save new user information
             boolean userUpdated = profileController.updateUser(2, newHabit, weight, dateOfBirthText);
 
-            // Display success or error message accordingly
+            //Display success or error message accordingly
             if (userUpdated) {
                 Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
                 successAlert.setTitle("Success");
@@ -95,7 +108,6 @@ public class ProfilePage extends A_Page {
                 successAlert.setContentText("User information updated successfully!");
                 successAlert.showAndWait();
             } else {
-                // Display error message in a popup
                 Alert errorAlert = new Alert(Alert.AlertType.ERROR);
                 errorAlert.setTitle("Error");
                 errorAlert.setHeaderText(null);
@@ -105,6 +117,10 @@ public class ProfilePage extends A_Page {
         });
     }
 
+    /**
+     * Sets up the scene layout.
+     * @author                                                                                          //AUTHOR
+     */
     @Override
     public void setScene() {
         GridPane gridPane = new GridPane();
@@ -128,21 +144,32 @@ public class ProfilePage extends A_Page {
         HBox buttonBox = new HBox(20, btn_goHome, btn_save);
         buttonBox.setAlignment(Pos.CENTER);
 
-        // Placing the button box at the bottom
         borderPane.setBottom(buttonBox);
     }
 
+    /**
+     * Sets up labels.
+     * @author                                                                                          //AUTHOR
+     */
     private void setLabels() {
         lbl_newHabit = setLabelStyle("New Habit:");
         lbl_newWeight = setLabelStyle("New Weight:");
         lbl_newDateOfBirth = setLabelStyle("New Date of Birth:");
     }
 
+    /**
+     * Sets up text fields.
+     * @author                                                                                          //AUTHOR
+     */
     private void setTextfields() {
         tf_newWeight = setTextField();
         tf_newWeight.setPromptText("Weight (kg)");
     }
 
+    /**
+     * Sets up buttons.
+     * @author                                                                                          //AUTHOR
+     */
     private void setButtons() {
         btn_goHome = new JFXButton("Back");
         btn_goHome.setStyle(setButtonStyle());
@@ -151,6 +178,10 @@ public class ProfilePage extends A_Page {
         btn_save.setStyle(setButtonStyle());
     }
 
+    /**
+     * Sets up radio buttons.
+     * @author Louis Brown
+     */
     private void setRadioButton() {
         toggleGroup = new ToggleGroup();
 
@@ -165,31 +196,49 @@ public class ProfilePage extends A_Page {
         rb_option3.setToggleGroup(toggleGroup);
     }
 
+    /**
+     * Retrieves the selected habit value from radio buttons.
+     * @return The selected habit value.
+     * @author Louis Brown
+     */
     private String habitValue() {
         if (toggleGroup.getSelectedToggle() != null) {
             RadioButton selectedRadioButton = (RadioButton) toggleGroup.getSelectedToggle();
             return selectedRadioButton.getText();
         }
-        // Return a default value if no radio button is selected
         return null;
     }
 
+    /**
+     * Sets up date picker.
+     * @author Alanah Coleman
+     */
     private void setDatePicker() {
         datePicker = new DatePicker(); // Skapa DatePicker-instans
         datePicker.setPromptText("Select Date of Birth"); // Användarinformation
     }
 
+    /**
+     * Checks if the chosen date is at least fifteen years ago.
+     * @param chosenDate The chosen date.
+     * @return True if the date is at least fifteen years ago, false otherwise.
+     * @author Louis Brown
+     */
     private boolean isAtLeastFifteenYearsAgo(LocalDate chosenDate) {
-        // Get the current date
+        //Get the current date
         LocalDate currentDate = LocalDate.now();
 
-        // Calculate the date 15 years ago
+        //Calculate the date 15 years ago
         LocalDate fifteenYearsAgo = currentDate.minusYears(15);
 
-        // Check if the chosen date is at least 15 years ago
+        //Check if the chosen date is at least 15 years ago
         return chosenDate.isBefore(fifteenYearsAgo) || chosenDate.isEqual(fifteenYearsAgo);
     }
 
+    /**
+     * Returns to the home page.
+     * @author                                                                                          //AUTHOR
+     */
     private void goBack() {
         changePage(new HomePage());
     }
