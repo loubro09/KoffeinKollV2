@@ -105,18 +105,9 @@ public class ProfilePage extends A_Page {
 
             // Display success or error message accordingly
             if (userUpdated) {
-                Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-                successAlert.setTitle("Success");
-                successAlert.setHeaderText(null);
-                successAlert.setContentText("User information updated successfully!");
-                successAlert.showAndWait();
+                showAlert("Success", "User information updated successfully!", Alert.AlertType.INFORMATION);
             } else {
-                // Display error message in a popup
-                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                errorAlert.setTitle("Error");
-                errorAlert.setHeaderText(null);
-                errorAlert.setContentText("Failed to update user information.");
-                errorAlert.showAndWait();
+                showAlert("Error", "Failed to update user information.", Alert.AlertType.ERROR);
             }
         });
     }

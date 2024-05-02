@@ -44,9 +44,7 @@ public class LoginController {
 
             if (!resultSet.isBeforeFirst()) {
                 System.out.println("User not found");
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText("User not found");
-                alert.show();
+                showAlert("Error", "User not found.", Alert.AlertType.ERROR);
             } else {
                 while (resultSet.next()) {
                     String retrievedPassword = resultSet.getString("password");
@@ -60,9 +58,7 @@ public class LoginController {
                         return true;
                     } else {
                         System.out.println("Wrong password");
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setContentText("Wrong password");
-                        alert.show();
+                        showAlert("Error", "Wrong password.", Alert.AlertType.ERROR);
                         return false;
                     }
                 }
@@ -95,7 +91,18 @@ public class LoginController {
         return false;
     }
 
-    public String getUserName() {
-        return userName;
+    /**
+     * Shows an alert dialog with the specified title and content.
+     * @param title The title of the alert dialog.
+     * @param content The content of the alert dialog.
+     * @param alertType The type of the alert
+     * @author
+     */
+    protected void showAlert(String title, String content, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.show();
     }
 }

@@ -77,12 +77,7 @@ public class CreateUserPage extends A_Page {
 
             //Check if any of the fields are empty
             if (username.isEmpty() || password.isEmpty() || weightText.isEmpty() || dateOfBirth==null || habit == null) {
-                //Display error message
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("All fields are required.");
-                alert.show();
+                showAlert("Error", "All fields are required.", Alert.AlertType.ERROR);
 
                 //Mark empty fields with red color
                 if (username.isEmpty()) tf_userName.setStyle("-fx-border-color: red;");
@@ -95,11 +90,7 @@ public class CreateUserPage extends A_Page {
             }
 
             if (!isAtLeastFifteenYearsAgo(dateOfBirth)) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("You have to be at least 15 years of age to use this application.");
-                alert.show();
+                showAlert("Error", "You have to be at least 15 years of age to use this application.", Alert.AlertType.ERROR);
                 return; //Stop further processing
             }
 
@@ -113,11 +104,7 @@ public class CreateUserPage extends A_Page {
 
             //Displays success message
             if (userCreated) {
-                Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-                successAlert.setTitle("Success");
-                successAlert.setHeaderText(null);
-                successAlert.setContentText("User created successfully!");
-                successAlert.showAndWait();
+                showAlert("Success", "User created successfully!", Alert.AlertType.INFORMATION);
                 changePage(new LogInPage()); //opens login page
             }
         });

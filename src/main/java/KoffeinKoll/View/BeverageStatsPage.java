@@ -175,9 +175,9 @@ public class BeverageStatsPage extends A_Page {
      */
     private void validateInputs() {
         if (!beverageController.validateAmount(tf_amountCL.getText())) {
-            showAlert("Invalid Amount in CL", "Please enter a valid amount in CL.");
+            showAlert("Invalid Amount in CL", "Please enter a valid amount in CL.", Alert.AlertType.ERROR);
         } else if (!validateDateTime()) {
-            showAlert("Invalid Time", "Please enter a valid date and time.");
+            showAlert("Invalid Time", "Please enter a valid date and time.", Alert.AlertType.ERROR);
         } else {
             processValidInputs();
         }
@@ -220,25 +220,11 @@ public class BeverageStatsPage extends A_Page {
         int userId = userController.getId();
 
         if (beverageController.insertUserHistory(userId, beverageID, LocalDate.from(dateTime), amount)) {
-            showAlert("Success", "Consumption logged successfully!");
+            showAlert("Success", "Consumption logged successfully!", Alert.AlertType.INFORMATION);
             AlgorithmController ac = new AlgorithmController(beverageID, amount);
         } else {
-            showAlert("Database Error", "Failed to log consumption.");
+            showAlert("Database Error", "Failed to log consumption.", Alert.AlertType.ERROR);
         }
-    }
-
-    /**
-     * Shows an alert dialog with the specified title and content.
-     * @param title The title of the alert dialog.
-     * @param content The content of the alert dialog.
-     * @author                                                                                          //AUTHOR
-     */
-    private void showAlert(String title, String content) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
     }
 
     /**

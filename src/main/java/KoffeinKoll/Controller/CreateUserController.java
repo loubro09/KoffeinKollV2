@@ -32,29 +32,17 @@ public class CreateUserController {
     public boolean createUser(String username, String password, String habit, double weight, String birthday) {
         // Validate input
         if (!isValidPassword(password)) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Password must contain at least 8 characters, one capital letter, and one number.");
-            alert.show();
+            showAlert("Error", "Password must contain at least 8 characters, one capital letter, and one number.", Alert.AlertType.ERROR);
             return false;
         }
 
         if(!isUsernameValid(username)) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Username must be between 3 and 15 characters long.");
-            alert.show();
+            showAlert("Error", "Username must be between 3 and 15 characters long.", Alert.AlertType.ERROR);
             return false;
         }
 
         if (!isUniqueUsername(username)) {
-            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setTitle("Error");
-            errorAlert.setHeaderText(null);
-            errorAlert.setContentText("This username is already chosen. Try another one!");
-            errorAlert.show();
+            showAlert("Error", "This username is already chosen. Try another one!", Alert.AlertType.ERROR);;
             return false;
         }
 
@@ -166,5 +154,20 @@ public class CreateUserController {
                 }
             }
         }
+    }
+
+    /**
+     * Shows an alert dialog with the specified title and content.
+     * @param title The title of the alert dialog.
+     * @param content The content of the alert dialog.
+     * @param alertType The type of the alert
+     * @author
+     */
+    protected void showAlert(String title, String content, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.show();
     }
 }
