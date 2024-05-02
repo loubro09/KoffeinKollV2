@@ -8,7 +8,7 @@ import java.sql.Date;
 /**
  * The ProfileController class manages user profile updates.
  */
-public class ProfileController {
+public class ProfileController extends A_Controller{
 
     private DatabaseConnection databaseConnection;
 
@@ -99,17 +99,7 @@ public class ProfileController {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
-            // Close resources
-            try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+            closeResources(connection,preparedStatement,null);
         }
     }
 }
