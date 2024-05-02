@@ -1,6 +1,7 @@
 package KoffeinKoll.View;
 
 import KoffeinKoll.Controller.ProfileController;
+import KoffeinKoll.Controller.UserController;
 import com.jfoenix.controls.JFXButton;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -25,6 +26,7 @@ public class ProfilePage extends A_Page {
     private RadioButton rb_option1;
     private RadioButton rb_option2;
     private RadioButton rb_option3;
+    private UserController userController;
 
 
 
@@ -33,6 +35,7 @@ public class ProfilePage extends A_Page {
         setComponents();
         setEvents();
         setScene();
+        this.userController = UserController.getInstance();
     }
 
     @Override
@@ -85,7 +88,7 @@ public class ProfilePage extends A_Page {
             //----------------HÄMTA INLOGGAD USER ID //
 
             // Validate input and save new user information
-            boolean userUpdated = profileController.updateUser(2, newHabit, weight, dateOfBirthText);
+            boolean userUpdated = profileController.updateUser(userController.getId(), newHabit, weight, dateOfBirthText);
 
             // Display success or error message accordingly
             if (userUpdated) {

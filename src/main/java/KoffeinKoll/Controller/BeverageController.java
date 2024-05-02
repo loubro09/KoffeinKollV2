@@ -71,6 +71,28 @@ public class BeverageController {
             return false;
         }
     }
+
+    public int getDailyCaffeineIntake(int userId) {
+        int totalCaffeine = 0;
+
+        String sql = "SELECT SUM(beverage_caffeine) AS totalCaffeine FROM userhistory " +
+                "INNER JOIN beverages ON userhistory.beverage_id = beverages.beverage_id " +
+                "WHERE userhistory.user_id = ? AND DATE(userhistory.date) = CURRENT_DATE";
+
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, userId);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                totalCaffeine = rs.getInt("totalCaffeine");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return totalCaffeine;
+    }
+
 }
 
 
