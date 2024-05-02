@@ -9,6 +9,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The BeverageController class handles operations related to beverage data and user history in the KoffeinKoll application.
+ */
 public class BeverageController {
 
     public int getMaxUserHistoryId() {
@@ -26,6 +29,12 @@ public class BeverageController {
         return 0; // If there's an error, we default to 0
     }
 
+    /**
+     * Validates the amount of a beverage.
+     * @param text The text representing the amount of the beverage.
+     * @return True if the amount is valid, false otherwise.
+     * @author                                                                                          //AUTHOR
+     */
     public boolean validateAmount(String text) {
         if (text == null || text.trim().isEmpty()) {
             return false; // Null or empty string is considered invalid
@@ -37,6 +46,15 @@ public class BeverageController {
             return false;
         }
     }
+
+    /**
+     * Validates a date and time string.
+     * @param text The text representing the date and time.
+     * @return True if the date and time string is valid, false otherwise.
+     * @author                                                                                          //AUTHOR
+     */
+
+    //TA BORT? ANVÄNDS INTE NU
 
     public boolean validateDateTime(String text) {
         if (text == null || text.trim().isEmpty()) {
@@ -51,6 +69,15 @@ public class BeverageController {
         }
     }
 
+    /**
+     * Inserts a new user history entry into the database.
+     * @param userId     The ID of the user.
+     * @param beverageId The ID of the beverage.
+     * @param date       The date of consumption.
+     * @param amount     The amount of beverage consumption.
+     * @return True if the insertion was successful, false otherwise.
+     * @author                                                                                          //AUTHOR
+     */
     public boolean insertUserHistory(int userId, int beverageId, LocalDate date, double amount) {
         // First, get the maximum ID and increment it
         int newId = getMaxUserHistoryId() + 1;
@@ -92,7 +119,4 @@ public class BeverageController {
 
         return totalCaffeine;
     }
-
 }
-
-
