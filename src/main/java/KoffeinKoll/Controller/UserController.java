@@ -13,12 +13,20 @@ public class UserController {
     private double weight;
     private DatabaseConnection databaseConnection;
     private LogInPage logInPage;
+    private static UserController instance; // Singleton instance
 
-    public UserController(String username) {
+    public UserController() {
         this.id = id;
         this.username = username;
         this.weight = weight;
         this.databaseConnection = DatabaseConnection.getInstance();
+    }
+
+    public static UserController getInstance() {
+        if (instance == null) {
+            instance = new UserController();
+        }
+        return instance;
     }
 
     public void setUsername(String username) {

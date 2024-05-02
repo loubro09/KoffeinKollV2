@@ -39,7 +39,8 @@ public class LoginController {
                     if (retrievedPassword.equals(password)) {
 
                         System.out.println(username + " logged in");
-                        user = new UserController(username);
+                        user = UserController.getInstance();
+                        user.setUsername(username);
                         userName = username;
 
                         return true;
