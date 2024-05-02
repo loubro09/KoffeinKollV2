@@ -109,7 +109,7 @@ public class HomePage extends A_Page {
     @Override
     public void setEvents() {
         // Close current main window
-        btn_logOut.setOnAction(e -> {stage.close();});
+        btn_logOut.setOnAction(e -> {changePage(new LogInPage());});
 
         for (JFXButton button : new JFXButton[]{btn_info}) {
             button.setOnAction(new EventHandler<ActionEvent>() {
