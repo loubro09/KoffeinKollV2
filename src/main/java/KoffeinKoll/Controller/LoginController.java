@@ -7,16 +7,30 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * The LoginController class manages user login functionality.
+ */
 public class LoginController {
 
     private DatabaseConnection databaseConnection;
     private UserController user;
     private String userName;
 
+    /**
+     * Constructs a new LoginController object.
+     * @author                                                                                          //AUTHOR
+     */
     public LoginController() {
         this.databaseConnection = databaseConnection.getInstance();
     }
 
+    /**
+     * Attempts to log in a user with the provided credentials.
+     * @param username The username of the user.
+     * @param password The password of the user.
+     * @return True if the login is successful, otherwise false.
+     * @author                                                                                          //AUTHOR
+     */
     public boolean logIn(String username, String password) {
         Connection connection = null;
         ResultSet resultSet = null;
@@ -85,6 +99,3 @@ public class LoginController {
         return userName;
     }
 }
-
-
-
