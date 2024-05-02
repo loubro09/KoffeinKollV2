@@ -1,6 +1,7 @@
 package KoffeinKoll.View;
 
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -179,5 +180,20 @@ public abstract class A_Page implements I_Page {
         newPage.initialPage(stage);
         stage.setScene(newPage.scene); // Set the scene to the login page's scene
         stage.show();
+    }
+
+    /**
+     * Shows an alert dialog with the specified title and content.
+     * @param title The title of the alert dialog.
+     * @param content The content of the alert dialog.
+     * @param alertType The type of the alert
+     * @author
+     */
+    protected void showAlert(String title, String content, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.show();
     }
 }
