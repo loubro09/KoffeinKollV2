@@ -5,9 +5,18 @@ import eu.hansolo.medusa.skins.SlimSkin;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
+/**
+ * CustomGauge represents a custom gauge component used to visualize caffeine intake.
+ * It extends StackPane and contains a Gauge from the Medusa library.
+ */
 public class CustomGauge extends StackPane {
     private Gauge gauge;
 
+    /**
+     * Constructs a CustomGauge object.
+     * Initializes the gauge with default settings and adds it to the StackPane.
+     * @author Louis Brown
+     */
     public CustomGauge() {
         // Create a Gauge with Bar skin
         gauge = new Gauge();
