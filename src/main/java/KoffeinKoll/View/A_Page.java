@@ -1,6 +1,5 @@
 package KoffeinKoll.View;
 
-import KoffeinKoll.Controller.UserController;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -15,12 +14,21 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
+/**
+ * A_Page is an abstract class representing a generic page in the KoffeinKoll application's user interface.
+ * It provides common functionality and styling for UI pages.
+ * @author Louis Brown
+ */
 public abstract class A_Page implements I_Page {
     protected Stage stage;
     protected BorderPane borderPane;
     protected Scene scene;
     protected Label lbl_title;
 
+    /**
+     * Initializes the page with the provided stage.
+     * @param stage The stage to associate with this page.
+     */
     public void initialPage(Stage stage) {
         setStage(stage);
         setStageSize();
@@ -32,33 +40,57 @@ public abstract class A_Page implements I_Page {
         initializeUI();
     }
 
+    /**
+     * Retrieves the BorderPane layout of this page.
+     * @return The BorderPane layout.
+     */
     public BorderPane getBorderPane() { return borderPane; }
 
+    /**
+     * Sets the stage for this page.
+     * @param stage The stage to set.
+     */
     public void setStage(Stage stage) {
         this.stage = stage;
     }
 
+    /**
+     * Sets the title of the stage.
+     */
     @Override
     public void setWindowTitle() {
         stage.setTitle("KoffeinKoll - Caffeine Management Tool");
     }
 
+    /**
+     * Sets the size of the stage.
+     */
     @Override
     public void setStageSize() {
         stage.setWidth(800);
         stage.setHeight(800);
     }
 
+    /**
+     * Creates the scene for this page.
+     */
     @Override
     public void createScene() {
         scene = new Scene(borderPane);
     }
 
+    /**
+     * Creates the BorderPane layout for this page.
+     */
     @Override
     public void createBordePane() {
         this.borderPane = new BorderPane();
     }
 
+    /**
+     * Defines the style for buttons on this page.
+     * @return The CSS style for buttons.
+     */
     @Override
     public String setButtonStyle() {
         String styleButtons = "-fx-background-color:\n" +
@@ -77,6 +109,9 @@ public abstract class A_Page implements I_Page {
         return styleButtons;
     }
 
+    /**
+     * Sets the title label for this page.
+     */
     @Override
     public void setTitle() {
         lbl_title = new Label("KoffeinKoll");
@@ -84,6 +119,9 @@ public abstract class A_Page implements I_Page {
         lbl_title.setTextFill(Color.rgb(0, 70, 0));
     }
 
+    /**
+     * Sets the background gradient for this page.
+     */
     @Override
     public void setBackground() {
         Stop[] stops = new Stop[]{new Stop(0, Color.web("#c0dbad")), new Stop(1, Color.web("#fcf1cb"))};
@@ -94,6 +132,10 @@ public abstract class A_Page implements I_Page {
         stage.show();
     }
 
+    /**
+     * Creates and returns a styled TextField.
+     * @return The styled TextField.
+     */
     protected TextField setTextField(){
         TextField fieldStyle = new TextField();
         fieldStyle.setFont(Font.font("Arial", 14));
@@ -103,16 +145,24 @@ public abstract class A_Page implements I_Page {
         return fieldStyle;
     }
 
+    /**
+     * Creates and returns a styled PasswordField.
+     * @return The styled PasswordField.
+     */
     protected PasswordField setPasswordField(){
         PasswordField fieldStyle = new PasswordField();
         fieldStyle.setFont(Font.font("Arial", 14));
         fieldStyle.setPrefWidth(220);
         fieldStyle.setPrefHeight(30);
         fieldStyle.setStyle(" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
-        //"-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 ); -fx-padding: 5px;"
         return fieldStyle;
     }
 
+    /**
+     * Creates and returns a styled Label with the specified text.
+     * @param text The text for the label.
+     * @return The styled Label.
+     */
     protected Label setLabelStyle(String text) {
         Label lbl_labelStyle = new Label(text);
         lbl_labelStyle.setFont(Font.font("Arial", FontWeight.BOLD, 20));
@@ -121,7 +171,11 @@ public abstract class A_Page implements I_Page {
         return lbl_labelStyle;
     }
 
-    public void changePage(A_Page newPage) {
+    /**
+     * Changes the current page to a new page.
+     * @param newPage The new page to navigate to.
+     */
+    protected void changePage(A_Page newPage) {
         newPage.initialPage(stage);
         stage.setScene(newPage.scene); // Set the scene to the login page's scene
         stage.show();
