@@ -43,8 +43,9 @@ public class BeverageStatsPage extends A_Page {
 
     /**
      * Constructs a new instance of BeverageStatsPage with the specified beverage ID.
+     *
      * @param beverageID The ID of the beverage.
-     * @author                                                                                          //AUTHOR
+     * @author //AUTHOR
      */
     public BeverageStatsPage(int beverageID) {
         this.beverageID = beverageID;
@@ -52,6 +53,7 @@ public class BeverageStatsPage extends A_Page {
 
     /**
      * Initializes the UI components.
+     *
      * @author Louis Brown
      */
     @Override
@@ -63,6 +65,7 @@ public class BeverageStatsPage extends A_Page {
 
     /**
      * Sets up UI components.
+     *
      * @author Louis Brown
      */
     @Override
@@ -74,7 +77,8 @@ public class BeverageStatsPage extends A_Page {
 
     /**
      * Sets event handlers for buttons.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author //AUTHOR
      */
     @Override
     public void setEvents() {
@@ -86,7 +90,8 @@ public class BeverageStatsPage extends A_Page {
 
     /**
      * Sets up the scene layout.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author //AUTHOR
      */
     @Override
     public void setScene() {
@@ -107,7 +112,7 @@ public class BeverageStatsPage extends A_Page {
         gridPane.add(lbl_time, 0, 4);
         gridPane.add(datePicker, 0, 5);
         gridPane.add(timeTextField, 0, 6);
-        
+
 
         HBox currentTimeBox = new HBox(btn_useCurrentTime);
         currentTimeBox.setAlignment(Pos.CENTER);
@@ -124,7 +129,8 @@ public class BeverageStatsPage extends A_Page {
 
     /**
      * Sets up labels.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author //AUTHOR
      */
     private void setLabels() {
         lbl_beverageTitle = setLabelStyle("Log Amount");
@@ -136,7 +142,8 @@ public class BeverageStatsPage extends A_Page {
 
     /**
      * Sets up text fields.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author //AUTHOR
      */
     private void setTextfields() {
         tf_amountCL = setTextField();
@@ -152,7 +159,8 @@ public class BeverageStatsPage extends A_Page {
 
     /**
      * Sets up buttons.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author //AUTHOR
      */
     private void setButtons() {
         btn_goBack = new JFXButton("Go Back");
@@ -171,13 +179,14 @@ public class BeverageStatsPage extends A_Page {
 
     /**
      * Validates user inputs for amount and date/time.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author //AUTHOR
      */
     private void validateInputs() {
         if (!beverageController.validateAmount(tf_amountCL.getText())) {
-            showAlert("Invalid Amount in CL", "Please enter a valid amount in CL.");
+            showAlert("Invalid Amount in CL", "Please enter a valid amount in CL.", Alert.AlertType.ERROR);
         } else if (!validateDateTime()) {
-            showAlert("Invalid Time", "Please enter a valid date and time.");
+            showAlert("Invalid Time", "Please enter a valid date and time.", Alert.AlertType.ERROR);
         } else {
             processValidInputs();
         }
@@ -185,8 +194,9 @@ public class BeverageStatsPage extends A_Page {
 
     /**
      * Validates the date and time format.
+     *
      * @return True if the date and time are valid, otherwise false.
-     * @author                                                                                          //AUTHOR
+     * @author //AUTHOR
      */
     private boolean validateDateTime() {
         String time = timeTextField.getText();
@@ -208,7 +218,8 @@ public class BeverageStatsPage extends A_Page {
 
     /**
      * Processes valid user inputs.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author //AUTHOR
      */
     private void processValidInputs() {
         LocalDate date = datePicker.getValue();
@@ -220,30 +231,17 @@ public class BeverageStatsPage extends A_Page {
         int userId = userController.getId();
 
         if (beverageController.insertUserHistory(userId, beverageID, LocalDate.from(dateTime), amount)) {
-            showAlert("Success", "Consumption logged successfully!");
+            showAlert("Success", "Consumption logged successfully!", Alert.AlertType.INFORMATION);
             AlgorithmController ac = new AlgorithmController(beverageID, amount);
         } else {
-            showAlert("Database Error", "Failed to log consumption.");
+            showAlert("Database Error", "Failed to log consumption.", Alert.AlertType.ERROR);
         }
     }
 
     /**
-     * Shows an alert dialog with the specified title and content.
-     * @param title The title of the alert dialog.
-     * @param content The content of the alert dialog.
-     * @author                                                                                          //AUTHOR
-     */
-    private void showAlert(String title, String content) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
-    }
-
-    /**
      * Navigates to the home page.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author //AUTHOR
      */
     private void goToHomePage() {
         changePage(new HomePage());
@@ -251,7 +249,8 @@ public class BeverageStatsPage extends A_Page {
 
     /**
      * Navigates back to the beverage menu page.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author //AUTHOR
      */
     private void goBack() {
         changePage(new BeverageMenuPage());
@@ -259,7 +258,8 @@ public class BeverageStatsPage extends A_Page {
 
     /**
      * Sets the current time in the time text field and date picker.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author //AUTHOR
      */
     private void useCurrentTime() {
         LocalDate currentDate = LocalDate.now();
