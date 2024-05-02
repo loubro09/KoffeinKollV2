@@ -2,6 +2,7 @@ package KoffeinKoll.View;
 
 import KoffeinKoll.Controller.AlgorithmController;
 import KoffeinKoll.Controller.BeverageController;
+import KoffeinKoll.Controller.UserController;
 import com.jfoenix.controls.JFXButton;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -166,7 +167,8 @@ public class BeverageStatsPage extends A_Page {
         LocalDateTime dateTime = LocalDateTime.of(date, LocalTime.parse(time, DateTimeFormatter.ofPattern("HH:mm")));
         Double amount = Double.valueOf(tf_amountCL.getText());
 
-        int userId = 1;
+        UserController userController = UserController.getInstance();
+        int userId = userController.getId();
 
         if (beverageController.insertUserHistory(userId, beverageID, LocalDate.from(dateTime), amount)) {
             showAlert("Success", "Consumption logged successfully!");
