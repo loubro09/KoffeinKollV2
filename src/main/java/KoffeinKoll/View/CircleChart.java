@@ -1,38 +1,44 @@
 package KoffeinKoll.View;
 
-import eu.hansolo.tilesfx.Tile;
-import eu.hansolo.tilesfx.Tile.SkinType;
-import eu.hansolo.tilesfx.chart.ChartData;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.chart.PieChart;
+import java.util.Map;
 
-import java.util.Arrays;
-import java.util.List;
-
-public class CircleChart extends StackPane {
-    private Tile donutChartTile;
+public class CircleChart extends PieChart {
 
     public CircleChart() {
-        donutChartTile = new Tile();
-        donutChartTile.setSkinType(SkinType.DONUT_CHART);
-        donutChartTile.setTitle("Weekly Statistics");
-        donutChartTile.setTitleColor(Color.rgb(0, 70, 0)); // Ställ in textfärgen
-        donutChartTile.setTextColor(Color.ORANGERED);
+        super();
+        initializeChart();
+    }
 
-        // Skapa data för sektorerna i cirkeldiagrammet
-        List<ChartData> chartDataList = Arrays.asList(
-                new eu.hansolo.tilesfx.chart.ChartData("Sector 1", 25, Color.rgb(255, 238, 194)),
-                new eu.hansolo.tilesfx.chart.ChartData("Sector 2", 35, Color.rgb(255, 180, 88)),
-                new eu.hansolo.tilesfx.chart.ChartData("Sector 3", 40, Color.rgb(251, 101, 20))
-        );
+    private void initializeChart() {
+        this.setTitle("Beverage Consumption");
+        // Set more properties as needed, such as chart labels
+        this.setLegendVisible(true);  // Optionally set the legend visibility
+    }
 
-        // Lägg till data för cirkeldiagrammet
-        donutChartTile.setChartData(chartDataList);
+    // Update chart data from a map where keys are beverage names and values are their counts
+    public void updateChartData(Map<String, Integer> data) {
+        ObservableList<PieChart.Data> chartData = FXCollections.observableArrayList();
 
-        // Ställ in färgen på cirkeln
-        donutChartTile.setBackgroundColor(Color.WHITE); // Gör bakgrunden transparent
+        data.forEach((beverageName, count) -> {
+            chartData.add(new PieChart.Data(beverageName, count));
+        });
 
-        // Lägg till Donut Chart Tile till StackPane
-        getChildren().add(donutChartTile);
+        this.setData(chartData);
+        animateChart();
+    }
+
+    // Optional: animate the chart updates (can be customized further as needed)
+    private void animateChart() {
+        this.getData().forEach(data -> {
+            data.getNode().setOnMouseEntered(e -> {
+                data.getNode().setStyle("-fx-scale-x: 1.1; -fx-scale-y: 1.1;");
+            });
+            data.getNode().setOnMouseExited(e -> {
+                data.getNode().setStyle("-fx-scale-x: 1.0; -fx-scale-y: 1.0;");
+            });
+        });
     }
 }
