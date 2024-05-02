@@ -1,29 +1,35 @@
 package KoffeinKoll.Controller;
 
-
 public class AlgorithmController {
-    private double halfLife; // Half-life in hours
+    private  int beverageId;
+    private final double beverageAmount;
+    private DatabaseConnection databaseConnection;
+    double halfLife = 5.7; // hours
 
-    public AlgorithmController(double halfLife) {
-        this.halfLife = halfLife;
+
+    public AlgorithmController(int bevarageId, double beverageAmount) {
+        this.beverageId = bevarageId;
+        this.beverageAmount = beverageAmount;
+        this.databaseConnection = DatabaseConnection.getInstance();
+
+        calculateCaffeineAmount();
     }
 
     public double calculateTime(double cF, double cO) {
         return halfLife * Math.log(cF / cO) / Math.log(2);
     }
 
-    public static void main(String[] args) {
-        double halfLife = 5.7; // hours
+
+    public void calculateCaffeineAmount() {
+
+        double beverageConcentration = databaseConnection.getBeverageConcentration(beverageId);
+
         double cF = 1; // mg
+        double c0 = beverageAmount * beverageConcentration;
 
-
-       /* double cO = mängd dryck * koffein-koncentration
-
-        AlgorithmController controller = new AlgorithmController(halfLife);
-        double time = controller.calculateTime(cF, cO);
+        double time = -calculateTime(cF, c0);
 
         System.out.println("Time required: " + time + " hours");
-        
-        */
+
     }
 }
