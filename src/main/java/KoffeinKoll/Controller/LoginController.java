@@ -1,6 +1,7 @@
 package KoffeinKoll.Controller;
 
 import javafx.scene.control.Alert;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,6 +10,8 @@ import java.sql.SQLException;
 public class LoginController {
 
     private DatabaseConnection databaseConnection;
+    private UserController user;
+    private String userName;
 
     public LoginController() {
         this.databaseConnection = databaseConnection.getInstance();
@@ -22,7 +25,7 @@ public class LoginController {
         try {
             connection = databaseConnection.getConnection();
             preparedStatement = connection.prepareStatement("SELECT password FROM users WHERE username = ?");
-            preparedStatement.setString(1,username);
+            preparedStatement.setString(1, username);
             resultSet = preparedStatement.executeQuery();
 
             if (!resultSet.isBeforeFirst()) {
@@ -30,14 +33,18 @@ public class LoginController {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("User not found");
                 alert.show();
-            }
-            else {
-                while(resultSet.next()) {
+            } else {
+                while (resultSet.next()) {
                     String retrievedPassword = resultSet.getString("password");
                     if (retrievedPassword.equals(password)) {
+
+                        System.out.println(username + " logged in");
+                        user = UserController.getInstance();
+                        user.setUsername(username);
+                        userName = username;
+
                         return true;
-                    }
-                    else {
+                    } else {
                         System.out.println("Wrong password");
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setContentText("Wrong password");
@@ -48,8 +55,7 @@ public class LoginController {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }
-        finally {
+        } finally {
             if (resultSet != null) {
                 try {
                     resultSet.close();
@@ -74,4 +80,11 @@ public class LoginController {
         }
         return false;
     }
+
+    public String getUserName() {
+        return userName;
+    }
 }
+
+
+

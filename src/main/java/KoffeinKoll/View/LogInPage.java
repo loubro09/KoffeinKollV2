@@ -15,10 +15,11 @@ public class LogInPage extends A_Page{
 
     private Label lbl_userName;
     private Label lbl_password;
-    private TextField tf_userName;
+    public TextField tf_userName;
     private PasswordField pf_password;
     private Hyperlink hl_registration;
     private JFXButton btn_logIn;
+
 
     public void initializeUI(){
         setComponents();
@@ -106,7 +107,10 @@ public class LogInPage extends A_Page{
 
         if (loggedIn) {
             // If login successful, you might want to switch to another page
-            changePage(new HomePage());
+            //Assistant
+            HomePage homePage = new HomePage();
+            homePage.setUserName(username);
+            changePage(homePage);
         } else {
             System.out.println("Login failed");
         }
@@ -114,5 +118,9 @@ public class LogInPage extends A_Page{
 
     private void handleReg() {
         changePage(new CreateUserPage());
+    }
+
+    public TextField getTf_userName() {
+        return tf_userName;
     }
 }

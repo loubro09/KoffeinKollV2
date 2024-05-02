@@ -51,11 +51,11 @@ public class BeverageController {
         }
     }
 
-    public boolean insertUserHistory(int userId, int beverageId, LocalDate date) {
+    public boolean insertUserHistory(int userId, int beverageId, LocalDate date, double amount) {
         // First, get the maximum ID and increment it
         int newId = getMaxUserHistoryId() + 1;
 
-        String sql = "INSERT INTO userhistory (userhistory_id, user_id, beverage_id, date) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO userhistory (userhistory_id, user_id, beverage_id, date, amount) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -63,6 +63,7 @@ public class BeverageController {
             pstmt.setInt(2, userId);
             pstmt.setInt(3, beverageId);
             pstmt.setDate(4, java.sql.Date.valueOf(date));
+            pstmt.setDouble(5, amount); // Set the amount
             pstmt.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -70,6 +71,28 @@ public class BeverageController {
             return false;
         }
     }
+
+    public int getDailyCaffeineIntake(int userId) {
+        int totalCaffeine = 0;
+
+        String sql = "SELECT SUM(beverage_caffeine) AS totalCaffeine FROM userhistory " +
+                "INNER JOIN beverages ON userhistory.beverage_id = beverages.beverage_id " +
+                "WHERE userhistory.user_id = ? AND DATE(userhistory.date) = CURRENT_DATE";
+
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, userId);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                totalCaffeine = rs.getInt("totalCaffeine");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return totalCaffeine;
+    }
+
 }
 
 

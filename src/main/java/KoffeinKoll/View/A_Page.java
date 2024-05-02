@@ -1,5 +1,6 @@
 package KoffeinKoll.View;
 
+import KoffeinKoll.Controller.UserController;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
