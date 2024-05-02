@@ -10,6 +10,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
+/**
+ * StapelDiagram class represents a bar chart showing weekly caffeine consumption.
+ * It extends BarChart and initializes the chart with data.
+ */
 public class StapelDiagram extends VBox {
     private BarChart<String, Number> barChart;
     private CategoryAxis xAxis;
@@ -17,6 +21,11 @@ public class StapelDiagram extends VBox {
     private Label titleLabel;
     private Label totalLabel;
 
+    /**
+     * Constructor for StapelDiagram class.
+     * Initializes the bar chart with weekdays as categories and caffeine consumption data.
+     * @author                                                                                          //AUTHOR
+     */
     public StapelDiagram() {
         xAxis = new CategoryAxis();
         yAxis = new NumberAxis();
