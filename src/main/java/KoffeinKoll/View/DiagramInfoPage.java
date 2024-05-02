@@ -76,6 +76,6 @@ public class DiagramInfoPage extends A_Page{
     }
 
     private void goBack() {
-        changePage(new StatisticsPageSTAPEL());
+        changePage(new StatisticsPage());
     }
 }
