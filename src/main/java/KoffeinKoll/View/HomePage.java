@@ -1,5 +1,6 @@
 package KoffeinKoll.View;
 
+import KoffeinKoll.Controller.LoginController;
 import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -22,6 +23,17 @@ public class HomePage extends A_Page {
     private JFXButton btn_logBeverage;
     private CustomGauge customGauge;
     private PercentageGauge percentageGauge;
+
+
+    private String userName;
+
+    public String getUserName() {
+        return userName;
+    }
+    public void setUserName(String username) {
+         userName = username;
+    }
+
 
     @Override
     public void initializeUI() {
@@ -46,7 +58,10 @@ public class HomePage extends A_Page {
         customGauge = new CustomGauge();
         mainContent.getChildren().addAll(lbl_title, customGauge);
 
-        percentageGauge = new PercentageGauge();
+
+        percentageGauge = new PercentageGauge(userName);
+
+
         mainContent.getChildren().add(percentageGauge);
 
         // Creating an HBox for the buttons
@@ -68,6 +83,7 @@ public class HomePage extends A_Page {
         // Placing the main content in the center and the button VBox at the bottom
         borderPane.setCenter(mainContent);
         borderPane.setBottom(buttonVBox);
+
     }
 
     @Override

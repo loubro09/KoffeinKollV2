@@ -11,6 +11,7 @@ public class LoginController {
 
     private DatabaseConnection databaseConnection;
     private UserController user;
+    private String userName;
 
     public LoginController() {
         this.databaseConnection = databaseConnection.getInstance();
@@ -36,9 +37,11 @@ public class LoginController {
                 while (resultSet.next()) {
                     String retrievedPassword = resultSet.getString("password");
                     if (retrievedPassword.equals(password)) {
-                        // Create a new UserController object and set the username
+
+                        System.out.println(username + " logged in");
                         user = new UserController(username);
-                        //user.setUsername(username);
+                        userName = username;
+
                         return true;
                     } else {
                         System.out.println("Wrong password");
@@ -77,7 +80,9 @@ public class LoginController {
         return false;
     }
 
-
+    public String getUserName() {
+        return userName;
+    }
 }
 
 

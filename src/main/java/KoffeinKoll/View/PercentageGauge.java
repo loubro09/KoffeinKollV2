@@ -2,6 +2,7 @@ package KoffeinKoll.View;
 
 import KoffeinKoll.Controller.BeverageController;
 import KoffeinKoll.Controller.CaffeineCalculator;
+import KoffeinKoll.Controller.LoginController;
 import KoffeinKoll.Controller.UserController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -20,14 +21,17 @@ public class PercentageGauge extends StackPane {
     private CaffeineCalculator caffeineCalculator;
     private BeverageController beverageController;
     private UserController userController;
-    private LogInPage logInPage;
 
 
+    private String userName;
 
-//TODO Måste hitta lösning på Andvändarnamn
-    public PercentageGauge() {
+
+    public PercentageGauge(String username) {
+        //Assistant
+        this.userName = username;
+        ////
         this.beverageController = new BeverageController();
-        this.userController = new UserController("Alanah");
+        this.userController = new UserController(userName);
         this.caffeineCalculator = new CaffeineCalculator(userController, beverageController);
         this.recommendedAmount = caffeineCalculator.getRecommendedDose();
 

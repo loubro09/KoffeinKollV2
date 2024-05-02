@@ -107,7 +107,10 @@ public class LogInPage extends A_Page{
 
         if (loggedIn) {
             // If login successful, you might want to switch to another page
-            changePage(new HomePage());
+            //Assistant
+            HomePage homePage = new HomePage();
+            homePage.setUserName(username);
+            changePage(homePage);
         } else {
             System.out.println("Login failed");
         }
