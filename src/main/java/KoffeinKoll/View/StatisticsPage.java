@@ -4,14 +4,19 @@ import KoffeinKoll.Controller.CircleChartController;
 import KoffeinKoll.Controller.StapelDiagramController;
 import KoffeinKoll.Controller.UserController;
 import com.jfoenix.controls.JFXButton;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import eu.hansolo.tilesfx.Tile;
+import eu.hansolo.tilesfx.TileBuilder;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
+/**
+ * StatisticsPage class represents the statistics page of the application.
+ * It displays the chart and provides buttons for navigation.
+ */
 public class StatisticsPage extends A_Page {
     private boolean isCircleChartShown = true;
     private JFXButton btn_goHome, btn_toggleChart, btn_weekly, btn_monthly, btn_info;
@@ -22,6 +27,10 @@ public class StatisticsPage extends A_Page {
     private UserController userController;
     private StackPane chartPane;
 
+    /**
+     * Initializes the user interface components of the StatisticsPage.
+     * @author Louis Brown
+     */
     @Override
     public void initializeUI() {
         userController = UserController.getInstance();
@@ -36,6 +45,10 @@ public class StatisticsPage extends A_Page {
         updateChartData(7);  // Load initial data for the last 7 days
     }
 
+    /**
+     * Sets up the UI components of the StatisticsPage.
+     * @author Louis Brown
+     */
     @Override
     public void setComponents() {
         btn_goHome = new JFXButton("Home");
@@ -50,6 +63,10 @@ public class StatisticsPage extends A_Page {
         setButtons();
     }
 
+    /**
+     * Sets up the buttons for navigation.
+     * @author                                                                                          //AUTHOR
+     */
     private void setButtons() {
         btn_goHome.setStyle(setButtonStyle());
         btn_toggleChart.setStyle(setButtonStyle());
@@ -58,6 +75,10 @@ public class StatisticsPage extends A_Page {
         btn_info.setStyle(setButtonStyle());
     }
 
+    /**
+     * Sets up the event handlers for the buttons.
+     * @author                                                                                          //AUTHOR
+     */
     @Override
     public void setEvents() {
         btn_goHome.setOnAction(event -> goToHomePage());
@@ -67,6 +88,10 @@ public class StatisticsPage extends A_Page {
         btn_info.setOnAction(event -> goToInfoPage());
     }
 
+    /**
+     * Sets up the scene of the StatisticsPage.
+     * @author                                                                                          //AUTHOR
+     */
     @Override
     public void setScene() {
         VBox chartAndSwitchBox = new VBox();
@@ -105,10 +130,18 @@ public class StatisticsPage extends A_Page {
         }
     }
 
+    /**
+     * Navigates to the home page.
+     * @author                                                                                          //AUTHOR
+     */
     private void goToHomePage() {
         changePage(new HomePage());
     }
 
+    /**
+     * Navigates to the info page.
+     * @author                                                                                          //AUTHOR
+     */
     private void goToInfoPage() {
         changePage(new InfoPage(false));
     }
