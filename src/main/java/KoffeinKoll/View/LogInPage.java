@@ -106,11 +106,10 @@ public class LogInPage extends A_Page{
         boolean loggedIn = loginController.logIn(username, password);
 
         if (loggedIn) {
-            // If login successful, you might want to switch to another page
-            //Assistant
-            HomePage homePage = new HomePage();
+            /*HomePage homePage = new HomePage();
             homePage.setUserName(username);
-            changePage(homePage);
+            changePage(homePage);*/
+            changePage(new HomePage());
         } else {
             System.out.println("Login failed");
         }

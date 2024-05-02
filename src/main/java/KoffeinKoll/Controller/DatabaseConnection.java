@@ -42,24 +42,5 @@ public class DatabaseConnection {
             return null;
         }
     }
-
-    public double getBeverageConcentration(int beverageId){
-        double concentration = 0.0;
-        String query= "SELECT caffeine_concentration FROM beverages WHERE beverage_id = ?";
-
-        try(PreparedStatement statement = getConnection().prepareStatement(query)){
-            statement.setInt(1, beverageId);
-            ResultSet resultSet = statement.executeQuery();
-            if(resultSet.next()) {
-                concentration = resultSet.getDouble("caffeine_concentration");
-            }else{
-                System.out.println("beverage cannot be found in database");
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return concentration;
-    }
 }
 

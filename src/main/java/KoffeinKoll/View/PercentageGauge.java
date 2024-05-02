@@ -26,9 +26,9 @@ public class PercentageGauge extends StackPane {
     private String userName;
 
 
-    public PercentageGauge(String username) {
+    public PercentageGauge() {
         //Assistant
-        this.userName = username;
+        this.userName = UserController.getInstance().getUsername();
         ////
         this.beverageController = new BeverageController();
         this.userController = UserController.getInstance();

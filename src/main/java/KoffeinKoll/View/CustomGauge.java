@@ -6,6 +6,7 @@ import eu.hansolo.medusa.skins.SlimSkin;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
@@ -14,10 +15,12 @@ public class CustomGauge extends StackPane {
     private Gauge gauge;
     private AlgorithmController algorithmController;
     private Timeline timeline;
-    private CustomGauge customGauge;
+    private static CustomGauge instance; // Singleton instance
+    private int maxValue;
+    private Label label;
 
-    public CustomGauge(AlgorithmController algorithmController) {
-        this.algorithmController = algorithmController;
+    public CustomGauge() {
+        this.algorithmController = new AlgorithmController();
 
         // Create a Gauge with Bar skin
         gauge = new Gauge();
@@ -25,14 +28,15 @@ public class CustomGauge extends StackPane {
         gauge.setBarColor(Color.DARKSEAGREEN);
         gauge.setTitle("Time Countdown: ");
 
+
         gauge.setMinValue(0);
         gauge.setMaxValue(0);
-        gauge.setValue(algorithmController.calculateTime()); // Set initial value
+        gauge.setValue(0); // Set initial value
         gauge.setAnimated(true); // Enable animation
 
-        timeline = new Timeline(
-                new KeyFrame(Duration.seconds(1), e->{
-                    double remainingTime = gauge.getValue();
+       timeline = new Timeline(
+                new KeyFrame(Duration.hours(1), e->{
+                    int remainingTime = (int) gauge.getValue();
                     if (remainingTime>0){
                         gauge.setValue(remainingTime-1);
                     }else {
@@ -53,5 +57,21 @@ public class CustomGauge extends StackPane {
         timeline.stop();
     }
 
-    public CustomGauge getInstance() {return customGauge;}
+    public static CustomGauge getInstance() {
+        if (instance == null) {
+            instance = new CustomGauge();
+        }
+        return instance;
+    }
+
+    public void setMaxValue(int maxValue) {
+        System.out.println(maxValue);
+        gauge.setMaxValue(maxValue);
+    }
+
+    public void changeValue(int value) {
+       gauge.setValue(value);
+    }
+
+    public double getCurrentValue() { return gauge.getValue();}
 }

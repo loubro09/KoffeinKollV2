@@ -173,7 +173,13 @@ public class BeverageStatsPage extends A_Page {
         if (beverageController.insertUserHistory(userId, beverageID, LocalDate.from(dateTime), amount)) {
             showAlert("Success", "Consumption logged successfully!");
             AlgorithmController ac = new AlgorithmController();
-            ac.calculateCaffeineAmount(beverageID, amount);
+            ac.updateGaugeNewLog(beverageID, amount);
+
+            /*ac.calculateCaffeineAmount(beverageID, amount);
+            CustomGauge cg = CustomGauge.getInstance();
+            cg.setMaxValue((int) ac.calculateTime());
+            cg.setValue((int) ac.calculateTime());*/
+            goToHomePage();
         } else {
             showAlert("Database Error", "Failed to log consumption.");
         }

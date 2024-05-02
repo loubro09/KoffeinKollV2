@@ -3,8 +3,7 @@ package KoffeinKoll.View;
 
 import KoffeinKoll.Controller.AlgorithmController;
 
-import KoffeinKoll.Controller.LoginController;
-
+import KoffeinKoll.Controller.UserController;
 import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -26,20 +25,8 @@ public class HomePage extends A_Page {
     private JFXButton btn_logOut;
     private JFXButton btn_logBeverage;
     private CustomGauge customGauge;
-
     private AlgorithmController algorithmController;
-
     private PercentageGauge percentageGauge;
-
-
-    private String userName;
-
-    public String getUserName() {
-        return userName;
-    }
-    public void setUserName(String username) {
-         userName = username;
-    }
 
 
     @Override
@@ -52,10 +39,7 @@ public class HomePage extends A_Page {
     @Override
     public void setComponents() {
         setButtons();
-
         algorithmController = new AlgorithmController();
-
-
     }
 
     @Override
@@ -64,14 +48,21 @@ public class HomePage extends A_Page {
         mainContent.setAlignment(Pos.CENTER);
         mainContent.setSpacing(20);
 
+        UserController userController = UserController.getInstance();
         // Adding the custom gauge to the main content
-        customGauge = new CustomGauge(algorithmController);
+        double totalTime = algorithmController.getMaxValue();
+        double currentTime = algorithmController.currentGaugeValue();
+
+        // Adding the custom gauge to the main content
+        customGauge = CustomGauge.getInstance();
+        customGauge.setMaxValue((int) totalTime);
+        customGauge.changeValue((int) currentTime); // Set initial value
+        customGauge.startTimer();
         mainContent.getChildren().addAll(lbl_title, customGauge);
 
 
-        percentageGauge = new PercentageGauge(userName);
-
-
+        percentageGauge = new PercentageGauge();
+        percentageGauge.updateCaffeineLevel(algorithmController.getTotalCaffeineForDay(UserController.getInstance().getId()));
         mainContent.getChildren().add(percentageGauge);
 
         // Creating an HBox for the buttons
