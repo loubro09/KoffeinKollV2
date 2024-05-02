@@ -1,5 +1,6 @@
 package KoffeinKoll.View;
 
+import KoffeinKoll.Controller.AlgorithmController;
 import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -21,6 +22,7 @@ public class HomePage extends A_Page {
     private JFXButton btn_logOut;
     private JFXButton btn_logBeverage;
     private CustomGauge customGauge;
+    private AlgorithmController algorithmController;
 
     @Override
     public void initializeUI() {
@@ -32,6 +34,7 @@ public class HomePage extends A_Page {
     @Override
     public void setComponents() {
         setButtons();
+        algorithmController = new AlgorithmController();
     }
 
     @Override
@@ -41,7 +44,7 @@ public class HomePage extends A_Page {
         mainContent.setSpacing(20);
 
         // Adding the custom gauge to the main content
-        customGauge = new CustomGauge();
+        customGauge = new CustomGauge(algorithmController);
         mainContent.getChildren().addAll(lbl_title, customGauge);
 
         // Creating an HBox for the buttons

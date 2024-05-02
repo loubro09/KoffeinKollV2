@@ -170,7 +170,8 @@ public class BeverageStatsPage extends A_Page {
 
         if (beverageController.insertUserHistory(userId, beverageID, LocalDate.from(dateTime), amount)) {
             showAlert("Success", "Consumption logged successfully!");
-            AlgorithmController ac = new AlgorithmController(beverageID, amount);
+            AlgorithmController ac = new AlgorithmController();
+            ac.calculateCaffeineAmount(beverageID, amount);
         } else {
             showAlert("Database Error", "Failed to log consumption.");
         }
