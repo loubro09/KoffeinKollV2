@@ -4,40 +4,45 @@ import javafx.scene.control.Alert;
 
 import java.sql.*;
 
+/**
+ * The CreateUserController class handles operations related to creating new users in the KoffeinKoll application.
+ */
 public class CreateUserController {
 
     private DatabaseConnection databaseConnection;
 
+    /**
+     * Constructs a new CreateUserController object.
+     * @author                                                                                          //AUTHOR
+     */
     public CreateUserController() {
         this.databaseConnection = databaseConnection.getInstance();
     }
 
+    /**
+     * Creates a new user with the provided information.
+     * @param username The username of the new user.
+     * @param password The password of the new user.
+     * @param habit    The habit of the new user.
+     * @param weight   The weight of the new user.
+     * @param birthday The birthday of the new user.
+     * @return True if the user was successfully created, false otherwise.
+     * @author                                                                                          //AUTHOR
+     */
     public boolean createUser(String username, String password, String habit, double weight, String birthday) {
         // Validate input
         if (!isValidPassword(password)) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Password must contain at least 8 characters, one capital letter, and one number.");
-            alert.show();
+            showAlert("Error", "Password must contain at least 8 characters, one capital letter, and one number.", Alert.AlertType.ERROR);
             return false;
         }
 
         if(!isUsernameValid(username)) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Username must be between 3 and 15 characters long.");
-            alert.show();
+            showAlert("Error", "Username must be between 3 and 15 characters long.", Alert.AlertType.ERROR);
             return false;
         }
 
         if (!isUniqueUsername(username)) {
-            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setTitle("Error");
-            errorAlert.setHeaderText(null);
-            errorAlert.setContentText("This username is already chosen. Try another one!");
-            errorAlert.show();
+            showAlert("Error", "This username is already chosen. Try another one!", Alert.AlertType.ERROR);;
             return false;
         }
 
@@ -85,15 +90,35 @@ public class CreateUserController {
         }
     }
 
+
+    /**
+     * Checks if a password is valid.
+     * @param password The password to validate.
+     * @return True if the password is valid, false otherwise.
+     * @author                                                                                          //AUTHOR
+     */
     private boolean isValidPassword(String password) {
-        // Password must contain at least 8 characters, one capital letter, and one number
+        //Password must contain at least 8 characters, one capital letter, and one number
         return password.length() >= 8 && password.matches(".*[A-Z].*") && password.matches(".*\\d.*");
     }
 
+    /**
+     * Checks if a username is valid.
+     * @param username The username to validate.
+     * @return True if the username is valid, false otherwise.
+     * @author Louis Brown
+     */
     private boolean isUsernameValid(String username) {
+        //Username must be between 3 and 15 characters
         return username != null && username.length() >= 3 && username.length() <= 15;
     }
 
+    /**
+     * Checks if a username is unique.
+     * @param username The username to check.
+     * @return True if the username is unique, false otherwise.
+     * @author Louis Brown
+     */
     private boolean isUniqueUsername(String username) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -129,5 +154,20 @@ public class CreateUserController {
                 }
             }
         }
+    }
+
+    /**
+     * Shows an alert dialog with the specified title and content.
+     * @param title The title of the alert dialog.
+     * @param content The content of the alert dialog.
+     * @param alertType The type of the alert
+     * @author
+     */
+    protected void showAlert(String title, String content, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.show();
     }
 }

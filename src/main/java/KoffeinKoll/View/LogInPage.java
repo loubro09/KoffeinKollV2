@@ -11,22 +11,34 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 
+/**
+ * LogInPage represents the user interface for logging into the KoffeinKoll application.
+ * It allows users to enter their username and password, and provides functionality for logging in or
+ * navigating to the registration page.
+ */
 public class LogInPage extends A_Page{
 
     private Label lbl_userName;
     private Label lbl_password;
-    public TextField tf_userName;
+    private TextField tf_userName;
     private PasswordField pf_password;
     private Hyperlink hl_registration;
     private JFXButton btn_logIn;
 
-
+    /**
+     * Initializes the UI components of the login page.
+     * @author Louis Brown
+     */
     public void initializeUI(){
         setComponents();
         setEvents();
         setScene();
     }
 
+    /**
+     * Sets the UI components for the login page.
+     * @author Louis Brown
+     */
     @Override
     public void setComponents() {
         setLabels();
@@ -34,6 +46,10 @@ public class LogInPage extends A_Page{
         setButtons();
     }
 
+    /**
+     * Sets the event handlers for UI controls on the login page.
+     * @author                                                                                          //AUTHOR
+     */
     @Override
     public void setEvents() {
         // Log in button action handler
@@ -51,6 +67,10 @@ public class LogInPage extends A_Page{
         hl_registration.setOnAction(event -> handleReg());
     }
 
+    /**
+     * Sets the scene layout for the login page.
+     * @author                                                                                          //AUTHOR
+     */
     @Override
     public void setScene() {
         GridPane gridPane = new GridPane();
@@ -77,11 +97,19 @@ public class LogInPage extends A_Page{
         borderPane.setTop(topHBox);
     }
 
+    /**
+     * Sets labels for username and password fields.
+     * @author                                                                                          //AUTHOR
+     */
     private void setLabels() {
         lbl_userName = setLabelStyle("Username");
         lbl_password = setLabelStyle("Password");
     }
 
+    /**
+     * Sets text fields for username and password entry.
+     * @author                                                                                          //AUTHOR
+     */
     private void setTextfields() {
         tf_userName = setTextField();
         tf_userName.setPromptText("Enter username");
@@ -89,6 +117,10 @@ public class LogInPage extends A_Page{
         pf_password.setPromptText("Enter password ");
     }
 
+    /**
+     * Sets buttons for login and registration.
+     * @author                                                                                          //AUTHOR
+     */
     private void setButtons() {
         btn_logIn = new JFXButton("Log in");
         btn_logIn.setStyle(setButtonStyle());
@@ -97,6 +129,10 @@ public class LogInPage extends A_Page{
         hl_registration.setFont(Font.font("Arial", 14));
     }
 
+    /**
+     * Handles the login process when the login button is clicked.
+     * @author                                                                                          //AUTHOR
+     */
     private void handleLogin() {
         String username = tf_userName.getText();
         String password = pf_password.getText();
@@ -115,6 +151,10 @@ public class LogInPage extends A_Page{
         }
     }
 
+    /**
+     * Handles the navigation to the registration page when the registration link is clicked.
+     * @author                                                                                          //AUTHOR
+     */
     private void handleReg() {
         changePage(new CreateUserPage());
     }

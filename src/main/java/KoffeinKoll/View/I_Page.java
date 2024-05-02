@@ -1,14 +1,10 @@
 package KoffeinKoll.View;
 
-import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
-
-/*public interface I_Page {
-    void initializeUI();
-    void createScene(BorderPane borderPane);
-    void setBackground(Scene scene);
-    String setButtonStyle();
-}*/
+/**
+ * The interface I_Page defines the contract for common page functionalities in the KoffeinKoll application.
+ * Classes implementing this interface are expected to provide methods for creating, styling, and managing UI components.
+ * @author Louis Brown
+ */
 public interface I_Page {
     void createScene();
     void setWindowTitle();

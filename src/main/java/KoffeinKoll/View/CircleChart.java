@@ -1,17 +1,32 @@
 package KoffeinKoll.View;
 
+import eu.hansolo.tilesfx.Tile;
+import eu.hansolo.tilesfx.chart.ChartData;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+/**
+ * CircleChart class represents a custom circular chart component.
+ * It extends StackPane and contains a Tile representing a donut chart.
+ */
 public class CircleChart extends VBox {
     private PieChart pieChart;
     private Label titleLabel;
     private Label totalLabel;
 
+    /**
+     * Constructs a new CircleChart instance.
+     * @author Alanah Coleman
+     */
     public CircleChart() {
         pieChart = new PieChart();
         initializeChart();

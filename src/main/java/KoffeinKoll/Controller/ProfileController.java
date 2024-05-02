@@ -5,14 +5,30 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Date;
 
+/**
+ * The ProfileController class manages user profile updates.
+ */
 public class ProfileController {
 
     private DatabaseConnection databaseConnection;
 
+    /**
+     * Constructs a new ProfileController object.
+     * @author                                                                                          //AUTHOR
+     */
     public ProfileController() {
         this.databaseConnection = databaseConnection.getInstance();
     }
 
+    /**
+     * Updates the user profile with the provided information.
+     * @param userId         The ID of the user to update.
+     * @param newHabit       The new habit of the user.
+     * @param newWeight      The new weight of the user.
+     * @param newDateOfBirth The new date of birth of the user.
+     * @return True if the update is successful, otherwise false.
+     * @author                                                                                          //AUTHOR
+     */
     public boolean updateUser(int userId, String newHabit, double newWeight, String newDateOfBirth) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;

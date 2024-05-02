@@ -1,8 +1,6 @@
 package KoffeinKoll.View;
 
-
 import KoffeinKoll.Controller.AlgorithmController;
-
 import KoffeinKoll.Controller.UserController;
 import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.GlyphsDude;
@@ -17,6 +15,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.geometry.Insets;
 
+/**
+ * HomePage represents the main page of the KoffeinKoll application where users can view their statistics, access information,
+ * log out, and log their beverage consumption.
+ * It displays a custom gauge to visualize caffeine intake and provides buttons for accessing different functionalities.
+ */
 public class HomePage extends A_Page {
 
     private JFXButton btn_statistics;
@@ -27,8 +30,12 @@ public class HomePage extends A_Page {
     private CustomGauge customGauge;
     private AlgorithmController algorithmController;
     private PercentageGauge percentageGauge;
+    private String userName;
 
-
+    /**
+     * Initializes the UI components of the home page.
+     * @author Louis Brown
+     */
     @Override
     public void initializeUI() {
         setComponents();
@@ -36,12 +43,20 @@ public class HomePage extends A_Page {
         setScene();
     }
 
+    /**
+     * Sets the UI components for the home page.
+     * @author Louis Brown
+     */
     @Override
     public void setComponents() {
         setButtons();
         algorithmController = new AlgorithmController();
     }
 
+    /**
+     * Sets the scene layout for the home page.
+     * @author                                                                                          //AUTHOR
+     */
     @Override
     public void setScene() {
         VBox mainContent = new VBox();
@@ -87,6 +102,10 @@ public class HomePage extends A_Page {
 
     }
 
+    /**
+     * Sets the event handlers for UI controls on the home page.
+     * @author Ida Nordenswan, Kenan Al Tal, Alanah Coleman
+     */
     @Override
     public void setEvents() {
         // Close current main window
@@ -96,7 +115,7 @@ public class HomePage extends A_Page {
             button.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
-                    changePage(new InfoPage());
+                    changePage(new InfoPage(true));
                 }
             });
         }
@@ -127,8 +146,33 @@ public class HomePage extends A_Page {
                 }
             });
         }
+
+        /*for (JFXButton button : new JFXButton[]{btn_info, btn_logBeverage, btn_profile, btn_statistics}) {
+            button.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    // Change page based on the button clicked
+                    if (button == btn_info) {
+                        changePage(new InfoPage());
+                    } else if (button == btn_logBeverage) {
+                        changePage(new BeverageMenuPage());
+                    } else if (button == btn_profile) {
+                        changePage(new ProfilePage());
+                    } else if (button == btn_statistics) {
+                        changePage(new StatisticsPage());
+                    }
+                }
+            });*/
     }
 
+    public void setUserName(String username) {
+        userName = username;
+    }
+
+    /**
+     * Sets the style and icons for the buttons on the home page.
+     * @author                                                                                          //AUTHOR
+     */
     private void setButtons() {
         btn_statistics = new JFXButton("Statistics");
         btn_info = new JFXButton("Info");
@@ -149,12 +193,23 @@ public class HomePage extends A_Page {
         setIcon(FontAwesomeIcon.COFFEE, btn_logBeverage);
     }
 
+    /**
+     * Sets the FontAwesome icon for a button.
+     * @param iconType The FontAwesome icon type.
+     * @param button The button to set the icon for.
+     * @author Louis Brown
+     */
     private void setIcon(FontAwesomeIcon iconType, JFXButton button) {
         Text temp = GlyphsDude.createIcon(iconType, "2em");
         temp.setFill(Color.WHITE);
         button.setGraphic(temp);
     }
 
+    /**
+     * Defines the CSS style for the log beverage button.
+     * @return The CSS style string for the log beverage button.
+     * @author                                                                                          //AUTHOR
+     */
     private String beverageButtonStyle() {
         String style = "-fx-background-color:\n" +
                 "            #090a0c,\n" +
