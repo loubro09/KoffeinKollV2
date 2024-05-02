@@ -14,16 +14,19 @@ public class CustomGauge extends StackPane {
     private Gauge gauge;
     private AlgorithmController algorithmController;
     private Timeline timeline;
+    private CustomGauge customGauge;
 
     public CustomGauge(AlgorithmController algorithmController) {
         this.algorithmController = algorithmController;
+
         // Create a Gauge with Bar skin
         gauge = new Gauge();
         gauge.setSkin(new SlimSkin(gauge));
         gauge.setBarColor(Color.DARKSEAGREEN);
         gauge.setTitle("Time Countdown: ");
+
         gauge.setMinValue(0);
-        gauge.setMaxValue(algorithmController.calculateTime());
+        gauge.setMaxValue(0);
         gauge.setValue(algorithmController.calculateTime()); // Set initial value
         gauge.setAnimated(true); // Enable animation
 
@@ -49,4 +52,6 @@ public class CustomGauge extends StackPane {
     public void stopTimer(){
         timeline.stop();
     }
+
+    public CustomGauge getInstance() {return customGauge;}
 }
