@@ -11,6 +11,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
+/**
+ * InfoPage class represents a page displaying information about the application.
+ * It extends A_Page and contains labels and a button.
+ */
 public class InfoPage extends A_Page{
     private Label lbl_info;
     private Label lbl_subTitle;
@@ -21,6 +25,10 @@ public class InfoPage extends A_Page{
         this.txt = txt;
     }
 
+    /**
+     * Initializes the user interface components.
+     * @author Louis Brown
+     */
     @Override
     public void initializeUI() {
         setComponents();
@@ -28,17 +36,29 @@ public class InfoPage extends A_Page{
         setScene();
     }
 
+    /**
+     * Sets up the UI components.
+     * @author Louis Brown
+     */
     @Override
     public void setComponents() {
         setLabels();
         setButtons();
     }
 
+    /**
+     * Sets up event handling.
+     * @author                                                                                          //AUTHOR
+     */
     @Override
     public void setEvents() {
         btn_goHome.setOnAction(e -> {goBack();});
     }
 
+    /**
+     * Sets up the scene layout.
+     * @author                                                                                          //AUTHOR
+     */
     @Override
     public void setScene() {
         VBox titleBox = new VBox(60);
@@ -64,6 +84,10 @@ public class InfoPage extends A_Page{
         borderPane.setBottom(buttonHBox);
     }
 
+    /**
+     * Sets up the labels.
+     * @author                                                                                          //AUTHOR
+     */
     private void setLabels() {
         lbl_subTitle = setLabelStyle("About");
         lbl_subTitle.setFont(Font.font("Arial", FontWeight.BOLD, 36));
@@ -103,12 +127,20 @@ public class InfoPage extends A_Page{
         lbl_info.setFont(Font.font("Arial", 16));
     }
 
+    /**
+     * Sets up the buttons.
+     * @author                                                                                          //AUTHOR
+     */
     private void setButtons() {
         btn_goHome = new JFXButton("Go Back");
         btn_goHome.setStyle(setButtonStyle());
     }
 
+    /**
+     * Navigates back to the home page.
+     * @author                                                                                          //AUTHOR
+     */
     private void goBack() {
-        changePage(new StatisticsPage());
+        changePage(new HomePage());
     }
 }
