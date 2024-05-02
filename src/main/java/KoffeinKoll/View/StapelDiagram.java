@@ -1,6 +1,5 @@
 package KoffeinKoll.View;
 
-import KoffeinKoll.Controller.StatisticsController;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
@@ -18,12 +17,4 @@ public class StapelDiagram extends BarChart<String, Number> {
             this.getData().add(data);
         }
     }
-
-    // TO-DO Ändra färgerna i bars?
-        // Set the color of the bars for each data point individually
-      /*  for (int i = 0; i < series.getData().size(); i++) {
-            String barColorStyle = "-fx-bar-fill: rgb(0, 70, 0);";
-            series.getData().get(i).getNode().setStyle(barColorStyle);
-
-        }*/
-    }
+}

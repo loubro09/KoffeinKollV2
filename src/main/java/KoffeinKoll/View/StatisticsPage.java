@@ -1,6 +1,6 @@
 package KoffeinKoll.View;
 
-import KoffeinKoll.Controller.StatisticsController;
+import KoffeinKoll.Controller.StapelDiagramController;
 import com.jfoenix.controls.JFXButton;
 import eu.hansolo.tilesfx.Tile;
 import eu.hansolo.tilesfx.TileBuilder;
@@ -18,14 +18,13 @@ public class StatisticsPage extends A_Page{
     private JFXButton btn_weekly;
     private JFXButton btn_monthly;
     private JFXButton btn_info;
-    private StatisticsController statisticsController;
+    private StapelDiagramController stapelDiagramController;
 
     @Override
     public void initializeUI() {
         setComponents();
         setEvents();
         setScene();
-        statisticsController = new StatisticsController();
     }
 
     @Override
@@ -126,7 +125,7 @@ public class StatisticsPage extends A_Page{
     // Method to navigate to the weekly statistics page
     private void showWeeklyStatistics() {
         // Fetch weekly caffeine consumption data from the controller
-        XYChart.Series<String, Number> weeklyData = statisticsController.getWeeklyCaffeineConsumption(1); // Pass the user ID
+        XYChart.Series<String, Number> weeklyData = stapelDiagramController.getLast7DaysCaffeineConsumption(1); // Pass the user ID
         // Create a new instance of StapelDiagram and set the weekly statistics
         StapelDiagram stapelDiagram = new StapelDiagram(weeklyData);
         // Update the chart displayed
@@ -135,7 +134,7 @@ public class StatisticsPage extends A_Page{
 
     private void showMonthlyStatistics() {
         // Fetch monthly caffeine consumption data from the controller
-        XYChart.Series<String, Number> monthlyData = statisticsController.getMonthlyCaffeineConsumption(1); // Pass the user ID
+        XYChart.Series<String, Number> monthlyData = stapelDiagramController.getLast30DaysCaffeineConsumption(1); // Pass the user ID
         // Create a new instance of StapelDiagram and set the monthly statistics
         StapelDiagram stapelDiagram = new StapelDiagram(monthlyData);
         // Update the chart displayed
