@@ -8,7 +8,7 @@ import java.sql.Date;
 /**
  * The ProfileController class manages user profile updates.
  */
-public class ProfileController extends A_Controller{
+public class ProfileController{
 
     private DatabaseConnection databaseConnection;
 

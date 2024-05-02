@@ -7,7 +7,7 @@ import java.sql.*;
 /**
  * The CreateUserController class handles operations related to creating new users in the KoffeinKoll application.
  */
-public class CreateUserController extends A_Controller{
+public class CreateUserController{
 
     private DatabaseConnection databaseConnection;
 
@@ -137,7 +137,21 @@ public class CreateUserController extends A_Controller{
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
-            closeResources(null, preparedStatement, null);
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
+    }
+
+    protected void showAlert(String title, String content, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.show();
     }
 }

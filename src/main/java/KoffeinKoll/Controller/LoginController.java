@@ -10,7 +10,7 @@ import java.sql.SQLException;
 /**
  * The LoginController class manages user login functionality.
  */
-public class LoginController extends A_Controller{
+public class LoginController{
 
     private DatabaseConnection databaseConnection;
     private UserController user;
@@ -63,5 +63,13 @@ public class LoginController extends A_Controller{
             closeResources(connection, preparedStatement, resultSet);
         }
         return false;
+    }
+
+    protected void showAlert(String title, String content, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.show();
     }
 }
