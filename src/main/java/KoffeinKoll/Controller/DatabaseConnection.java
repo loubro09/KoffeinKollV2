@@ -30,7 +30,7 @@ public class DatabaseConnection {
             password = props.getProperty("db.password");
             url = props.getProperty("db.url");
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Consider using logging here instead
         }
     }
 
@@ -38,7 +38,7 @@ public class DatabaseConnection {
         try {
             return DriverManager.getConnection(url, username, password);
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Consider using logging here instead
             return null;
         }
     }

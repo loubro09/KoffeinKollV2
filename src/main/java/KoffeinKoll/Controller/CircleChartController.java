@@ -13,11 +13,11 @@ import javafx.scene.control.Alert.AlertType;
 
 public class CircleChartController {
     private CircleChart circleDiagram;
-    private int userId;
+
+
 
     public CircleChartController(CircleChart circleDiagram, int userId) {
         this.circleDiagram = circleDiagram;
-        this.userId = userId;
     }
 
     // Method to update the pie chart with the latest data
@@ -40,7 +40,7 @@ public class CircleChartController {
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setInt(1, this.userId);
+            pstmt.setInt(1, UserController.getInstance().getId());
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     beverageData.put(rs.getString("beverage_name"), rs.getInt("count"));
