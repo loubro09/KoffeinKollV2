@@ -91,7 +91,7 @@ public class InfoPage extends A_Page{
                     "This diagram offers a glimpse into your caffeine consumption habits across different timeframes. It includes two types of charts:\n\n" +
                     "Caffeine Diagram:\n" +
                     "This chart displays your caffeine intake over the past week or month. It's a useful tool for understanding your caffeine consumption patterns, allowing you to make adjustments if needed. It also helps you track long-term trends and identify any changes in your consumption patterns over time.\n\n" +
-                    "Drinks Diagram:\n" +
+                    "Beverages Diagram:\n" +
                     "This diagram categorizes and illustrates the types of drinks you've consumed. It gives you insights into the variety of beverages you consume, helping you make more informed choices about your beverage preferences.\n\n" +
                     "By exploring both diagrams, you can gain valuable insights into your caffeine intake habits, track your consumption trends, and make informed decisions to support a balanced and healthy lifestyle.";
 
@@ -109,6 +109,6 @@ public class InfoPage extends A_Page{
     }
 
     private void goBack() {
-        changePage(new HomePage());
+        changePage(new StatisticsPage());
     }
 }
