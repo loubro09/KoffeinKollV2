@@ -32,29 +32,12 @@ public class CreateUserController extends A_Controller{
     public boolean createUser(String username, String password, String habit, double weight, String birthday) {
         // Validate input
         if (!isValidPassword(password)) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Password must contain at least 8 characters, one capital letter, and one number.");
-            alert.show();
+            showAlert("Error", "Password must contain at least 8 characters, one capital letter, and one number.", Alert.AlertType.ERROR);
             return false;
         }
 
         if(!isUsernameValid(username)) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Username must be between 3 and 15 characters long.");
-            alert.show();
-            return false;
-        }
-
-        if (!isUniqueUsername(username)) {
-            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setTitle("Error");
-            errorAlert.setHeaderText(null);
-            errorAlert.setContentText("This username is already chosen. Try another one!");
-            errorAlert.show();
+            showAlert("Error", "Username must be between 3 and 15 characters long.", Alert.AlertType.ERROR);
             return false;
         }
 
@@ -63,6 +46,11 @@ public class CreateUserController extends A_Controller{
 
         try {
             connection = databaseConnection.getConnection();
+
+            if (!isUniqueUsername(username, connection)) {
+                showAlert("Error", "This username is already chosen. Try another one!", Alert.AlertType.ERROR);
+                return false;
+            }
             // Since user_id is now SERIAL, it will be generated automatically by the database
             preparedStatement = connection.prepareStatement("INSERT INTO users (username, habit, weight, birthdate, password) VALUES (?, ?, ?, ?, ?)");
             preparedStatement.setString(1, username);
@@ -149,14 +137,7 @@ public class CreateUserController extends A_Controller{
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
-            //closeResources(null, preparedStatement, null);
-            if (preparedStatement != null) {
-                try {
-                    preparedStatement.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
+            closeResources(null, preparedStatement, null);
         }
     }
 }
