@@ -55,7 +55,7 @@ public class BeverageController {
      * @author                                                                                          //AUTHOR
      */
 
-    //TA BORT? ANVÄNDS INTE NU
+                                                                                    //TA BORT? ANVÄNDS INTE NU
     public boolean validateDateTime(String text) {
         if (text == null || text.trim().isEmpty()) {
             return false;
@@ -96,6 +96,13 @@ public class BeverageController {
             e.printStackTrace();
             return false;
         }
+
+        /*
+        int newId = getMaxId("userhistory", "userhistory_id") + 1;
+        String sql = "INSERT INTO userhistory (userhistory_id, user_id, beverage_id, date) VALUES (?, ?, ?, ?)";
+
+        return executeUpdate(sql, newId, userId, beverageId, Date.valueOf(date));
+         */
     }
 }
 

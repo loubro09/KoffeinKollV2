@@ -40,6 +40,7 @@ public class LoginController {
             resultSet = preparedStatement.executeQuery();
 
             if (!resultSet.isBeforeFirst()) {
+                //showAlert("Error", "User not found", Alert.AlertType.ERROR);
                 System.out.println("User not found");
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("User not found");
@@ -52,6 +53,7 @@ public class LoginController {
                         return true;
                     }
                     else {
+                        //showAlert("Error", "Wrong password", Alert.AlertType.ERROR);
                         System.out.println("Wrong password");
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setContentText("Wrong password");
@@ -64,6 +66,7 @@ public class LoginController {
             throw new RuntimeException(e);
         }
         finally {
+            //closeResources(connection, preparedStatement, resultSet);
             if (resultSet != null) {
                 try {
                     resultSet.close();

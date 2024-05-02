@@ -95,6 +95,7 @@ public class ProfileController {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
+            //closeResources(connection, preparedStatement, null);
             try {
                 if (preparedStatement != null) {
                     preparedStatement.close();
