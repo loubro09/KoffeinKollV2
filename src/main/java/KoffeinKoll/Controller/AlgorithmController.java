@@ -1,14 +1,17 @@
 package KoffeinKoll.Controller;
 
 public class AlgorithmController {
-    private final int bevaregeId;
+    private  int beverageId;
     private final double beverageAmount;
     private DatabaseConnection databaseConnection;
-    private double halfLife; // Half-life in hours
+    double halfLife = 5.7; // hours
 
-    public AlgorithmController(int bevaregeId, double beverageAmount) {
-        this.bevaregeId = bevaregeId;
+
+    public AlgorithmController(int bevarageId, double beverageAmount) {
+        this.beverageId = bevarageId;
         this.beverageAmount = beverageAmount;
+        this.databaseConnection = DatabaseConnection.getInstance();
+
         calculateCaffeineAmount();
     }
 
@@ -18,19 +21,15 @@ public class AlgorithmController {
 
 
     public void calculateCaffeineAmount() {
-        int beverageId = 1;
-        double halfLife = 5.7; // hours
+
+        double beverageConcentration = databaseConnection.getBeverageConcentration(beverageId);
+
         double cF = 1; // mg
+        double c0 = beverageAmount * beverageConcentration;
 
+        double time = -calculateTime(cF, c0);
 
-        //for (beverageId){
-
-       /* double cO = (beverageAmount * koffein-koncentration)
-
-        AlgorithmController controller = new AlgorithmController(beverageId, beverageAmount);
-        double time = controller.calculateTime(cF, cO);
         System.out.println("Time required: " + time + " hours");
 
-        } */
     }
 }
