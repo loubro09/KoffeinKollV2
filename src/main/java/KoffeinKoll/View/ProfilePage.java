@@ -33,6 +33,7 @@ public class ProfilePage extends A_Page {
 
     /**
      * Initializes the UI components.
+     *
      * @author Louis Brown
      */
     @Override
@@ -45,6 +46,7 @@ public class ProfilePage extends A_Page {
 
     /**
      * Sets up UI components.
+     *
      * @author Louis Brown
      */
     @Override
@@ -58,7 +60,8 @@ public class ProfilePage extends A_Page {
 
     /**
      * Sets event handlers for buttons.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author //AUTHOR
      */
     @Override
     public void setEvents() {
@@ -72,8 +75,7 @@ public class ProfilePage extends A_Page {
             double weight = 0;
             if (newWeightText != null && !newWeightText.isEmpty()) {
                 weight = Double.parseDouble(newWeightText);
-            }
-            else {
+            } else {
                 weight = 0;
             }
             LocalDate dateOfBirth = datePicker.getValue();
@@ -83,18 +85,12 @@ public class ProfilePage extends A_Page {
 
             if (dateOfBirth != null) {
                 if (!isAtLeastFifteenYearsAgo(dateOfBirth)) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setHeaderText(null);
-                    alert.setContentText("You have to be at least 15 years of age to use this application.");
-                    alert.show();
+                    showAlert("Error", "You have to be at least 15 years of age to use this application.", Alert.AlertType.ERROR);
                     return;
-                }
-                else {
+                } else {
                     dateOfBirthText = dateOfBirth.format((formatter));
                 }
-            }
-            else {
+            } else {
                 dateOfBirthText = null;
             }
 
@@ -105,25 +101,17 @@ public class ProfilePage extends A_Page {
 
             // Display success or error message accordingly
             if (userUpdated) {
-                Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-                successAlert.setTitle("Success");
-                successAlert.setHeaderText(null);
-                successAlert.setContentText("User information updated successfully!");
-                successAlert.showAndWait();
+                showAlert("Success", "User information updated successfully!", Alert.AlertType.INFORMATION);
             } else {
-                // Display error message in a popup
-                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                errorAlert.setTitle("Error");
-                errorAlert.setHeaderText(null);
-                errorAlert.setContentText("Failed to update user information.");
-                errorAlert.showAndWait();
+                showAlert("Error", "Failed to update user information.", Alert.AlertType.ERROR);
             }
         });
     }
 
     /**
      * Sets up the scene layout.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author //AUTHOR
      */
     @Override
     public void setScene() {
@@ -154,7 +142,8 @@ public class ProfilePage extends A_Page {
 
     /**
      * Sets up labels.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author //AUTHOR
      */
     private void setLabels() {
         lbl_newHabit = setLabelStyle("New Habit:");
@@ -164,7 +153,8 @@ public class ProfilePage extends A_Page {
 
     /**
      * Sets up text fields.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author //AUTHOR
      */
     private void setTextfields() {
         tf_newWeight = setTextField();
@@ -173,7 +163,8 @@ public class ProfilePage extends A_Page {
 
     /**
      * Sets up buttons.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author //AUTHOR
      */
     private void setButtons() {
         btn_goHome = new JFXButton("Back");
@@ -185,6 +176,7 @@ public class ProfilePage extends A_Page {
 
     /**
      * Sets up radio buttons.
+     *
      * @author Louis Brown
      */
     private void setRadioButton() {
@@ -204,6 +196,7 @@ public class ProfilePage extends A_Page {
 
     /**
      * Retrieves the selected habit value from radio buttons.
+     *
      * @return The selected habit value.
      * @author Louis Brown
      */
@@ -217,6 +210,7 @@ public class ProfilePage extends A_Page {
 
     /**
      * Sets up date picker.
+     *
      * @author Alanah Coleman
      */
     private void setDatePicker() {
@@ -226,6 +220,7 @@ public class ProfilePage extends A_Page {
 
     /**
      * Checks if the chosen date is at least fifteen years ago.
+     *
      * @param chosenDate The chosen date.
      * @return True if the date is at least fifteen years ago, false otherwise.
      * @author Louis Brown
@@ -243,10 +238,10 @@ public class ProfilePage extends A_Page {
 
     /**
      * Returns to the home page.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author //AUTHOR
      */
     private void goBack() {
         changePage(new HomePage());
     }
 }
-
