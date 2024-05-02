@@ -95,7 +95,7 @@ public class HomePage extends A_Page {
             button.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
-                    changePage(new InfoPage());
+                    changePage(new InfoPage(true));
                 }
             });
         }

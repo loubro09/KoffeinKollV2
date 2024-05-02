@@ -1,6 +1,8 @@
 package KoffeinKoll.View;
 
 import com.jfoenix.controls.JFXButton;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
@@ -84,6 +86,6 @@ public class StatisticsPage extends A_Page {
     }
 
     private void goToInfoPage() {
-        // Navigate to the info page, if any
+        changePage(new InfoPage(false));
     }
 }
