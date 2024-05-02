@@ -7,7 +7,7 @@ import java.sql.*;
 /**
  * The CreateUserController class handles operations related to creating new users in the KoffeinKoll application.
  */
-public class CreateUserController {
+public class CreateUserController extends A_Controller{
 
     private DatabaseConnection databaseConnection;
 
@@ -127,40 +127,32 @@ public class CreateUserController {
 
     /**
      * Checks if a username is unique.
-     * @param username The username to check.
+     * @param username   The username to check.
+     * @param connection The database connection.
      * @return True if the username is unique, false otherwise.
      * @author Louis Brown
      */
-    private boolean isUniqueUsername(String username) {
-        Connection connection = null;
+    private boolean isUniqueUsername(String username, Connection connection) {
         PreparedStatement preparedStatement = null;
 
         try {
-            connection = databaseConnection.getConnection();
             preparedStatement = connection.prepareStatement("SELECT COUNT(*) FROM users WHERE username = ?");
             preparedStatement.setString(1, username);
-            // Execute the query
+
             ResultSet resultSet = preparedStatement.executeQuery();
-            // Check if the username already exists
+            //Check if the username already exists
             if (resultSet.next()) {
                 int count = resultSet.getInt(1);
-                return count == 0; // If count is 0, username is unique; otherwise, it already exists
+                return count == 0; //If count is 0, username is unique; otherwise, it already exists
             }
-            return true; // Default to true if no result is returned (shouldn't happen)
+            return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
-            // Close resources
+            //closeResources(null, preparedStatement, null);
             if (preparedStatement != null) {
                 try {
                     preparedStatement.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
