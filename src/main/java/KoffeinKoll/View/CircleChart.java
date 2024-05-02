@@ -3,36 +3,53 @@ package KoffeinKoll.View;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import java.util.Map;
 
-public class CircleChart extends PieChart {
+public class CircleChart extends VBox {
+    private PieChart pieChart;
+    private Label titleLabel;
+    private Label totalLabel;
 
     public CircleChart() {
-        super();
+        pieChart = new PieChart();
         initializeChart();
+
+        titleLabel = new Label("Beverage Consumption");
+        titleLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+
+        totalLabel = new Label();
+        totalLabel.setStyle("-fx-font-size: 14px;");
+
+        this.getChildren().addAll(titleLabel, pieChart, totalLabel);
+        this.setSpacing(10);
     }
 
     private void initializeChart() {
-        this.setTitle("Beverage Consumption");
-        // Set more properties as needed, such as chart labels
-        this.setLegendVisible(true);  // Optionally set the legend visibility
+        pieChart.setTitle("Beverage Consumption");
+        pieChart.setLegendVisible(true);
     }
 
-    // Update chart data from a map where keys are beverage names and values are their counts
-    public void updateChartData(Map<String, Integer> data) {
+    public void updateChartData(Map<String, Integer> data, String period, int days) {
         ObservableList<PieChart.Data> chartData = FXCollections.observableArrayList();
+        int totalAmount = data.values().stream().mapToInt(Integer::intValue).sum();
 
-        data.forEach((beverageName, count) -> {
-            chartData.add(new PieChart.Data(beverageName, count));
+        data.forEach((name, count) -> {
+            double percentage = count * 100.0 / totalAmount;
+            PieChart.Data slice = new PieChart.Data(name + " (" + String.format("%.1f%%", percentage) + ")", count);
+            chartData.add(slice);
         });
 
-        this.setData(chartData);
+        pieChart.setData(chartData);
+        titleLabel.setText(period + " Consumption");
+        totalLabel.setText("Total Consumed: " + totalAmount + " units");
+
         animateChart();
     }
 
-    // Optional: animate the chart updates (can be customized further as needed)
     private void animateChart() {
-        this.getData().forEach(data -> {
+        pieChart.getData().forEach(data -> {
             data.getNode().setOnMouseEntered(e -> {
                 data.getNode().setStyle("-fx-scale-x: 1.1; -fx-scale-y: 1.1;");
             });

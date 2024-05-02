@@ -23,15 +23,15 @@ public class DiagramController {
     // Method to update the pie chart with the latest data
     public void updateDiagramData(int days) {
         Map<String, Integer> beverageData = getBeverageConsumptionLastDays(days);
+        String period = (days == 7) ? "Weekly" : "Monthly"; // Determine the period based on days
         if (beverageData != null) {
-            circleDiagram.updateChartData(beverageData);
+            circleDiagram.updateChartData(beverageData, period, days);
         }
     }
 
     // Fetches beverage consumption data for the last X days from the database
     private Map<String, Integer> getBeverageConsumptionLastDays(int days) {
         Map<String, Integer> beverageData = new LinkedHashMap<>();
-        // Dynamically creating the interval part of the SQL query
         String sql = "SELECT b.beverage_name, COUNT(b.beverage_id) AS count " +
                 "FROM userhistory uh JOIN beverages b ON uh.beverage_id = b.beverage_id " +
                 "WHERE uh.user_id = ? AND uh.date >= current_date - interval '" + days + " days' " +
@@ -51,16 +51,6 @@ public class DiagramController {
         }
         return beverageData;
     }
-    private String getSqlForDays(int days) {
-        if (days == 7) {
-            return "... WHERE uh.date >= current_date - interval '7 days' ...";
-        } else if (days == 30) {
-            return "... WHERE uh.date >= current_date - interval '30 days' ...";
-        } else {
-            throw new IllegalArgumentException("Unsupported time interval: " + days);
-        }
-    }
-
 
     // Method to show error alerts
     private void showErrorAlert(String header, String content) {
