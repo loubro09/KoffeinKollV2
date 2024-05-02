@@ -163,10 +163,11 @@ public class BeverageStatsPage extends A_Page {
         LocalDate date = datePicker.getValue();
         String time = timeTextField.getText();
         LocalDateTime dateTime = LocalDateTime.of(date, LocalTime.parse(time, DateTimeFormatter.ofPattern("HH:mm")));
+        Double amount = Double.valueOf(tf_amountCL.getText());
 
         int userId = 1;
 
-        if (beverageController.insertUserHistory(userId, beverageID, LocalDate.from(dateTime))) {
+        if (beverageController.insertUserHistory(userId, beverageID, LocalDate.from(dateTime), amount)) {
             showAlert("Success", "Consumption logged successfully!");
         } else {
             showAlert("Database Error", "Failed to log consumption.");
