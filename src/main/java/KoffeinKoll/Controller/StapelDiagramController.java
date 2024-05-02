@@ -1,64 +1,55 @@
 package KoffeinKoll.Controller;
 
+import KoffeinKoll.View.StapelDiagram;
 import javafx.scene.chart.XYChart;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class StapelDiagramController {
+    private StapelDiagram stapelDiagram;
 
-    public XYChart.Series<String, Number> getLast30DaysCaffeineConsumption(int userId) {
-        XYChart.Series<String, Number> series = new XYChart.Series<>();
-        series.setName("Last 30 Days Caffeine Consumption");
-
-        LocalDate currentDate = LocalDate.now();
-        LocalDate startDate = currentDate.minusDays(29); // Start date is 30 days ago
-
-        try (Connection connection = DatabaseConnection.getInstance().getConnection()) {
-            for (int i = 0; i < 30; i++) {
-                LocalDate date = startDate.plusDays(i);
-                double caffeineAmount = getCaffeineAmountForDay(connection, date, userId);
-                series.getData().add(new XYChart.Data<>(date.toString(), caffeineAmount));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle SQLException
-        }
-
-        return series;
+    public StapelDiagramController(StapelDiagram stapelDiagram) {
+        this.stapelDiagram = stapelDiagram;
     }
 
-    public XYChart.Series<String, Number> getLast7DaysCaffeineConsumption(int userId) {
-        XYChart.Series<String, Number> series = new XYChart.Series<>();
-        series.setName("Last 7 Days Caffeine Consumption");
+    public void updateDiagramData(int userId, int days) {
+        Map<String, Number> data = getLastDaysCaffeineConsumption(userId, days);
+        String period = (days == 7) ? "Weekly" : (days == 30) ? "Monthly" : "Custom";
+        if (data != null && !data.isEmpty()) {
+            stapelDiagram.updateChartData(data, period, days);
+        }
+    }
 
+    private Map<String, Number> getLastDaysCaffeineConsumption(int userId, int days) {
+        Map<String, Number> data = new LinkedHashMap<>();
         LocalDate currentDate = LocalDate.now();
-        LocalDate startDate = currentDate.minusDays(6); // Start date is 7 days ago
+        LocalDate startDate = currentDate.minusDays(days - 1);
 
         try (Connection connection = DatabaseConnection.getInstance().getConnection()) {
-            for (int i = 0; i < 7; i++) {
+            for (int i = 0; i < days; i++) {
                 LocalDate date = startDate.plusDays(i);
                 double caffeineAmount = getCaffeineAmountForDay(connection, date, userId);
-                series.getData().add(new XYChart.Data<>(getDayOfWeekName(date.getDayOfWeek()), caffeineAmount));
+                data.put(date.toString(), caffeineAmount);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle SQLException
+            showErrorAlert("Error fetching caffeine consumption data", e.getMessage());
         }
 
-        return series;
+        return data;
     }
 
     private double getCaffeineAmountForDay(Connection connection, LocalDate date, int userId) throws SQLException {
         double totalCaffeine = 0;
-
-        String sql = "SELECT u.amount, b.caffeine_concentration " +
-                "FROM userhistory u " +
-                "JOIN beverages b ON u.beverage_id = b.beverage_id " +
+        String sql = "SELECT SUM(u.amount * b.caffeine_concentration) AS total_caffeine " +
+                "FROM userhistory u JOIN beverages b ON u.beverage_id = b.beverage_id " +
                 "WHERE u.date = ? AND u.user_id = ?";
 
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
@@ -66,37 +57,19 @@ public class StapelDiagramController {
             pstmt.setInt(2, userId);
 
             try (ResultSet resultSet = pstmt.executeQuery()) {
-                while (resultSet.next()) {
-                    double amount = resultSet.getDouble("amount");
-                    double caffeineConcentration = resultSet.getDouble("caffeine_concentration");
-
-                    // Calculate caffeine consumed for this beverage
-                    double caffeineConsumed = amount * caffeineConcentration;
-                    totalCaffeine += caffeineConsumed;
+                if (resultSet.next()) {
+                    totalCaffeine = resultSet.getDouble("total_caffeine");
                 }
             }
         }
         return totalCaffeine;
     }
 
-    private String getDayOfWeekName(DayOfWeek dayOfWeek) {
-        switch (dayOfWeek) {
-            case MONDAY:
-                return "Monday";
-            case TUESDAY:
-                return "Tuesday";
-            case WEDNESDAY:
-                return "Wednesday";
-            case THURSDAY:
-                return "Thursday";
-            case FRIDAY:
-                return "Friday";
-            case SATURDAY:
-                return "Saturday";
-            case SUNDAY:
-                return "Sunday";
-            default:
-                return "";
-        }
+    private void showErrorAlert(String header, String content) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 }

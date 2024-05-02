@@ -1,30 +1,33 @@
 package KoffeinKoll.View;
 
 import KoffeinKoll.Controller.CircleChartController;
+import KoffeinKoll.Controller.StapelDiagramController;
+import KoffeinKoll.Controller.UserController;
 import com.jfoenix.controls.JFXButton;
-import eu.hansolo.tilesfx.Tile;
-import eu.hansolo.tilesfx.TileBuilder;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-
 public class StatisticsPage extends A_Page {
-    private boolean isCircleChartShown = false;
-    private JFXButton btn_goHome;
-    private JFXButton btn_weekly;
-    private JFXButton btn_monthly;
-    private JFXButton btn_info;
+    private boolean isCircleChartShown = true;
+    private JFXButton btn_goHome, btn_toggleChart, btn_weekly, btn_monthly, btn_info;
     private CircleChart circleChart;
-    private CircleChartController diagramController;
-    private int userId = 1;  // Example user ID, adjust as necessary
+    private StapelDiagram stapelDiagram;
+    private CircleChartController circleChartController;
+    private StapelDiagramController stapelDiagramController;
+    private UserController userController;
+    private StackPane chartPane;
 
     @Override
     public void initializeUI() {
+        userController = UserController.getInstance();
         circleChart = new CircleChart();
-        diagramController = new CircleChartController(circleChart, userId);
+        stapelDiagram = new StapelDiagram();
+        circleChartController = new CircleChartController(circleChart, userController.getId());
+        stapelDiagramController = new StapelDiagramController(stapelDiagram);
+
         setComponents();
         setEvents();
         setScene();
@@ -33,14 +36,32 @@ public class StatisticsPage extends A_Page {
 
     @Override
     public void setComponents() {
+        btn_goHome = new JFXButton("Home");
+        btn_toggleChart = new JFXButton("Toggle Chart");
+        btn_weekly = new JFXButton("Weekly");
+        btn_monthly = new JFXButton("Monthly");
+        btn_info = new JFXButton("Info");
+
+        chartPane = new StackPane();
+        chartPane.getChildren().add(circleChart); // Display the CircleChart by default
+
         setButtons();
+    }
+
+    private void setButtons() {
+        btn_goHome.setStyle(setButtonStyle());
+        btn_toggleChart.setStyle(setButtonStyle());
+        btn_weekly.setStyle(setButtonStyle());
+        btn_monthly.setStyle(setButtonStyle());
+        btn_info.setStyle(setButtonStyle());
     }
 
     @Override
     public void setEvents() {
         btn_goHome.setOnAction(event -> goToHomePage());
-        btn_weekly.setOnAction(event -> updateChartData(7));  // Update to show last 7 days
-        btn_monthly.setOnAction(event -> updateChartData(30));  // Update to show last 30 days
+        btn_toggleChart.setOnAction(event -> toggleChart());
+        btn_weekly.setOnAction(event -> updateChartData(7));
+        btn_monthly.setOnAction(event -> updateChartData(30));
         btn_info.setOnAction(event -> goToInfoPage());
     }
 
@@ -50,11 +71,7 @@ public class StatisticsPage extends A_Page {
         chartAndSwitchBox.setAlignment(Pos.CENTER);
         chartAndSwitchBox.setPadding(new Insets(10));
         chartAndSwitchBox.setSpacing(20);
-
-        StackPane chartPane;
-        chartPane = new StackPane();
-        chartPane.getChildren().add(circleChart);  // Display the circle chart by default
-        chartAndSwitchBox.getChildren().add(chartPane);
+        chartAndSwitchBox.getChildren().addAll(btn_toggleChart, chartPane);
 
         borderPane.setCenter(chartAndSwitchBox);
 
@@ -66,21 +83,24 @@ public class StatisticsPage extends A_Page {
         borderPane.setBottom(buttonHBox);
     }
 
-    private void setButtons() {
-        btn_goHome = new JFXButton("Home");
-        btn_weekly = new JFXButton("Weekly");
-        btn_monthly = new JFXButton("Monthly");
-        btn_info = new JFXButton("Statistics Info");
-
-        // Apply a consistent style to all buttons
-        btn_goHome.setStyle(setButtonStyle());
-        btn_weekly.setStyle(setButtonStyle());
-        btn_monthly.setStyle(setButtonStyle());
-        btn_info.setStyle(setButtonStyle());
+    private void toggleChart() {
+        isCircleChartShown = !isCircleChartShown;
+        chartPane.getChildren().clear();
+        if (isCircleChartShown) {
+            chartPane.getChildren().add(circleChart);
+            updateChartData(7);  // Load data for the last 7 days for the currently displayed chart
+        } else {
+            chartPane.getChildren().add(stapelDiagram);
+            updateChartData(7);  // Assuming similar need for StapelDiagram
+        }
     }
 
     private void updateChartData(int days) {
-        diagramController.updateDiagramData(days);  // Delegate data fetching and chart updating to the controller
+        if (isCircleChartShown) {
+            circleChartController.updateDiagramData(days);
+        } else {
+            stapelDiagramController.updateDiagramData(userController.getId(), days);
+        }
     }
 
     private void goToHomePage() {
@@ -88,6 +108,6 @@ public class StatisticsPage extends A_Page {
     }
 
     private void goToInfoPage() {
-        // Navigate to the info page, if any
+        changePage(new InfoPage());
     }
 }
