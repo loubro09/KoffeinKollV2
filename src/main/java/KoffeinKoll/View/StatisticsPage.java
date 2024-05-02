@@ -110,10 +110,6 @@ public class StatisticsPage extends A_Page {
     }
 
     private void goToInfoPage() {
-<<<<<<< HEAD
         changePage(new InfoPage(false));
-=======
-        changePage(new InfoPage());
->>>>>>> BeverageStats
     }
 }
