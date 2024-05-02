@@ -1,38 +1,61 @@
 package KoffeinKoll.View;
 
-import eu.hansolo.tilesfx.Tile;
-import eu.hansolo.tilesfx.Tile.SkinType;
-import eu.hansolo.tilesfx.chart.ChartData;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.chart.PieChart;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
+import java.util.Map;
 
-import java.util.Arrays;
-import java.util.List;
-
-public class CircleChart extends StackPane {
-    private Tile donutChartTile;
+public class CircleChart extends VBox {
+    private PieChart pieChart;
+    private Label titleLabel;
+    private Label totalLabel;
 
     public CircleChart() {
-        donutChartTile = new Tile();
-        donutChartTile.setSkinType(SkinType.DONUT_CHART);
-        donutChartTile.setTitle("Weekly Statistics");
-        donutChartTile.setTitleColor(Color.rgb(0, 70, 0)); // Ställ in textfärgen
-        donutChartTile.setTextColor(Color.ORANGERED);
+        pieChart = new PieChart();
+        initializeChart();
 
-        // Skapa data för sektorerna i cirkeldiagrammet
-        List<ChartData> chartDataList = Arrays.asList(
-                new eu.hansolo.tilesfx.chart.ChartData("Sector 1", 25, Color.rgb(255, 238, 194)),
-                new eu.hansolo.tilesfx.chart.ChartData("Sector 2", 35, Color.rgb(255, 180, 88)),
-                new eu.hansolo.tilesfx.chart.ChartData("Sector 3", 40, Color.rgb(251, 101, 20))
-        );
+        titleLabel = new Label("Beverage Consumption");
+        titleLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
 
-        // Lägg till data för cirkeldiagrammet
-        donutChartTile.setChartData(chartDataList);
+        totalLabel = new Label();
+        totalLabel.setStyle("-fx-font-size: 14px;");
 
-        // Ställ in färgen på cirkeln
-        donutChartTile.setBackgroundColor(Color.WHITE); // Gör bakgrunden transparent
+        this.getChildren().addAll(titleLabel, pieChart, totalLabel);
+        this.setSpacing(10);
+    }
 
-        // Lägg till Donut Chart Tile till StackPane
-        getChildren().add(donutChartTile);
+    private void initializeChart() {
+        pieChart.setTitle("Beverage Consumption");
+        pieChart.setLegendVisible(true);
+    }
+
+    public void updateChartData(Map<String, Integer> data, String period, int days) {
+        ObservableList<PieChart.Data> chartData = FXCollections.observableArrayList();
+        int totalAmount = data.values().stream().mapToInt(Integer::intValue).sum();
+
+        data.forEach((name, count) -> {
+            double percentage = count * 100.0 / totalAmount;
+            PieChart.Data slice = new PieChart.Data(name + " (" + String.format("%.1f%%", percentage) + ")", count);
+            chartData.add(slice);
+        });
+
+        pieChart.setData(chartData);
+        titleLabel.setText(period + " Consumption");
+        totalLabel.setText("Total Consumed: " + totalAmount + " units");
+
+        animateChart();
+    }
+
+    private void animateChart() {
+        pieChart.getData().forEach(data -> {
+            data.getNode().setOnMouseEntered(e -> {
+                data.getNode().setStyle("-fx-scale-x: 1.1; -fx-scale-y: 1.1;");
+            });
+            data.getNode().setOnMouseExited(e -> {
+                data.getNode().setStyle("-fx-scale-x: 1.0; -fx-scale-y: 1.0;");
+            });
+        });
     }
 }
