@@ -1,14 +1,12 @@
 package KoffeinKoll.View;
 
 import com.jfoenix.controls.JFXButton;
-import eu.hansolo.tilesfx.Tile;
-import eu.hansolo.tilesfx.TileBuilder;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import KoffeinKoll.Controller.DiagramController;
+import KoffeinKoll.Controller.CircleChartController;
 
 public class StatisticsPage extends A_Page {
     private boolean isCircleChartShown = false;
@@ -17,13 +15,13 @@ public class StatisticsPage extends A_Page {
     private JFXButton btn_monthly;
     private JFXButton btn_info;
     private CircleChart circleChart;
-    private DiagramController diagramController;
+    private CircleChartController circleChartController;
     private int userId = 1;  // Example user ID, adjust as necessary
 
     @Override
     public void initializeUI() {
         circleChart = new CircleChart();
-        diagramController = new DiagramController(circleChart, userId);
+        circleChartController = new CircleChartController(circleChart, userId);
         setComponents();
         setEvents();
         setScene();
@@ -78,7 +76,7 @@ public class StatisticsPage extends A_Page {
     }
 
     private void updateChartData(int days) {
-        diagramController.updateDiagramData(days);  // Delegate data fetching and chart updating to the controller
+        circleChartController.updateDiagramData(days);  // Delegate data fetching and chart updating to the controller
     }
 
     private void goToHomePage() {

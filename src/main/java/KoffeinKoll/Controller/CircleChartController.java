@@ -11,11 +11,11 @@ import java.util.Map;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
-public class DiagramController {
+public class CircleChartController {
     private CircleChart circleDiagram;
     private int userId;
 
-    public DiagramController(CircleChart circleDiagram, int userId) {
+    public CircleChartController(CircleChart circleDiagram, int userId) {
         this.circleDiagram = circleDiagram;
         this.userId = userId;
     }
