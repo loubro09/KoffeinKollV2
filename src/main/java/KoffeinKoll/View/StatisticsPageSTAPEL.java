@@ -12,7 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.chart.XYChart;
 
-public class StatisticsPage extends A_Page{
+public class StatisticsPageSTAPEL extends A_Page{
     private boolean isCircleChartShown = false; // Flag to track the currently shown chart
     private JFXButton btn_goHome;
     private JFXButton btn_weekly;
