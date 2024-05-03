@@ -219,7 +219,7 @@ public class BeverageStatsPage extends A_Page {
         UserController userController = UserController.getInstance();
         int userId = userController.getId();
 
-        if (beverageController.insertUserHistory(userId, beverageID, LocalDate.from(dateTime), amount)) {
+        if (beverageController.insertUserHistory(userId, beverageID, LocalDateTime.from(dateTime), amount)) {
             showAlert("Success", "Consumption logged successfully!", Alert.AlertType.INFORMATION);
             AlgorithmController ac = new AlgorithmController();
             ac.updateGaugeNewLog(beverageID, amount);
