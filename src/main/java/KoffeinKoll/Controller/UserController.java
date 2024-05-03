@@ -11,6 +11,7 @@ public class UserController {
     private int id;
     private String username;
     private double weight;
+    private String habit;
     private DatabaseConnection databaseConnection;
     private LogInPage logInPage;
     private static UserController instance; // Singleton instance
@@ -110,4 +111,45 @@ public class UserController {
     public String getUsername() {
         return username;
     }
+
+
+
+    public String getHabit() {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = databaseConnection.getConnection();
+            preparedStatement = connection.prepareStatement("SELECT habit FROM users WHERE username = ?");
+            preparedStatement.setString(1, username);
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                // Set the habit field to the retrieved value from the database
+                habit = resultSet.getString("habit");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            // Close resources
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        System.out.println("Habit: " + habit);
+        return habit;
+    }
+
 }
