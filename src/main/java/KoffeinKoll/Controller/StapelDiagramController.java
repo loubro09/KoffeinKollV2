@@ -31,8 +31,13 @@ public class StapelDiagramController {
 
     private Map<String, Number> getLastDaysCaffeineConsumption(int userId, int days) {
         Map<String, Number> data = new LinkedHashMap<>();
-        LocalDate endDate = LocalDate.now();
-        LocalDate startDate = endDate.minusDays(days - 1);
+        LocalDate currentDate = LocalDate.now();
+        LocalDate startDate = currentDate.minusDays(days - 1);
+
+        // Pre-populate the map with all dates set to zero
+        for (LocalDate date = startDate; !date.isAfter(currentDate); date = date.plusDays(1)) {
+            data.put(date.toString(), 0);
+        }
 
         String sql = "SELECT DATE(u.date) as date, SUM(u.amount * b.caffeine_concentration) AS total_caffeine " +
                 "FROM userhistory u JOIN beverages b ON u.beverage_id = b.beverage_id " +
@@ -43,7 +48,7 @@ public class StapelDiagramController {
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setInt(1, userId);
             pstmt.setDate(2, java.sql.Date.valueOf(startDate));
-            pstmt.setDate(3, java.sql.Date.valueOf(endDate));
+            pstmt.setDate(3, java.sql.Date.valueOf(currentDate));
 
             try (ResultSet resultSet = pstmt.executeQuery()) {
                 while (resultSet.next()) {
