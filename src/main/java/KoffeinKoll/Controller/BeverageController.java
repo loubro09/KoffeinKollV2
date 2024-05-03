@@ -73,12 +73,12 @@ public class BeverageController {
      * Inserts a new user history entry into the database.
      * @param userId     The ID of the user.
      * @param beverageId The ID of the beverage.
-     * @param date       The date of consumption.
+     * @param dateTime       The date of consumption.
      * @param amount     The amount of beverage consumption.
      * @return True if the insertion was successful, false otherwise.
      * @author                                                                                          //AUTHOR
      */
-    public boolean insertUserHistory(int userId, int beverageId, LocalDate date, double amount) {
+    public boolean insertUserHistory(int userId, int beverageId, LocalDateTime dateTime, double amount) {
         // First, get the maximum ID and increment it
         int newId = getMaxUserHistoryId() + 1;
 
@@ -89,7 +89,12 @@ public class BeverageController {
             pstmt.setInt(1, newId); // Set the new unique ID
             pstmt.setInt(2, userId);
             pstmt.setInt(3, beverageId);
-            pstmt.setDate(4, java.sql.Date.valueOf(date));
+            if (dateTime != null) {
+                pstmt.setObject(4,dateTime);
+            }
+            else {
+                pstmt.setObject(4, LocalDateTime.now());
+            }
             pstmt.setDouble(5, amount); // Set the amount
             pstmt.executeUpdate();
             return true;
