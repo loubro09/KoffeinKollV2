@@ -141,6 +141,15 @@ public class InfoPage extends A_Page{
      * @author                                                                                          //AUTHOR
      */
     private void goBack() {
+<<<<<<< HEAD
         changePage(new HomePage());
+=======
+        if(!txt){
+        changePage(new StatisticsPage());
+        }
+        else {
+            changePage(new HomePage());
+        }
+>>>>>>> BeverageStats
     }
 }
