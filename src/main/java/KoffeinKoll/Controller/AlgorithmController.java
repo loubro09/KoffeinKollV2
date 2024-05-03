@@ -19,15 +19,20 @@ public class AlgorithmController {
         double cF = 1; // mg
         // hours
         double halfLife = 5.7;
+        System.out.println("calculateTime: Halflife: " + halfLife);
         return -halfLife * Math.log(cF / c0) / Math.log(2);
     }
 
     public void updateGaugeNewLog(int beverageId, double beverageAmount) {
         double caffeine = getBeverageConcentration(beverageId) * beverageAmount;
+        System.out.println("updateGaugeNewLog: Caffeine amount: " + caffeine);
         double newDrinkTime = calculateTime(caffeine);
+        System.out.println("updateGaugeNewLog: Time for new drink to leave body: " + newDrinkTime);
         CustomGauge cg = CustomGauge.getInstance();
         double currentDrinkTime = cg.getCurrentValue();
+        System.out.println("Time for current drink to leave body: " + currentDrinkTime);
         newDrinkTime += currentDrinkTime;
+        System.out.println("New time for caffeine to leave body: " + newDrinkTime);
         cg.changeValue((int) newDrinkTime);
 
         String sql = "UPDATE users SET current_max_gauge_time = ? WHERE user_id = ?";
@@ -58,8 +63,7 @@ public class AlgorithmController {
         long hoursSinceLastLog;
         if (lastLogTime == null) {
             hoursSinceLastLog = 0;
-        }
-        else {
+        } else {
             LocalTime currentTime = LocalTime.now();
             hoursSinceLastLog = ChronoUnit.HOURS.between(lastLogTime, currentTime);
         }
@@ -68,6 +72,9 @@ public class AlgorithmController {
     }
 
     public double getMaxValue() {
+        if (lastLog() == null) {
+            return 0;
+        }
         String sql = "SELECT current_max_gauge_time FROM users WHERE user_id = ?";
 
         try (
@@ -94,30 +101,30 @@ public class AlgorithmController {
     }
 
     private LocalTime lastLog() {
-            // SQL query to retrieve the time of the last added row for the specified user and today's date
-            String sql = "SELECT date AS lastAddedTime FROM userhistory WHERE user_id = ? AND DATE(date) = ? ORDER BY date DESC LIMIT 1";
-            try (
-                    Connection conn = DatabaseConnection.getInstance().getConnection();
-                    PreparedStatement stmt = conn.prepareStatement(sql)
-            ) {
-                // Set parameters for the PreparedStatement
-                stmt.setInt(1, UserController.getInstance().getId());
-                stmt.setDate(2, java.sql.Date.valueOf(LocalDate.now()));
+        // SQL query to retrieve the time of the last added row for the specified user and today's date
+        String sql = "SELECT date AS lastAddedTime FROM userhistory WHERE user_id = ? AND DATE(date) = ? ORDER BY date DESC LIMIT 1";
+        try (
+                Connection conn = DatabaseConnection.getInstance().getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)
+        ) {
+            // Set parameters for the PreparedStatement
+            stmt.setInt(1, UserController.getInstance().getId());
+            stmt.setDate(2, java.sql.Date.valueOf(LocalDate.now()));
 
-                // Execute the query
-                ResultSet rs = stmt.executeQuery();
-                if (rs.next()) {
-                    // Retrieve the time from the result set
-                    return rs.getTime("lastAddedTime").toLocalTime();
-                } else {
-                    // No rows found matching the criteria
-                    System.out.println("No rows found for user " + " today.");
-                    return null;
-                }
-            } catch (SQLException e) {
-                System.err.println("Error retrieving last added row time: " + e.getMessage());
+            // Execute the query
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                // Retrieve the time from the result set
+                return rs.getTime("lastAddedTime").toLocalTime();
+            } else {
+                // No rows found matching the criteria
+                System.out.println("No rows found for user " + " today.");
                 return null;
             }
+        } catch (SQLException e) {
+            System.err.println("Error retrieving last added row time: " + e.getMessage());
+            return null;
+        }
     }
 
     public double getBeverageConcentration(int beverageId){
@@ -130,6 +137,7 @@ public class AlgorithmController {
             ResultSet resultSet = statement.executeQuery();
             if(resultSet.next()) {
                 concentration = resultSet.getDouble("caffeine_concentration");
+                System.out.println("getBeverageConcentration: Caffeine concentration = " + concentration);
             }else{
                 System.out.println("beverage cannot be found in database");
             }
