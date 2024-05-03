@@ -273,6 +273,7 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-config.properties
+*.config.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/java,windows,macos,jetbrains+all,maven,intellij+all
+config.properties

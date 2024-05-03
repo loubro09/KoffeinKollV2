@@ -1,153 +1,165 @@
 package KoffeinKoll.View;
 
 import KoffeinKoll.Controller.LoginController;
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import com.jfoenix.controls.JFXButton;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.LinearGradient;
-import javafx.scene.paint.Stop;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.stage.Stage;
 
-public class LogInPage extends Application {
-    private Stage logInStage;
+/**
+ * LogInPage represents the user interface for logging into the KoffeinKoll application.
+ * It allows users to enter their username and password, and provides functionality for logging in or
+ * navigating to the registration page.
+ */
+public class LogInPage extends A_Page{
+
+    private Label lbl_userName;
+    private Label lbl_password;
+    private TextField tf_userName;
+    private PasswordField pf_password;
+    private Hyperlink hl_registration;
+    private JFXButton btn_logIn;
+
+    /**
+     * Initializes the UI components of the login page.
+     * @author Louis Brown
+     */
+    public void initializeUI(){
+        setComponents();
+        setEvents();
+        setScene();
+    }
+
+    /**
+     * Sets the UI components for the login page.
+     * @author Louis Brown
+     */
     @Override
-    public void start(Stage logInStage) {
-        this.logInStage = logInStage;
+    public void setComponents() {
+        setLabels();
+        setTextfields();
+        setButtons();
+    }
 
-        logInStage.setTitle("KoffeinKoll - Caffeine Management Tool");
-        logInStage.setWidth(800);
-        logInStage.setHeight(800);
-        //Huvudtitel
-        Label titleLabel = new Label("KoffeinKoll");
-        titleLabel.setFont(Font.font("Arial", FontWeight.BOLD, 46));
+    /**
+     * Sets the event handlers for UI controls on the login page.
+     * @author                                                                                          //AUTHOR
+     */
+    @Override
+    public void setEvents() {
+        // Log in button action handler
+        btn_logIn.setOnAction(event -> handleLogin());
 
-        //Rubrik ovanför textrutor
-        Label userNameLabel = new Label("Username");
-        userNameLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-        Label passwordLabel = new Label("Password");
-        passwordLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-
-        // Definierar den färg som all rubrikstext bör ha
-        Color labelColor = Color.rgb(0, 60, 0);
-        titleLabel.setTextFill(labelColor);
-        userNameLabel.setTextFill(labelColor);
-        passwordLabel.setTextFill(labelColor);
-
-        //textrutorna
-
-        TextField userNameField = textField();
-        userNameField.setPromptText("Enter username");
-        PasswordField passwordField = new PasswordField();
-        passwordField.setPromptText("Enter password ");
-
-        Hyperlink registration = new Hyperlink("Not registered? Create an account!");
-        registration.setFont(Font.font("Arial", 14));
-
-        String styleButtons = "-fx-background-color:\n" +
-                "            #090a0c,\n" +
-                "            linear-gradient(#8fbc8f 0%, #8fbc8f 20%, #8fbc8f 100%),\n" +
-                "            linear-gradient(#c0dbad, #8fbc8f),\n" +
-                "            radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));\n" +
-                "    -fx-background-radius: 5,4,3,5;\n" +
-                "    -fx-background-insets: 0,1,2,0;\n" +
-                "    -fx-text-fill: white;\n" +
-                "    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );\n" +
-                "    -fx-font-family: \"Arial\";\n" +
-                "    -fx-text-fill: linear-gradient(black, black);\n" +
-                "    -fx-font-size: 20px;\n" +
-                "    -fx-padding: 10 20 10 20;";
-
-        Button logInButton = new Button("Log in");
-        logInButton.setStyle(styleButtons);
-
-        //event som hanterar att login knappens metod körs när du klickar på enter i lösenordsfältet
-        passwordField.addEventHandler(KeyEvent.KEY_PRESSED, ev -> {
+        // Handle enter key press in password field
+        pf_password.addEventHandler(KeyEvent.KEY_PRESSED, ev -> {
             if (ev.getCode() == KeyCode.ENTER) {
-                logInButton.fire();
+                handleLogin();
                 ev.consume();
             }
         });
 
+        // Registration link action handler
+        hl_registration.setOnAction(event -> handleReg());
+    }
 
+    /**
+     * Sets the scene layout for the login page.
+     * @author                                                                                          //AUTHOR
+     */
+    @Override
+    public void setScene() {
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setHgap(10);
         gridPane.setVgap(10);
-        gridPane.add(userNameLabel, 0, 0);
-        gridPane.add(userNameField, 0, 1);
-        gridPane.add(passwordLabel, 0, 2);
-        gridPane.add(passwordField, 0, 3);
-        gridPane.add(registration,0,5);
-        gridPane.add(logInButton, 0, 7);
-        gridPane.setHalignment(logInButton, Pos.CENTER.getHpos());
+        gridPane.add(lbl_userName, 0, 0);
+        gridPane.add(tf_userName, 0, 1);
+        gridPane.add(lbl_password, 0, 2);
+        gridPane.add(pf_password, 0, 3);
+        gridPane.add(hl_registration,0,5);
+        gridPane.add(btn_logIn, 0, 7);
+        gridPane.setHalignment(btn_logIn, Pos.CENTER.getHpos());
 
 
-        BorderPane borderPane = new BorderPane();
+        borderPane = getBorderPane();
         borderPane.setPadding(new Insets(20));
         borderPane.setCenter(gridPane);
 
         // Creating a VBox for main page
         HBox topHBox = new HBox();
-        topHBox.getChildren().add(titleLabel);
+        topHBox.getChildren().add(lbl_title);
         topHBox.setAlignment(Pos.CENTER);
         borderPane.setTop(topHBox);
-
-        logInButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                String username = userNameField.getText();
-                String password = passwordField.getText();
-
-                LoginController loginController = new LoginController();
-                boolean loggedIn = loginController.logIn(username,password);
-
-                if(loggedIn) {
-                    logInStage.close();
-
-                    HomePage homePage = new HomePage();
-                    homePage.start(new Stage());
-                }
-                else {
-                    System.out.println("Login failed");
-                }
-            }
-        });
-
-        Scene scene = new Scene(borderPane, 800, 800);
-
-        // Setting background color as a gradient centered with yellow in the middle
-        Stop[] stops = new Stop[]{new Stop(0, Color.web("#c0dbad")), new Stop(1, Color.web("#fcf1cb"))};
-        LinearGradient gradient = new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE, stops);
-        borderPane.setBackground(new javafx.scene.layout.Background(new javafx.scene.layout.BackgroundFill(gradient, null, null)));
-
-        // Setting the Scene to the Stage
-        logInStage.setScene(scene);
-        logInStage.show();
     }
 
-    //konstanter och skuggorna till TextFields
-    private TextField textField(){
-        TextField fieldStyle = new TextField();
-        fieldStyle.setFont(Font.font("Arial", 14));
-        fieldStyle.setPrefWidth(220);
-        fieldStyle.setPrefHeight(30);
-        fieldStyle.setStyle(" -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
-        return fieldStyle;
+    /**
+     * Sets labels for username and password fields.
+     * @author                                                                                          //AUTHOR
+     */
+    private void setLabels() {
+        lbl_userName = setLabelStyle("Username");
+        lbl_password = setLabelStyle("Password");
     }
-    public static void main(String[] args) {
-        launch(args);
+
+    /**
+     * Sets text fields for username and password entry.
+     * @author                                                                                          //AUTHOR
+     */
+    private void setTextfields() {
+        tf_userName = setTextField();
+        tf_userName.setPromptText("Enter username");
+        pf_password = setPasswordField();
+        pf_password.setPromptText("Enter password ");
+    }
+
+    /**
+     * Sets buttons for login and registration.
+     * @author                                                                                          //AUTHOR
+     */
+    private void setButtons() {
+        btn_logIn = new JFXButton("Log in");
+        btn_logIn.setStyle(setButtonStyle());
+
+        hl_registration = new Hyperlink("Not registered? Create an account!");
+        hl_registration.setFont(Font.font("Arial", 14));
+    }
+
+    /**
+     * Handles the login process when the login button is clicked.
+     * @author                                                                                          //AUTHOR
+     */
+    private void handleLogin() {
+        String username = tf_userName.getText();
+        String password = pf_password.getText();
+
+        // Logic for handling login here
+        LoginController loginController = new LoginController();
+        boolean loggedIn = loginController.logIn(username, password);
+
+        if (loggedIn) {
+            /*HomePage homePage = new HomePage();
+            homePage.setUserName(username);
+            changePage(homePage);*/
+            changePage(new HomePage());
+        } else {
+            System.out.println("Login failed");
+        }
+    }
+
+    /**
+     * Handles the navigation to the registration page when the registration link is clicked.
+     * @author                                                                                          //AUTHOR
+     */
+    private void handleReg() {
+        changePage(new CreateUserPage());
+    }
+
+    public TextField getTf_userName() {
+        return tf_userName;
     }
 }
