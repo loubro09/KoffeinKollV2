@@ -1,7 +1,6 @@
 package KoffeinKoll.Controller;
 
 import KoffeinKoll.View.StapelDiagram;
-import javafx.scene.chart.XYChart;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,6 +24,8 @@ public class StapelDiagramController {
         String period = (days == 7) ? "Weekly" : (days == 30) ? "Monthly" : "Custom";
         if (data != null && !data.isEmpty()) {
             stapelDiagram.updateChartData(data, period, days);
+        } else {
+            showErrorAlert("No Data Available", "No caffeine data available for the selected period.");
         }
     }
 
@@ -33,36 +34,32 @@ public class StapelDiagramController {
         LocalDate currentDate = LocalDate.now();
         LocalDate startDate = currentDate.minusDays(days - 1);
 
-        try (Connection connection = DatabaseConnection.getInstance().getConnection()) {
-            for (int i = 0; i < days; i++) {
-                LocalDate date = startDate.plusDays(i);
-                double caffeineAmount = getCaffeineAmountForDay(connection, date, userId);
-                data.put(date.toString(), caffeineAmount);
+        // Pre-populate the map with all dates set to zero
+        for (LocalDate date = startDate; !date.isAfter(currentDate); date = date.plusDays(1)) {
+            data.put(date.toString(), 0);
+        }
+
+        String sql = "SELECT DATE(u.date) as date, SUM(u.amount * b.caffeine_concentration) AS total_caffeine " +
+                "FROM userhistory u JOIN beverages b ON u.beverage_id = b.beverage_id " +
+                "WHERE u.user_id = ? AND u.date BETWEEN ? AND ? " +
+                "GROUP BY DATE(u.date) ORDER BY DATE(u.date)";
+
+        try (Connection connection = DatabaseConnection.getInstance().getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setInt(1, userId);
+            pstmt.setDate(2, java.sql.Date.valueOf(startDate));
+            pstmt.setDate(3, java.sql.Date.valueOf(currentDate));
+
+            try (ResultSet resultSet = pstmt.executeQuery()) {
+                while (resultSet.next()) {
+                    data.put(resultSet.getDate("date").toString(), resultSet.getDouble("total_caffeine"));
+                }
             }
         } catch (SQLException e) {
             showErrorAlert("Error fetching caffeine consumption data", e.getMessage());
         }
 
         return data;
-    }
-
-    private double getCaffeineAmountForDay(Connection connection, LocalDate date, int userId) throws SQLException {
-        double totalCaffeine = 0;
-        String sql = "SELECT SUM(u.amount * b.caffeine_concentration) AS total_caffeine " +
-                "FROM userhistory u JOIN beverages b ON u.beverage_id = b.beverage_id " +
-                "WHERE u.date = ? AND u.user_id = ?";
-
-        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setDate(1, java.sql.Date.valueOf(date));
-            pstmt.setInt(2, userId);
-
-            try (ResultSet resultSet = pstmt.executeQuery()) {
-                if (resultSet.next()) {
-                    totalCaffeine = resultSet.getDouble("total_caffeine");
-                }
-            }
-        }
-        return totalCaffeine;
     }
 
     private void showErrorAlert(String header, String content) {
