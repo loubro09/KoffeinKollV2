@@ -109,6 +109,11 @@ public class InfoPage extends A_Page{
     }
 
     private void goBack() {
+        if(!txt){
         changePage(new StatisticsPage());
+        }
+        else {
+            changePage(new HomePage());
+        }
     }
 }
