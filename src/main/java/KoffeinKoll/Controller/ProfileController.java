@@ -14,7 +14,7 @@ public class ProfileController {
 
     /**
      * Constructs a new ProfileController object.
-     * @author                                                                                          //AUTHOR
+     * @author Kenan Al-Tal, Alanah Coleman                                                                                         //AUTHOR
      */
     public ProfileController() {
         this.databaseConnection = databaseConnection.getInstance();
@@ -27,7 +27,7 @@ public class ProfileController {
      * @param newWeight      The new weight of the user.
      * @param newDateOfBirth The new date of birth of the user.
      * @return True if the update is successful, otherwise false.
-     * @author                                                                                          //AUTHOR
+     * @author Kenan Al-Tal
      */
     public boolean updateUser(int userId, String newHabit, double newWeight, String newDateOfBirth) {
         Connection connection = null;

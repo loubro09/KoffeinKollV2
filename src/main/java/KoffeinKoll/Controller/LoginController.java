@@ -18,7 +18,7 @@ public class LoginController {
 
     /**
      * Constructs a new LoginController object.
-     * @author                                                                                          //AUTHOR
+     * @author alanahColeman
      */
     public LoginController() {
         this.databaseConnection = databaseConnection.getInstance();
@@ -29,7 +29,7 @@ public class LoginController {
      * @param username The username of the user.
      * @param password The password of the user.
      * @return True if the login is successful, otherwise false.
-     * @author                                                                                          //AUTHOR
+     * @author alanahColeman
      */
     public boolean logIn(String username, String password) {
         Connection connection = null;
