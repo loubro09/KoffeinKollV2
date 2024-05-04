@@ -19,7 +19,7 @@ public class UserController {
 
     /**
      * Constructor for UserController
-     * @author alanahcoleman
+     * @author
      */
     public UserController() {
         this.id = id;

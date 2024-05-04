@@ -55,7 +55,7 @@ public class HomePage extends A_Page {
 
     /**
      * Sets the scene layout for the home page.
-     * @author                                                                                          //AUTHOR
+     * @author                                                                                           //AUTHOR
      */
     @Override
     public void setScene() {
@@ -171,7 +171,7 @@ public class HomePage extends A_Page {
 
     /**
      * Sets the style and icons for the buttons on the home page.
-     * @author                                                                                          //AUTHOR
+     * @author Alanah Coleman
      */
     private void setButtons() {
         btn_statistics = new JFXButton("Statistics");

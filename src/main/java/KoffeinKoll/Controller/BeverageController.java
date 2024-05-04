@@ -104,6 +104,13 @@ public class BeverageController {
         }
     }
 
+    /**
+     * Retrieves the total caffeine intake for a user on the current day.
+     *
+     * @param userId The ID of the user.
+     * @return The total caffeine intake for the user on the current day.
+     * @author alanahColeman
+     */
     public int getDailyCaffeineIntake(int userId) {
         int totalCaffeine = 0;
 

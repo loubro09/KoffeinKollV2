@@ -43,7 +43,7 @@ public class DiagramInfoPage extends A_Page{
 
     /**
      * Sets up event handling.
-     * @author                                                                                          //AUTHOR
+     * @author Alanah Coleman
      */
     @Override
     public void setEvents() {
@@ -52,7 +52,7 @@ public class DiagramInfoPage extends A_Page{
 
     /**
      * Sets up the scene layout.
-     * @author                                                                                          //AUTHOR
+     * @author Alanah Coleman
      */
     @Override
     public void setScene() {

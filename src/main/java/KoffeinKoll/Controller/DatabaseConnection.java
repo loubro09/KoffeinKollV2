@@ -2,7 +2,6 @@ package KoffeinKoll.Controller;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.sql.*;
 import java.util.Properties;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -18,7 +17,7 @@ public class DatabaseConnection {
 
     /**
      * Constructs a new DatabaseConnection object.
-     * @author                                                                                          //AUTHOR
+     * @author
      */
     private DatabaseConnection() {
         loadConfiguration();
@@ -55,7 +54,7 @@ public class DatabaseConnection {
     /**
      * Establishes a connection to the database.
      * @return The database connection.
-     * @author                                                                                          //AUTHOR
+     * @author alanahColeman                                                                                          //AUTHOR
      */
     public Connection getConnection() {
         try {
