@@ -31,16 +31,17 @@ public class CreateUserController {
             return false;
         }
 
-        if (!isUniqueUsername(username)) {
-            showAlert("Error", "This username is already chosen. Try another one!", Alert.AlertType.ERROR);
-            return false;
-        }
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
         try {
             connection = DatabaseConnection.getInstance().getConnection();
+
+            if (!isUniqueUsername(username, connection)) {
+                showAlert("Error", "This username is already chosen. Try another one!", Alert.AlertType.ERROR);
+                return false;
+            }
 
             preparedStatement = connection.prepareStatement("INSERT INTO users (username, habit, weight, " +
                     "birthdate, password) VALUES (?, ?, ?, ?, ?)");
@@ -109,21 +110,19 @@ public class CreateUserController {
 
     /**
      * Checks if a username is unique.
-     * @param username The username to check.
+     * @param username   The username to check.
+     * @param connection The database connection.
      * @return True if the username is unique, false otherwise.
      * @author Louis Brown
      */
-    private boolean isUniqueUsername(String username) {
-        Connection connection = null;
+    private boolean isUniqueUsername(String username, Connection connection) {
         PreparedStatement preparedStatement = null;
 
         try {
-            connection = DatabaseConnection.getInstance().getConnection();
             preparedStatement = connection.prepareStatement("SELECT COUNT(*) FROM users WHERE username = ?");
             preparedStatement.setString(1, username);
 
             ResultSet resultSet = preparedStatement.executeQuery();
-
             if (resultSet.next()) {
                 int count = resultSet.getInt(1);
                 return count == 0; //If count is 0, username is unique; otherwise, it already exists
@@ -131,20 +130,15 @@ public class CreateUserController {
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("CreateUserController : ");
+            System.out.println("CreateUserController : isUniqueUsername : Database or SQL error.");
             throw new RuntimeException(e);
         } finally {
-            // Close resources
             if (preparedStatement != null) {
                 try {
                     preparedStatement.close();
                 } catch (SQLException e) {
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
+                    e.printStackTrace();
+                    System.out.println("CreateUserController : isUniqueUsername : Closing Prepared Statement error.");
                 }
             }
         }
