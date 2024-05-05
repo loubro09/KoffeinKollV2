@@ -8,7 +8,8 @@ import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 
 /**
- * The AlgorithmController class handels methods for calculating caffeine metabolism time. It also updates the gauge when a new consumed beverage is logged, and gets information needed from the database.
+ * The AlgorithmController class handles methods for calculating caffeine metabolism time. It also updates the gauge when a new consumed beverage is logged, and gets information needed from the database.
+ * @author idanordenswan
  */
 
 public class AlgorithmController {
@@ -16,6 +17,7 @@ public class AlgorithmController {
 
     /**
      * Constructor for the Algorithmcontroller.
+     *
      */
 
     public AlgorithmController() {
@@ -26,6 +28,7 @@ public class AlgorithmController {
      * Half-life equation that calculates the time(in hours) it takes for caffeine to metabolize in the body, using the half-life constant for caffeine = 5.7h.
      * @param c0 is the intitial caffeine contentration in milligrams.
      * @return the time (h) it takes for the caffeine to decrease to 1 milligram.
+     * @author idanordenswan
      */
 
     public double calculateTime(double c0) {
@@ -40,6 +43,7 @@ public class AlgorithmController {
      * Upda<tes the gauge when a new drink is registered by the user and updates the database with the max gauge time.
      * @param beverageId the Id of the logged drink.
      * @param beverageAmount the amount of beverage consumed(in centiliters).
+     * @author idanordenswan
      */
 
     public void updateGaugeNewLog(int beverageId, double beverageAmount) {
@@ -79,6 +83,7 @@ public class AlgorithmController {
     /**
      * Calculates the current value of the gauge. The current value is based on the last log time and current time.
      * @return the current value of the gauge.
+     * @author idanordenswan
      */
 
     public double currentGaugeValue() {
@@ -98,6 +103,7 @@ public class AlgorithmController {
     /**
      * Getter for the max gauge value. Retreives the value from the database for the current user.
      * @return maximum gauge value.
+     * @author idanordenswan
      */
 
     public double getMaxValue() {
@@ -132,6 +138,7 @@ public class AlgorithmController {
     /**
      * Checks the last drink log from the database for the current user at the current time.
      * @return the time of the last drink log.
+     * @author idanordenswan
      */
 
     private LocalTime lastLog() {
@@ -165,6 +172,7 @@ public class AlgorithmController {
      * Gets the corresponding caffeine concentration of the selected beverage.
      * @param beverageId the Id of the beverage.
      * @return the caffeine concentration of the selected beverage.
+     * @author idanordenswan
      */
 
     public double getBeverageConcentration(int beverageId){
@@ -192,6 +200,8 @@ public class AlgorithmController {
      * Calculates the total amopunt of caffeine that the current user has consumed for the day.
      * @param userId Id of the user.
      * @return total caffein consumption of the day.
+     * @author idanordenswan
+     *
      */
 
     public double getTotalCaffeineForDay(int userId) {
