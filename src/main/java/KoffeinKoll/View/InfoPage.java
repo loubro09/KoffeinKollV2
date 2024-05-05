@@ -51,7 +51,7 @@ public class InfoPage extends A_Page {
     /**
      * Sets up event handling.
      *
-     * @author //AUTHOR
+     * @author
      */
     @Override
     public void setEvents() {
@@ -63,7 +63,7 @@ public class InfoPage extends A_Page {
     /**
      * Sets up the scene layout.
      *
-     * @author //AUTHOR
+     * @author
      */
     @Override
     public void setScene() {
@@ -136,7 +136,7 @@ public class InfoPage extends A_Page {
     /**
      * Sets up the buttons.
      *
-     * @author //AUTHOR
+     * @author
      */
     private void setButtons() {
         btn_goHome = new JFXButton("Go Back");
@@ -146,7 +146,7 @@ public class InfoPage extends A_Page {
     /**
      * Navigates back to the home page.
      *
-     * @author //AUTHOR
+     * @author
      */
     private void goBack() {
 

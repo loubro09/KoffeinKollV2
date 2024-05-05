@@ -11,7 +11,6 @@ import java.sql.Date;
 public class ProfileController {
 
     private DatabaseConnection databaseConnection;
-
     /**
      * Constructs a new ProfileController object.
      * @author Kenan Al-Tal, Alanah Coleman                                                                                         //AUTHOR

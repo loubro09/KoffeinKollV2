@@ -97,10 +97,8 @@ public class UserController {
                 throw new RuntimeException(e);
             }
         }
-
         return weight;
     }
-
 
     /**
      * Retrieves the user ID from the database.
@@ -181,9 +179,7 @@ public class UserController {
                 throw new RuntimeException(e);
             }
         }
-
         System.out.println("Habit: " + habit);
         return habit;
     }
-
 }
