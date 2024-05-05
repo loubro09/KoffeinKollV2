@@ -30,7 +30,6 @@ public class ProfilePage extends A_Page {
     private RadioButton rb_option3;
     private UserController userController;
 
-
     /**
      * Initializes the UI components.
      * @author Louis Brown
@@ -58,7 +57,7 @@ public class ProfilePage extends A_Page {
 
     /**
      * Sets event handlers for buttons.
-     * @author                                                                                          //AUTHOR
+     * @author Louis Brown, Kenan Al Tal
      */
     @Override
     public void setEvents() {
@@ -98,12 +97,8 @@ public class ProfilePage extends A_Page {
                 dateOfBirthText = null;
             }
 
-            //----------------HÄMTA INLOGGAD USER ID //
-
-            // Validate input and save new user information
             boolean userUpdated = profileController.updateUser(userController.getId(), newHabit, weight, dateOfBirthText);
 
-            // Display success or error message accordingly
             if (userUpdated) {
                 showAlert("Success", "User information updated successfully!", Alert.AlertType.INFORMATION);
             } else {
@@ -114,7 +109,7 @@ public class ProfilePage extends A_Page {
 
     /**
      * Sets up the scene layout.
-     * @author                                                                                          //AUTHOR
+     * @author Louis Brown, Kenan Al Tal
      */
     @Override
     public void setScene() {
@@ -139,13 +134,12 @@ public class ProfilePage extends A_Page {
         HBox buttonBox = new HBox(20, btn_goHome, btn_save);
         buttonBox.setAlignment(Pos.CENTER);
 
-        // Placing the button box at the bottom
         borderPane.setBottom(buttonBox);
     }
 
     /**
      * Sets up labels.
-     * @author                                                                                          //AUTHOR
+     * @author Kenan Al Tal
      */
     private void setLabels() {
         lbl_newHabit = setLabelStyle("New Habit:");
@@ -155,7 +149,7 @@ public class ProfilePage extends A_Page {
 
     /**
      * Sets up text fields.
-     * @author                                                                                          //AUTHOR
+     * @author Kenan Al Tal
      */
     private void setTextfields() {
         tf_newWeight = setTextField();
@@ -164,7 +158,7 @@ public class ProfilePage extends A_Page {
 
     /**
      * Sets up buttons.
-     * @author                                                                                          //AUTHOR
+     * @author Kenan Al Tal
      */
     private void setButtons() {
         btn_goHome = new JFXButton("Back");
@@ -181,7 +175,6 @@ public class ProfilePage extends A_Page {
     private void setRadioButton() {
         toggleGroup = new ToggleGroup();
 
-        // Create radio buttons
         rb_option1 = new RadioButton("0-1");
         rb_option1.setToggleGroup(toggleGroup);
 
@@ -191,7 +184,6 @@ public class ProfilePage extends A_Page {
         rb_option3 = new RadioButton("2-5");
         rb_option3.setToggleGroup(toggleGroup);
     }
-
 
     /**
      * Retrieves the selected habit value from radio buttons.
@@ -211,8 +203,8 @@ public class ProfilePage extends A_Page {
      * @author Alanah Coleman
      */
     private void setDatePicker() {
-        datePicker = new DatePicker(); // Skapa DatePicker-instans
-        datePicker.setPromptText("Select Date of Birth"); // Användarinformation
+        datePicker = new DatePicker();
+        datePicker.setPromptText("Select Date of Birth");
     }
 
     /**
@@ -222,22 +214,15 @@ public class ProfilePage extends A_Page {
      * @author Louis Brown
      */
     private boolean isAtLeastFifteenYearsAgo(LocalDate chosenDate) {
-        //Get the current date
         LocalDate currentDate = LocalDate.now();
-
-        //Calculate the date 15 years ago
         LocalDate fifteenYearsAgo = currentDate.minusYears(15);
-
-        //Check if the chosen date is at least 15 years ago
         return chosenDate.isBefore(fifteenYearsAgo) || chosenDate.isEqual(fifteenYearsAgo);
     }
-
     /**
      * Returns to the home page.
-     * @author                                                                                          //AUTHOR
+     * @author Kenan Al Tal
      */
     private void goBack() {
         changePage(new HomePage());
     }
 }
-

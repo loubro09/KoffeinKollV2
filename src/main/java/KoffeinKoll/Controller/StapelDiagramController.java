@@ -12,13 +12,27 @@ import java.util.Map;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
+/**
+ * Controller class for managing data for the StapelDiagram view.
+ */
 public class StapelDiagramController {
     private StapelDiagram stapelDiagram;
 
+    /**
+     * Constructor for StapelDiagramController class.
+     * @param stapelDiagram The associated StapelDiagram view.
+     */
     public StapelDiagramController(StapelDiagram stapelDiagram) {
         this.stapelDiagram = stapelDiagram;
     }
 
+    /**
+     * Updates the chart data for the specified user and time period.
+     * @param userId The ID of the user.
+     * @param days The number of days for the time period.
+     *
+     * @author //AUTHOR
+     */
     public void updateDiagramData(int userId, int days) {
         Map<String, Number> data = getLastDaysCaffeineConsumption(userId, days);
         String period = (days == 7) ? "Weekly" : (days == 30) ? "Monthly" : "Custom";
@@ -28,6 +42,15 @@ public class StapelDiagramController {
             showErrorAlert("No Data Available", "No caffeine data available for the selected period.");
         }
     }
+
+    /**
+     * Retrieves the caffeine consumption data for the specified user and time period.
+     * @param userId The ID of the user.
+     * @param days The number of days for the time period.
+     * @return A map containing the caffeine consumption data for each date.
+     *
+     * @author Kenan Al Tal,
+     */
 
     private Map<String, Number> getLastDaysCaffeineConsumption(int userId, int days) {
         Map<String, Number> data = new LinkedHashMap<>();
@@ -62,6 +85,13 @@ public class StapelDiagramController {
         return data;
     }
 
+    /**
+     * Displays an error alert with the specified header and content.
+     * @param header The header text for the alert.
+     * @param content The content text for the alert.
+     *
+     * @author
+     */
     private void showErrorAlert(String header, String content) {
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Error");

@@ -20,6 +20,7 @@ public class DiagramInfoPage extends A_Page{
     private Label lbl_info;
     private JFXButton btn_goBack;
 
+
     /**
      * Initializes the user interface components.
      * @author Louis Brown
@@ -43,7 +44,7 @@ public class DiagramInfoPage extends A_Page{
 
     /**
      * Sets up event handling.
-     * @author                                                                                          //AUTHOR
+     * @author Kenan Al Tal
      */
     @Override
     public void setEvents() {
@@ -105,7 +106,7 @@ public class DiagramInfoPage extends A_Page{
 
     /**
      * Navigates back to the previous page.
-     * @author                                                                                          //AUTHOR
+     * @author Kenan Al Tal
      */
     private void goBack() {
         changePage(new StatisticsPage());
