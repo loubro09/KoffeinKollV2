@@ -178,7 +178,7 @@ public abstract class A_Page implements I_Page {
      */
     protected void changePage(A_Page newPage) {
         newPage.initialPage(stage);
-        stage.setScene(newPage.scene); // Set the scene to the login page's scene
+        stage.setScene(newPage.scene);
         stage.show();
     }
 

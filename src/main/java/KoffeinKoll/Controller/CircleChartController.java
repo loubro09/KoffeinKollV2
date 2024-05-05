@@ -14,13 +14,15 @@ import javafx.scene.control.Alert.AlertType;
 public class CircleChartController {
     private CircleChart circleDiagram;
 
-
-
     public CircleChartController(CircleChart circleDiagram, int userId) {
         this.circleDiagram = circleDiagram;
     }
 
-    // Method to update the pie chart with the latest data
+    /**
+     * Method to update the pie chart with the latest data
+     * @param days
+     */
+
     public void updateDiagramData(int days) {
         Map<String, Integer> beverageData = getBeverageConsumptionLastDays(days);
         String period = (days == 7) ? "Weekly" : "Monthly"; // Determine the period based on days
@@ -29,7 +31,10 @@ public class CircleChartController {
         }
     }
 
-    // Fetches beverage consumption data for the last X days from the database
+    /**
+     *     Fetches beverage consumption data for the last X days from the database
+     */
+
     private Map<String, Integer> getBeverageConsumptionLastDays(int days) {
         Map<String, Integer> beverageData = new LinkedHashMap<>();
         String sql = "SELECT b.beverage_name, COUNT(b.beverage_id) AS count " +
@@ -52,7 +57,11 @@ public class CircleChartController {
         return beverageData;
     }
 
-    // Method to show error alerts
+    /**
+     * Method to show error alerts
+     * @param header
+     * @param content
+     */
     private void showErrorAlert(String header, String content) {
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Error");

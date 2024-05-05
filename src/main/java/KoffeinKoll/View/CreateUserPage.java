@@ -63,7 +63,7 @@ public class CreateUserPage extends A_Page {
 
     /**
      * Sets the event handlers for UI controls on the create user page.
-     * @author                                                                                          //AUTHOR
+     * @author Kenan Al-tal, Alanah Coleman                                                                                       //AUTHOR
      */
     @Override
     public void setEvents() {
