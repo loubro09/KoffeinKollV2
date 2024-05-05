@@ -30,7 +30,6 @@ public class HomePage extends A_Page {
     private CustomGauge customGauge;
     private AlgorithmController algorithmController;
     private PercentageGauge percentageGauge;
-    private String userName;
 
     /**
      * Initializes the UI components of the home page.
@@ -55,7 +54,7 @@ public class HomePage extends A_Page {
 
     /**
      * Sets the scene layout for the home page.
-     * @author                                                                                           //AUTHOR
+     * @author Louis Brown
      */
     @Override
     public void setScene() {
@@ -63,15 +62,12 @@ public class HomePage extends A_Page {
         mainContent.setAlignment(Pos.CENTER);
         mainContent.setSpacing(20);
 
-        UserController userController = UserController.getInstance();
-        // Adding the custom gauge to the main content
         double totalTime = algorithmController.getMaxValue();
         double currentTime = algorithmController.currentGaugeValue();
 
-        // Adding the custom gauge to the main content
         customGauge = CustomGauge.getInstance();
         customGauge.setMaxValue((int) totalTime);
-        customGauge.changeValue((int) currentTime); // Set initial value
+        customGauge.changeValue((int) currentTime);
         customGauge.startTimer();
         mainContent.getChildren().addAll(lbl_title, customGauge);
 
@@ -80,26 +76,21 @@ public class HomePage extends A_Page {
         percentageGauge.updateCaffeineLevel(algorithmController.getTotalCaffeineForDay(UserController.getInstance().getId()));
         mainContent.getChildren().add(percentageGauge);
 
-        // Creating an HBox for the buttons
         HBox buttonBox = new HBox();
         buttonBox.setAlignment(Pos.CENTER);
         buttonBox.setSpacing(20);
         buttonBox.getChildren().addAll(btn_profile, btn_statistics, btn_info, btn_logOut);
 
-        // Creating a VBox for the Log Beverage button and the button box
         VBox buttonVBox = new VBox();
         buttonVBox.setAlignment(Pos.CENTER);
         buttonVBox.setSpacing(20);
         buttonVBox.getChildren().addAll(btn_logBeverage, buttonBox);
 
-        // Setting margins for the main content and the button VBox
         BorderPane.setMargin(mainContent, new Insets(50));
         BorderPane.setMargin(buttonVBox, new Insets(20));
 
-        // Placing the main content in the center and the button VBox at the bottom
         borderPane.setCenter(mainContent);
         borderPane.setBottom(buttonVBox);
-
     }
 
     /**
@@ -108,52 +99,12 @@ public class HomePage extends A_Page {
      */
     @Override
     public void setEvents() {
-        // Close current main window
-        btn_logOut.setOnAction(e -> {changePage(new LogInPage());});
-
-        for (JFXButton button : new JFXButton[]{btn_info}) {
+        for (JFXButton button : new JFXButton[]{btn_info, btn_logBeverage, btn_profile, btn_statistics, btn_logOut}) {
             button.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
-                    changePage(new InfoPage(true));
-                }
-            });
-        }
-
-        for (JFXButton button : new JFXButton[]{btn_logBeverage}) {
-            button.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    changePage(new BeverageMenuPage());
-                }
-            });
-        }
-
-        for (JFXButton button : new JFXButton[]{btn_profile}) {
-            button.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    changePage(new ProfilePage());
-                }
-            });
-        }
-
-        for (JFXButton button : new JFXButton[]{btn_statistics}) {
-            button.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    changePage(new StatisticsPage());
-                }
-            });
-        }
-
-        /*for (JFXButton button : new JFXButton[]{btn_info, btn_logBeverage, btn_profile, btn_statistics}) {
-            button.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    // Change page based on the button clicked
                     if (button == btn_info) {
-                        changePage(new InfoPage());
+                        changePage(new InfoPage(true));
                     } else if (button == btn_logBeverage) {
                         changePage(new BeverageMenuPage());
                     } else if (button == btn_profile) {
@@ -161,17 +112,17 @@ public class HomePage extends A_Page {
                     } else if (button == btn_statistics) {
                         changePage(new StatisticsPage());
                     }
+                    else if (button == btn_logOut) {
+                        changePage(new LogInPage());
+                    }
                 }
-            });*/
-    }
-
-    public void setUserName(String username) {
-        userName = username;
+            });
+        }
     }
 
     /**
      * Sets the style and icons for the buttons on the home page.
-     * @author Alanah Coleman
+     * @author Louis Brown
      */
     private void setButtons() {
         btn_statistics = new JFXButton("Statistics");
@@ -208,7 +159,7 @@ public class HomePage extends A_Page {
     /**
      * Defines the CSS style for the log beverage button.
      * @return The CSS style string for the log beverage button.
-     * @author                                                                                          //AUTHOR
+     * @author Louis Brown
      */
     private String beverageButtonStyle() {
         String style = "-fx-background-color:\n" +

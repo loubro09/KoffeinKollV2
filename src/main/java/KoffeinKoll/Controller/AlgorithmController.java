@@ -1,7 +1,6 @@
 package KoffeinKoll.Controller;
 
 import KoffeinKoll.View.CustomGauge;
-
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -224,6 +223,6 @@ public class AlgorithmController {
             e.printStackTrace();
             // Handle exception
         }
-        return calculateTime(totalCaffeine);
+        return totalCaffeine;
     }
 }
