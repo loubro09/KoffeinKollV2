@@ -24,25 +24,26 @@ public class BeverageController {
                 return rs.getInt("maxId");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Error in getMaxUserHistoryId" + e.getMessage());
         }
-        return 0; // If there's an error, we default to 0
+        return 0;
     }
 
     /**
      * Validates the amount of a beverage.
      * @param text The text representing the amount of the beverage.
      * @return True if the amount is valid, false otherwise.
-     * @author                                                                                          //AUTHOR
+     * @author Ida Nordenswan                                                                                         //AUTHOR
      */
     public boolean validateAmount(String text) {
         if (text == null || text.trim().isEmpty()) {
-            return false; // Null or empty string is considered invalid
+            return false;
         }
         try {
             double amount = Double.parseDouble(text);
             return amount >= 0;
         } catch (NumberFormatException e) {
+            System.out.println("Error in validateAmount: " + e.getMessage());
             return false;
         }
     }
@@ -51,20 +52,21 @@ public class BeverageController {
      * Validates a date and time string.
      * @param text The text representing the date and time.
      * @return True if the date and time string is valid, false otherwise.
-     * @author                                                                                          //AUTHOR
+     * @author Ida Nordenswan                                                                                        //AUTHOR
      */
 
     //TA BORT? ANVÄNDS INTE NU
 
     public boolean validateDateTime(String text) {
         if (text == null || text.trim().isEmpty()) {
-            return false; // Null or empty string is considered invalid
+            return false;
         }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         try {
             LocalDateTime.parse(text, formatter);
-            return true; // No error, validation passed
+            return true;
         } catch (DateTimeParseException e) {
+            System.out.println("Error in validateDateTime: " + e.getMessage());
             return false;
         }
     }
@@ -79,14 +81,13 @@ public class BeverageController {
      * @author                                                                                          //AUTHOR
      */
     public boolean insertUserHistory(int userId, int beverageId, LocalDateTime dateTime, double amount) {
-        // First, get the maximum ID and increment it
         int newId = getMaxUserHistoryId() + 1;
 
         String sql = "INSERT INTO userhistory (userhistory_id, user_id, beverage_id, date, amount) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, newId); // Set the new unique ID
+            pstmt.setInt(1, newId);
             pstmt.setInt(2, userId);
             pstmt.setInt(3, beverageId);
             if (dateTime != null) {
@@ -95,11 +96,11 @@ public class BeverageController {
             else {
                 pstmt.setObject(4, LocalDateTime.now());
             }
-            pstmt.setDouble(5, amount); // Set the amount
+            pstmt.setDouble(5, amount);
             pstmt.executeUpdate();
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Error in insertUserHistory: " + e.getMessage());
             return false;
         }
     }
@@ -126,9 +127,8 @@ public class BeverageController {
                 totalCaffeine = rs.getInt("totalCaffeine");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Error in getDailyCaffeineIntake: " + e.getMessage());
         }
-
         return totalCaffeine;
     }
 }

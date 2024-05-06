@@ -96,7 +96,6 @@ public class AlgorithmController {
             LocalTime currentTime = LocalTime.now();
             hoursSinceLastLog = ChronoUnit.HOURS.between(lastLogTime, currentTime);
         }
-
         return currentMax - hoursSinceLastLog;
     }
 
@@ -221,8 +220,8 @@ public class AlgorithmController {
                 totalCaffeine = rs.getDouble("totalCaffeine");
             }
         } catch (SQLException e) {
+            System.err.println("Error retrieving total caffeine for the day: " + e.getMessage());
             e.printStackTrace();
-            // Handle exception
         }
         return calculateTime(totalCaffeine);
     }
