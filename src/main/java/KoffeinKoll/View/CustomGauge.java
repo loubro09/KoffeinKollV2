@@ -41,6 +41,7 @@ public class CustomGauge extends StackPane {
         gauge.setMinValue(0);
         gauge.setMaxValue(0);
         gauge.setValue(0); // Set initial value
+        gauge.setDecimals(0);
         gauge.setAnimated(true); // Enable animation
 
        timeline = new Timeline(
