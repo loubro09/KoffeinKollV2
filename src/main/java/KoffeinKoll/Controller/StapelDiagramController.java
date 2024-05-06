@@ -80,6 +80,8 @@ public class StapelDiagramController {
             }
         } catch (SQLException e) {
             showErrorAlert("Error fetching caffeine consumption data", e.getMessage());
+            System.out.println("StapelDiagramController, getLastDaysCaffeineConsumption: ");
+            e.printStackTrace();
         }
 
         return data;
