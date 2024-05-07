@@ -1,7 +1,6 @@
 package KoffeinKoll.Controller;
 
 import javafx.scene.control.Alert;
-
 import java.sql.*;
 
 /**

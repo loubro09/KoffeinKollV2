@@ -111,8 +111,7 @@ public class HomePage extends A_Page {
                         changePage(new ProfilePage());
                     } else if (button == btn_statistics) {
                         changePage(new StatisticsPage());
-                    }
-                    else if (button == btn_logOut) {
+                    } else if (button == btn_logOut) {
                         changePage(new LogInPage());
                     }
                 }

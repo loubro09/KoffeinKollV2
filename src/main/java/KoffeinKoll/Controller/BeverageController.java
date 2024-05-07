@@ -4,10 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * The BeverageController class handles operations related to beverage data and user history in the KoffeinKoll application.
@@ -49,29 +46,6 @@ public class BeverageController {
     }
 
     /**
-     * Validates a date and time string.
-     * @param text The text representing the date and time.
-     * @return True if the date and time string is valid, false otherwise.
-     * @author Ida Nordenswan                                                                                        //AUTHOR
-     */
-
-    //TA BORT? ANVÄNDS INTE NU
-
-    public boolean validateDateTime(String text) {
-        if (text == null || text.trim().isEmpty()) {
-            return false;
-        }
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        try {
-            LocalDateTime.parse(text, formatter);
-            return true;
-        } catch (DateTimeParseException e) {
-            System.out.println("Error in validateDateTime: " + e.getMessage());
-            return false;
-        }
-    }
-
-    /**
      * Inserts a new user history entry into the database.
      * @param userId     The ID of the user.
      * @param beverageId The ID of the beverage.
@@ -103,32 +77,5 @@ public class BeverageController {
             System.out.println("Error in insertUserHistory: " + e.getMessage());
             return false;
         }
-    }
-
-    /**
-     * Retrieves the total caffeine intake for a user on the current day.
-     *
-     * @param userId The ID of the user.
-     * @return The total caffeine intake for the user on the current day.
-     * @author alanahColeman
-     */
-    public int getDailyCaffeineIntake(int userId) {
-        int totalCaffeine = 0;
-
-        String sql = "SELECT SUM(beverage_caffeine) AS totalCaffeine FROM userhistory " +
-                "INNER JOIN beverages ON userhistory.beverage_id = beverages.beverage_id " +
-                "WHERE userhistory.user_id = ? AND DATE(userhistory.date) = CURRENT_DATE";
-
-        try (Connection conn = DatabaseConnection.getInstance().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, userId);
-            ResultSet rs = pstmt.executeQuery();
-            if (rs.next()) {
-                totalCaffeine = rs.getInt("totalCaffeine");
-            }
-        } catch (SQLException e) {
-            System.out.println("Error in getDailyCaffeineIntake: " + e.getMessage());
-        }
-        return totalCaffeine;
     }
 }

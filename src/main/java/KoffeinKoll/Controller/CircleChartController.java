@@ -7,14 +7,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
 public class CircleChartController {
     private CircleChart circleDiagram;
 
-    public CircleChartController(CircleChart circleDiagram, int userId) {
+    public CircleChartController(CircleChart circleDiagram) {
         this.circleDiagram = circleDiagram;
     }
 
@@ -25,7 +24,7 @@ public class CircleChartController {
 
     public void updateDiagramData(int days) {
         Map<String, Integer> beverageData = getBeverageConsumptionLastDays(days);
-        String period = (days == 7) ? "Weekly" : "Monthly"; // Determine the period based on days
+        String period = (days == 7) ? "Weekly" : "Monthly";
         if (beverageData != null) {
             circleDiagram.updateChartData(beverageData, period, days);
         }

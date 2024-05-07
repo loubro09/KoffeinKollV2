@@ -36,7 +36,7 @@ public class StatisticsPage extends A_Page {
         userController = UserController.getInstance();
         circleChart = new CircleChart();
         stapelDiagram = new StapelDiagram();
-        circleChartController = new CircleChartController(circleChart, userController.getId());
+        circleChartController = new CircleChartController(circleChart);
         stapelDiagramController = new StapelDiagramController(stapelDiagram);
 
         setComponents();

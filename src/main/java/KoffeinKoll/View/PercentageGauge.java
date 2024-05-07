@@ -35,8 +35,7 @@ public class PercentageGauge extends StackPane {
     public PercentageGauge() {
         this.userName = UserController.getInstance().getUsername();
         this.beverageController = new BeverageController();
-        this.userController = UserController.getInstance();
-        this.caffeineCalculator = new CaffeineCalculator(userController, beverageController);
+        this.caffeineCalculator = new CaffeineCalculator();
         this.recommendedAmount = caffeineCalculator.getRecommendedDose();
 
         // Title label

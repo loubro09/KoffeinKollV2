@@ -8,29 +8,22 @@ public class CaffeineCalculator {
 
     private double weight;
     private double recommendedDose;
-    private UserController user;
     final double CAFFEINE1_PER_KG = 2.0;
     final double CAFFEINE2_PER_KG = 3.0;
     final double CAFFEINE3_PER_KG = 4.5;
     private String habit;
-    private BeverageController beverageController;
 
 
     /**
      * Constructor for CaffeineCalculator
-     * @param user The user controller instance
-     * @param beverageController The beverage controller instance.
      * @author alanahColeman
      */
-    public CaffeineCalculator(UserController user, BeverageController beverageController) {
-        this.user = user;
-        this.habit = user.getHabit();
-        this.beverageController = beverageController;
-        this.weight = user.getWeight();
+    public CaffeineCalculator() {
+        this.habit = UserController.getInstance().getHabit();
+        this.weight = UserController.getInstance().getWeight();
         this.recommendedDose = calculateRecommendedDose(habit);
         System.out.println("Recommended Dose: " + recommendedDose);
     }
-
 
     /**
      * Calculates the recommended caffeine dose based on the user's habit
