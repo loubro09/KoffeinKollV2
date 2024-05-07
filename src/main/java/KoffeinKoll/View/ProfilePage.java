@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -32,6 +33,7 @@ public class ProfilePage extends A_Page {
 
     /**
      * Initializes the UI components.
+     *
      * @author Louis Brown
      */
     @Override
@@ -44,6 +46,7 @@ public class ProfilePage extends A_Page {
 
     /**
      * Sets up UI components.
+     *
      * @author Louis Brown
      */
     @Override
@@ -57,6 +60,7 @@ public class ProfilePage extends A_Page {
 
     /**
      * Sets event handlers for buttons.
+     *
      * @author Louis Brown, Kenan Al Tal
      */
     @Override
@@ -71,8 +75,7 @@ public class ProfilePage extends A_Page {
             double weight = 0;
             if (newWeightText != null && !newWeightText.isEmpty()) {
                 weight = Double.parseDouble(newWeightText);
-            }
-            else {
+            } else {
                 weight = 0;
             }
             LocalDate dateOfBirth = datePicker.getValue();
@@ -88,12 +91,10 @@ public class ProfilePage extends A_Page {
                     alert.setContentText("You have to be at least 15 years of age to use this application.");
                     alert.show();
                     return;
-                }
-                else {
+                } else {
                     dateOfBirthText = dateOfBirth.format((formatter));
                 }
-            }
-            else {
+            } else {
                 dateOfBirthText = null;
             }
 
@@ -109,6 +110,7 @@ public class ProfilePage extends A_Page {
 
     /**
      * Sets up the scene layout.
+     *
      * @author Louis Brown, Kenan Al Tal
      */
     @Override
@@ -139,6 +141,7 @@ public class ProfilePage extends A_Page {
 
     /**
      * Sets up labels.
+     *
      * @author Kenan Al Tal
      */
     private void setLabels() {
@@ -149,6 +152,7 @@ public class ProfilePage extends A_Page {
 
     /**
      * Sets up text fields.
+     *
      * @author Kenan Al Tal
      */
     private void setTextfields() {
@@ -158,6 +162,7 @@ public class ProfilePage extends A_Page {
 
     /**
      * Sets up buttons.
+     *
      * @author Kenan Al Tal
      */
     private void setButtons() {
@@ -170,6 +175,7 @@ public class ProfilePage extends A_Page {
 
     /**
      * Sets up radio buttons.
+     *
      * @author Louis Brown
      */
     private void setRadioButton() {
@@ -187,6 +193,7 @@ public class ProfilePage extends A_Page {
 
     /**
      * Retrieves the selected habit value from radio buttons.
+     *
      * @return The selected habit value.
      * @author Louis Brown
      */
@@ -200,6 +207,7 @@ public class ProfilePage extends A_Page {
 
     /**
      * Sets up date picker.
+     *
      * @author Alanah Coleman
      */
     private void setDatePicker() {
@@ -209,6 +217,7 @@ public class ProfilePage extends A_Page {
 
     /**
      * Checks if the chosen date is at least fifteen years ago.
+     *
      * @param chosenDate The chosen date.
      * @return True if the date is at least fifteen years ago, false otherwise.
      * @author Louis Brown
@@ -218,8 +227,10 @@ public class ProfilePage extends A_Page {
         LocalDate fifteenYearsAgo = currentDate.minusYears(15);
         return chosenDate.isBefore(fifteenYearsAgo) || chosenDate.isEqual(fifteenYearsAgo);
     }
+
     /**
      * Returns to the home page.
+     *
      * @author Kenan Al Tal
      */
     private void goBack() {

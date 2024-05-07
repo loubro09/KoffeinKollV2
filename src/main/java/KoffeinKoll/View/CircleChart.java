@@ -1,17 +1,12 @@
 package KoffeinKoll.View;
 
-import eu.hansolo.tilesfx.Tile;
-import eu.hansolo.tilesfx.chart.ChartData;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
-import java.util.Arrays;
-import java.util.List;
+import javafx.scene.layout.VBox;
+
 import java.util.Map;
 
 /**
@@ -20,24 +15,25 @@ import java.util.Map;
  */
 public class CircleChart extends VBox {
     private PieChart pieChart;
-    private Label titleLabel;
-    private Label totalLabel;
+    private Label lbl_title;
+    private Label lbl_total;
 
     /**
      * Constructs a new CircleChart instance.
+     *
      * @author Alanah Coleman
      */
     public CircleChart() {
         pieChart = new PieChart();
         initializeChart();
 
-        titleLabel = new Label("Beverage Consumption");
-        titleLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+        lbl_title = new Label("Beverage Consumption");
+        lbl_title.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
 
-        totalLabel = new Label();
-        totalLabel.setStyle("-fx-font-size: 14px;");
+        lbl_total = new Label();
+        lbl_total.setStyle("-fx-font-size: 14px;");
 
-        this.getChildren().addAll(titleLabel, pieChart, totalLabel);
+        this.getChildren().addAll(lbl_title, pieChart, lbl_total);
         this.setSpacing(10);
     }
 
@@ -57,8 +53,8 @@ public class CircleChart extends VBox {
         });
 
         pieChart.setData(chartData);
-        titleLabel.setText(period + " Consumption");
-        totalLabel.setText("Total Consumed: " + totalAmount + " units");
+        lbl_title.setText(period + " Consumption");
+        lbl_total.setText("Total Consumed: " + totalAmount + " units");
 
         animateChart();
     }

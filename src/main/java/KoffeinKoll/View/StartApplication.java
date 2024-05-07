@@ -5,6 +5,7 @@ import javafx.stage.Stage;
 
 /**
  * The main entry point for the KoffeinKoll application.
+ *
  * @author Louis Brown
  */
 public class StartApplication extends Application {
@@ -12,6 +13,7 @@ public class StartApplication extends Application {
 
     /**
      * The main entry point for JavaFX applications.
+     *
      * @param stage The primary stage for this application, onto which the application scene can be set.
      * @author Ida Nordenswan
      */
@@ -23,6 +25,7 @@ public class StartApplication extends Application {
 
     /**
      * Displays the login page of the application.
+     *
      * @author Ida Nordenswan
      */
     public void showLoginPage() {
@@ -34,6 +37,7 @@ public class StartApplication extends Application {
 
     /**
      * The main method, launching the JavaFX application.
+     *
      * @param args Command line arguments.
      * @author Ida Nordenswan
      */
