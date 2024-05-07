@@ -26,6 +26,16 @@ public class CaffeineCalculator {
     }
 
     /**
+     * Retrieves the recommended caffeine dose
+     *
+     * @return The recommended caffeine dose
+     * @author alanahColeman
+     */
+    public double getRecommendedDose() {
+        return recommendedDose;
+    }
+
+    /**
      * Calculates the recommended caffeine dose based on the user's habit
      *
      * @param habit The user's caffeine habit.
@@ -46,17 +56,5 @@ public class CaffeineCalculator {
         }
         return recommendedDose;
     }
-
-
-    /**
-     * Retrieves the recommended caffeine dose
-     *
-     * @return The recommended caffeine dose
-     * @author alanahColeman
-     */
-    public double getRecommendedDose() {
-        return recommendedDose;
-    }
-
 
 }

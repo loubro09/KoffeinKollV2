@@ -14,11 +14,9 @@ public class LoginController {
 
     private DatabaseConnection databaseConnection;
     private UserController user;
-    private String userName;
 
     /**
      * Constructs a new LoginController object.
-     *
      * @author alanahColeman
      */
     public LoginController() {
@@ -55,7 +53,6 @@ public class LoginController {
                         System.out.println(username + " logged in");
                         user = UserController.getInstance();
                         user.setUsername(username);
-                        userName = username;
 
                         return true;
                     } else {
@@ -107,7 +104,7 @@ public class LoginController {
      * @param alertType The type of the alert
      * @author
      */
-    protected void showAlert(String title, String content, Alert.AlertType alertType) {
+    private void showAlert(String title, String content, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(null);

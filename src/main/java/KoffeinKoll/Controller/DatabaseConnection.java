@@ -36,6 +36,21 @@ public class DatabaseConnection {
     }
 
     /**
+     * Establishes a connection to the database.
+     * @return The database connection.
+     * @author alanahColeman                                                                                          //AUTHOR
+     */
+    public Connection getConnection() {
+        try {
+            return DriverManager.getConnection(url, username, password);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("DatabaseConnection : getConnection : Connection exception");
+            return null;
+        }
+    }
+
+    /**
      * Loads the database configuration from the configuration file.
      * @author                                                                                          //AUTHOR
      */
@@ -49,21 +64,6 @@ public class DatabaseConnection {
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("DatabaseConnection : loadConfiguration : InputStream exception");
-        }
-    }
-
-    /**
-     * Establishes a connection to the database.
-     * @return The database connection.
-     * @author alanahColeman                                                                                          //AUTHOR
-     */
-    public Connection getConnection() {
-        try {
-            return DriverManager.getConnection(url, username, password);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("DatabaseConnection : getConnection : Connection exception");
-            return null;
         }
     }
 }
