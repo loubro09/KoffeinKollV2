@@ -18,6 +18,7 @@ public class LoginController {
 
     /**
      * Constructs a new LoginController object.
+     *
      * @author alanahColeman
      */
     public LoginController() {
@@ -26,6 +27,7 @@ public class LoginController {
 
     /**
      * Attempts to log in a user with the provided credentials.
+     *
      * @param username The username of the user.
      * @param password The password of the user.
      * @return True if the login is successful, otherwise false.
@@ -64,27 +66,33 @@ public class LoginController {
                 }
             }
         } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("LoginController : Login : SQLException");
             throw new RuntimeException(e);
         } finally {
             if (resultSet != null) {
                 try {
                     resultSet.close();
                 } catch (SQLException e) {
-                    throw new RuntimeException(e);
+                    e.printStackTrace();
+                    System.out.println("LoginController : LogIn : closing ResultSet");
                 }
             }
             if (preparedStatement != null) {
                 try {
                     preparedStatement.close();
                 } catch (SQLException e) {
-                    throw new RuntimeException(e);
+                    e.printStackTrace();
+                    System.out.println("LoginController : LogIn : closing PreparedStatement");
                 }
             }
             if (connection != null) {
                 try {
                     connection.close();
                 } catch (SQLException e) {
-                    throw new RuntimeException(e);
+                    e.printStackTrace();
+                    System.out.println("LoginController : LogIn : closing Connection");
+
                 }
             }
         }
@@ -93,8 +101,9 @@ public class LoginController {
 
     /**
      * Shows an alert dialog with the specified title and content.
-     * @param title The title of the alert dialog.
-     * @param content The content of the alert dialog.
+     *
+     * @param title     The title of the alert dialog.
+     * @param content   The content of the alert dialog.
      * @param alertType The type of the alert
      * @author
      */
