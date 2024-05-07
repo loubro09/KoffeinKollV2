@@ -71,20 +71,5 @@ public class DatabaseConnection {
             throw new RuntimeException(e);
         }
     }
-
-    /**
-     * Establishes a connection to the database.
-     * @return The database connection.
-     * @author alanahColeman                                                                                          //AUTHOR
-     */
-    public Connection getConnection() {
-        try {
-            return DriverManager.getConnection(url, username, password);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("DatabaseConnection : getConnection : Connection exception");
-            return null;
-        }
-    }
 }
 
