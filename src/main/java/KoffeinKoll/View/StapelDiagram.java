@@ -43,18 +43,6 @@ public class StapelDiagram extends VBox {
         this.setSpacing(10);
     }
 
-    /**
-     * Initializes the chart. Titles and labels are set.
-     *
-     * @author idanordenswan
-     */
-
-    private void initializeChart() {
-        barChart.setTitle("Caffeine Consumption");
-        xAxis.setLabel("Date");
-        yAxis.setLabel("Caffeine Amount (mg)");
-        barChart.setLegendVisible(false);
-    }
 
     /**
      * When new drinks are logged by the user The updateChartData updates the bar chart with new data.
@@ -66,7 +54,6 @@ public class StapelDiagram extends VBox {
      */
 
     public void updateChartData(Map<String, Number> data, String period, int days) {
-        // Clear old chart and reinitialize the axes
         this.getChildren().remove(barChart);
         xAxis = new CategoryAxis();
         yAxis = new NumberAxis();
@@ -89,5 +76,18 @@ public class StapelDiagram extends VBox {
 
         lbl_title.setText(period + " Caffeine Consumption");
         lbl_total.setText("Total Consumed: " + totalAmount + " mg");
+    }
+
+    /**
+     * Initializes the chart. Titles and labels are set.
+     *
+     * @author idanordenswan
+     */
+
+    private void initializeChart() {
+        barChart.setTitle("Caffeine Consumption");
+        xAxis.setLabel("Date");
+        yAxis.setLabel("Caffeine Amount (mg)");
+        barChart.setLegendVisible(false);
     }
 }

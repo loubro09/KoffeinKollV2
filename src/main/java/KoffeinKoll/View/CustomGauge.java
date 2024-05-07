@@ -71,7 +71,6 @@ public class CustomGauge extends StackPane {
     }
 
 
-
     public void setMaxValue(int maxValue) {
         System.out.println(maxValue);
         gauge.setMaxValue(maxValue);

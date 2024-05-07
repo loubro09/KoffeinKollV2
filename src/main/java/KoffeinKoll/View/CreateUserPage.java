@@ -208,6 +208,17 @@ public class CreateUserPage extends A_Page {
     }
 
     /**
+     * Sets date picker for UI elements.
+     *
+     * @author Alanah Coleman
+     */
+    private void setDatePicker() {
+        datePicker = new DatePicker();
+        datePicker.setPromptText("Select Date of Birth");
+    }
+
+
+    /**
      * Retrieves the selected habit value from the radio button group.
      *
      * @return The selected habit value as a String, or null if no radio button is selected.
@@ -221,15 +232,6 @@ public class CreateUserPage extends A_Page {
         return null;
     }
 
-    /**
-     * Sets date picker for UI elements.
-     *
-     * @author Alanah Coleman
-     */
-    private void setDatePicker() {
-        datePicker = new DatePicker();
-        datePicker.setPromptText("Select Date of Birth");
-    }
 
     /**
      * Checks if the chosen date is at least fifteen years ago.
