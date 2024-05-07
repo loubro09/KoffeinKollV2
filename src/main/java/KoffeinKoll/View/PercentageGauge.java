@@ -23,13 +23,13 @@ public class PercentageGauge extends StackPane {
     private double recommendedAmount;
     private CaffeineCalculator caffeineCalculator;
     private BeverageController beverageController;
-    private UserController userController;
     private String userName;
 
 
     /**
      * Constructs percentage gauge.
      * Creating the functions and setting the labels for the gauge.
+     *
      * @author alanahcoleman
      */
     public PercentageGauge() {
@@ -61,6 +61,7 @@ public class PercentageGauge extends StackPane {
 
     /**
      * Updates the caffeine level display based on the current caffeine amount.
+     *
      * @param currentAmount The current amount of caffeine consumed.
      * @author alanahcoleman
      */

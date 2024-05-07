@@ -37,10 +37,6 @@ public class CircleChart extends VBox {
         this.setSpacing(10);
     }
 
-    private void initializeChart() {
-        pieChart.setTitle("Beverage Consumption");
-        pieChart.setLegendVisible(true);
-    }
 
     public void updateChartData(Map<String, Integer> data, String period, int days) {
         ObservableList<PieChart.Data> chartData = FXCollections.observableArrayList();
@@ -57,6 +53,12 @@ public class CircleChart extends VBox {
         lbl_total.setText("Total Consumed: " + totalAmount + " units");
 
         animateChart();
+    }
+
+
+    private void initializeChart() {
+        pieChart.setTitle("Beverage Consumption");
+        pieChart.setLegendVisible(true);
     }
 
     private void animateChart() {

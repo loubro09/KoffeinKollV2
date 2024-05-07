@@ -1,7 +1,7 @@
 package KoffeinKoll.Controller;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.*;
+import java.sql.SQLException;
 import java.util.Properties;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -61,9 +61,29 @@ public class DatabaseConnection {
             username = props.getProperty("db.username");
             password = props.getProperty("db.password");
             url = props.getProperty("db.url");
-        } catch (Exception e) {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-            System.out.println("DatabaseConnection : loadConfiguration : InputStream exception");
+            System.out.println("DatabaseConnection : loadConfiguration : File not found exception");
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("DatabaseConnection : loadConfiguration : IO exception");
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Establishes a connection to the database.
+     * @return The database connection.
+     * @author alanahColeman                                                                                          //AUTHOR
+     */
+    public Connection getConnection() {
+        try {
+            return DriverManager.getConnection(url, username, password);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("DatabaseConnection : getConnection : Connection exception");
+            return null;
         }
     }
 }
