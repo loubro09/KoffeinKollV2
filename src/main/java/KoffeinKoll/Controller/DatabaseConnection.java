@@ -1,7 +1,6 @@
 package KoffeinKoll.Controller;
 
 import java.io.*;
-import java.sql.SQLException;
 import java.util.Properties;
 import java.sql.Connection;
 import java.sql.DriverManager;
