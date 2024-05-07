@@ -39,27 +39,22 @@ public class PercentageGauge extends StackPane {
         this.caffeineCalculator = new CaffeineCalculator(userController, beverageController);
         this.recommendedAmount = caffeineCalculator.getRecommendedDose();
 
-        // Title label
         titleLabel = new Label("Recommended Caffeine: " + recommendedAmount);
         titleLabel.setFont(Font.font("Arial", 14));
         titleLabel.setTextFill(Color.DARKGREEN);
 
-        // Progress bar
         progressBar = new ProgressBar();
         progressBar.setPrefWidth(200);
         progressBar.setProgress(0);
 
-        // Percentage label
         percentageLabel = new Label("0%");
         percentageLabel.setFont(Font.font("Arial", 14));
         percentageLabel.setTextFill(Color.DARKGREEN);
 
-        // VBox to hold the labels
         VBox labelsBox = new VBox(titleLabel, progressBar, percentageLabel);
         labelsBox.setAlignment(Pos.CENTER);
         labelsBox.setSpacing(10);
 
-        // Set up StackPane
         setAlignment(Pos.CENTER);
         setPadding(new Insets(10));
         getChildren().add(labelsBox);

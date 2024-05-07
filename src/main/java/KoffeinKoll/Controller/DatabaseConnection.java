@@ -48,6 +48,7 @@ public class DatabaseConnection {
             url = props.getProperty("db.url");
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("DatabaseConnection : loadConfiguration : InputStream exception");
         }
     }
 
@@ -61,6 +62,7 @@ public class DatabaseConnection {
             return DriverManager.getConnection(url, username, password);
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("DatabaseConnection : getConnection : Connection exception");
             return null;
         }
     }

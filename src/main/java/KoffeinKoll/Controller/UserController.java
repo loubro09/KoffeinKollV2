@@ -19,7 +19,8 @@ public class UserController {
 
     /**
      * Constructor for UserController
-     * @author
+     *
+     * @author AlanahColeman
      */
     public UserController() {
         this.id = id;
@@ -30,6 +31,7 @@ public class UserController {
 
     /**
      * Retrieves the singleton instance of UserController.
+     *
      * @return The singleton instance of UserController.
      * @author LouisBrown
      */
@@ -52,6 +54,7 @@ public class UserController {
 
     /**
      * Retrieves the username of the user.
+     *
      * @return The username of the user.
      * @author alanahColeman
      */
@@ -61,6 +64,7 @@ public class UserController {
 
     /**
      * Retrieves the weight of the user from the database.
+     *
      * @return The weight of the user.
      * @author alanahColeman
      */
@@ -76,13 +80,15 @@ public class UserController {
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                // Set the weight field to the retrieved value from the database
                 weight = resultSet.getDouble("weight");
             }
         } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("UserController : getWeight : sql exception");
             throw new RuntimeException(e);
+
         } finally {
-            // Close resources
+
             try {
                 if (resultSet != null) {
                     resultSet.close();
@@ -94,6 +100,8 @@ public class UserController {
                     connection.close();
                 }
             } catch (SQLException e) {
+                e.printStackTrace();
+                System.out.println("UserController : getWeight : closing connection");
                 throw new RuntimeException(e);
             }
         }
@@ -102,6 +110,7 @@ public class UserController {
 
     /**
      * Retrieves the user ID from the database.
+     *
      * @return The user ID.
      * @author alanahColeman
      */
@@ -121,9 +130,10 @@ public class UserController {
                 id = resultSet.getInt("user_id");
             }
         } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("UserController : getId : sql exception");
             throw new RuntimeException(e);
         } finally {
-            // Stäng resurser
             try {
                 if (resultSet != null) {
                     resultSet.close();
@@ -135,7 +145,9 @@ public class UserController {
                     connection.close();
                 }
             } catch (SQLException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
+                System.out.println("UserController : getId : closing connection");
+                System.out.println();
             }
         }
         return id;
@@ -145,6 +157,7 @@ public class UserController {
     /**
      * Retrieves the habit of the user from the database.
      * @return The habit from the user.
+     * @author alanahcoleman
      */
     public String getHabit() {
         Connection connection = null;
@@ -158,13 +171,13 @@ public class UserController {
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                // Set the habit field to the retrieved value from the database
                 habit = resultSet.getString("habit");
             }
         } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("UserController : getHabit : sql exception");
             throw new RuntimeException(e);
         } finally {
-            // Close resources
             try {
                 if (resultSet != null) {
                     resultSet.close();
@@ -176,7 +189,8 @@ public class UserController {
                     connection.close();
                 }
             } catch (SQLException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
+                System.out.println("UserController : getHabit : closing connection");
             }
         }
         System.out.println("Habit: " + habit);
