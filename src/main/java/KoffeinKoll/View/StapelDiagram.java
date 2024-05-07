@@ -6,6 +6,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
@@ -18,13 +19,13 @@ public class StapelDiagram extends VBox {
     private BarChart<String, Number> barChart;
     private CategoryAxis xAxis;
     private NumberAxis yAxis;
-    private Label titleLabel;
-    private Label totalLabel;
+    private Label lbl_title;
+    private Label lbl_total;
 
     /**
      * Constructor for StapelDiagram class.
      * Initializes the bar chart with weekdays as categories and caffeine consumption data.
-     *                                                                                         //AUTHOR
+     * //AUTHOR
      */
     public StapelDiagram() {
         xAxis = new CategoryAxis();
@@ -32,18 +33,19 @@ public class StapelDiagram extends VBox {
         barChart = new BarChart<>(xAxis, yAxis);
         initializeChart();
 
-        titleLabel = new Label("Weekly Caffeine Consumption");
-        titleLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+        lbl_title = new Label("Weekly Caffeine Consumption");
+        lbl_title.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
 
-        totalLabel = new Label();
-        totalLabel.setStyle("-fx-font-size: 14px;");
+        lbl_total = new Label();
+        lbl_total.setStyle("-fx-font-size: 14px;");
 
-        this.getChildren().addAll(titleLabel, barChart, totalLabel);
+        this.getChildren().addAll(lbl_title, barChart, lbl_total);
         this.setSpacing(10);
     }
 
     /**
      * Initializes the chart. Titles and labels are set.
+     *
      * @author idanordenswan
      */
 
@@ -56,9 +58,10 @@ public class StapelDiagram extends VBox {
 
     /**
      * When new drinks are logged by the user The updateChartData updates the bar chart with new data.
-     * @param data the chart is representing the caffeine consumption by the user and is categorized by date.
+     *
+     * @param data   the chart is representing the caffeine consumption by the user and is categorized by date.
      * @param period Selected period for wich the data is displayed.
-     * @param days number of days in the period
+     * @param days   number of days in the period
      * @author idanordenswan
      */
 
@@ -82,9 +85,9 @@ public class StapelDiagram extends VBox {
         });
 
         barChart.getData().add(series);
-        this.getChildren().add(1, barChart); // Add chart back at specific position
+        this.getChildren().add(1, barChart);
 
-        titleLabel.setText(period + " Caffeine Consumption");
-        totalLabel.setText("Total Consumed: " + totalAmount + " mg");
+        lbl_title.setText(period + " Caffeine Consumption");
+        lbl_total.setText("Total Consumed: " + totalAmount + " mg");
     }
 }

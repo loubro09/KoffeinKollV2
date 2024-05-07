@@ -89,6 +89,7 @@ public class InfoPage extends A_Page {
         buttonHBox.getChildren().addAll(btn_goHome);
         borderPane.setBottom(buttonHBox);
     }
+
     /**
      * Sets up the labels for info page.
      * Text is set depending on which info page is called.

@@ -33,6 +33,7 @@ public class HomePage extends A_Page {
 
     /**
      * Initializes the UI components of the home page.
+     *
      * @author Louis Brown
      */
     @Override
@@ -44,6 +45,7 @@ public class HomePage extends A_Page {
 
     /**
      * Sets the UI components for the home page.
+     *
      * @author Louis Brown
      */
     @Override
@@ -54,6 +56,7 @@ public class HomePage extends A_Page {
 
     /**
      * Sets the scene layout for the home page.
+     *
      * @author Louis Brown
      */
     @Override
@@ -95,6 +98,7 @@ public class HomePage extends A_Page {
 
     /**
      * Sets the event handlers for UI controls on the home page.
+     *
      * @author Ida Nordenswan, Kenan Al Tal, Alanah Coleman
      */
     @Override
@@ -121,6 +125,7 @@ public class HomePage extends A_Page {
 
     /**
      * Sets the style and icons for the buttons on the home page.
+     *
      * @author Louis Brown
      */
     private void setButtons() {
@@ -145,8 +150,9 @@ public class HomePage extends A_Page {
 
     /**
      * Sets the FontAwesome icon for a button.
+     *
      * @param iconType The FontAwesome icon type.
-     * @param button The button to set the icon for.
+     * @param button   The button to set the icon for.
      * @author Louis Brown
      */
     private void setIcon(FontAwesomeIcon iconType, JFXButton button) {
@@ -157,6 +163,7 @@ public class HomePage extends A_Page {
 
     /**
      * Defines the CSS style for the log beverage button.
+     *
      * @return The CSS style string for the log beverage button.
      * @author Louis Brown
      */

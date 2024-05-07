@@ -17,9 +17,9 @@ import javafx.scene.text.Font;
  * This is visually shown in the home page.
  */
 public class PercentageGauge extends StackPane {
-    private Label titleLabel;
+    private Label lbl_title;
     private ProgressBar progressBar;
-    private Label percentageLabel;
+    private Label lbl_precentage;
     private double recommendedAmount;
     private CaffeineCalculator caffeineCalculator;
     private BeverageController beverageController;
@@ -38,19 +38,19 @@ public class PercentageGauge extends StackPane {
         this.caffeineCalculator = new CaffeineCalculator();
         this.recommendedAmount = caffeineCalculator.getRecommendedDose();
 
-        titleLabel = new Label("Recommended Caffeine: " + recommendedAmount);
-        titleLabel.setFont(Font.font("Arial", 14));
-        titleLabel.setTextFill(Color.DARKGREEN);
+        lbl_title = new Label("Recommended Caffeine: " + recommendedAmount);
+        lbl_title.setFont(Font.font("Arial", 14));
+        lbl_title.setTextFill(Color.DARKGREEN);
 
         progressBar = new ProgressBar();
         progressBar.setPrefWidth(200);
         progressBar.setProgress(0);
 
-        percentageLabel = new Label("0%");
-        percentageLabel.setFont(Font.font("Arial", 14));
-        percentageLabel.setTextFill(Color.DARKGREEN);
+        lbl_precentage = new Label("0%");
+        lbl_precentage.setFont(Font.font("Arial", 14));
+        lbl_precentage.setTextFill(Color.DARKGREEN);
 
-        VBox labelsBox = new VBox(titleLabel, progressBar, percentageLabel);
+        VBox labelsBox = new VBox(lbl_title, progressBar, lbl_precentage);
         labelsBox.setAlignment(Pos.CENTER);
         labelsBox.setSpacing(10);
 
@@ -67,11 +67,11 @@ public class PercentageGauge extends StackPane {
     public void updateCaffeineLevel(double currentAmount) {
         if (currentAmount >= recommendedAmount) {
             progressBar.setProgress(1);
-            percentageLabel.setText("100%");
+            lbl_precentage.setText("100%");
         } else {
             double percentage = (currentAmount / recommendedAmount) * 100;
             progressBar.setProgress(currentAmount / recommendedAmount);
-            percentageLabel.setText(String.format("%.1f%%", percentage));
+            lbl_precentage.setText(String.format("%.1f%%", percentage));
         }
     }
 }

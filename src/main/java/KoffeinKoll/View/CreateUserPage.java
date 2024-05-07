@@ -39,6 +39,7 @@ public class CreateUserPage extends A_Page {
 
     /**
      * Initializes the UI components of the create user page.
+     *
      * @author Louis Brown
      */
     @Override
@@ -50,6 +51,7 @@ public class CreateUserPage extends A_Page {
 
     /**
      * Sets the UI components for the create user page.
+     *
      * @author Louis Brown
      */
     @Override
@@ -63,6 +65,7 @@ public class CreateUserPage extends A_Page {
 
     /**
      * Sets the event handlers for UI controls on the create user page.
+     *
      * @author Kenan Al-tal, Alanah Coleman                                                                                       //AUTHOR
      */
     @Override
@@ -75,23 +78,23 @@ public class CreateUserPage extends A_Page {
             LocalDate dateOfBirth = datePicker.getValue();
 
 
-            //Check if any of the fields are empty
-            if (username.isEmpty() || password.isEmpty() || weightText.isEmpty() || dateOfBirth==null || habit == null) {
+
+            if (username.isEmpty() || password.isEmpty() || weightText.isEmpty() || dateOfBirth == null || habit == null) {
                 showAlert("Error", "All fields are required.", Alert.AlertType.ERROR);
 
                 //Mark empty fields with red color
                 if (username.isEmpty()) tf_userName.setStyle("-fx-border-color: red;");
                 if (password.isEmpty()) pf_password.setStyle("-fx-border-color: red;");
                 if (weightText.isEmpty()) tf_weight.setStyle("-fx-border-color: red;");
-                if (dateOfBirth==null) datePicker.setStyle("-fx-border-color: red;");
+                if (dateOfBirth == null) datePicker.setStyle("-fx-border-color: red;");
                 if (habit == null) lbl_habit.setStyle("-fx-border-color: red;");
 
-                return; //Stop further processing
+                return;
             }
 
             if (!isAtLeastFifteenYearsAgo(dateOfBirth)) {
                 showAlert("Error", "You have to be at least 15 years of age to use this application.", Alert.AlertType.ERROR);
-                return; //Stop further processing
+                return;
             }
 
             double weight = Double.parseDouble(weightText);
@@ -102,17 +105,18 @@ public class CreateUserPage extends A_Page {
 
             boolean userCreated = createUserController.createUser(username, password, habit, weight, dateOfBirthText);
 
-            //Displays success message
+
             if (userCreated) {
                 showAlert("Success", "User created successfully!", Alert.AlertType.INFORMATION);
-                changePage(new LogInPage()); //opens login page
+                changePage(new LogInPage());
             }
         });
     }
 
     /**
      * Sets the scene layout for the create user page.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author //AUTHOR
      */
     @Override
     public void setScene() {
@@ -145,7 +149,8 @@ public class CreateUserPage extends A_Page {
 
     /**
      * Sets labels for UI elements.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author //AUTHOR
      */
     private void setLabels() {
         lbl_userName = setLabelStyle("Username");
@@ -159,7 +164,8 @@ public class CreateUserPage extends A_Page {
 
     /**
      * Sets text fields for UI elements.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author //AUTHOR
      */
     private void setTextfields() {
         tf_userName = setTextField();
@@ -174,7 +180,8 @@ public class CreateUserPage extends A_Page {
 
     /**
      * Sets buttons for UI elements.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author //AUTHOR
      */
     private void setButtons() {
         btn_createUser = new JFXButton("Create User");
@@ -183,6 +190,7 @@ public class CreateUserPage extends A_Page {
 
     /**
      * Sets radio buttons for UI elements.
+     *
      * @author Louis Brown
      */
     private void setRadioButton() {
@@ -201,6 +209,7 @@ public class CreateUserPage extends A_Page {
 
     /**
      * Retrieves the selected habit value from the radio button group.
+     *
      * @return The selected habit value as a String, or null if no radio button is selected.
      * @author Louis Brown
      */
@@ -214,6 +223,7 @@ public class CreateUserPage extends A_Page {
 
     /**
      * Sets date picker for UI elements.
+     *
      * @author Alanah Coleman
      */
     private void setDatePicker() {
@@ -223,18 +233,16 @@ public class CreateUserPage extends A_Page {
 
     /**
      * Checks if the chosen date is at least fifteen years ago.
+     *
      * @param chosenDate The chosen date of birth.
      * @return True if the chosen date is at least fifteen years ago, false otherwise.
      * @author Louis Brown
      */
     private boolean isAtLeastFifteenYearsAgo(LocalDate chosenDate) {
-        // Get the current date
         LocalDate currentDate = LocalDate.now();
 
-        // Calculate the date 15 years ago
         LocalDate fifteenYearsAgo = currentDate.minusYears(15);
 
-        // Check if the chosen date is at least 15 years ago
         return chosenDate.isBefore(fifteenYearsAgo) || chosenDate.isEqual(fifteenYearsAgo);
     }
 }

@@ -4,14 +4,12 @@ import KoffeinKoll.Controller.CircleChartController;
 import KoffeinKoll.Controller.StapelDiagramController;
 import KoffeinKoll.Controller.UserController;
 import com.jfoenix.controls.JFXButton;
-import eu.hansolo.tilesfx.Tile;
-import eu.hansolo.tilesfx.TileBuilder;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
+
 
 /**
  * StatisticsPage class represents the statistics page of the application.
@@ -19,7 +17,11 @@ import javafx.scene.paint.Color;
  */
 public class StatisticsPage extends A_Page {
     private boolean isCircleChartShown = true;
-    private JFXButton btn_goHome, btn_toggleChart, btn_weekly, btn_monthly, btn_info;
+    private JFXButton btn_goHome;
+    private JFXButton btn_toggleChart;
+    private JFXButton btn_weekly;
+    private JFXButton btn_monthly;
+    private JFXButton btn_info;
     private CircleChart circleChart;
     private StapelDiagram stapelDiagram;
     private CircleChartController circleChartController;
@@ -29,6 +31,7 @@ public class StatisticsPage extends A_Page {
 
     /**
      * Initializes the user interface components of the StatisticsPage.
+     *
      * @author Louis Brown
      */
     @Override
@@ -42,11 +45,12 @@ public class StatisticsPage extends A_Page {
         setComponents();
         setEvents();
         setScene();
-        updateChartData(7);  // Load initial data for the last 7 days
+        updateChartData(7);
     }
 
     /**
      * Sets up the UI components of the StatisticsPage.
+     *
      * @author Louis Brown
      */
     @Override
@@ -58,14 +62,15 @@ public class StatisticsPage extends A_Page {
         btn_info = new JFXButton("Info");
 
         chartPane = new StackPane();
-        chartPane.getChildren().add(circleChart); // Display the CircleChart by default
+        chartPane.getChildren().add(circleChart);
 
         setButtons();
     }
 
     /**
      * Sets up the buttons for navigation.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author //AUTHOR
      */
     private void setButtons() {
         btn_goHome.setStyle(setButtonStyle());
@@ -77,7 +82,8 @@ public class StatisticsPage extends A_Page {
 
     /**
      * Sets up the event handlers for the buttons.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author //AUTHOR
      */
     @Override
     public void setEvents() {
@@ -90,7 +96,8 @@ public class StatisticsPage extends A_Page {
 
     /**
      * Sets up the scene of the StatisticsPage.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author //AUTHOR
      */
     @Override
     public void setScene() {
@@ -115,10 +122,10 @@ public class StatisticsPage extends A_Page {
         chartPane.getChildren().clear();
         if (isCircleChartShown) {
             chartPane.getChildren().add(circleChart);
-            updateChartData(7);  // Load data for the last 7 days for the currently displayed chart
+            updateChartData(7);
         } else {
             chartPane.getChildren().add(stapelDiagram);
-            updateChartData(7);  // Assuming similar need for StapelDiagram
+            updateChartData(7);
         }
     }
 
@@ -132,7 +139,8 @@ public class StatisticsPage extends A_Page {
 
     /**
      * Navigates to the home page.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author //AUTHOR
      */
     private void goToHomePage() {
         changePage(new HomePage());
@@ -140,7 +148,8 @@ public class StatisticsPage extends A_Page {
 
     /**
      * Navigates to the info page.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author //AUTHOR
      */
     private void goToInfoPage() {
         changePage(new InfoPage(false));
