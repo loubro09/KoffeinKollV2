@@ -11,21 +11,6 @@ import java.time.LocalDateTime;
  */
 public class BeverageController {
 
-    public int getMaxUserHistoryId() {
-        String sql = "SELECT MAX(userhistory_id) AS maxId FROM userhistory";
-        try (Connection conn = DatabaseConnection.getInstance().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
-
-            if (rs.next()) {
-                return rs.getInt("maxId");
-            }
-        } catch (SQLException e) {
-            System.out.println("Error in getMaxUserHistoryId" + e.getMessage());
-        }
-        return 0;
-    }
-
     /**
      * Validates the amount of a beverage.
      * @param text The text representing the amount of the beverage.
@@ -77,5 +62,20 @@ public class BeverageController {
             System.out.println("Error in insertUserHistory: " + e.getMessage());
             return false;
         }
+    }
+
+    private int getMaxUserHistoryId() {
+        String sql = "SELECT MAX(userhistory_id) AS maxId FROM userhistory";
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            if (rs.next()) {
+                return rs.getInt("maxId");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error in getMaxUserHistoryId" + e.getMessage());
+        }
+        return 0;
     }
 }

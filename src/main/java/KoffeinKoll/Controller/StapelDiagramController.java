@@ -48,7 +48,6 @@ public class StapelDiagramController {
      * @param userId The ID of the user.
      * @param days The number of days for the time period.
      * @return A map containing the caffeine consumption data for each date.
-     *
      * @author Kenan Al Tal,
      */
 
@@ -57,7 +56,6 @@ public class StapelDiagramController {
         LocalDate currentDate = LocalDate.now();
         LocalDate startDate = currentDate.minusDays(days - 1);
 
-        // Pre-populate the map with all dates set to zero
         for (LocalDate date = startDate; !date.isAfter(currentDate); date = date.plusDays(1)) {
             data.put(date.toString(), 0);
         }
@@ -91,8 +89,7 @@ public class StapelDiagramController {
      * Displays an error alert with the specified header and content.
      * @param header The header text for the alert.
      * @param content The content text for the alert.
-     *
-     * @author
+     * @author Louis Brown
      */
     private void showErrorAlert(String header, String content) {
         Alert alert = new Alert(AlertType.ERROR);

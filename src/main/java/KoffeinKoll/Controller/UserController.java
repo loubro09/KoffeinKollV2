@@ -23,9 +23,6 @@ public class UserController {
      * @author AlanahColeman
      */
     public UserController() {
-        this.id = id;
-        this.username = username;
-        this.weight = weight;
         this.databaseConnection = DatabaseConnection.getInstance();
     }
 

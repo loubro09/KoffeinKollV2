@@ -150,7 +150,7 @@ public class CreateUserController {
      * @param alertType The type of the alert
      * @author                                                                                          //AUTHOR
      */
-    protected void showAlert(String title, String content, Alert.AlertType alertType) {
+    private void showAlert(String title, String content, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(null);

@@ -11,6 +11,7 @@ import java.sql.Date;
 public class ProfileController {
 
     private DatabaseConnection databaseConnection;
+
     /**
      * Constructs a new ProfileController object.
      * @author Kenan Al-Tal, Alanah Coleman                                                                                         //AUTHOR
@@ -18,7 +19,6 @@ public class ProfileController {
     public ProfileController() {
         this.databaseConnection = databaseConnection.getInstance();
     }
-
 
     /**
      * Updates the user profile with the provided information.
