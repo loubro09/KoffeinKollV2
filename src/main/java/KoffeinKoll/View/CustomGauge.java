@@ -16,7 +16,6 @@ import javafx.util.Duration;
  */
 public class CustomGauge extends StackPane {
     private Gauge gauge;
-    private AlgorithmController algorithmController;
     private Timeline timeline;
     private static CustomGauge instance;
 
@@ -28,7 +27,6 @@ public class CustomGauge extends StackPane {
      * @author Louis Brown, Ida Nordenswan
      */
     public CustomGauge() {
-        this.algorithmController = new AlgorithmController();
 
 
         gauge = new Gauge();
