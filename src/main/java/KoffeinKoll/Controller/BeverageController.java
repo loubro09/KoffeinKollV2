@@ -25,7 +25,8 @@ public class BeverageController {
             double amount = Double.parseDouble(text);
             return amount >= 0;
         } catch (NumberFormatException e) {
-            System.out.println("Error in validateAmount: " + e.getMessage());
+            e.printStackTrace();
+            System.out.println("BeverageController : validateAmount : Parsing error.");
             return false;
         }
     }
@@ -37,7 +38,7 @@ public class BeverageController {
      * @param dateTime       The date of consumption.
      * @param amount     The amount of beverage consumption.
      * @return True if the insertion was successful, false otherwise.
-     * @author                                                                                          //AUTHOR
+     * @author Elias Olsson
      */
     public boolean insertUserHistory(int userId, int beverageId, LocalDateTime dateTime, double amount) {
         int newId = getMaxUserHistoryId() + 1;
@@ -59,11 +60,17 @@ public class BeverageController {
             pstmt.executeUpdate();
             return true;
         } catch (SQLException e) {
-            System.out.println("Error in insertUserHistory: " + e.getMessage());
+            e.printStackTrace();
+            System.out.println("BeverageController : insertUserHistory : Database or SQL error.");
             return false;
         }
     }
 
+    /**
+     * Retrieves the maximum user history ID from the database table "userhistory".
+     * @return The maximum user history ID, or 0 if no ID is found or an error occurs.
+     * @author Elias Olsson
+     */
     private int getMaxUserHistoryId() {
         String sql = "SELECT MAX(userhistory_id) AS maxId FROM userhistory";
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
@@ -74,7 +81,8 @@ public class BeverageController {
                 return rs.getInt("maxId");
             }
         } catch (SQLException e) {
-            System.out.println("Error in getMaxUserHistoryId" + e.getMessage());
+            e.printStackTrace();
+            System.out.println("BeverageController : getMaxUserHistoryId : Database or SQL error.");
         }
         return 0;
     }

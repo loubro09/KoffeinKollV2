@@ -66,7 +66,7 @@ public class CreateUserPage extends A_Page {
     /**
      * Sets the event handlers for UI controls on the create user page.
      *
-     * @author Kenan Al-tal, Alanah Coleman                                                                                       //AUTHOR
+     * @author Kenan Al-tal, Alanah Coleman, Louis Brown                                                                                      //AUTHOR
      */
     @Override
     public void setEvents() {
@@ -116,7 +116,7 @@ public class CreateUserPage extends A_Page {
     /**
      * Sets the scene layout for the create user page.
      *
-     * @author //AUTHOR
+     * @author Ida Nordenswan
      */
     @Override
     public void setScene() {
@@ -150,7 +150,7 @@ public class CreateUserPage extends A_Page {
     /**
      * Sets labels for UI elements.
      *
-     * @author //AUTHOR
+     * @author Ida Nordenswan
      */
     private void setLabels() {
         lbl_userName = setLabelStyle("Username");
@@ -165,7 +165,7 @@ public class CreateUserPage extends A_Page {
     /**
      * Sets text fields for UI elements.
      *
-     * @author //AUTHOR
+     * @author Ida Nordenswan
      */
     private void setTextfields() {
         tf_userName = setTextField();
@@ -181,7 +181,7 @@ public class CreateUserPage extends A_Page {
     /**
      * Sets buttons for UI elements.
      *
-     * @author //AUTHOR
+     * @author Ida Nordenswan
      */
     private void setButtons() {
         btn_createUser = new JFXButton("Create User");

@@ -8,7 +8,6 @@ import java.time.temporal.ChronoUnit;
 
 /**
  * The AlgorithmController class handles methods for calculating caffeine metabolism time. It also updates the gauge when a new consumed beverage is logged, and gets information needed from the database.
- * @author idanordenswan
  */
 
 public class AlgorithmController {
@@ -16,7 +15,7 @@ public class AlgorithmController {
 
     /**
      * Constructor for the Algorithmcontroller.
-     *
+     * @author Ida Nordensawn
      */
 
     public AlgorithmController() {
@@ -27,19 +26,15 @@ public class AlgorithmController {
      * Updates the gauge when a new drink is registered by the user and updates the database with the max gauge time.
      * @param beverageId the Id of the logged drink.
      * @param beverageAmount the amount of beverage consumed(in centiliters).
-     * @author idanordenswan
+     * @author Ida Nordensawn, Louis Brown
      */
 
     public void updateGaugeNewLog(int beverageId, double beverageAmount) {
         double caffeine = getBeverageConcentration(beverageId) * beverageAmount;
-        System.out.println("updateGaugeNewLog: Caffeine amount: " + caffeine);
         double newDrinkTime = calculateTime(caffeine);
-        System.out.println("updateGaugeNewLog: Time for new drink to leave body: " + newDrinkTime);
         CustomGauge cg = CustomGauge.getInstance();
         double currentDrinkTime = cg.getCurrentValue();
-        System.out.println("Time for current drink to leave body: " + currentDrinkTime);
         newDrinkTime += currentDrinkTime;
-        System.out.println("New time for caffeine to leave body: " + newDrinkTime);
         cg.changeValue((int) newDrinkTime);
 
         String sql = "UPDATE users SET current_max_gauge_time = ? WHERE user_id = ?";
@@ -58,14 +53,15 @@ public class AlgorithmController {
                 System.out.println("Failed to update currentMaxGaugeTime for user with ID ");
             }
         } catch (SQLException e) {
-            System.err.println("Error updating currentMaxGaugeTime: " + e.getMessage());
+            e.printStackTrace();
+            System.out.println("AlgorithmController : updateGaugeNewLog : Database or SQL error.");
         }
     }
 
     /**
      * Calculates the current value of the gauge. The current value is based on the last log time and current time.
      * @return the current value of the gauge.
-     * @author idanordenswan
+     * @author Ida Nordensawn, Louis Brown
      */
 
     public double currentGaugeValue() {
@@ -85,7 +81,7 @@ public class AlgorithmController {
      * Calculates the total amopunt of caffeine that the current user has consumed for the day.
      * @param userId Id of the user.
      * @return total caffein consumption of the day.
-     * @author idanordenswan
+     * @author Ida Nordensawn
      *
      */
     public double getTotalCaffeineForDay(int userId) {
@@ -114,9 +110,8 @@ public class AlgorithmController {
     /**
      * Getter for the max gauge value. Retreives the value from the database for the current user.
      * @return maximum gauge value.
-     * @author idanordenswan
+     * @author Ida Nordensawn
      */
-
     public double getMaxValue() {
         if (lastLog() == null) {
             return 0;
@@ -145,9 +140,8 @@ public class AlgorithmController {
     /**
      * Checks the last drink log from the database for the current user at the current time.
      * @return the time of the last drink log.
-     * @author idanordenswan
+     * @author Ida Nordensawn, Louis Brown
      */
-
     private LocalTime lastLog() {
         //SQL query to retrieve the time of the last added row for the specified user and today's date
         String sql = "SELECT date AS lastAddedTime FROM userhistory WHERE user_id = ? AND DATE(date) = ? ORDER BY date DESC LIMIT 1";
@@ -175,9 +169,8 @@ public class AlgorithmController {
      * Gets the corresponding caffeine concentration of the selected beverage.
      * @param beverageId the Id of the beverage.
      * @return the caffeine concentration of the selected beverage.
-     * @author idanordenswan
+     * @author Ida Nordensawn
      */
-
     private double getBeverageConcentration(int beverageId){
         double concentration = 0.0;
         String query= "SELECT caffeine_concentration FROM beverages WHERE beverage_id = ?";
@@ -203,9 +196,8 @@ public class AlgorithmController {
      * Half-life equation that calculates the time(in hours) it takes for caffeine to metabolize in the body, using the half-life constant for caffeine = 5.7h.
      * @param c0 is the intitial caffeine contentration in milligrams.
      * @return the time (h) it takes for the caffeine to decrease to 1 milligram.
-     * @author idanordenswan
+     * @author Ida Nordensawn
      */
-
     private double calculateTime(double c0) {
         double cF = 1; // mg
         // hours

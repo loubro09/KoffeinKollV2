@@ -38,6 +38,13 @@ public class CircleChart extends VBox {
     }
 
 
+    /**
+     * Updates the chart's data based on the provided data map, period, and days.
+     * @param data A map containing beverage names as keys and their corresponding consumption counts as values.
+     * @param period A string indicating the period for which the data is displayed (e.g., "Weekly" or "Monthly").
+     * @param days The number of days for which the data is displayed.
+     * @author Elias Olsson
+     */
     public void updateChartData(Map<String, Integer> data, String period, int days) {
         ObservableList<PieChart.Data> chartData = FXCollections.observableArrayList();
         int totalAmount = data.values().stream().mapToInt(Integer::intValue).sum();
@@ -56,11 +63,21 @@ public class CircleChart extends VBox {
     }
 
 
+    /**
+     * Initializes the chart with default settings.
+     * Sets the title and visibility of the legend.
+     * @author Alanah Coleman
+     */
     private void initializeChart() {
         pieChart.setTitle("Beverage Consumption");
         pieChart.setLegendVisible(true);
     }
 
+    /**
+     * Adds animation effects to the chart slices on mouse hover.
+     * Enlarges the slice when hovered over and restores its size on mouse exit.
+     * @author Elias Olsson
+     */
     private void animateChart() {
         pieChart.getData().forEach(data -> {
             data.getNode().setOnMouseEntered(e -> {

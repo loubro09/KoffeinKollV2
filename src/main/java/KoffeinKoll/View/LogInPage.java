@@ -51,7 +51,7 @@ public class LogInPage extends A_Page {
     /**
      * Sets the event handlers for UI controls on the login page.
      *
-     * @author //AUTHOR
+     * @author Louis Brown
      */
     @Override
     public void setEvents() {
@@ -73,7 +73,7 @@ public class LogInPage extends A_Page {
     /**
      * Sets the scene layout for the login page.
      *
-     * @author //AUTHOR
+     * @author Louis Brown
      */
     @Override
     public void setScene() {
@@ -103,7 +103,7 @@ public class LogInPage extends A_Page {
     /**
      * Sets labels for username and password fields.
      *
-     * @author //AUTHOR
+     * @author Louis Brown
      */
     private void setLabels() {
         lbl_userName = setLabelStyle("Username");
@@ -113,7 +113,7 @@ public class LogInPage extends A_Page {
     /**
      * Sets text fields for username and password entry.
      *
-     * @author //AUTHOR
+     * @author Louis Brown
      */
     private void setTextfields() {
         tf_userName = setTextField();
@@ -125,7 +125,7 @@ public class LogInPage extends A_Page {
     /**
      * Sets buttons for login and registration.
      *
-     * @author //AUTHOR
+     * @author Louis Brown
      */
     private void setButtons() {
         btn_logIn = new JFXButton("Log in");
@@ -138,7 +138,7 @@ public class LogInPage extends A_Page {
     /**
      * Handles the login process when the login button is clicked.
      *
-     * @author //AUTHOR
+     * @author Louis Brown
      */
     private void handleLogin() {
         String username = tf_userName.getText();
@@ -157,13 +157,9 @@ public class LogInPage extends A_Page {
     /**
      * Handles the navigation to the registration page when the registration link is clicked.
      *
-     * @author //AUTHOR
+     * @author Louis Brown
      */
     private void handleReg() {
         changePage(new CreateUserPage());
-    }
-
-    public TextField getTf_userName() {
-        return tf_userName;
     }
 }

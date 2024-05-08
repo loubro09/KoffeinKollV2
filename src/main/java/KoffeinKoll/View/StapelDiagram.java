@@ -25,7 +25,7 @@ public class StapelDiagram extends VBox {
     /**
      * Constructor for StapelDiagram class.
      * Initializes the bar chart with weekdays as categories and caffeine consumption data.
-     * //AUTHOR
+     * @author Alanah Coleman
      */
     public StapelDiagram() {
         xAxis = new CategoryAxis();
@@ -50,7 +50,7 @@ public class StapelDiagram extends VBox {
      * @param data   the chart is representing the caffeine consumption by the user and is categorized by date.
      * @param period Selected period for wich the data is displayed.
      * @param days   number of days in the period
-     * @author idanordenswan
+     * @author Ida Nordenswan, Kenan Al Tal
      */
 
     public void updateChartData(Map<String, Number> data, String period, int days) {
@@ -81,7 +81,7 @@ public class StapelDiagram extends VBox {
     /**
      * Initializes the chart. Titles and labels are set.
      *
-     * @author idanordenswan
+     * @author Ida Nordenswan
      */
 
     private void initializeChart() {

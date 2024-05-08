@@ -44,7 +44,7 @@ public class BeverageStatsPage extends A_Page {
      * Constructs a new instance of BeverageStatsPage with the specified beverage ID.
      *
      * @param beverageID The ID of the beverage.
-     * @author //AUTHOR
+     * @author Elias Olsson
      */
     public BeverageStatsPage(int beverageID) {
         this.beverageID = beverageID;
@@ -77,7 +77,7 @@ public class BeverageStatsPage extends A_Page {
     /**
      * Sets event handlers for buttons.
      *
-     * @author //AUTHOR
+     * @author Elias Olsson
      */
     @Override
     public void setEvents() {
@@ -90,7 +90,7 @@ public class BeverageStatsPage extends A_Page {
     /**
      * Sets up the scene layout.
      *
-     * @author //AUTHOR
+     * @author Elias Olsson
      */
     @Override
     public void setScene() {
@@ -129,7 +129,7 @@ public class BeverageStatsPage extends A_Page {
     /**
      * Sets up labels.
      *
-     * @author //AUTHOR
+     * @author Elias Olsson
      */
     private void setLabels() {
         lbl_beverageTitle = setLabelStyle("Log Amount");
@@ -142,7 +142,7 @@ public class BeverageStatsPage extends A_Page {
     /**
      * Sets up text fields.
      *
-     * @author //AUTHOR
+     * @author Elias Olsson
      */
     private void setTextfields() {
         tf_amountCL = setTextField();
@@ -159,7 +159,7 @@ public class BeverageStatsPage extends A_Page {
     /**
      * Sets up buttons.
      *
-     * @author //AUTHOR
+     * @author Elias Olsson
      */
     private void setButtons() {
         btn_goBack = new JFXButton("Go Back");
@@ -179,7 +179,7 @@ public class BeverageStatsPage extends A_Page {
     /**
      * Validates user inputs for amount and date/time.
      *
-     * @author //AUTHOR
+     * @author Elias Olsson
      */
     private void validateInputs() {
         if (!beverageController.validateAmount(tf_amountCL.getText())) {
@@ -195,7 +195,7 @@ public class BeverageStatsPage extends A_Page {
      * Validates the date and time format.
      *
      * @return True if the date and time are valid, otherwise false.
-     * @author //AUTHOR
+     * @author Elias Olsson
      */
     private boolean validateDateTime() {
         String time = tf_time.getText();
@@ -218,7 +218,7 @@ public class BeverageStatsPage extends A_Page {
     /**
      * Processes valid user inputs.
      *
-     * @author //AUTHOR
+     * @author Elias Olsson
      */
     private void processValidInputs() {
         LocalDate date = datePicker.getValue();
@@ -243,7 +243,7 @@ public class BeverageStatsPage extends A_Page {
     /**
      * Navigates to the home page.
      *
-     * @author //AUTHOR
+     * @author Elias Olsson
      */
     private void goToHomePage() {
         changePage(new HomePage());
@@ -252,7 +252,7 @@ public class BeverageStatsPage extends A_Page {
     /**
      * Navigates back to the beverage menu page.
      *
-     * @author //AUTHOR
+     * @author Elias Olsson
      */
     private void goBack() {
         changePage(new BeverageMenuPage());
@@ -261,7 +261,7 @@ public class BeverageStatsPage extends A_Page {
     /**
      * Sets the current time in the time text field and date picker.
      *
-     * @author //AUTHOR
+     * @author Elias Olsson
      */
     private void useCurrentTime() {
         LocalDate currentDate = LocalDate.now();

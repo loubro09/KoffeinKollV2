@@ -15,6 +15,7 @@ import javafx.scene.text.Font;
 /**
  * This class customs the JavaFX control representing a percentage gauge for displaying caffeine levels.
  * This is visually shown in the home page.
+ * @author Alanah Coleman
  */
 public class PercentageGauge extends StackPane {
     private Label lbl_title;
@@ -29,8 +30,6 @@ public class PercentageGauge extends StackPane {
     /**
      * Constructs percentage gauge.
      * Creating the functions and setting the labels for the gauge.
-     *
-     * @author alanahcoleman
      */
     public PercentageGauge() {
         this.userName = UserController.getInstance().getUsername();
@@ -63,7 +62,6 @@ public class PercentageGauge extends StackPane {
      * Updates the caffeine level display based on the current caffeine amount.
      *
      * @param currentAmount The current amount of caffeine consumed.
-     * @author alanahcoleman
      */
     public void updateCaffeineLevel(double currentAmount) {
         if (currentAmount >= recommendedAmount) {

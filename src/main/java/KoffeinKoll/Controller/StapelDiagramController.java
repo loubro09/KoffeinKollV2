@@ -21,6 +21,7 @@ public class StapelDiagramController {
     /**
      * Constructor for StapelDiagramController class.
      * @param stapelDiagram The associated StapelDiagram view.
+     * @author Kenan Al Tal
      */
     public StapelDiagramController(StapelDiagram stapelDiagram) {
         this.stapelDiagram = stapelDiagram;
@@ -30,8 +31,7 @@ public class StapelDiagramController {
      * Updates the chart data for the specified user and time period.
      * @param userId The ID of the user.
      * @param days The number of days for the time period.
-     *
-     * @author //AUTHOR
+     * @author Kenan Al Tal
      */
     public void updateDiagramData(int userId, int days) {
         Map<String, Number> data = getLastDaysCaffeineConsumption(userId, days);

@@ -30,7 +30,7 @@ public class UserController {
      * Retrieves the singleton instance of UserController.
      *
      * @return The singleton instance of UserController.
-     * @author LouisBrown
+     * @author Louis Brown
      */
     public static UserController getInstance() {
         if (instance == null) {
@@ -43,7 +43,7 @@ public class UserController {
      * Sets the username of the user.
      *
      * @param username The username to set.
-     * @author alanahColeman
+     * @author Alanah Coleman
      */
     public void setUsername(String username) {
         this.username = username;
@@ -53,7 +53,7 @@ public class UserController {
      * Retrieves the username of the user.
      *
      * @return The username of the user.
-     * @author alanahColeman
+     * @author Alanah Coleman
      */
     public String getUsername() {
         return username;
@@ -63,7 +63,7 @@ public class UserController {
      * Retrieves the weight of the user from the database.
      *
      * @return The weight of the user.
-     * @author alanahColeman
+     * @author Alanah Coleman
      */
     public double getWeight() {
         Connection connection = null;
@@ -109,7 +109,7 @@ public class UserController {
      * Retrieves the user ID from the database.
      *
      * @return The user ID.
-     * @author alanahColeman
+     * @author Alanah Coleman
      */
     public int getId() {
         Connection connection = null;
@@ -154,7 +154,7 @@ public class UserController {
     /**
      * Retrieves the habit of the user from the database.
      * @return The habit from the user.
-     * @author alanahcoleman
+     * @author Alanah Coleman
      */
     public String getHabit() {
         Connection connection = null;

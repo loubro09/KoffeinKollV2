@@ -17,7 +17,7 @@ public class LoginController {
 
     /**
      * Constructs a new LoginController object.
-     * @author alanahColeman
+     * @author Alanah Coleman
      */
     public LoginController() {
         this.databaseConnection = databaseConnection.getInstance();
@@ -29,7 +29,7 @@ public class LoginController {
      * @param username The username of the user.
      * @param password The password of the user.
      * @return True if the login is successful, otherwise false.
-     * @author alanahColeman
+     * @author Alanah Coleman
      */
     public boolean logIn(String username, String password) {
         Connection connection = null;
@@ -102,7 +102,7 @@ public class LoginController {
      * @param title     The title of the alert dialog.
      * @param content   The content of the alert dialog.
      * @param alertType The type of the alert
-     * @author
+     * @author Louis Brown
      */
     private void showAlert(String title, String content, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);

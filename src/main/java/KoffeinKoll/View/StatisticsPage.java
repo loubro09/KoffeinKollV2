@@ -70,7 +70,7 @@ public class StatisticsPage extends A_Page {
     /**
      * Sets up the buttons for navigation.
      *
-     * @author //AUTHOR
+     * @author Alanah Coleman
      */
     private void setButtons() {
         btn_goHome.setStyle(setButtonStyle());
@@ -83,7 +83,7 @@ public class StatisticsPage extends A_Page {
     /**
      * Sets up the event handlers for the buttons.
      *
-     * @author //AUTHOR
+     * @author Alanah Coleman
      */
     @Override
     public void setEvents() {
@@ -97,7 +97,7 @@ public class StatisticsPage extends A_Page {
     /**
      * Sets up the scene of the StatisticsPage.
      *
-     * @author //AUTHOR
+     * @author Alanah Coleman
      */
     @Override
     public void setScene() {
@@ -117,6 +117,10 @@ public class StatisticsPage extends A_Page {
         borderPane.setBottom(buttonHBox);
     }
 
+    /**
+     * Toggles between displaying the circle chart and the bar chart.
+     * @author Elias Olsson
+     */
     private void toggleChart() {
         isCircleChartShown = !isCircleChartShown;
         chartPane.getChildren().clear();
@@ -129,6 +133,11 @@ public class StatisticsPage extends A_Page {
         }
     }
 
+    /**
+     * Updates the chart data based on the selected time period.
+     * @param days The number of days for which the data is displayed.
+     * @author Alanah Coleman
+     */
     private void updateChartData(int days) {
         if (isCircleChartShown) {
             circleChartController.updateDiagramData(days);
@@ -140,7 +149,7 @@ public class StatisticsPage extends A_Page {
     /**
      * Navigates to the home page.
      *
-     * @author //AUTHOR
+     * @author Louis Brown
      */
     private void goToHomePage() {
         changePage(new HomePage());
@@ -149,7 +158,7 @@ public class StatisticsPage extends A_Page {
     /**
      * Navigates to the info page.
      *
-     * @author //AUTHOR
+     * @author Louis Brown
      */
     private void goToInfoPage() {
         changePage(new InfoPage(false));

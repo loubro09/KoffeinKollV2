@@ -16,7 +16,7 @@ public class CaffeineCalculator {
 
     /**
      * Constructor for CaffeineCalculator
-     * @author alanahColeman
+     * @author Alanah Coleman
      */
     public CaffeineCalculator() {
         this.habit = UserController.getInstance().getHabit();
@@ -29,7 +29,7 @@ public class CaffeineCalculator {
      * Retrieves the recommended caffeine dose
      *
      * @return The recommended caffeine dose
-     * @author alanahColeman
+     * @author Alanah Coleman
      */
     public double getRecommendedDose() {
         return recommendedDose;
@@ -40,7 +40,7 @@ public class CaffeineCalculator {
      *
      * @param habit The user's caffeine habit.
      * @return The recommended caffeine dose.
-     * @author alanahColeman
+     * @author Alanah Coleman
      */
     private double calculateRecommendedDose(String habit) {
         switch (habit) {

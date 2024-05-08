@@ -10,18 +10,25 @@ import java.util.Map;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
+/**
+ * Controller class for managing the data and actions related to a CircleChart.
+ * @author Elias Olsson
+ */
 public class CircleChartController {
     private CircleChart circleDiagram;
 
+    /**
+     * Constructor for CircleChartController.
+     * @param circleDiagram The CircleChart instance to be controlled.
+     */
     public CircleChartController(CircleChart circleDiagram) {
         this.circleDiagram = circleDiagram;
     }
 
     /**
-     * Method to update the pie chart with the latest data
-     * @param days
+     * Method to update the pie chart with the latest data.
+     * @param days The number of days for which to retrieve beverage consumption data.
      */
-
     public void updateDiagramData(int days) {
         Map<String, Integer> beverageData = getBeverageConsumptionLastDays(days);
         String period = (days == 7) ? "Weekly" : "Monthly";
@@ -31,9 +38,10 @@ public class CircleChartController {
     }
 
     /**
-     *     Fetches beverage consumption data for the last X days from the database
+     * Fetches beverage consumption data for the last X days from the database.
+     * @param days The number of days for which to retrieve beverage consumption data.
+     * @return A map containing beverage names as keys and their corresponding consumption counts as values.
      */
-
     private Map<String, Integer> getBeverageConsumptionLastDays(int days) {
         Map<String, Integer> beverageData = new LinkedHashMap<>();
         String sql = "SELECT b.beverage_name, COUNT(b.beverage_id) AS count " +
@@ -57,9 +65,10 @@ public class CircleChartController {
     }
 
     /**
-     * Method to show error alerts
-     * @param header
-     * @param content
+     * Method to show error alerts.
+     * @param header The header text for the error alert.
+     * @param content The content text for the error alert.
+     * @author Louis Brown
      */
     private void showErrorAlert(String header, String content) {
         Alert alert = new Alert(AlertType.ERROR);
