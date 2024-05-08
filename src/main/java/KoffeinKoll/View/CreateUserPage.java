@@ -92,7 +92,7 @@ public class CreateUserPage extends A_Page {
                 return;
             }
 
-            if (!isAtLeastFifteenYearsAgo(dateOfBirth)) {
+            if (!checkAge(dateOfBirth)) {
                 showAlert("Error", "You have to be at least 15 years of age to use this application.", Alert.AlertType.ERROR);
                 return;
             }
@@ -240,7 +240,7 @@ public class CreateUserPage extends A_Page {
      * @return True if the chosen date is at least fifteen years ago, false otherwise.
      * @author Louis Brown
      */
-    private boolean isAtLeastFifteenYearsAgo(LocalDate chosenDate) {
+    private boolean checkAge(LocalDate chosenDate) {
         LocalDate currentDate = LocalDate.now();
 
         LocalDate fifteenYearsAgo = currentDate.minusYears(15);
