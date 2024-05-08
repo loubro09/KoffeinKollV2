@@ -1,4 +1,4 @@
-# KoffeinKollV2
+# KoffeinKoll
 
 Welcome to KoffeinKoll, Your Caffeine Companion!
 
