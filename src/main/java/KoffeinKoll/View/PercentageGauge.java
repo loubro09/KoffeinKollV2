@@ -23,8 +23,6 @@ public class PercentageGauge extends StackPane {
     private ProgressBar progressBar;
     private double recommendedAmount;
     private CaffeineCalculator caffeineCalculator;
-    private BeverageController beverageController;
-    private String userName;
 
 
     /**
@@ -32,8 +30,6 @@ public class PercentageGauge extends StackPane {
      * Creating the functions and setting the labels for the gauge.
      */
     public PercentageGauge() {
-        this.userName = UserController.getInstance().getUsername();
-        this.beverageController = new BeverageController();
         this.caffeineCalculator = new CaffeineCalculator();
         this.recommendedAmount = caffeineCalculator.getRecommendedDose();
 

@@ -211,6 +211,8 @@ public class BeverageStatsPage extends A_Page {
             LocalDateTime.parse(date + " " + time, formatter);
             return true;
         } catch (DateTimeParseException e) {
+            e.printStackTrace();
+            System.out.println("BeverageStatsPage : validateDateTime : Parsing date error.");
             return false;
         }
     }
