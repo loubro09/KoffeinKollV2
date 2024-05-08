@@ -84,7 +84,7 @@ public class ProfilePage extends A_Page {
             String newHabit = habitValue();
 
             if (dateOfBirth != null) {
-                if (!isAtLeastFifteenYearsAgo(dateOfBirth)) {
+                if (!checkAge(dateOfBirth)) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");
                     alert.setHeaderText(null);
@@ -222,7 +222,7 @@ public class ProfilePage extends A_Page {
      * @return True if the date is at least fifteen years ago, false otherwise.
      * @author Louis Brown
      */
-    private boolean isAtLeastFifteenYearsAgo(LocalDate chosenDate) {
+    private boolean checkAge(LocalDate chosenDate) {
         LocalDate currentDate = LocalDate.now();
         LocalDate fifteenYearsAgo = currentDate.minusYears(15);
         return chosenDate.isBefore(fifteenYearsAgo) || chosenDate.isEqual(fifteenYearsAgo);
