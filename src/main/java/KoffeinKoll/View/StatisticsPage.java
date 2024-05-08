@@ -67,18 +67,6 @@ public class StatisticsPage extends A_Page {
         setButtons();
     }
 
-    /**
-     * Sets up the buttons for navigation.
-     *
-     * @author Alanah Coleman
-     */
-    private void setButtons() {
-        btn_goHome.setStyle(setButtonStyle());
-        btn_toggleChart.setStyle(setButtonStyle());
-        btn_weekly.setStyle(setButtonStyle());
-        btn_monthly.setStyle(setButtonStyle());
-        btn_info.setStyle(setButtonStyle());
-    }
 
     /**
      * Sets up the event handlers for the buttons.
@@ -116,6 +104,20 @@ public class StatisticsPage extends A_Page {
 
         borderPane.setBottom(buttonHBox);
     }
+
+    /**
+     * Sets up the buttons for navigation.
+     *
+     * @author Alanah Coleman
+     */
+    private void setButtons() {
+        btn_goHome.setStyle(setButtonStyle());
+        btn_toggleChart.setStyle(setButtonStyle());
+        btn_weekly.setStyle(setButtonStyle());
+        btn_monthly.setStyle(setButtonStyle());
+        btn_info.setStyle(setButtonStyle());
+    }
+
 
     /**
      * Toggles between displaying the circle chart and the bar chart.
