@@ -19,8 +19,8 @@ import javafx.scene.text.Font;
  */
 public class PercentageGauge extends StackPane {
     private Label lbl_title;
+    private Label lbl_percentage;
     private ProgressBar progressBar;
-    private Label lbl_precentage;
     private double recommendedAmount;
     private CaffeineCalculator caffeineCalculator;
     private BeverageController beverageController;
@@ -45,11 +45,11 @@ public class PercentageGauge extends StackPane {
         progressBar.setPrefWidth(200);
         progressBar.setProgress(0);
 
-        lbl_precentage = new Label("0%");
-        lbl_precentage.setFont(Font.font("Arial", 14));
-        lbl_precentage.setTextFill(Color.DARKGREEN);
+        lbl_percentage = new Label("0%");
+        lbl_percentage.setFont(Font.font("Arial", 14));
+        lbl_percentage.setTextFill(Color.DARKGREEN);
 
-        VBox labelsBox = new VBox(lbl_title, progressBar, lbl_precentage);
+        VBox labelsBox = new VBox(lbl_title, progressBar, lbl_percentage);
         labelsBox.setAlignment(Pos.CENTER);
         labelsBox.setSpacing(10);
 
@@ -66,11 +66,11 @@ public class PercentageGauge extends StackPane {
     public void updateCaffeineLevel(double currentAmount) {
         if (currentAmount >= recommendedAmount) {
             progressBar.setProgress(1);
-            lbl_precentage.setText("100%");
+            lbl_percentage.setText("100%");
         } else {
             double percentage = (currentAmount / recommendedAmount) * 100;
             progressBar.setProgress(currentAmount / recommendedAmount);
-            lbl_precentage.setText(String.format("%.1f%%", percentage));
+            lbl_percentage.setText(String.format("%.1f%%", percentage));
         }
     }
 }
