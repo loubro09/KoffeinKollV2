@@ -14,6 +14,9 @@ While we strive to provide accurate information and support healthy habits, indi
 to caffeine may vary. It's always best to consult with a healthcare professional for personalized advice.
 
 
+Start application:
+To initiate the application, ensure access to the database connected to KoffeinKoll. 
+Then, execute the "StartApplication" class to begin.
 
 
 Created 2024
