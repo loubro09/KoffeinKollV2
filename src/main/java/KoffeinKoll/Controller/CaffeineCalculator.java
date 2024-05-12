@@ -7,7 +7,7 @@ package KoffeinKoll.Controller;
 public class CaffeineCalculator {
 
     private double weight;
-    private double recommendedDose;
+    private int recommendedDose;
     final double CAFFEINE1_PER_KG = 2.0;
     final double CAFFEINE2_PER_KG = 3.0;
     final double CAFFEINE3_PER_KG = 4.5;
@@ -31,7 +31,7 @@ public class CaffeineCalculator {
      * @return The recommended caffeine dose
      * @author Alanah Coleman
      */
-    public double getRecommendedDose() {
+    public int getRecommendedDose() {
         return recommendedDose;
     }
 
@@ -42,16 +42,16 @@ public class CaffeineCalculator {
      * @return The recommended caffeine dose.
      * @author Alanah Coleman
      */
-    private double calculateRecommendedDose(String habit) {
+    private int calculateRecommendedDose(String habit) {
         switch (habit) {
             case "0-1":
-                recommendedDose = weight * CAFFEINE1_PER_KG;
+                recommendedDose = (int) (weight * CAFFEINE1_PER_KG);
                 return recommendedDose;
             case "1-2":
-                recommendedDose = weight * CAFFEINE2_PER_KG;
+                recommendedDose = (int) (weight * CAFFEINE2_PER_KG);
                 return recommendedDose;
             case "2-5":
-                recommendedDose = weight * CAFFEINE3_PER_KG;
+                recommendedDose = (int) (weight * CAFFEINE3_PER_KG);
                 return recommendedDose;
         }
         return recommendedDose;

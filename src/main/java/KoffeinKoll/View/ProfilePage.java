@@ -73,8 +73,18 @@ public class ProfilePage extends A_Page {
             ProfileController profileController = new ProfileController();
             String newWeightText = tf_newWeight.getText();
             double weight = 0;
-            if (newWeightText != null && !newWeightText.isEmpty()) {
-                weight = Double.parseDouble(newWeightText);
+            newWeightText = newWeightText.replace(",", ".");
+            if (!newWeightText.isEmpty()) {
+                if (newWeightText.matches("\\d*\\.?\\d+")) {
+                    weight = Double.parseDouble(newWeightText);
+                    if (weight == 0) {
+                        showAlert("Error", "You cannot weigh 0 kg.", Alert.AlertType.ERROR);
+                        return;
+                    }
+                } else {
+                    showAlert("Error", "Invalid input! Please try again.", Alert.AlertType.ERROR);
+                    return;
+                }
             } else {
                 weight = 0;
             }
@@ -85,11 +95,7 @@ public class ProfilePage extends A_Page {
 
             if (dateOfBirth != null) {
                 if (!checkAge(dateOfBirth)) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setHeaderText(null);
-                    alert.setContentText("You have to be at least 15 years of age to use this application.");
-                    alert.show();
+                    showAlert("Error", "You have to be at least 15 years of age to use this application.", Alert.AlertType.ERROR);
                     return;
                 } else {
                     dateOfBirthText = dateOfBirth.format((formatter));
@@ -166,7 +172,7 @@ public class ProfilePage extends A_Page {
      * @author Kenan Al Tal
      */
     private void setButtons() {
-        btn_goHome = new JFXButton("Back");
+        btn_goHome = new JFXButton("Home");
         btn_goHome.setStyle(setButtonStyle());
 
         btn_save = new JFXButton("Save");

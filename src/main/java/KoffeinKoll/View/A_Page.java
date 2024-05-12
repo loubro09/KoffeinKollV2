@@ -190,6 +190,7 @@ public abstract class A_Page implements I_Page {
     protected void changePage(A_Page newPage) {
         newPage.initialPage(stage);
         stage.setScene(newPage.scene);
+        stage.setResizable(false);
         stage.show();
     }
 

@@ -228,6 +228,11 @@ public class BeverageStatsPage extends A_Page {
         LocalDateTime dateTime = LocalDateTime.of(date, LocalTime.parse(time, DateTimeFormatter.ofPattern("HH:mm")));
         Double amount = Double.valueOf(tf_amountCL.getText());
 
+        if (amount <= 0) {
+            showAlert("Error", "You cannot enter an amount less than 1 cl.", Alert.AlertType.ERROR);
+            return;
+        }
+
         UserController userController = UserController.getInstance();
         int userId = userController.getId();
 

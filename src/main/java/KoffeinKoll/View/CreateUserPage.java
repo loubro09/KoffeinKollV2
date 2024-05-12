@@ -7,8 +7,10 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.control.DatePicker;
+import javafx.scene.text.Text;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -24,6 +26,7 @@ public class CreateUserPage extends A_Page {
     private PasswordField pf_password;
     private TextField tf_weight;
     private JFXButton btn_createUser;
+    private JFXButton btn_goBack;
     private Label lbl_userName;
     private Label lbl_password;
     private Label lbl_passwordRequirements;
@@ -70,13 +73,14 @@ public class CreateUserPage extends A_Page {
      */
     @Override
     public void setEvents() {
+        btn_goBack.setOnAction(e -> goBack());
         btn_createUser.setOnAction(event -> {
             String username = tf_userName.getText();
             String password = pf_password.getText();
             String habit = habitValue();
             String weightText = tf_weight.getText();
+            weightText = weightText.replace(",", ".");
             LocalDate dateOfBirth = datePicker.getValue();
-
 
 
             if (username.isEmpty() || password.isEmpty() || weightText.isEmpty() || dateOfBirth == null || habit == null) {
@@ -92,12 +96,33 @@ public class CreateUserPage extends A_Page {
                 return;
             }
 
+            if (username.contains(" ")) {
+                showAlert("Error", "Username cannot contain spaces.", Alert.AlertType.ERROR);
+                return;
+            }
+
+            if (password.contains(" ")) {
+                showAlert("Error", "Password cannot contain spaces.", Alert.AlertType.ERROR);
+                return;
+            }
+
             if (!checkAge(dateOfBirth)) {
                 showAlert("Error", "You have to be at least 15 years of age to use this application.", Alert.AlertType.ERROR);
                 return;
             }
 
-            double weight = Double.parseDouble(weightText);
+            double weight = 0;
+            if (weightText.matches("\\d*\\.?\\d+")) {
+                weight = Double.parseDouble(weightText);
+                if (weight == 0) {
+                    showAlert("Error", "You cannot weigh 0 kg.", Alert.AlertType.ERROR);
+                    return;
+                }
+            } else {
+                showAlert("Error", "Invalid weight input! Please try again.", Alert.AlertType.ERROR);
+                return;
+            }
+
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             String dateOfBirthText = dateOfBirth.format((formatter));
 
@@ -128,18 +153,18 @@ public class CreateUserPage extends A_Page {
         gridPane.add(tf_userName, 0, 1);
         gridPane.add(lbl_password, 0, 2);
         gridPane.add(pf_password, 0, 3);
-        gridPane.add(lbl_habit, 0, 4);
-        gridPane.add(rb_option1, 0, 5);
-        gridPane.add(rb_option2, 0, 6);
-        gridPane.add(rb_option3, 0, 7);
-        gridPane.add(lbl_weight, 0, 8);
-        gridPane.add(tf_weight, 0, 9);
-        gridPane.add(lbl_dateOfBirth, 0, 10);
-        gridPane.add(datePicker, 0, 11);
-        gridPane.add(btn_createUser, 0, 13); // Remove this line
-        gridPane.add(lbl_passwordRequirements, 0, 15);
-
-        gridPane.setHalignment(btn_createUser, Pos.CENTER.getHpos());
+        gridPane.add(lbl_passwordRequirements, 0, 4);
+        gridPane.add(lbl_habit, 0, 5);
+        gridPane.add(rb_option1, 0, 6);
+        gridPane.add(rb_option2, 0, 7);
+        gridPane.add(rb_option3, 0, 8);
+        gridPane.add(lbl_weight, 0, 9);
+        gridPane.add(tf_weight, 0, 10);
+        gridPane.add(lbl_dateOfBirth, 0, 11);
+        gridPane.add(datePicker, 0, 12);
+        HBox buttonBox = new HBox(20, btn_createUser, btn_goBack);
+        buttonBox.setAlignment(Pos.CENTER);
+        gridPane.add(buttonBox, 0, 14);
 
         borderPane.setPadding(new Insets(20));
         borderPane.setTop(lbl_title);
@@ -186,6 +211,9 @@ public class CreateUserPage extends A_Page {
     private void setButtons() {
         btn_createUser = new JFXButton("Create User");
         btn_createUser.setStyle(setButtonStyle());
+
+        btn_goBack = new JFXButton("Go Back");
+        btn_goBack.setStyle(setButtonStyle());
     }
 
     /**
@@ -217,6 +245,9 @@ public class CreateUserPage extends A_Page {
         datePicker.setPromptText("Select Date of Birth");
     }
 
+    private void goBack() {
+        changePage(new LogInPage());
+    }
 
     /**
      * Retrieves the selected habit value from the radio button group.

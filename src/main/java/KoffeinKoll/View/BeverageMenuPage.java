@@ -122,7 +122,7 @@ public class BeverageMenuPage extends A_Page {
         btn_energyDrink = createBeverageButton("Energy Drink");
         btn_soda = createBeverageButton("Soda");
 
-        goHome = new JFXButton("Go Back");
+        goHome = new JFXButton("Home");
         goHome.setStyle(setButtonStyle());
     }
 

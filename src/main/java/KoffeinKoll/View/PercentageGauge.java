@@ -21,7 +21,7 @@ public class PercentageGauge extends StackPane {
     private Label lbl_title;
     private Label lbl_percentage;
     private ProgressBar progressBar;
-    private double recommendedAmount;
+    private int recommendedAmount;
     private CaffeineCalculator caffeineCalculator;
 
 
@@ -33,7 +33,7 @@ public class PercentageGauge extends StackPane {
         this.caffeineCalculator = new CaffeineCalculator();
         this.recommendedAmount = caffeineCalculator.getRecommendedDose();
 
-        lbl_title = new Label("Recommended Caffeine: " + recommendedAmount);
+        lbl_title = new Label("Recommended Daily Caffeine Intake: " + recommendedAmount + " gram");
         lbl_title.setFont(Font.font("Arial", 14));
         lbl_title.setTextFill(Color.DARKGREEN);
 
@@ -66,7 +66,7 @@ public class PercentageGauge extends StackPane {
         } else {
             double percentage = (currentAmount / recommendedAmount) * 100;
             progressBar.setProgress(currentAmount / recommendedAmount);
-            lbl_percentage.setText(String.format("%.1f%%", percentage));
+            lbl_percentage.setText(String.format("%.0f%%", percentage));
         }
     }
 }

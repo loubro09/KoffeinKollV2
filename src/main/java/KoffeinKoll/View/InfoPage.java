@@ -141,7 +141,12 @@ public class InfoPage extends A_Page {
      * @author Ida Nordenswan
      */
     private void setButtons() {
-        btn_goHome = new JFXButton("Go Back");
+        if (!txt) {
+            btn_goHome = new JFXButton("Go Back");
+        }
+        else {
+            btn_goHome = new JFXButton("Home");
+        }
         btn_goHome.setStyle(setButtonStyle());
     }
 

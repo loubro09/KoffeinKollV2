@@ -30,6 +30,9 @@ public class AlgorithmController {
      */
 
     public void updateGaugeNewLog(int beverageId, double beverageAmount) {
+        if (lastLog() == null) {
+            return;
+        }
         double caffeine = getBeverageConcentration(beverageId) * beverageAmount;
         double newDrinkTime = calculateTime(caffeine);
         CustomGauge cg = CustomGauge.getInstance();

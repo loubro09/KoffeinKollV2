@@ -56,7 +56,7 @@ public class StatisticsPage extends A_Page {
     @Override
     public void setComponents() {
         btn_goHome = new JFXButton("Home");
-        btn_toggleChart = new JFXButton("Toggle Chart");
+        btn_toggleChart = new JFXButton("View caffeine consumption statistics");
         btn_weekly = new JFXButton("Weekly");
         btn_monthly = new JFXButton("Monthly");
         btn_info = new JFXButton("Info");
@@ -127,9 +127,11 @@ public class StatisticsPage extends A_Page {
         isCircleChartShown = !isCircleChartShown;
         chartPane.getChildren().clear();
         if (isCircleChartShown) {
+            btn_toggleChart.setText("View caffeine consumption statistics");
             chartPane.getChildren().add(circleChart);
             updateChartData(7);
         } else {
+            btn_toggleChart.setText("View beverage consumption statistics");
             chartPane.getChildren().add(stapelDiagram);
             updateChartData(7);
         }
@@ -141,6 +143,14 @@ public class StatisticsPage extends A_Page {
      * @author Alanah Coleman
      */
     private void updateChartData(int days) {
+        if (days == 7) {
+            btn_weekly.setDisable(true);
+            btn_monthly.setDisable(false);
+        }
+        else {
+            btn_weekly.setDisable(false);
+            btn_monthly.setDisable(true);
+        }
         if (isCircleChartShown) {
             circleChartController.updateDiagramData(days);
         } else {

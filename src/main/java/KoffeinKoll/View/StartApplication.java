@@ -32,6 +32,7 @@ public class StartApplication extends Application {
         LogInPage loginPage = new LogInPage();
         loginPage.initialPage(stage);
         stage.setScene(loginPage.scene);
+        stage.setResizable(false);
         stage.show();
     }
 
