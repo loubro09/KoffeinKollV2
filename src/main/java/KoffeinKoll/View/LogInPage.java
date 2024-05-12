@@ -108,14 +108,6 @@ public class LogInPage extends A_Page {
         borderPane.setTop(topVBox);
         borderPane.setCenter(gridPane);
 
-<<<<<<< HEAD
-        HBox topHBox = new HBox();
-        topHBox.getChildren().add(lbl_title);
-        topHBox.setAlignment(Pos.CENTER);
-        borderPane.setTop(topHBox);
-=======
-
->>>>>>> createUser
     }
 
     /**
