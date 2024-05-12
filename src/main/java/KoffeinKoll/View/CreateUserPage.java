@@ -139,7 +139,7 @@ public class CreateUserPage extends A_Page {
     private void setLabels() {
         lbl_userName = setLabelStyle("Username");
         lbl_password = setLabelStyle("Password");
-        lbl_habit = setLabelStyle("Habit");
+        lbl_habit = setLabelStyle("How often do you consume caffeine drinks per day?");
         lbl_weight = setLabelStyle("Weight");
         lbl_dateOfBirth = setLabelStyle("Date of Birth");
         lbl_passwordRequirements = setLabelStyle("Password must contain at least 8 characters, one capital letter, and one number.");
