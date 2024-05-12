@@ -10,6 +10,10 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
+
 
 /**
  * LogInPage represents the user interface for logging into the KoffeinKoll application.
@@ -89,15 +93,29 @@ public class LogInPage extends A_Page {
         gridPane.add(btn_logIn, 0, 7);
         gridPane.setHalignment(btn_logIn, Pos.CENTER.getHpos());
 
+        Image logoImage = new Image(getClass().getResourceAsStream("/Koffeinkoll_green_gul.png"));
+        ImageView logoImageView = new ImageView(logoImage);
+        logoImageView.setFitWidth(350); // Adjust the width as needed
+        logoImageView.setFitHeight(350);
+
+        VBox topVBox = new VBox();
+        topVBox.setAlignment(Pos.CENTER);
+        topVBox.getChildren().add(logoImageView);
+
 
         borderPane = getBorderPane();
-        borderPane.setPadding(new Insets(20));
+        borderPane.setPadding(new Insets(70));
+        borderPane.setTop(topVBox);
         borderPane.setCenter(gridPane);
 
+<<<<<<< HEAD
         HBox topHBox = new HBox();
         topHBox.getChildren().add(lbl_title);
         topHBox.setAlignment(Pos.CENTER);
         borderPane.setTop(topHBox);
+=======
+
+>>>>>>> createUser
     }
 
     /**
