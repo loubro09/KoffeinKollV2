@@ -12,16 +12,21 @@ public class CaffeineCalculator {
     final double CAFFEINE2_PER_KG = 3.0;
     final double CAFFEINE3_PER_KG = 4.5;
     private String habit;
+    private int currentDose;
+    private AlgorithmController algorithmController;
 
 
     /**
      * Constructor for CaffeineCalculator
+     *
      * @author Alanah Coleman
      */
     public CaffeineCalculator() {
         this.habit = UserController.getInstance().getHabit();
         this.weight = UserController.getInstance().getWeight();
         this.recommendedDose = calculateRecommendedDose(habit);
+        this.algorithmController = new AlgorithmController();
+        this.currentDose = (int) algorithmController.getTotalCaffeineForDay(UserController.getInstance().getId());
         System.out.println("Recommended Dose: " + recommendedDose);
     }
 
@@ -34,6 +39,13 @@ public class CaffeineCalculator {
     public int getRecommendedDose() {
         return recommendedDose;
     }
+
+
+    public int calculateExcessConsumption() {
+        int excess = recommendedDose - currentDose;
+        return excess;
+    }
+
 
     /**
      * Calculates the recommended caffeine dose based on the user's habit
@@ -56,5 +68,6 @@ public class CaffeineCalculator {
         }
         return recommendedDose;
     }
+
 
 }

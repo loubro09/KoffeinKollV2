@@ -2,6 +2,7 @@ package KoffeinKoll.View;
 
 import KoffeinKoll.Controller.AlgorithmController;
 import KoffeinKoll.Controller.BeverageController;
+import KoffeinKoll.Controller.CaffeineCalculator;
 import KoffeinKoll.Controller.UserController;
 import com.jfoenix.controls.JFXButton;
 import javafx.geometry.HPos;
@@ -39,6 +40,8 @@ public class BeverageStatsPage extends A_Page {
     private Label lbl_time;
     private BeverageController beverageController = new BeverageController();
     private int beverageID;
+    private CaffeineCalculator caffeineCalculator = new CaffeineCalculator();
+    private AlgorithmController algorithmController = new AlgorithmController();
 
     /**
      * Constructs a new instance of BeverageStatsPage with the specified beverage ID.
@@ -154,12 +157,44 @@ public class BeverageStatsPage extends A_Page {
         tf_amountCL = setTextField();
         tf_amountCL.setPromptText("Enter Amount in CL");
 
+        tf_amountCL.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                tf_amountCL.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+            warningOverconsumption();
+        });
+
+
         datePicker = new DatePicker();
         datePicker.setPromptText("YYYY-MM-DD");
 
         tf_time = new TextField();
         tf_time.setPromptText("Enter Time (HH:mm)");
 
+    }
+
+    /**
+     * Checks if the entered amount of beverage exceeds the recommended caffeine limit.
+     * If the amount exceeds the limit, it displays a warning message.
+     * @auhtor AlanahColeman
+     */
+    public void warningOverconsumption() {
+
+        String enteredAmountText = tf_amountCL.getText().trim();
+        if (!enteredAmountText.isEmpty()) {
+
+            double enteredAmount = Double.parseDouble(enteredAmountText);
+            double caffeineConcentration = algorithmController.getBeverageConcentration(beverageID);
+            double recommendedLimit = caffeineCalculator.calculateExcessConsumption();
+
+            double enteredCaffeine = enteredAmount * caffeineConcentration;
+
+
+            if (enteredCaffeine > recommendedLimit) {
+                int excess = (int) (enteredCaffeine - recommendedLimit);
+                showAlert("Warning", "You have exceeded the recommended caffeine limit by " + excess + " mg", Alert.AlertType.WARNING);
+            }
+        }
     }
 
     /**
