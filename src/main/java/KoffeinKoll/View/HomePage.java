@@ -66,12 +66,11 @@ public class HomePage extends A_Page {
     public void setScene() {
         VBox mainContent = new VBox();
         mainContent.setAlignment(Pos.TOP_CENTER);
-        mainContent.setPadding(new Insets(1, 0, 0, 0));
 
         Image logoImageGreen = new Image (getClass().getResourceAsStream("/Koffeinkoll_green_green.png"));
         ImageView logoImageViewGreen = new ImageView(logoImageGreen);
-        logoImageViewGreen.setFitHeight(250);
-        logoImageViewGreen.setFitWidth(250);
+        logoImageViewGreen.setFitHeight(220);
+        logoImageViewGreen.setFitWidth(220);
 
         double totalTime = algorithmController.getMaxValue();
         double currentTime = algorithmController.currentGaugeValue();
@@ -81,8 +80,7 @@ public class HomePage extends A_Page {
         customGauge.changeValue((int) currentTime);
         customGauge.startTimer();
         mainContent.getChildren().addAll(logoImageViewGreen, customGauge);
-
-
+        
         percentageGauge = new PercentageGauge();
         percentageGauge.updateCaffeineLevel(algorithmController.getTotalCaffeineForDay(UserController.getInstance().getId()));
         mainContent.getChildren().add(percentageGauge);
@@ -94,10 +92,10 @@ public class HomePage extends A_Page {
 
         VBox buttonVBox = new VBox();
         buttonVBox.setAlignment(Pos.CENTER);
-        buttonVBox.setSpacing(20);
+        buttonVBox.setSpacing(10);
         buttonVBox.getChildren().addAll(btn_logBeverage, buttonBox);
 
-        BorderPane.setMargin(mainContent, new Insets(0, 1, 0, 1));
+        BorderPane.setMargin(mainContent, new Insets(10));
         BorderPane.setMargin(buttonVBox, new Insets(30));
 
         borderPane.setCenter(mainContent);
