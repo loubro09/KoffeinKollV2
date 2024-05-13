@@ -6,6 +6,7 @@ import eu.hansolo.medusa.skins.SlimSkin;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -46,12 +47,13 @@ public class CustomGauge extends StackPane {
         gauge.setAnimated(true);
 
         timeline = new Timeline(
-                new KeyFrame(Duration.hours(1), e -> {
+                new KeyFrame(Duration.seconds(1), e -> {
                     int remainingTime = (int) gauge.getValue();
                     if (remainingTime > 0) {
                         gauge.setValue(remainingTime - 1);
                     } else {
                         timeline.stop();
+                        showAlert("Caffeine Consumption", "Caffeine is metabolised!", Alert.AlertType.INFORMATION);
                     }
                 })
         );
@@ -111,6 +113,14 @@ public class CustomGauge extends StackPane {
      */
     public void changeValue(int value) {
         gauge.setValue(value);
+    }
+
+    private void showAlert(String title, String content, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.show();
     }
 
 }
