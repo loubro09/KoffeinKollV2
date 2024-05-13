@@ -43,20 +43,17 @@ public class LoginController {
             resultSet = preparedStatement.executeQuery();
 
             if (!resultSet.isBeforeFirst()) {
-                System.out.println("User not found");
                 showAlert("Error", "User not found.", Alert.AlertType.ERROR);
             } else {
                 while (resultSet.next()) {
                     String retrievedPassword = resultSet.getString("password");
                     if (retrievedPassword.equals(password)) {
 
-                        System.out.println(username + " logged in");
                         user = UserController.getInstance();
                         user.setUsername(username);
 
                         return true;
                     } else {
-                        System.out.println("Wrong password");
                         showAlert("Error", "Wrong password.", Alert.AlertType.ERROR);
                         return false;
                     }

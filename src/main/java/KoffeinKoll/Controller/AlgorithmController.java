@@ -49,12 +49,6 @@ public class AlgorithmController {
             stmt.setDouble(1, newDrinkTime);
             stmt.setInt(2, UserController.getInstance().getId());
 
-            int rowsAffected = stmt.executeUpdate();
-            if (rowsAffected > 0) {
-                System.out.println("currentMaxGaugeTime updated successfully for user with ID ");
-            } else {
-                System.out.println("Failed to update currentMaxGaugeTime for user with ID ");
-            }
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("AlgorithmController : updateGaugeNewLog : Database or SQL error.");
@@ -131,7 +125,6 @@ public class AlgorithmController {
             if (rs.next()) {
                 return rs.getInt("current_max_gauge_time");
             } else {
-                System.out.println("No currentMaxGaugeTime found for user ");
                 return 0;
             }
         } catch (SQLException e) {
@@ -159,7 +152,6 @@ public class AlgorithmController {
             if (rs.next()) {
                 return rs.getTime("lastAddedTime").toLocalTime();
             } else {
-                System.out.println("No rows found for user " + " today.");
                 return null;
             }
         } catch (SQLException e) {
@@ -184,9 +176,6 @@ public class AlgorithmController {
             ResultSet resultSet = statement.executeQuery();
             if(resultSet.next()) {
                 concentration = resultSet.getDouble("caffeine_concentration");
-                System.out.println("getBeverageConcentration: Caffeine concentration = " + concentration);
-            }else{
-                System.out.println("beverage cannot be found in database");
             }
 
         } catch (SQLException e) {

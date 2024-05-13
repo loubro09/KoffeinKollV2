@@ -57,7 +57,6 @@ public class CreateUserController {
             if (rowsAffected > 0) {
                 return true;
             } else {
-                System.out.println("Failed to create user.");
                 return false;
             }
         } catch (SQLException e) {
