@@ -58,7 +58,6 @@ public class StapelDiagramController {
 
         for (LocalDate date = startDate; !date.isAfter(currentDate); date = date.plusDays(1)) {
             data.put(date.toString(), 0);
-            System.out.println(date.toString());
         }
 
         String sql = "SELECT DATE(u.date) as date, SUM(u.amount * b.caffeine_concentration) AS total_caffeine\n" +
