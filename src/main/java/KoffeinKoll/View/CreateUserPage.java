@@ -11,6 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.control.DatePicker;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -185,6 +186,13 @@ public class CreateUserPage extends A_Page {
         lbl_dateOfBirth = setLabelStyle("Date of Birth");
         lbl_passwordRequirements = setLabelStyle("Password must contain at least 8 characters, one capital letter, and one number.");
         lbl_passwordRequirements.setFont(Font.font("Arial", 12));
+
+
+        Tooltip tooltip1 = new Tooltip("\n" +
+                "Consistently consuming caffeine builds tolerance over time, enhancing your body's ability to handle it. \n");
+        tooltip1.setShowDelay(Duration.millis(10));
+        tooltip1.setShowDuration(Duration.seconds(5));
+        Tooltip.install(lbl_habit, tooltip1);
     }
 
     /**
