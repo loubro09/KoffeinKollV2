@@ -12,6 +12,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -146,15 +149,20 @@ public class ProfilePage extends A_Page {
         ImageView logoImageViewGreen = new ImageView(logoImageGreen);
         logoImageViewGreen.setFitHeight(220);
         logoImageViewGreen.setFitWidth(220);
-        borderPane.setCenter(mainContent);
 
-        mainContent.getChildren().add(logoImageViewGreen);
+        Label titleLabel = new Label("Edit Profile");
+        titleLabel.setFont(Font.font("Arial", FontWeight.BOLD, 26));
+        Color textColor = Color.rgb(0,60,0);
+        titleLabel.setTextFill(textColor);
+        titleLabel.setTranslateY(50);
+
+        mainContent.getChildren().addAll(logoImageViewGreen,titleLabel);
 
 
         borderPane.setPadding(new Insets(20));
-        borderPane.setTop(logoImageViewGreen);
+        borderPane.setTop(mainContent);
         borderPane.setCenter(gridPane);
-        BorderPane.setAlignment(logoImageViewGreen, Pos.CENTER);
+        BorderPane.setAlignment(mainContent, Pos.CENTER);
 
         HBox buttonBox = new HBox(20, btn_goHome, btn_save);
         buttonBox.setAlignment(Pos.CENTER);
@@ -168,7 +176,7 @@ public class ProfilePage extends A_Page {
      * @author Kenan Al Tal
      */
     private void setLabels() {
-        lbl_newHabit = setLabelStyle("New Habit:");
+        lbl_newHabit = setLabelStyle("Approximately how many drinks containing \ncaffeine do you consume in a day?");
         lbl_newWeight = setLabelStyle("New Weight:");
         lbl_newDateOfBirth = setLabelStyle("New Date of Birth:");
     }
@@ -181,6 +189,8 @@ public class ProfilePage extends A_Page {
     private void setTextfields() {
         tf_newWeight = setTextField();
         tf_newWeight.setPromptText("Weight (kg)");
+       
+
     }
 
     /**
