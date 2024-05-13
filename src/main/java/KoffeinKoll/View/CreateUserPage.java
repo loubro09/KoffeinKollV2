@@ -2,7 +2,6 @@ package KoffeinKoll.View;
 
 import KoffeinKoll.Controller.CreateUserController;
 import com.jfoenix.controls.JFXButton;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -11,10 +10,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.control.DatePicker;
-import javafx.scene.text.Text;
 import javafx.util.Duration;
 import org.controlsfx.control.ToggleSwitch;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -80,17 +77,15 @@ public class CreateUserPage extends A_Page {
     @Override
     public void setEvents() {
         btn_goBack.setOnAction(e -> goBack());
+
         toggleWeightUnit.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
-                // Convert to kg
                 tf_weight.setPromptText("Enter weight (kg)");
-                //convertWeightToKilograms();
             } else {
                 tf_weight.setPromptText("Enter weight (lbs)");
-                // Convert to pounds
-                //convertWeightToPounds();
             }
         });
+
         btn_createUser.setOnAction(event -> {
             String username = tf_userName.getText();
             String password = pf_password.getText();
@@ -144,15 +139,12 @@ public class CreateUserPage extends A_Page {
                 weight = convertWeightToKilograms();
             }
 
-
-
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             String dateOfBirthText = dateOfBirth.format((formatter));
 
             CreateUserController createUserController = new CreateUserController();
 
             boolean userCreated = createUserController.createUser(username, password, habit, weight, dateOfBirthText);
-
 
             if (userCreated) {
                 showAlert("Success", "User created successfully!", Alert.AlertType.INFORMATION);
@@ -183,8 +175,6 @@ public class CreateUserPage extends A_Page {
         gridPane.add(rb_option3, 0, 8);
         gridPane.add(lbl_weight, 0, 9);
         gridPane.add(tf_weight, 0, 10);
-        //gridPane.add(toggleWeightUnit, 1, 10);
-        //gridPane.add(lbl_weightUnit, 1, 11);
         HBox hbox = new HBox(toggleWeightUnit, lbl_weightUnit);
         gridPane.add(hbox, 0, 11);
         gridPane.add(lbl_dateOfBirth, 0, 12);
@@ -220,9 +210,7 @@ public class CreateUserPage extends A_Page {
         tooltip1.setShowDuration(Duration.seconds(5));
         Tooltip.install(lbl_habit, tooltip1);
         lbl_weightUnit = setLabelStyle("    Weight in kg or lbs");
-        //lbl_weightUnit = new Label("Weight in kg or lbs");
         lbl_weightUnit.setFont(Font.font("Arial", 12));
-
     }
 
     /**
@@ -308,14 +296,15 @@ public class CreateUserPage extends A_Page {
 
     /**
      * Converts the entered weight to kilograms.
+     * @return The weight in kilograms.
+     * @author Louis Brown
      */
     private double convertWeightToKilograms() {
         String weightText = tf_weight.getText();
         if (!weightText.isEmpty()) {
-            // Convert pounds to kilograms (1 lb = 0.453592 kg)
+            //Convert pounds to kilograms (1 lb = 0.453592 kg)
             double weightInPounds = Double.parseDouble(weightText);
             double weightInKilograms = weightInPounds * 0.453592;
-            //tf_weight.setText(String.format("%.2f", weightInKilograms));
             return weightInKilograms;
         }
         return 0;
