@@ -106,25 +106,31 @@ public class BeverageStatsPage extends A_Page {
         gridPane.setVgap(10);
 
         gridPane.add(lbl_amountCL, 0, 2);
+        GridPane.setHalignment(lbl_amountCL, HPos.LEFT);
         gridPane.add(tf_amountCL, 0, 3);
+        GridPane.setHalignment(tf_amountCL, HPos.CENTER); // Center align the TextField
 
         gridPane.add(lbl_time, 0, 4);
+        GridPane.setHalignment(lbl_time, HPos.LEFT);
         gridPane.add(datePicker, 0, 5);
+        GridPane.setHalignment(datePicker, HPos.LEFT); // Center align the DatePicker
         gridPane.add(tf_time, 0, 6);
-
+        GridPane.setHalignment(tf_time, HPos.CENTER); // Center align the TextField
 
         HBox currentTimeBox = new HBox(btn_useCurrentTime);
         currentTimeBox.setAlignment(Pos.CENTER);
-        gridPane.add(currentTimeBox, 1, 7);
+        gridPane.add(currentTimeBox, 0, 7);
+        GridPane.setHalignment(currentTimeBox, HPos.CENTER); // Center align the HBox for the button
 
         gridPane.add(btn_log, 0, 8, 2, 1);
-        GridPane.setHalignment(btn_log, HPos.CENTER);
+        GridPane.setHalignment(btn_log, HPos.CENTER); // Ensure button is centered across two columns
 
         borderPane.setPadding(new Insets(20));
         borderPane.setCenter(gridPane);
         borderPane.setTop(topBox);
         borderPane.setBottom(buttonBox);
     }
+
 
     /**
      * Sets up labels.
@@ -135,8 +141,8 @@ public class BeverageStatsPage extends A_Page {
         lbl_beverageTitle = setLabelStyle("Log Amount");
         lbl_beverageTitle.setFont(Font.font("Arial", FontWeight.BOLD, 46));
 
-        lbl_amountCL = setLabelStyle("Amount CL");
-        lbl_time = setLabelStyle("Time");
+        lbl_amountCL = setLabelStyle("Amount CL:");
+        lbl_time = setLabelStyle("Time:");
     }
 
     /**
