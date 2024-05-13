@@ -218,7 +218,7 @@ public class ProfilePage extends A_Page {
      */
     private void setDatePicker() {
         datePicker = new DatePicker();
-        datePicker.setPromptText("Select Date of Birth");
+        datePicker.setPromptText("YYYY-MM-DD");
     }
 
     /**
