@@ -136,7 +136,7 @@ public class HomePage extends A_Page {
      */
     private void setButtons() {
         btn_statistics = new JFXButton("Statistics");
-        btn_info = new JFXButton("Info");
+        btn_info = new JFXButton("About");
         btn_profile = new JFXButton("Profile");
         btn_logOut = new JFXButton("Log Out");
         btn_logBeverage = new JFXButton("Log Beverage");

@@ -62,12 +62,12 @@ public class StapelDiagram extends VBox {
 
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         series.setName(period + " Caffeine Consumption");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd");
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         int totalAmount = data.values().stream().mapToInt(Number::intValue).sum();
         data.forEach((date, amount) -> {
-            LocalDate localDate = LocalDate.parse(date);
-            String formattedDate = localDate.format(formatter);
+            LocalDate localDate = LocalDate.parse(date, inputFormatter);
+            String formattedDate = localDate.format(inputFormatter);
             series.getData().add(new XYChart.Data<>(formattedDate, amount));
         });
 

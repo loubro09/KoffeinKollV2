@@ -58,18 +58,22 @@ public class StapelDiagramController {
 
         for (LocalDate date = startDate; !date.isAfter(currentDate); date = date.plusDays(1)) {
             data.put(date.toString(), 0);
+            System.out.println(date.toString());
         }
 
-        String sql = "SELECT DATE(u.date) as date, SUM(u.amount * b.caffeine_concentration) AS total_caffeine " +
-                "FROM userhistory u JOIN beverages b ON u.beverage_id = b.beverage_id " +
-                "WHERE u.user_id = ? AND u.date BETWEEN ? AND ? " +
-                "GROUP BY DATE(u.date) ORDER BY DATE(u.date)";
+        String sql = "SELECT DATE(u.date) as date, SUM(u.amount * b.caffeine_concentration) AS total_caffeine\n" +
+                "FROM userhistory u\n" +
+                "JOIN beverages b ON u.beverage_id = b.beverage_id\n" +
+                "WHERE u.user_id = ? AND u.date >= ? AND u.date < ?\n" +
+                "GROUP BY DATE(u.date)\n" +
+                "ORDER BY DATE(u.date)\n";
+
 
         try (Connection connection = DatabaseConnection.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setInt(1, userId);
             pstmt.setDate(2, java.sql.Date.valueOf(startDate));
-            pstmt.setDate(3, java.sql.Date.valueOf(currentDate));
+            pstmt.setDate(3, java.sql.Date.valueOf(currentDate.plusDays(1)));
 
             try (ResultSet resultSet = pstmt.executeQuery()) {
                 while (resultSet.next()) {
@@ -81,7 +85,12 @@ public class StapelDiagramController {
             System.out.println("StapelDiagramController, getLastDaysCaffeineConsumption: ");
             e.printStackTrace();
         }
+        System.out.println("Executing query with parameters:");
+        System.out.println("User ID: " + userId);
+        System.out.println("Start Date: " + startDate);
+        System.out.println("End Date: " + currentDate.plusDays(1));
 
+        data.forEach((date, caffeine) -> System.out.println(date + ": " + caffeine));
         return data;
     }
 
