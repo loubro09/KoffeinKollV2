@@ -14,6 +14,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.geometry.Insets;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 
 /**
  * HomePage represents the main page of the KoffeinKoll application where users can view their statistics, access information,
@@ -62,8 +65,13 @@ public class HomePage extends A_Page {
     @Override
     public void setScene() {
         VBox mainContent = new VBox();
-        mainContent.setAlignment(Pos.CENTER);
-        mainContent.setSpacing(20);
+        mainContent.setAlignment(Pos.TOP_CENTER);
+        mainContent.setPadding(new Insets(1, 0, 0, 0));
+
+        Image logoImageGreen = new Image (getClass().getResourceAsStream("/Koffeinkoll_green_green.png"));
+        ImageView logoImageViewGreen = new ImageView(logoImageGreen);
+        logoImageViewGreen.setFitHeight(250);
+        logoImageViewGreen.setFitWidth(250);
 
         double totalTime = algorithmController.getMaxValue();
         double currentTime = algorithmController.currentGaugeValue();
@@ -72,7 +80,7 @@ public class HomePage extends A_Page {
         customGauge.setMaxValue((int) totalTime);
         customGauge.changeValue((int) currentTime);
         customGauge.startTimer();
-        mainContent.getChildren().addAll(lbl_title, customGauge);
+        mainContent.getChildren().addAll(logoImageViewGreen, customGauge);
 
 
         percentageGauge = new PercentageGauge();
@@ -81,7 +89,7 @@ public class HomePage extends A_Page {
 
         HBox buttonBox = new HBox();
         buttonBox.setAlignment(Pos.CENTER);
-        buttonBox.setSpacing(20);
+        buttonBox.setSpacing(10);
         buttonBox.getChildren().addAll(btn_profile, btn_statistics, btn_info, btn_logOut);
 
         VBox buttonVBox = new VBox();
@@ -89,8 +97,8 @@ public class HomePage extends A_Page {
         buttonVBox.setSpacing(20);
         buttonVBox.getChildren().addAll(btn_logBeverage, buttonBox);
 
-        BorderPane.setMargin(mainContent, new Insets(50));
-        BorderPane.setMargin(buttonVBox, new Insets(20));
+        BorderPane.setMargin(mainContent, new Insets(0, 1, 0, 1));
+        BorderPane.setMargin(buttonVBox, new Insets(30));
 
         borderPane.setCenter(mainContent);
         borderPane.setBottom(buttonVBox);
