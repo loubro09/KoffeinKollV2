@@ -8,8 +8,12 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.util.Duration;
-
+import javafx.scene.text.Text;
+import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 /**
  * CustomGauge represents a custom gauge component used to visualize caffeine intake.
  * It extends StackPane and contains a Gauge from the Medusa library.
@@ -52,9 +56,13 @@ public class CustomGauge extends StackPane {
                 })
         );
         timeline.setCycleCount(Animation.INDEFINITE);
+        Text hoursText = new Text("Hours");
+        hoursText.setFont(Font.font("Arial", FontWeight.BOLD, 15));
+        Color textColor = Color.rgb(0,70,0);
+        hoursText.setFill(textColor);
+        hoursText.setTranslateY(50);
 
-
-        getChildren().add(gauge);
+        getChildren().addAll(gauge, hoursText);
     }
 
     /**
@@ -104,4 +112,6 @@ public class CustomGauge extends StackPane {
     public void changeValue(int value) {
         gauge.setValue(value);
     }
+
 }
+
