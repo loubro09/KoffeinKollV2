@@ -185,7 +185,7 @@ public class HomePage extends A_Page {
                 "    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );\n" +
                 "    -fx-font-family: \"Arial\";\n" +
                 "    -fx-text-fill: linear-gradient(black, black);\n" +
-                "    -fx-font-size: 30px;\n" +
+                "    -fx-font-size: 25px;\n" +
                 "    -fx-padding: 10 20 10 20;";
         return style;
     }
