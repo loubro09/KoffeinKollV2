@@ -115,6 +115,14 @@ public class CustomGauge extends StackPane {
         gauge.setValue(value);
     }
 
+    /**
+     * Shows an alert dialog with the specified title and content.
+     *
+     * @param title     The title of the alert dialog.
+     * @param content   The content of the alert dialog.
+     * @param alertType The type of the alert
+     * @author Alanah
+     */
     private void showAlert(String title, String content, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
