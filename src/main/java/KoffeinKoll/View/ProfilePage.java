@@ -6,9 +6,12 @@ import com.jfoenix.controls.JFXButton;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -44,6 +47,7 @@ public class ProfilePage extends A_Page {
         this.userController = UserController.getInstance();
     }
 
+
     /**
      * Sets up UI components.
      *
@@ -65,6 +69,7 @@ public class ProfilePage extends A_Page {
      */
     @Override
     public void setEvents() {
+
         btn_goHome.setOnAction(event -> {
             goBack();
         });
@@ -134,10 +139,22 @@ public class ProfilePage extends A_Page {
         gridPane.add(rb_option2, 0, 7);
         gridPane.add(rb_option3, 0, 8);
 
+        VBox mainContent = new VBox();
+        mainContent.setAlignment(Pos.TOP_CENTER);
+
+        Image logoImageGreen = new Image (getClass().getResourceAsStream("/Koffeinkoll_green_green.png"));
+        ImageView logoImageViewGreen = new ImageView(logoImageGreen);
+        logoImageViewGreen.setFitHeight(220);
+        logoImageViewGreen.setFitWidth(220);
+        borderPane.setCenter(mainContent);
+
+        mainContent.getChildren().add(logoImageViewGreen);
+
+
         borderPane.setPadding(new Insets(20));
-        borderPane.setTop(lbl_title);
+        borderPane.setTop(logoImageViewGreen);
         borderPane.setCenter(gridPane);
-        BorderPane.setAlignment(lbl_title, Pos.CENTER);
+        BorderPane.setAlignment(logoImageViewGreen, Pos.CENTER);
 
         HBox buttonBox = new HBox(20, btn_goHome, btn_save);
         buttonBox.setAlignment(Pos.CENTER);

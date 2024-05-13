@@ -5,9 +5,12 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -72,11 +75,30 @@ public class BeverageMenuPage extends A_Page {
      */
     @Override
     public void setScene() {
-        GridPane gridPane = new GridPane();
+        VBox mainContent = new VBox();
+        mainContent.setAlignment(Pos.TOP_CENTER);
+
+        Image logoImageGreen = new Image (getClass().getResourceAsStream("/Koffeinkoll_green_green.png"));
+        ImageView logoImageViewGreen = new ImageView(logoImageGreen);
+        logoImageViewGreen.setFitHeight(220);
+        logoImageViewGreen.setFitWidth(220);
+        borderPane.setCenter(mainContent);
+
+        mainContent.getChildren().add(logoImageViewGreen);
+
+       /* GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setVgap(10);
         gridPane.add(lbl_subTitle, 0, 0);
         GridPane.setHalignment(lbl_subTitle, HPos.CENTER);
+
+        */
+
+        GridPane gridPane = new GridPane();
+        gridPane.setAlignment(Pos.TOP_CENTER);
+        gridPane.setVgap(10);
+        gridPane.add(logoImageViewGreen, 0, 0);
+        GridPane.setHalignment(logoImageViewGreen, HPos.CENTER);
 
         gridPane.add(btn_coffee, 0, 1);
         gridPane.add(btn_espresso1, 0, 2);
@@ -86,11 +108,16 @@ public class BeverageMenuPage extends A_Page {
         gridPane.add(btn_energyDrink, 0, 6);
         gridPane.add(btn_soda, 0, 7);
 
-        borderPane.setPadding(new Insets(20));
+       /* borderPane.setPadding(new Insets(20));
         borderPane.setTop(lbl_title);
         BorderPane.setAlignment(lbl_title, Pos.CENTER);
+
+        */
         borderPane.setCenter(gridPane);
         BorderPane.setAlignment(gridPane, Pos.CENTER);
+
+
+
 
         HBox buttonHBox = new HBox(20);
         buttonHBox.setAlignment(Pos.CENTER);
