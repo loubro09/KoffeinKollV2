@@ -199,8 +199,8 @@ public class BeverageMenuPage extends A_Page {
         beverageIdMap.put("Double Shot Espresso", 3);
         beverageIdMap.put("Tea", 4);
         beverageIdMap.put("Mate", 5);
-        //beverageIdMap.put("Energy Drink", 6);
+        beverageIdMap.put("Energy Drink", 6);
         //beverageIdMap.put("Soda", 7);
-        //beverageIdMap.put("Nocco",8);
+        beverageIdMap.put("Nocco",8);
     }
 }
