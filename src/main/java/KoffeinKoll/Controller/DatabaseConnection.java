@@ -1,13 +1,13 @@
 package KoffeinKoll.Controller;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.*;
 import java.util.Properties;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
 /**
  * The DatabaseConnection class manages the connection to the database.
+ * @author Alanah Coleman
  */
 public class DatabaseConnection {
     private String url;
@@ -17,7 +17,6 @@ public class DatabaseConnection {
 
     /**
      * Constructs a new DatabaseConnection object.
-     * @author
      */
     private DatabaseConnection() {
         loadConfiguration();
@@ -26,7 +25,6 @@ public class DatabaseConnection {
     /**
      * Retrieves the instance of DatabaseConnection.
      * @return The instance of DatabaseConnection.
-     * @author                                                                                          //AUTHOR
      */
     public static synchronized DatabaseConnection getInstance() {
         if (instance == null) {
@@ -36,8 +34,21 @@ public class DatabaseConnection {
     }
 
     /**
+     * Establishes a connection to the database.
+     * @return The database connection.
+     */
+    public Connection getConnection() {
+        try {
+            return DriverManager.getConnection(url, username, password);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("DatabaseConnection : getConnection : Connection exception");
+            return null;
+        }
+    }
+
+    /**
      * Loads the database configuration from the configuration file.
-     * @author                                                                                          //AUTHOR
      */
     private void loadConfiguration() {
         Properties props = new Properties();
@@ -46,22 +57,14 @@ public class DatabaseConnection {
             username = props.getProperty("db.username");
             password = props.getProperty("db.password");
             url = props.getProperty("db.url");
-        } catch (Exception e) {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
-    }
-
-    /**
-     * Establishes a connection to the database.
-     * @return The database connection.
-     * @author alanahColeman                                                                                          //AUTHOR
-     */
-    public Connection getConnection() {
-        try {
-            return DriverManager.getConnection(url, username, password);
-        } catch (Exception e) {
+            System.out.println("DatabaseConnection : loadConfiguration : File not found exception");
+            throw new RuntimeException(e);
+        } catch (IOException e) {
             e.printStackTrace();
-            return null;
+            System.out.println("DatabaseConnection : loadConfiguration : IO exception");
+            throw new RuntimeException(e);
         }
     }
 }

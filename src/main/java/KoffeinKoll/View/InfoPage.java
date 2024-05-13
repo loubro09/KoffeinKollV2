@@ -51,7 +51,7 @@ public class InfoPage extends A_Page {
     /**
      * Sets up event handling.
      *
-     * @author //AUTHOR
+     * @author Ida Nordenswan
      */
     @Override
     public void setEvents() {
@@ -63,7 +63,7 @@ public class InfoPage extends A_Page {
     /**
      * Sets up the scene layout.
      *
-     * @author //AUTHOR
+     * @author Ida Nordenswan
      */
     @Override
     public void setScene() {
@@ -89,11 +89,12 @@ public class InfoPage extends A_Page {
         buttonHBox.getChildren().addAll(btn_goHome);
         borderPane.setBottom(buttonHBox);
     }
+
     /**
      * Sets up the labels for info page.
      * Text is set depending on which info page is called.
      *
-     * @author Kenan Al Tal
+     * @author Kenan Al Tal, Ida Nordenswan
      */
     private void setLabels() {
         lbl_subTitle = setLabelStyle("About");
@@ -137,10 +138,15 @@ public class InfoPage extends A_Page {
     /**
      * Sets up the buttons.
      *
-     * @author //AUTHOR
+     * @author Ida Nordenswan
      */
     private void setButtons() {
-        btn_goHome = new JFXButton("Go Back");
+        if (!txt) {
+            btn_goHome = new JFXButton("Go Back");
+        }
+        else {
+            btn_goHome = new JFXButton("Home");
+        }
         btn_goHome.setStyle(setButtonStyle());
     }
 

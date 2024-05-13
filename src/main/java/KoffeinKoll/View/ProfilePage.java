@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -32,6 +33,7 @@ public class ProfilePage extends A_Page {
 
     /**
      * Initializes the UI components.
+     *
      * @author Louis Brown
      */
     @Override
@@ -44,6 +46,7 @@ public class ProfilePage extends A_Page {
 
     /**
      * Sets up UI components.
+     *
      * @author Louis Brown
      */
     @Override
@@ -57,6 +60,7 @@ public class ProfilePage extends A_Page {
 
     /**
      * Sets event handlers for buttons.
+     *
      * @author Louis Brown, Kenan Al Tal
      */
     @Override
@@ -69,10 +73,19 @@ public class ProfilePage extends A_Page {
             ProfileController profileController = new ProfileController();
             String newWeightText = tf_newWeight.getText();
             double weight = 0;
-            if (newWeightText != null && !newWeightText.isEmpty()) {
-                weight = Double.parseDouble(newWeightText);
-            }
-            else {
+            newWeightText = newWeightText.replace(",", ".");
+            if (!newWeightText.isEmpty()) {
+                if (newWeightText.matches("\\d*\\.?\\d+")) {
+                    weight = Double.parseDouble(newWeightText);
+                    if (weight == 0) {
+                        showAlert("Error", "You cannot weigh 0 kg.", Alert.AlertType.ERROR);
+                        return;
+                    }
+                } else {
+                    showAlert("Error", "Invalid input! Please try again.", Alert.AlertType.ERROR);
+                    return;
+                }
+            } else {
                 weight = 0;
             }
             LocalDate dateOfBirth = datePicker.getValue();
@@ -81,19 +94,13 @@ public class ProfilePage extends A_Page {
             String newHabit = habitValue();
 
             if (dateOfBirth != null) {
-                if (!isAtLeastFifteenYearsAgo(dateOfBirth)) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setHeaderText(null);
-                    alert.setContentText("You have to be at least 15 years of age to use this application.");
-                    alert.show();
+                if (!checkAge(dateOfBirth)) {
+                    showAlert("Error", "You have to be at least 15 years of age to use this application.", Alert.AlertType.ERROR);
                     return;
-                }
-                else {
+                } else {
                     dateOfBirthText = dateOfBirth.format((formatter));
                 }
-            }
-            else {
+            } else {
                 dateOfBirthText = null;
             }
 
@@ -109,6 +116,7 @@ public class ProfilePage extends A_Page {
 
     /**
      * Sets up the scene layout.
+     *
      * @author Louis Brown, Kenan Al Tal
      */
     @Override
@@ -139,6 +147,7 @@ public class ProfilePage extends A_Page {
 
     /**
      * Sets up labels.
+     *
      * @author Kenan Al Tal
      */
     private void setLabels() {
@@ -149,6 +158,7 @@ public class ProfilePage extends A_Page {
 
     /**
      * Sets up text fields.
+     *
      * @author Kenan Al Tal
      */
     private void setTextfields() {
@@ -158,10 +168,11 @@ public class ProfilePage extends A_Page {
 
     /**
      * Sets up buttons.
+     *
      * @author Kenan Al Tal
      */
     private void setButtons() {
-        btn_goHome = new JFXButton("Back");
+        btn_goHome = new JFXButton("Home");
         btn_goHome.setStyle(setButtonStyle());
 
         btn_save = new JFXButton("Save");
@@ -170,6 +181,7 @@ public class ProfilePage extends A_Page {
 
     /**
      * Sets up radio buttons.
+     *
      * @author Louis Brown
      */
     private void setRadioButton() {
@@ -187,6 +199,7 @@ public class ProfilePage extends A_Page {
 
     /**
      * Retrieves the selected habit value from radio buttons.
+     *
      * @return The selected habit value.
      * @author Louis Brown
      */
@@ -200,6 +213,7 @@ public class ProfilePage extends A_Page {
 
     /**
      * Sets up date picker.
+     *
      * @author Alanah Coleman
      */
     private void setDatePicker() {
@@ -209,17 +223,20 @@ public class ProfilePage extends A_Page {
 
     /**
      * Checks if the chosen date is at least fifteen years ago.
+     *
      * @param chosenDate The chosen date.
      * @return True if the date is at least fifteen years ago, false otherwise.
      * @author Louis Brown
      */
-    private boolean isAtLeastFifteenYearsAgo(LocalDate chosenDate) {
+    private boolean checkAge(LocalDate chosenDate) {
         LocalDate currentDate = LocalDate.now();
         LocalDate fifteenYearsAgo = currentDate.minusYears(15);
         return chosenDate.isBefore(fifteenYearsAgo) || chosenDate.isEqual(fifteenYearsAgo);
     }
+
     /**
      * Returns to the home page.
+     *
      * @author Kenan Al Tal
      */
     private void goBack() {

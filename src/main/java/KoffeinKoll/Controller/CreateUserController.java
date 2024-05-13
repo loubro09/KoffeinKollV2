@@ -1,7 +1,6 @@
 package KoffeinKoll.Controller;
 
 import javafx.scene.control.Alert;
-
 import java.sql.*;
 
 /**
@@ -17,7 +16,7 @@ public class CreateUserController {
      * @param weight   The weight of the new user.
      * @param birthday The birthday of the new user.
      * @return True if the user was successfully created, false otherwise.
-     * @author                                                                                          //AUTHOR
+     * @author Alanah Coleman, Kenan Al Tal
      */
     public boolean createUser(String username, String password, String habit, double weight, String birthday) {
         if (!isValidPassword(password)) {
@@ -90,7 +89,7 @@ public class CreateUserController {
      * Checks if a password is valid.
      * @param password The password to validate.
      * @return True if the password is valid, false otherwise.
-     * @author                                                                                          //AUTHOR
+     * @author Kenan Al Tal
      */
     private boolean isValidPassword(String password) {
         //Password must contain at least 8 characters, one capital letter, and one number
@@ -149,9 +148,9 @@ public class CreateUserController {
      * @param title The title of the alert dialog.
      * @param content The content of the alert dialog.
      * @param alertType The type of the alert
-     * @author                                                                                          //AUTHOR
+     * @author Louis Brown
      */
-    protected void showAlert(String title, String content, Alert.AlertType alertType) {
+    private void showAlert(String title, String content, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(null);

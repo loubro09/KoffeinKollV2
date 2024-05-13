@@ -10,13 +10,17 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
+
 
 /**
  * LogInPage represents the user interface for logging into the KoffeinKoll application.
  * It allows users to enter their username and password, and provides functionality for logging in or
  * navigating to the registration page.
  */
-public class LogInPage extends A_Page{
+public class LogInPage extends A_Page {
 
     private Label lbl_userName;
     private Label lbl_password;
@@ -27,9 +31,10 @@ public class LogInPage extends A_Page{
 
     /**
      * Initializes the UI components of the login page.
+     *
      * @author Louis Brown
      */
-    public void initializeUI(){
+    public void initializeUI() {
         setComponents();
         setEvents();
         setScene();
@@ -37,6 +42,7 @@ public class LogInPage extends A_Page{
 
     /**
      * Sets the UI components for the login page.
+     *
      * @author Louis Brown
      */
     @Override
@@ -48,14 +54,15 @@ public class LogInPage extends A_Page{
 
     /**
      * Sets the event handlers for UI controls on the login page.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author Louis Brown
      */
     @Override
     public void setEvents() {
-        // Log in button action handler
+
         btn_logIn.setOnAction(event -> handleLogin());
 
-        // Handle enter key press in password field
+
         pf_password.addEventHandler(KeyEvent.KEY_PRESSED, ev -> {
             if (ev.getCode() == KeyCode.ENTER) {
                 handleLogin();
@@ -63,13 +70,14 @@ public class LogInPage extends A_Page{
             }
         });
 
-        // Registration link action handler
+
         hl_registration.setOnAction(event -> handleReg());
     }
 
     /**
      * Sets the scene layout for the login page.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author Louis Brown
      */
     @Override
     public void setScene() {
@@ -81,25 +89,31 @@ public class LogInPage extends A_Page{
         gridPane.add(tf_userName, 0, 1);
         gridPane.add(lbl_password, 0, 2);
         gridPane.add(pf_password, 0, 3);
-        gridPane.add(hl_registration,0,5);
+        gridPane.add(hl_registration, 0, 5);
         gridPane.add(btn_logIn, 0, 7);
         gridPane.setHalignment(btn_logIn, Pos.CENTER.getHpos());
 
+        Image logoImage = new Image(getClass().getResourceAsStream("/Koffeinkoll_green_gul.png"));
+        ImageView logoImageView = new ImageView(logoImage);
+        logoImageView.setFitWidth(350); // Adjust the width as needed
+        logoImageView.setFitHeight(350);
+
+        VBox topVBox = new VBox();
+        topVBox.setAlignment(Pos.CENTER);
+        topVBox.getChildren().add(logoImageView);
+
 
         borderPane = getBorderPane();
-        borderPane.setPadding(new Insets(20));
+        borderPane.setPadding(new Insets(70));
+        borderPane.setTop(topVBox);
         borderPane.setCenter(gridPane);
 
-        // Creating a VBox for main page
-        HBox topHBox = new HBox();
-        topHBox.getChildren().add(lbl_title);
-        topHBox.setAlignment(Pos.CENTER);
-        borderPane.setTop(topHBox);
     }
 
     /**
      * Sets labels for username and password fields.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author Louis Brown
      */
     private void setLabels() {
         lbl_userName = setLabelStyle("Username");
@@ -108,7 +122,8 @@ public class LogInPage extends A_Page{
 
     /**
      * Sets text fields for username and password entry.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author Louis Brown
      */
     private void setTextfields() {
         tf_userName = setTextField();
@@ -119,7 +134,8 @@ public class LogInPage extends A_Page{
 
     /**
      * Sets buttons for login and registration.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author Louis Brown
      */
     private void setButtons() {
         btn_logIn = new JFXButton("Log in");
@@ -131,20 +147,17 @@ public class LogInPage extends A_Page{
 
     /**
      * Handles the login process when the login button is clicked.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author Louis Brown
      */
     private void handleLogin() {
         String username = tf_userName.getText();
         String password = pf_password.getText();
 
-        // Logic for handling login here
         LoginController loginController = new LoginController();
         boolean loggedIn = loginController.logIn(username, password);
 
         if (loggedIn) {
-            /*HomePage homePage = new HomePage();
-            homePage.setUserName(username);
-            changePage(homePage);*/
             changePage(new HomePage());
         } else {
             System.out.println("Login failed");
@@ -153,13 +166,10 @@ public class LogInPage extends A_Page{
 
     /**
      * Handles the navigation to the registration page when the registration link is clicked.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author Louis Brown
      */
     private void handleReg() {
         changePage(new CreateUserPage());
-    }
-
-    public TextField getTf_userName() {
-        return tf_userName;
     }
 }
