@@ -194,7 +194,6 @@ public class AlgorithmController {
         double cF = 1; // mg
         // hours
         double halfLife = 5.7;
-        System.out.println("calculateTime: Halflife: " + halfLife);
         return -halfLife * Math.log(cF / c0) / Math.log(2);
     }
 }
