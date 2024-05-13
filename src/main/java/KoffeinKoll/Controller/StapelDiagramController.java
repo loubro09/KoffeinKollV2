@@ -85,12 +85,6 @@ public class StapelDiagramController {
             System.out.println("StapelDiagramController, getLastDaysCaffeineConsumption: ");
             e.printStackTrace();
         }
-        System.out.println("Executing query with parameters:");
-        System.out.println("User ID: " + userId);
-        System.out.println("Start Date: " + startDate);
-        System.out.println("End Date: " + currentDate.plusDays(1));
-
-        data.forEach((date, caffeine) -> System.out.println(date + ": " + caffeine));
         return data;
     }
 
