@@ -4,12 +4,19 @@ import com.jfoenix.controls.JFXButton;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Color;
 
 /**
  * InfoPage class represents a page displaying information about the application.
@@ -67,9 +74,25 @@ public class InfoPage extends A_Page {
      */
     @Override
     public void setScene() {
-        VBox titleBox = new VBox(60);
+        VBox titleBox = new VBox();
         titleBox.setAlignment(Pos.CENTER);
-        titleBox.getChildren().addAll(lbl_title, lbl_subTitle);
+
+        Image logoImageGreen = new Image (getClass().getResourceAsStream("/Koffeinkoll_green_green.png"));
+        ImageView logoImageViewGreen = new ImageView(logoImageGreen);
+        logoImageViewGreen.setFitHeight(220);
+        logoImageViewGreen.setFitWidth(220);
+        logoImageViewGreen.setTranslateY(1);
+
+        titleBox.getChildren().add(logoImageViewGreen);
+
+        Label aboutTitleLabel = new Label("About Us");
+        aboutTitleLabel.setFont(Font.font("Arial", FontWeight.BOLD, 26));
+        Color textColor = Color.rgb(0,70,0);
+        aboutTitleLabel.setTextFill(textColor);
+        aboutTitleLabel.setTranslateY(2);
+
+
+        titleBox.getChildren().add(aboutTitleLabel);
 
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
@@ -79,6 +102,7 @@ public class InfoPage extends A_Page {
 
         borderPane.setTop(titleBox);
         BorderPane.setAlignment(titleBox, Pos.CENTER);
+
         borderPane.setCenter(gridPane);
         BorderPane.setAlignment(gridPane, Pos.CENTER);
 
@@ -97,8 +121,7 @@ public class InfoPage extends A_Page {
      * @author Kenan Al Tal, Ida Nordenswan
      */
     private void setLabels() {
-        lbl_subTitle = setLabelStyle("About");
-        lbl_subTitle.setFont(Font.font("Arial", FontWeight.BOLD, 36));
+
         String infoText = null;
         if (txt) {
             infoText = "Welcome to KoffeinKoll, Your Caffeine Companion!\n\n" +
@@ -131,7 +154,7 @@ public class InfoPage extends A_Page {
         }
         lbl_info = setLabelStyle(infoText);
         lbl_info.setWrapText(true);
-        lbl_info.setPadding(new Insets(20, 100, 20, 100));
+        lbl_info.setPadding(new Insets(0, 80, 0, 80));
         lbl_info.setFont(Font.font("Arial", 16));
     }
 
