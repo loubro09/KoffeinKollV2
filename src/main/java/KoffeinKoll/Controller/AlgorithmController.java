@@ -141,6 +141,34 @@ public class AlgorithmController {
     }
 
     /**
+     * Gets the corresponding caffeine concentration of the selected beverage.
+     * @param beverageId the Id of the beverage.
+     * @return the caffeine concentration of the selected beverage.
+     * @author Ida Nordensawn
+     */
+    public double getBeverageConcentration(int beverageId){
+        double concentration = 0.0;
+        String query= "SELECT caffeine_concentration FROM beverages WHERE beverage_id = ?";
+
+        try (Connection conn = databaseConnection.getInstance().getConnection();
+             PreparedStatement statement = conn.prepareStatement(query)){
+            statement.setInt(1, beverageId);
+            ResultSet resultSet = statement.executeQuery();
+            if(resultSet.next()) {
+                concentration = resultSet.getDouble("caffeine_concentration");
+                System.out.println("getBeverageConcentration: Caffeine concentration = " + concentration);
+            }else{
+                System.out.println("beverage cannot be found in database");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return concentration;
+    }
+
+
+    /**
      * Checks the last drink log from the database for the current user at the current time.
      * @return the time of the last drink log.
      * @author Ida Nordensawn, Louis Brown
@@ -168,32 +196,6 @@ public class AlgorithmController {
         }
     }
 
-    /**
-     * Gets the corresponding caffeine concentration of the selected beverage.
-     * @param beverageId the Id of the beverage.
-     * @return the caffeine concentration of the selected beverage.
-     * @author Ida Nordensawn
-     */
-    private double getBeverageConcentration(int beverageId){
-        double concentration = 0.0;
-        String query= "SELECT caffeine_concentration FROM beverages WHERE beverage_id = ?";
-
-        try (Connection conn = databaseConnection.getInstance().getConnection();
-             PreparedStatement statement = conn.prepareStatement(query)){
-            statement.setInt(1, beverageId);
-            ResultSet resultSet = statement.executeQuery();
-            if(resultSet.next()) {
-                concentration = resultSet.getDouble("caffeine_concentration");
-                System.out.println("getBeverageConcentration: Caffeine concentration = " + concentration);
-            }else{
-                System.out.println("beverage cannot be found in database");
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return concentration;
-    }
 
     /**
      * Half-life equation that calculates the time(in hours) it takes for caffeine to metabolize in the body, using the half-life constant for caffeine = 5.7h.
