@@ -70,12 +70,13 @@ public class StapelDiagram extends VBox {
             String formattedDate = localDate.format(inputFormatter);
             series.getData().add(new XYChart.Data<>(formattedDate, amount));
         });
+        int totalCups = totalAmount / 100 ;
 
         barChart.getData().add(series);
         this.getChildren().add(1, barChart);
 
         lbl_title.setText(period + " Caffeine Consumption");
-        lbl_total.setText("Total Consumed: " + totalAmount + " mg");
+        lbl_total.setText("Total Consumed: " + totalAmount + " mg. The equivalent of " + totalCups +" Cups of coffee" );
     }
 
     /**
