@@ -27,7 +27,6 @@ public class CaffeineCalculator {
         this.recommendedDose = calculateRecommendedDose(habit);
         this.algorithmController = new AlgorithmController();
         this.currentDose = (int) algorithmController.getTotalCaffeineForDay(UserController.getInstance().getId());
-        System.out.println("Recommended Dose: " + recommendedDose);
     }
 
     /**
