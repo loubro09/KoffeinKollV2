@@ -190,7 +190,6 @@ public class UserController {
                 System.out.println("UserController : getHabit : closing connection");
             }
         }
-        System.out.println("Habit: " + habit);
         return habit;
     }
 }
