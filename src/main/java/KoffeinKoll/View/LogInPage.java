@@ -160,7 +160,7 @@ public class LogInPage extends A_Page {
         if (loggedIn) {
             changePage(new HomePage());
         } else {
-            showAlert("Login failed", "Login Failed", Alert.AlertType.ERROR);
+            System.out.println("Login failed");
         }
     }
 
