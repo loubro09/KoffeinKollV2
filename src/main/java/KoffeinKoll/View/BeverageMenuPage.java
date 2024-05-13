@@ -107,12 +107,10 @@ public class BeverageMenuPage extends A_Page {
         borderPane.setCenter(gridPane);
         BorderPane.setAlignment(gridPane, Pos.CENTER);
 
-
-
-
-        HBox buttonHBox = new HBox(20);
+        HBox buttonHBox = new HBox();
         buttonHBox.setAlignment(Pos.CENTER);
         buttonHBox.getChildren().addAll(goHome);
+        buttonHBox.setPadding(new Insets(0, 0, 20, 0));
         borderPane.setBottom(buttonHBox);
     }
 
