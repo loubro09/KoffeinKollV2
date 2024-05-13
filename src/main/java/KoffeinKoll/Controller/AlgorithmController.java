@@ -156,7 +156,6 @@ public class AlgorithmController {
             ResultSet resultSet = statement.executeQuery();
             if(resultSet.next()) {
                 concentration = resultSet.getDouble("caffeine_concentration");
-                System.out.println("getBeverageConcentration: Caffeine concentration = " + concentration);
             }else{
                 System.out.println("beverage cannot be found in database");
             }
