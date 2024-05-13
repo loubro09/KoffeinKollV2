@@ -2,6 +2,7 @@ package KoffeinKoll.View;
 
 import KoffeinKoll.Controller.CreateUserController;
 import com.jfoenix.controls.JFXButton;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -12,6 +13,7 @@ import javafx.scene.text.Font;
 import javafx.scene.control.DatePicker;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import org.controlsfx.control.ToggleSwitch;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -34,7 +36,9 @@ public class CreateUserPage extends A_Page {
     private Label lbl_habit;
     private Label lbl_weight;
     private Label lbl_dateOfBirth;
+    private Label lbl_weightUnit;
     private ToggleGroup toggleGroup;
+    private ToggleSwitch toggleWeightUnit;
     private RadioButton rb_option1;
     private RadioButton rb_option2;
     private RadioButton rb_option3;
@@ -64,6 +68,7 @@ public class CreateUserPage extends A_Page {
         setTextfields();
         setButtons();
         setRadioButton();
+        setToggleButton();
         setDatePicker();
     }
 
@@ -75,6 +80,17 @@ public class CreateUserPage extends A_Page {
     @Override
     public void setEvents() {
         btn_goBack.setOnAction(e -> goBack());
+        toggleWeightUnit.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                // Convert to kg
+                tf_weight.setPromptText("Enter weight (kg)");
+                //convertWeightToKilograms();
+            } else {
+                tf_weight.setPromptText("Enter weight (lbs)");
+                // Convert to pounds
+                //convertWeightToPounds();
+            }
+        });
         btn_createUser.setOnAction(event -> {
             String username = tf_userName.getText();
             String password = pf_password.getText();
@@ -116,13 +132,19 @@ public class CreateUserPage extends A_Page {
             if (weightText.matches("\\d*\\.?\\d+")) {
                 weight = Double.parseDouble(weightText);
                 if (weight == 0) {
-                    showAlert("Error", "You cannot weigh 0 kg.", Alert.AlertType.ERROR);
+                    showAlert("Error", "Your entered weight is too low.", Alert.AlertType.ERROR);
                     return;
                 }
             } else {
                 showAlert("Error", "Invalid weight input! Please try again.", Alert.AlertType.ERROR);
                 return;
             }
+
+            if (!toggleWeightUnit.isSelected()) {
+                weight = convertWeightToKilograms();
+            }
+
+
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             String dateOfBirthText = dateOfBirth.format((formatter));
@@ -161,11 +183,15 @@ public class CreateUserPage extends A_Page {
         gridPane.add(rb_option3, 0, 8);
         gridPane.add(lbl_weight, 0, 9);
         gridPane.add(tf_weight, 0, 10);
-        gridPane.add(lbl_dateOfBirth, 0, 11);
-        gridPane.add(datePicker, 0, 12);
+        //gridPane.add(toggleWeightUnit, 1, 10);
+        //gridPane.add(lbl_weightUnit, 1, 11);
+        HBox hbox = new HBox(toggleWeightUnit, lbl_weightUnit);
+        gridPane.add(hbox, 0, 11);
+        gridPane.add(lbl_dateOfBirth, 0, 12);
+        gridPane.add(datePicker, 0, 13);
         HBox buttonBox = new HBox(20, btn_createUser, btn_goBack);
         buttonBox.setAlignment(Pos.CENTER);
-        gridPane.add(buttonBox, 0, 14);
+        gridPane.add(buttonBox, 0, 15);
 
         borderPane.setPadding(new Insets(20));
         borderPane.setTop(lbl_title);
@@ -193,6 +219,10 @@ public class CreateUserPage extends A_Page {
         tooltip1.setShowDelay(Duration.millis(10));
         tooltip1.setShowDuration(Duration.seconds(5));
         Tooltip.install(lbl_habit, tooltip1);
+        lbl_weightUnit = setLabelStyle("    Weight in kg or lbs");
+        //lbl_weightUnit = new Label("Weight in kg or lbs");
+        lbl_weightUnit.setFont(Font.font("Arial", 12));
+
     }
 
     /**
@@ -243,6 +273,11 @@ public class CreateUserPage extends A_Page {
         rb_option3.setToggleGroup(toggleGroup);
     }
 
+    private void setToggleButton() {
+        toggleWeightUnit = new ToggleSwitch();
+        toggleWeightUnit.setSelected(true);
+    }
+
     /**
      * Sets date picker for UI elements.
      *
@@ -269,6 +304,21 @@ public class CreateUserPage extends A_Page {
             return selectedRadioButton.getText();
         }
         return null;
+    }
+
+    /**
+     * Converts the entered weight to kilograms.
+     */
+    private double convertWeightToKilograms() {
+        String weightText = tf_weight.getText();
+        if (!weightText.isEmpty()) {
+            // Convert pounds to kilograms (1 lb = 0.453592 kg)
+            double weightInPounds = Double.parseDouble(weightText);
+            double weightInKilograms = weightInPounds * 0.453592;
+            //tf_weight.setText(String.format("%.2f", weightInKilograms));
+            return weightInKilograms;
+        }
+        return 0;
     }
 
 
