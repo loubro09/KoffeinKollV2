@@ -1,23 +1,12 @@
 package KoffeinKoll.Controller;
 
 import javafx.scene.control.Alert;
-
 import java.sql.*;
 
 /**
  * The CreateUserController class handles operations related to creating new users in the KoffeinKoll application.
  */
 public class CreateUserController {
-
-    private DatabaseConnection databaseConnection;
-
-    /**
-     * Constructs a new CreateUserController object.
-     * @author                                                                                          //AUTHOR
-     */
-    public CreateUserController() {
-        this.databaseConnection = databaseConnection.getInstance();
-    }
 
     /**
      * Creates a new user with the provided information.
@@ -27,12 +16,12 @@ public class CreateUserController {
      * @param weight   The weight of the new user.
      * @param birthday The birthday of the new user.
      * @return True if the user was successfully created, false otherwise.
-     * @author                                                                                          //AUTHOR
+     * @author Alanah Coleman, Kenan Al Tal
      */
     public boolean createUser(String username, String password, String habit, double weight, String birthday) {
-        // Validate input
         if (!isValidPassword(password)) {
-            showAlert("Error", "Password must contain at least 8 characters, one capital letter, and one number.", Alert.AlertType.ERROR);
+            showAlert("Error", "Password must contain at least 8 characters, one capital letter, " +
+                    "and one number.", Alert.AlertType.ERROR);
             return false;
         }
 
@@ -41,26 +30,27 @@ public class CreateUserController {
             return false;
         }
 
-        if (!isUniqueUsername(username)) {
-            showAlert("Error", "This username is already chosen. Try another one!", Alert.AlertType.ERROR);;
-            return false;
-        }
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
         try {
-            connection = databaseConnection.getConnection();
-            // Since user_id is now SERIAL, it will be generated automatically by the database
-            preparedStatement = connection.prepareStatement("INSERT INTO users (username, habit, weight, birthdate, password) VALUES (?, ?, ?, ?, ?)");
+            connection = DatabaseConnection.getInstance().getConnection();
+
+            if (!isUniqueUsername(username, connection)) {
+                showAlert("Error", "This username is already chosen. Try another one!", Alert.AlertType.ERROR);
+                return false;
+            }
+
+            preparedStatement = connection.prepareStatement("INSERT INTO users (username, habit, weight, " +
+                    "birthdate, password) VALUES (?, ?, ?, ?, ?)");
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, habit);
             preparedStatement.setDouble(3, weight);
 
-            // Convert string date to java.sql.Date object
             Date date = Date.valueOf(birthday);
             preparedStatement.setDate(4, date);
-            preparedStatement.setString(5, password); // Ensure password is set
+            preparedStatement.setString(5, password);
 
 
             int rowsAffected = preparedStatement.executeUpdate();
@@ -71,20 +61,24 @@ public class CreateUserController {
                 return false;
             }
         } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("CreateUserController : createUser : Database or SQL error.");
             throw new RuntimeException(e);
         } finally {
             if (preparedStatement != null) {
                 try {
                     preparedStatement.close();
                 } catch (SQLException e) {
-                    throw new RuntimeException(e);
+                    e.printStackTrace();
+                    System.out.println("CreateUserController : createUser : Closing Prepared Statement error.");
                 }
             }
             if (connection != null) {
                 try {
                     connection.close();
                 } catch (SQLException e) {
-                    throw new RuntimeException(e);
+                    e.printStackTrace();
+                    System.out.println("CreateUserController : createUser : Closing connection error.");
                 }
             }
         }
@@ -95,7 +89,7 @@ public class CreateUserController {
      * Checks if a password is valid.
      * @param password The password to validate.
      * @return True if the password is valid, false otherwise.
-     * @author                                                                                          //AUTHOR
+     * @author Kenan Al Tal
      */
     private boolean isValidPassword(String password) {
         //Password must contain at least 8 characters, one capital letter, and one number
@@ -115,42 +109,35 @@ public class CreateUserController {
 
     /**
      * Checks if a username is unique.
-     * @param username The username to check.
+     * @param username   The username to check.
+     * @param connection The database connection.
      * @return True if the username is unique, false otherwise.
      * @author Louis Brown
      */
-    private boolean isUniqueUsername(String username) {
-        Connection connection = null;
+    private boolean isUniqueUsername(String username, Connection connection) {
         PreparedStatement preparedStatement = null;
 
         try {
-            connection = databaseConnection.getConnection();
             preparedStatement = connection.prepareStatement("SELECT COUNT(*) FROM users WHERE username = ?");
             preparedStatement.setString(1, username);
-            // Execute the query
+
             ResultSet resultSet = preparedStatement.executeQuery();
-            // Check if the username already exists
             if (resultSet.next()) {
                 int count = resultSet.getInt(1);
-                return count == 0; // If count is 0, username is unique; otherwise, it already exists
+                return count == 0; //If count is 0, username is unique; otherwise, it already exists
             }
-            return true; // Default to true if no result is returned (shouldn't happen)
+            return true;
         } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("CreateUserController : isUniqueUsername : Database or SQL error.");
             throw new RuntimeException(e);
         } finally {
-            // Close resources
             if (preparedStatement != null) {
                 try {
                     preparedStatement.close();
                 } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
+                    e.printStackTrace();
+                    System.out.println("CreateUserController : isUniqueUsername : Closing Prepared Statement error.");
                 }
             }
         }
@@ -161,9 +148,9 @@ public class CreateUserController {
      * @param title The title of the alert dialog.
      * @param content The content of the alert dialog.
      * @param alertType The type of the alert
-     * @author
+     * @author Louis Brown
      */
-    protected void showAlert(String title, String content, Alert.AlertType alertType) {
+    private void showAlert(String title, String content, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(null);

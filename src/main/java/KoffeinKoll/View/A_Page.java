@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 /**
  * A_Page is an abstract class representing a generic page in the KoffeinKoll application's user interface.
  * It provides common functionality and styling for UI pages.
+ *
  * @author Louis Brown
  */
 public abstract class A_Page implements I_Page {
@@ -28,6 +29,7 @@ public abstract class A_Page implements I_Page {
 
     /**
      * Initializes the page with the provided stage.
+     *
      * @param stage The stage to associate with this page.
      */
     public void initialPage(Stage stage) {
@@ -43,12 +45,16 @@ public abstract class A_Page implements I_Page {
 
     /**
      * Retrieves the BorderPane layout of this page.
+     *
      * @return The BorderPane layout.
      */
-    public BorderPane getBorderPane() { return borderPane; }
+    public BorderPane getBorderPane() {
+        return borderPane;
+    }
 
     /**
      * Sets the stage for this page.
+     *
      * @param stage The stage to set.
      */
     public void setStage(Stage stage) {
@@ -90,6 +96,7 @@ public abstract class A_Page implements I_Page {
 
     /**
      * Defines the style for buttons on this page.
+     *
      * @return The CSS style for buttons.
      */
     @Override
@@ -135,9 +142,10 @@ public abstract class A_Page implements I_Page {
 
     /**
      * Creates and returns a styled TextField.
+     *
      * @return The styled TextField.
      */
-    protected TextField setTextField(){
+    protected TextField setTextField() {
         TextField fieldStyle = new TextField();
         fieldStyle.setFont(Font.font("Arial", 14));
         fieldStyle.setPrefWidth(220);
@@ -148,9 +156,10 @@ public abstract class A_Page implements I_Page {
 
     /**
      * Creates and returns a styled PasswordField.
+     *
      * @return The styled PasswordField.
      */
-    protected PasswordField setPasswordField(){
+    protected PasswordField setPasswordField() {
         PasswordField fieldStyle = new PasswordField();
         fieldStyle.setFont(Font.font("Arial", 14));
         fieldStyle.setPrefWidth(220);
@@ -161,6 +170,7 @@ public abstract class A_Page implements I_Page {
 
     /**
      * Creates and returns a styled Label with the specified text.
+     *
      * @param text The text for the label.
      * @return The styled Label.
      */
@@ -174,18 +184,21 @@ public abstract class A_Page implements I_Page {
 
     /**
      * Changes the current page to a new page.
+     *
      * @param newPage The new page to navigate to.
      */
     protected void changePage(A_Page newPage) {
         newPage.initialPage(stage);
-        stage.setScene(newPage.scene); // Set the scene to the login page's scene
+        stage.setScene(newPage.scene);
+        stage.setResizable(false);
         stage.show();
     }
 
     /**
      * Shows an alert dialog with the specified title and content.
-     * @param title The title of the alert dialog.
-     * @param content The content of the alert dialog.
+     *
+     * @param title     The title of the alert dialog.
+     * @param content   The content of the alert dialog.
      * @param alertType The type of the alert
      * @author
      */

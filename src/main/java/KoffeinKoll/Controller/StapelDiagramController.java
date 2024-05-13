@@ -12,13 +12,27 @@ import java.util.Map;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
+/**
+ * Controller class for managing data for the StapelDiagram view.
+ */
 public class StapelDiagramController {
     private StapelDiagram stapelDiagram;
 
+    /**
+     * Constructor for StapelDiagramController class.
+     * @param stapelDiagram The associated StapelDiagram view.
+     * @author Kenan Al Tal
+     */
     public StapelDiagramController(StapelDiagram stapelDiagram) {
         this.stapelDiagram = stapelDiagram;
     }
 
+    /**
+     * Updates the chart data for the specified user and time period.
+     * @param userId The ID of the user.
+     * @param days The number of days for the time period.
+     * @author Kenan Al Tal
+     */
     public void updateDiagramData(int userId, int days) {
         Map<String, Number> data = getLastDaysCaffeineConsumption(userId, days);
         String period = (days == 7) ? "Weekly" : (days == 30) ? "Monthly" : "Custom";
@@ -29,12 +43,19 @@ public class StapelDiagramController {
         }
     }
 
+    /**
+     * Retrieves the caffeine consumption data for the specified user and time period.
+     * @param userId The ID of the user.
+     * @param days The number of days for the time period.
+     * @return A map containing the caffeine consumption data for each date.
+     * @author Kenan Al Tal,
+     */
+
     private Map<String, Number> getLastDaysCaffeineConsumption(int userId, int days) {
         Map<String, Number> data = new LinkedHashMap<>();
         LocalDate currentDate = LocalDate.now();
         LocalDate startDate = currentDate.minusDays(days - 1);
 
-        // Pre-populate the map with all dates set to zero
         for (LocalDate date = startDate; !date.isAfter(currentDate); date = date.plusDays(1)) {
             data.put(date.toString(), 0);
         }
@@ -57,11 +78,19 @@ public class StapelDiagramController {
             }
         } catch (SQLException e) {
             showErrorAlert("Error fetching caffeine consumption data", e.getMessage());
+            System.out.println("StapelDiagramController, getLastDaysCaffeineConsumption: ");
+            e.printStackTrace();
         }
 
         return data;
     }
 
+    /**
+     * Displays an error alert with the specified header and content.
+     * @param header The header text for the alert.
+     * @param content The content text for the alert.
+     * @author Louis Brown
+     */
     private void showErrorAlert(String header, String content) {
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Error");

@@ -14,11 +14,10 @@ public class LoginController {
 
     private DatabaseConnection databaseConnection;
     private UserController user;
-    private String userName;
 
     /**
      * Constructs a new LoginController object.
-     * @author                                                                                          //AUTHOR
+     * @author Alanah Coleman
      */
     public LoginController() {
         this.databaseConnection = databaseConnection.getInstance();
@@ -26,10 +25,11 @@ public class LoginController {
 
     /**
      * Attempts to log in a user with the provided credentials.
+     *
      * @param username The username of the user.
      * @param password The password of the user.
      * @return True if the login is successful, otherwise false.
-     * @author                                                                                          //AUTHOR
+     * @author Alanah Coleman
      */
     public boolean logIn(String username, String password) {
         Connection connection = null;
@@ -53,7 +53,6 @@ public class LoginController {
                         System.out.println(username + " logged in");
                         user = UserController.getInstance();
                         user.setUsername(username);
-                        userName = username;
 
                         return true;
                     } else {
@@ -64,27 +63,33 @@ public class LoginController {
                 }
             }
         } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("LoginController : Login : SQLException");
             throw new RuntimeException(e);
         } finally {
             if (resultSet != null) {
                 try {
                     resultSet.close();
                 } catch (SQLException e) {
-                    throw new RuntimeException(e);
+                    e.printStackTrace();
+                    System.out.println("LoginController : LogIn : closing ResultSet");
                 }
             }
             if (preparedStatement != null) {
                 try {
                     preparedStatement.close();
                 } catch (SQLException e) {
-                    throw new RuntimeException(e);
+                    e.printStackTrace();
+                    System.out.println("LoginController : LogIn : closing PreparedStatement");
                 }
             }
             if (connection != null) {
                 try {
                     connection.close();
                 } catch (SQLException e) {
-                    throw new RuntimeException(e);
+                    e.printStackTrace();
+                    System.out.println("LoginController : LogIn : closing Connection");
+
                 }
             }
         }
@@ -93,12 +98,13 @@ public class LoginController {
 
     /**
      * Shows an alert dialog with the specified title and content.
-     * @param title The title of the alert dialog.
-     * @param content The content of the alert dialog.
+     *
+     * @param title     The title of the alert dialog.
+     * @param content   The content of the alert dialog.
      * @param alertType The type of the alert
-     * @author
+     * @author Louis Brown
      */
-    protected void showAlert(String title, String content, Alert.AlertType alertType) {
+    private void showAlert(String title, String content, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(null);

@@ -1,24 +1,25 @@
 package KoffeinKoll.View;
 
 import com.jfoenix.controls.JFXButton;
-        import javafx.geometry.HPos;
-        import javafx.geometry.Insets;
-        import javafx.geometry.Pos;
-        import javafx.scene.control.Label;
-        import javafx.scene.layout.BorderPane;
-        import javafx.scene.layout.GridPane;
-        import javafx.scene.layout.HBox;
-        import javafx.scene.text.Font;
-        import javafx.scene.text.FontPosture;
-        import javafx.scene.text.FontWeight;
-        import java.util.HashMap;
-        import java.util.Map;
+import javafx.geometry.HPos;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * BeverageMenuPage class represents the beverage menu page where users can choose their drinks.
  * It extends A_Page and implements methods to initialize UI components, set event handlers, and set the scene.
  */
-public class BeverageMenuPage extends A_Page{
+public class BeverageMenuPage extends A_Page {
     private Map<String, Integer> beverageIdMap;
     private Label lbl_subTitle;
     private JFXButton btn_coffee;
@@ -32,6 +33,7 @@ public class BeverageMenuPage extends A_Page{
 
     /**
      * Initializes the UI components.
+     *
      * @author Louis Brown
      */
     @Override
@@ -44,6 +46,7 @@ public class BeverageMenuPage extends A_Page{
 
     /**
      * Sets up UI components.
+     *
      * @author Louis Brown
      */
     @Override
@@ -54,7 +57,8 @@ public class BeverageMenuPage extends A_Page{
 
     /**
      * Sets event handlers for buttons.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author Ida Nordenswan                                                                                        //AUTHOR
      */
     @Override
     public void setEvents() {
@@ -63,7 +67,8 @@ public class BeverageMenuPage extends A_Page{
 
     /**
      * Sets up the scene layout.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author Ida Nordenswan                                                                                        //AUTHOR
      */
     @Override
     public void setScene() {
@@ -95,7 +100,8 @@ public class BeverageMenuPage extends A_Page{
 
     /**
      * Sets up labels.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author Ida Nordenswan                                                                                         //AUTHOR
      */
     private void setLabels() {
         lbl_subTitle = setLabelStyle("  Let's get started!\nChoose your drink:");
@@ -103,8 +109,9 @@ public class BeverageMenuPage extends A_Page{
     }
 
     /**
-     * Sets up buttons.
-     * @author                                                                                          //AUTHOR
+     * Sets buttons.
+     *
+     * @author Ida Nordenswan
      */
     private void setButtons() {
         btn_coffee = createBeverageButton("Regular Coffee");
@@ -115,13 +122,14 @@ public class BeverageMenuPage extends A_Page{
         btn_energyDrink = createBeverageButton("Energy Drink");
         btn_soda = createBeverageButton("Soda");
 
-        goHome = new JFXButton("Go Back");
+        goHome = new JFXButton("Home");
         goHome.setStyle(setButtonStyle());
     }
 
     /**
-     * Handles going back to the home page.
-     * @author                                                                                          //AUTHOR
+     * Going back to the home page.
+     *
+     * @author Ida Nordenswan.                                                                                     //AUTHOR
      */
     private void goHome() {
         changePage(new HomePage());
@@ -129,9 +137,10 @@ public class BeverageMenuPage extends A_Page{
 
     /**
      * Creates a beverage button with the specified name.
-     * @param beverageName The name of the beverage.
-     * @return The created JFXButton.
-     * @author                                                                                          //AUTHOR
+     *
+     * @param beverageName beverage name.
+     * @return JFXButton.
+     * @author Ida Nordenswan                                                                                        //AUTHOR
      */
     private JFXButton createBeverageButton(String beverageName) {
         JFXButton btn_temp = new JFXButton(beverageName);
@@ -144,8 +153,9 @@ public class BeverageMenuPage extends A_Page{
 
     /**
      * Handles the selection of a beverage.
+     *
      * @param beverageName The name of the selected beverage.
-     * @author                                                                                          //AUTHOR
+     * @author Ida Nordenswan                                                                                    //AUTHOR
      */
     private void handleBeverageSelection(String beverageName) {
         int beverageId = beverageIdMap.get(beverageName);
@@ -154,7 +164,8 @@ public class BeverageMenuPage extends A_Page{
 
     /**
      * Initializes the beverage ID map.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author Ida Nordenswan                                                                                       //AUTHOR
      */
     private void makeMap() {
         beverageIdMap = new HashMap<>();

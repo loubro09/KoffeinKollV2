@@ -4,67 +4,29 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * The BeverageController class handles operations related to beverage data and user history in the KoffeinKoll application.
  */
 public class BeverageController {
 
-    public int getMaxUserHistoryId() {
-        String sql = "SELECT MAX(userhistory_id) AS maxId FROM userhistory";
-        try (Connection conn = DatabaseConnection.getInstance().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
-
-            if (rs.next()) {
-                return rs.getInt("maxId");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return 0; // If there's an error, we default to 0
-    }
-
     /**
      * Validates the amount of a beverage.
      * @param text The text representing the amount of the beverage.
      * @return True if the amount is valid, false otherwise.
-     * @author                                                                                          //AUTHOR
+     * @author Ida Nordenswan                                                                                         //AUTHOR
      */
     public boolean validateAmount(String text) {
         if (text == null || text.trim().isEmpty()) {
-            return false; // Null or empty string is considered invalid
+            return false;
         }
         try {
             double amount = Double.parseDouble(text);
             return amount >= 0;
         } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
-    /**
-     * Validates a date and time string.
-     * @param text The text representing the date and time.
-     * @return True if the date and time string is valid, false otherwise.
-     * @author                                                                                          //AUTHOR
-     */
-
-    //TA BORT? ANVÄNDS INTE NU
-
-    public boolean validateDateTime(String text) {
-        if (text == null || text.trim().isEmpty()) {
-            return false; // Null or empty string is considered invalid
-        }
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        try {
-            LocalDateTime.parse(text, formatter);
-            return true; // No error, validation passed
-        } catch (DateTimeParseException e) {
+            e.printStackTrace();
+            System.out.println("BeverageController : validateAmount : Parsing error.");
             return false;
         }
     }
@@ -76,17 +38,16 @@ public class BeverageController {
      * @param dateTime       The date of consumption.
      * @param amount     The amount of beverage consumption.
      * @return True if the insertion was successful, false otherwise.
-     * @author                                                                                          //AUTHOR
+     * @author Elias Olsson
      */
     public boolean insertUserHistory(int userId, int beverageId, LocalDateTime dateTime, double amount) {
-        // First, get the maximum ID and increment it
         int newId = getMaxUserHistoryId() + 1;
 
         String sql = "INSERT INTO userhistory (userhistory_id, user_id, beverage_id, date, amount) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, newId); // Set the new unique ID
+            pstmt.setInt(1, newId);
             pstmt.setInt(2, userId);
             pstmt.setInt(3, beverageId);
             if (dateTime != null) {
@@ -95,33 +56,34 @@ public class BeverageController {
             else {
                 pstmt.setObject(4, LocalDateTime.now());
             }
-            pstmt.setDouble(5, amount); // Set the amount
+            pstmt.setDouble(5, amount);
             pstmt.executeUpdate();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("BeverageController : insertUserHistory : Database or SQL error.");
             return false;
         }
     }
 
-    public int getDailyCaffeineIntake(int userId) {
-        int totalCaffeine = 0;
-
-        String sql = "SELECT SUM(beverage_caffeine) AS totalCaffeine FROM userhistory " +
-                "INNER JOIN beverages ON userhistory.beverage_id = beverages.beverage_id " +
-                "WHERE userhistory.user_id = ? AND DATE(userhistory.date) = CURRENT_DATE";
-
+    /**
+     * Retrieves the maximum user history ID from the database table "userhistory".
+     * @return The maximum user history ID, or 0 if no ID is found or an error occurs.
+     * @author Elias Olsson
+     */
+    private int getMaxUserHistoryId() {
+        String sql = "SELECT MAX(userhistory_id) AS maxId FROM userhistory";
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, userId);
-            ResultSet rs = pstmt.executeQuery();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
             if (rs.next()) {
-                totalCaffeine = rs.getInt("totalCaffeine");
+                return rs.getInt("maxId");
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("BeverageController : getMaxUserHistoryId : Database or SQL error.");
         }
-
-        return totalCaffeine;
+        return 0;
     }
 }

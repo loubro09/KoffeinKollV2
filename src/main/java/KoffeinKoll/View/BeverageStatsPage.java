@@ -10,7 +10,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -30,7 +29,7 @@ import java.time.format.DateTimeParseException;
 public class BeverageStatsPage extends A_Page {
     private TextField tf_amountCL;
     private DatePicker datePicker;
-    private TextField timeTextField;
+    private TextField tf_time;
     private Label lbl_beverageTitle;
     private JFXButton btn_goBack;
     private JFXButton btn_goHome;
@@ -43,8 +42,9 @@ public class BeverageStatsPage extends A_Page {
 
     /**
      * Constructs a new instance of BeverageStatsPage with the specified beverage ID.
+     *
      * @param beverageID The ID of the beverage.
-     * @author                                                                                          //AUTHOR
+     * @author Elias Olsson
      */
     public BeverageStatsPage(int beverageID) {
         this.beverageID = beverageID;
@@ -52,6 +52,7 @@ public class BeverageStatsPage extends A_Page {
 
     /**
      * Initializes the UI components.
+     *
      * @author Louis Brown
      */
     @Override
@@ -63,6 +64,7 @@ public class BeverageStatsPage extends A_Page {
 
     /**
      * Sets up UI components.
+     *
      * @author Louis Brown
      */
     @Override
@@ -74,7 +76,8 @@ public class BeverageStatsPage extends A_Page {
 
     /**
      * Sets event handlers for buttons.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author Elias Olsson
      */
     @Override
     public void setEvents() {
@@ -86,7 +89,8 @@ public class BeverageStatsPage extends A_Page {
 
     /**
      * Sets up the scene layout.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author Elias Olsson
      */
     @Override
     public void setScene() {
@@ -106,8 +110,8 @@ public class BeverageStatsPage extends A_Page {
 
         gridPane.add(lbl_time, 0, 4);
         gridPane.add(datePicker, 0, 5);
-        gridPane.add(timeTextField, 0, 6);
-        
+        gridPane.add(tf_time, 0, 6);
+
 
         HBox currentTimeBox = new HBox(btn_useCurrentTime);
         currentTimeBox.setAlignment(Pos.CENTER);
@@ -124,7 +128,8 @@ public class BeverageStatsPage extends A_Page {
 
     /**
      * Sets up labels.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author Elias Olsson
      */
     private void setLabels() {
         lbl_beverageTitle = setLabelStyle("Log Amount");
@@ -136,7 +141,8 @@ public class BeverageStatsPage extends A_Page {
 
     /**
      * Sets up text fields.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author Elias Olsson
      */
     private void setTextfields() {
         tf_amountCL = setTextField();
@@ -145,14 +151,15 @@ public class BeverageStatsPage extends A_Page {
         datePicker = new DatePicker();
         datePicker.setPromptText("Select Date");
 
-        timeTextField = new TextField();
-        timeTextField.setPromptText("Enter Time (HH:mm)");
+        tf_time = new TextField();
+        tf_time.setPromptText("Enter Time (HH:mm)");
 
     }
 
     /**
      * Sets up buttons.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author Elias Olsson
      */
     private void setButtons() {
         btn_goBack = new JFXButton("Go Back");
@@ -171,7 +178,8 @@ public class BeverageStatsPage extends A_Page {
 
     /**
      * Validates user inputs for amount and date/time.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author Elias Olsson
      */
     private void validateInputs() {
         if (!beverageController.validateAmount(tf_amountCL.getText())) {
@@ -185,11 +193,12 @@ public class BeverageStatsPage extends A_Page {
 
     /**
      * Validates the date and time format.
+     *
      * @return True if the date and time are valid, otherwise false.
-     * @author                                                                                          //AUTHOR
+     * @author Elias Olsson
      */
     private boolean validateDateTime() {
-        String time = timeTextField.getText();
+        String time = tf_time.getText();
         LocalDate date = datePicker.getValue();
         if (date == null) {
             return false;
@@ -202,19 +211,27 @@ public class BeverageStatsPage extends A_Page {
             LocalDateTime.parse(date + " " + time, formatter);
             return true;
         } catch (DateTimeParseException e) {
+            e.printStackTrace();
+            System.out.println("BeverageStatsPage : validateDateTime : Parsing date error.");
             return false;
         }
     }
 
     /**
      * Processes valid user inputs.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author Elias Olsson
      */
     private void processValidInputs() {
         LocalDate date = datePicker.getValue();
-        String time = timeTextField.getText();
+        String time = tf_time.getText();
         LocalDateTime dateTime = LocalDateTime.of(date, LocalTime.parse(time, DateTimeFormatter.ofPattern("HH:mm")));
         Double amount = Double.valueOf(tf_amountCL.getText());
+
+        if (amount <= 0) {
+            showAlert("Error", "You cannot enter an amount less than 1 cl.", Alert.AlertType.ERROR);
+            return;
+        }
 
         UserController userController = UserController.getInstance();
         int userId = userController.getId();
@@ -224,10 +241,6 @@ public class BeverageStatsPage extends A_Page {
             AlgorithmController ac = new AlgorithmController();
             ac.updateGaugeNewLog(beverageID, amount);
 
-            /*ac.calculateCaffeineAmount(beverageID, amount);
-            CustomGauge cg = CustomGauge.getInstance();
-            cg.setMaxValue((int) ac.calculateTime());
-            cg.setValue((int) ac.calculateTime());*/
             goToHomePage();
         } else {
             showAlert("Database Error", "Failed to log consumption.", Alert.AlertType.ERROR);
@@ -236,7 +249,8 @@ public class BeverageStatsPage extends A_Page {
 
     /**
      * Navigates to the home page.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author Elias Olsson
      */
     private void goToHomePage() {
         changePage(new HomePage());
@@ -244,7 +258,8 @@ public class BeverageStatsPage extends A_Page {
 
     /**
      * Navigates back to the beverage menu page.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author Elias Olsson
      */
     private void goBack() {
         changePage(new BeverageMenuPage());
@@ -252,12 +267,13 @@ public class BeverageStatsPage extends A_Page {
 
     /**
      * Sets the current time in the time text field and date picker.
-     * @author                                                                                          //AUTHOR
+     *
+     * @author Elias Olsson
      */
     private void useCurrentTime() {
         LocalDate currentDate = LocalDate.now();
         LocalTime currentTime = LocalTime.now();
-        timeTextField.setText(currentTime.format(DateTimeFormatter.ofPattern("HH:mm")));
+        tf_time.setText(currentTime.format(DateTimeFormatter.ofPattern("HH:mm")));
         datePicker.setValue(currentDate);
     }
 }
