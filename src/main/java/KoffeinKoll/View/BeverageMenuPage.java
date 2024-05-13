@@ -31,6 +31,7 @@ public class BeverageMenuPage extends A_Page {
     private JFXButton btn_tea;
     private JFXButton btn_mate;
     private JFXButton btn_energyDrink;
+    private JFXButton btn_nocco;
     private JFXButton btn_soda;
     private JFXButton goHome;
 
@@ -86,13 +87,7 @@ public class BeverageMenuPage extends A_Page {
 
         mainContent.getChildren().add(logoImageViewGreen);
 
-       /* GridPane gridPane = new GridPane();
-        gridPane.setAlignment(Pos.CENTER);
-        gridPane.setVgap(10);
-        gridPane.add(lbl_subTitle, 0, 0);
-        GridPane.setHalignment(lbl_subTitle, HPos.CENTER);
 
-        */
 
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.TOP_CENTER);
@@ -106,13 +101,9 @@ public class BeverageMenuPage extends A_Page {
         gridPane.add(btn_tea, 0, 4);
         gridPane.add(btn_mate, 0, 5);
         gridPane.add(btn_energyDrink, 0, 6);
-        gridPane.add(btn_soda, 0, 7);
+        gridPane.add(btn_nocco,0,7);
+        gridPane.add(btn_soda, 0, 8);
 
-       /* borderPane.setPadding(new Insets(20));
-        borderPane.setTop(lbl_title);
-        BorderPane.setAlignment(lbl_title, Pos.CENTER);
-
-        */
         borderPane.setCenter(gridPane);
         BorderPane.setAlignment(gridPane, Pos.CENTER);
 
@@ -147,6 +138,7 @@ public class BeverageMenuPage extends A_Page {
         btn_tea = createBeverageButton("Tea");
         btn_mate = createBeverageButton("Mate");
         btn_energyDrink = createBeverageButton("Energy Drink");
+        btn_nocco = createBeverageButton("Nocco");
         btn_soda = createBeverageButton("Soda");
 
         goHome = new JFXButton("Home");
@@ -203,5 +195,6 @@ public class BeverageMenuPage extends A_Page {
         beverageIdMap.put("Mate", 5);
         beverageIdMap.put("Energy Drink", 6);
         beverageIdMap.put("Soda", 7);
+        beverageIdMap.put("Nocco",8);
     }
 }
