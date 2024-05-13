@@ -149,7 +149,7 @@ public class BeverageStatsPage extends A_Page {
         tf_amountCL.setPromptText("Enter Amount in CL");
 
         datePicker = new DatePicker();
-        datePicker.setPromptText("Select Date");
+        datePicker.setPromptText("YYYY-MM-DD");
 
         tf_time = new TextField();
         tf_time.setPromptText("Enter Time (HH:mm)");
