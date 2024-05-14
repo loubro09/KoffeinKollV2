@@ -13,10 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import javafx.scene.control.TextField;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Color;
+import javafx.scene.text.TextAlignment;
 
 /**
  * InfoPage class represents a page displaying information about the application.
@@ -156,6 +153,7 @@ public class InfoPage extends A_Page {
         lbl_info.setWrapText(true);
         lbl_info.setPadding(new Insets(0, 80, 0, 80));
         lbl_info.setFont(Font.font("Arial", 16));
+        lbl_info.setTextAlignment(TextAlignment.CENTER);
     }
 
     /**
