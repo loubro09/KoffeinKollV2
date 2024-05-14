@@ -3,6 +3,7 @@ package KoffeinKoll.View;
 import KoffeinKoll.Controller.ProfileController;
 import KoffeinKoll.Controller.UserController;
 import com.jfoenix.controls.JFXButton;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -28,13 +29,12 @@ public class ProfilePage extends A_Page {
     private Label lbl_newHabit;
     private Label lbl_newWeight;
     private Label lbl_newDateOfBirth;
-    private Label lbl_weightUnit;
     private TextField tf_newWeight;
     private JFXButton btn_goHome;
     private JFXButton btn_save;
     private DatePicker datePicker;
     private ToggleGroup toggleGroup;
-    private ToggleSwitch toggleWeightUnit;
+    private ComboBox<String> unitComboBox;
     private RadioButton rb_option1;
     private RadioButton rb_option2;
     private RadioButton rb_option3;
@@ -65,7 +65,7 @@ public class ProfilePage extends A_Page {
         setTextfields();
         setButtons();
         setRadioButton();
-        setToggleButton();
+        setComboBox();
         setDatePicker();
     }
 
@@ -81,16 +81,6 @@ public class ProfilePage extends A_Page {
             goBack();
         });
 
-        toggleWeightUnit.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
-                tf_newWeight.setPromptText("Enter weight (kg)");
-                lbl_weightUnit.setText("    Chosen weight metric : kg");
-            } else {
-                tf_newWeight.setPromptText("Enter weight (lbs)");
-                lbl_weightUnit.setText("    Chosen weight metric : lbs");
-            }
-        });
-
         btn_save.setOnAction(event -> {
             ProfileController profileController = new ProfileController();
             String newWeightText = tf_newWeight.getText();
@@ -104,9 +94,7 @@ public class ProfilePage extends A_Page {
                         return;
                     }
 
-                    if (!toggleWeightUnit.isSelected()) {
-                        weight = convertWeightToKilograms();
-                    }
+                    weight = convertToKg(weight,unitComboBox.getValue());
 
                 } else {
                     showAlert("Error", "Invalid input! Please try again.", Alert.AlertType.ERROR);
@@ -154,9 +142,11 @@ public class ProfilePage extends A_Page {
         gridPane.setHgap(10);
         gridPane.setVgap(10);
         gridPane.add(lbl_newWeight, 0, 1);
-        gridPane.add(tf_newWeight, 0, 2);
-        HBox hbox = new HBox(toggleWeightUnit, lbl_weightUnit);
-        gridPane.add(hbox, 0, 3);
+
+        HBox unitBox = new HBox(20, tf_newWeight, unitComboBox);
+        gridPane.add(unitBox,0,2);
+        GridPane.setHalignment(unitBox, HPos.CENTER);
+
         gridPane.add(lbl_newDateOfBirth, 0, 4);
         gridPane.add(datePicker, 0, 5);
         gridPane.add(lbl_newHabit, 0, 6);
@@ -180,7 +170,6 @@ public class ProfilePage extends A_Page {
 
         mainContent.getChildren().addAll(logoImageViewGreen,titleLabel);
 
-
         borderPane.setPadding(new Insets(20));
         borderPane.setTop(mainContent);
         borderPane.setCenter(gridPane);
@@ -201,8 +190,6 @@ public class ProfilePage extends A_Page {
         lbl_newHabit = setLabelStyle("Approximately how many drinks containing \ncaffeine do you consume in a day?");
         lbl_newWeight = setLabelStyle("New Weight:");
         lbl_newDateOfBirth = setLabelStyle("New Date of Birth:");
-        lbl_weightUnit = setLabelStyle("    Chosen weight metric : kg");
-        lbl_weightUnit.setFont(Font.font("Arial", 12));
     }
 
     /**
@@ -212,7 +199,7 @@ public class ProfilePage extends A_Page {
      */
     private void setTextfields() {
         tf_newWeight = setTextField();
-        tf_newWeight.setPromptText("Weight (kg)");
+        tf_newWeight.setPromptText("Enter new weight");
     }
 
     /**
@@ -246,9 +233,10 @@ public class ProfilePage extends A_Page {
         rb_option3.setToggleGroup(toggleGroup);
     }
 
-    private void setToggleButton() {
-        toggleWeightUnit = new ToggleSwitch();
-        toggleWeightUnit.setSelected(true);
+    private void setComboBox() {
+        unitComboBox = new ComboBox<>();
+        unitComboBox.getItems().addAll("kg", "lbs");
+        unitComboBox.setValue("kg");
     }
 
     /**
@@ -288,20 +276,15 @@ public class ProfilePage extends A_Page {
         return chosenDate.isBefore(fifteenYearsAgo) || chosenDate.isEqual(fifteenYearsAgo);
     }
 
-    /**
-     * Converts the entered weight to kilograms.
-     * @return The weight in kilograms.
-     * @author Louis Brown
-     */
-    private double convertWeightToKilograms() {
-        String weightText = tf_newWeight.getText();
-        if (!weightText.isEmpty()) {
-            //Convert pounds to kilograms (1 lb = 0.453592 kg)
-            double weightInPounds = Double.parseDouble(weightText);
-            double weightInKilograms = weightInPounds * 0.453592;
-            return weightInKilograms;
+    private double convertToKg(double weight, String selectedUnit) {
+        switch (selectedUnit) {
+            case "kg":
+                return weight;
+            case "lbs":
+                return weight * 0.454592;
+            default:
+                return 0.0;
         }
-        return 0;
     }
 
     /**
