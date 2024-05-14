@@ -37,7 +37,7 @@ public class PercentageGauge extends StackPane {
 
         int cupOfCoffees = recommendedAmount / 92;
 
-        lbl_title = new Label("Recommended Daily Caffeine Intake: " + recommendedAmount + " gram");
+        lbl_title = new Label("Recommended Daily Caffeine Intake: " + recommendedAmount + " mg");
         lbl_title.setFont(Font.font("Arial", 14));
         lbl_title.setTextFill(Color.DARKGREEN);
 
