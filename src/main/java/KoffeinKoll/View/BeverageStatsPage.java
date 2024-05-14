@@ -144,7 +144,7 @@ public class BeverageStatsPage extends A_Page {
         lbl_beverageTitle = setLabelStyle("Log Amount");
         lbl_beverageTitle.setFont(Font.font("Arial", FontWeight.BOLD, 46));
 
-        lbl_amountCL = setLabelStyle("Amount CL:");
+        lbl_amountCL = setLabelStyle("Amount of beverage consumed:");
         lbl_time = setLabelStyle("Time:");
     }
 
@@ -155,7 +155,7 @@ public class BeverageStatsPage extends A_Page {
      */
     private void setTextfields() {
         tf_amountCL = setTextField();
-        tf_amountCL.setPromptText("Enter Amount in CL");
+        tf_amountCL.setPromptText("Enter Amount");
 
         tf_amountCL.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
