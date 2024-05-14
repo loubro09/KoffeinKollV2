@@ -2,6 +2,7 @@ package KoffeinKoll.View;
 
 import KoffeinKoll.Controller.CreateUserController;
 import com.jfoenix.controls.JFXButton;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -33,9 +34,8 @@ public class CreateUserPage extends A_Page {
     private Label lbl_habit;
     private Label lbl_weight;
     private Label lbl_dateOfBirth;
-    private Label lbl_weightUnit;
     private ToggleGroup toggleGroup;
-    private ToggleSwitch toggleWeightUnit;
+    private ComboBox<String> unitComboBox;
     private RadioButton rb_option1;
     private RadioButton rb_option2;
     private RadioButton rb_option3;
@@ -65,7 +65,7 @@ public class CreateUserPage extends A_Page {
         setTextfields();
         setButtons();
         setRadioButton();
-        setToggleButton();
+        setComboBox();
         setDatePicker();
     }
 
@@ -77,14 +77,6 @@ public class CreateUserPage extends A_Page {
     @Override
     public void setEvents() {
         btn_goBack.setOnAction(e -> goBack());
-
-        toggleWeightUnit.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
-                tf_weight.setPromptText("Enter weight (kg)");
-            } else {
-                tf_weight.setPromptText("Enter weight (lbs)");
-            }
-        });
 
         btn_createUser.setOnAction(event -> {
             String username = tf_userName.getText();
@@ -135,9 +127,7 @@ public class CreateUserPage extends A_Page {
                 return;
             }
 
-            if (!toggleWeightUnit.isSelected()) {
-                weight = convertWeightToKilograms();
-            }
+            weight = convertToKg(weight,unitComboBox.getValue());
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             String dateOfBirthText = dateOfBirth.format((formatter));
@@ -174,12 +164,14 @@ public class CreateUserPage extends A_Page {
         gridPane.add(rb_option2, 0, 7);
         gridPane.add(rb_option3, 0, 8);
         gridPane.add(lbl_weight, 0, 9);
-        gridPane.add(tf_weight, 0, 10);
-        HBox hbox = new HBox(toggleWeightUnit, lbl_weightUnit);
-        gridPane.add(hbox, 0, 11);
-        gridPane.add(lbl_dateOfBirth, 0, 12);
-        gridPane.add(datePicker, 0, 13);
-        HBox buttonBox = new HBox(20, btn_createUser, btn_goBack);
+
+        HBox unitBox = new HBox(20, tf_weight, unitComboBox);
+        gridPane.add(unitBox,0,10);
+        GridPane.setHalignment(unitBox, HPos.CENTER);
+
+        gridPane.add(lbl_dateOfBirth, 0, 11);
+        gridPane.add(datePicker, 0, 12);
+        HBox buttonBox = new HBox(20, btn_goBack, btn_createUser);
         buttonBox.setAlignment(Pos.CENTER);
         gridPane.add(buttonBox, 0, 15);
 
@@ -209,8 +201,6 @@ public class CreateUserPage extends A_Page {
         tooltip1.setShowDelay(Duration.millis(10));
         tooltip1.setShowDuration(Duration.seconds(5));
         Tooltip.install(lbl_habit, tooltip1);
-        lbl_weightUnit = setLabelStyle("    Weight in kg or lbs");
-        lbl_weightUnit.setFont(Font.font("Arial", 12));
     }
 
     /**
@@ -223,10 +213,10 @@ public class CreateUserPage extends A_Page {
         tf_userName.setPromptText("Enter a username");
 
         pf_password = setPasswordField();
-        pf_password.setPromptText("Enter a password ");
+        pf_password.setPromptText("Enter a password");
 
         tf_weight = setTextField();
-        tf_weight.setPromptText("Enter weight (kg)");
+        tf_weight.setPromptText("Enter weight");
     }
 
     /**
@@ -261,11 +251,6 @@ public class CreateUserPage extends A_Page {
         rb_option3.setToggleGroup(toggleGroup);
     }
 
-    private void setToggleButton() {
-        toggleWeightUnit = new ToggleSwitch();
-        toggleWeightUnit.setSelected(true);
-    }
-
     /**
      * Sets date picker for UI elements.
      *
@@ -294,22 +279,22 @@ public class CreateUserPage extends A_Page {
         return null;
     }
 
-    /**
-     * Converts the entered weight to kilograms.
-     * @return The weight in kilograms.
-     * @author Louis Brown
-     */
-    private double convertWeightToKilograms() {
-        String weightText = tf_weight.getText();
-        if (!weightText.isEmpty()) {
-            //Convert pounds to kilograms (1 lb = 0.453592 kg)
-            double weightInPounds = Double.parseDouble(weightText);
-            double weightInKilograms = weightInPounds * 0.453592;
-            return weightInKilograms;
-        }
-        return 0;
+    private void setComboBox() {
+        unitComboBox = new ComboBox<>();
+        unitComboBox.getItems().addAll("kg", "lbs");
+        unitComboBox.setValue("kg");
     }
 
+    private double convertToKg(double weight, String selectedUnit) {
+        switch (selectedUnit) {
+            case "kg":
+                return weight;
+            case "lbs":
+                return weight * 0.454592;
+            default:
+                return 0.0;
+        }
+    }
 
     /**
      * Checks if the chosen date is at least fifteen years ago.
