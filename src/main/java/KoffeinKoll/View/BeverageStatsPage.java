@@ -8,10 +8,7 @@ import com.jfoenix.controls.JFXButton;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
@@ -38,6 +35,7 @@ public class BeverageStatsPage extends A_Page {
     private JFXButton btn_useCurrentTime;
     private Label lbl_amountCL;
     private Label lbl_time;
+    private ComboBox<String> unitComboBox;
     private BeverageController beverageController = new BeverageController();
     private int beverageID;
     private CaffeineCalculator caffeineCalculator = new CaffeineCalculator();
@@ -75,6 +73,7 @@ public class BeverageStatsPage extends A_Page {
         setLabels();
         setTextfields();
         setButtons();
+        setComboBox();
     }
 
     /**
@@ -110,23 +109,24 @@ public class BeverageStatsPage extends A_Page {
 
         gridPane.add(lbl_amountCL, 0, 2);
         GridPane.setHalignment(lbl_amountCL, HPos.LEFT);
-        gridPane.add(tf_amountCL, 0, 3);
-        GridPane.setHalignment(tf_amountCL, HPos.CENTER); // Center align the TextField
+        HBox unitBox = new HBox(20, tf_amountCL, unitComboBox);
+        gridPane.add(unitBox,0,3);
+        GridPane.setHalignment(unitBox, HPos.CENTER);
 
         gridPane.add(lbl_time, 0, 4);
         GridPane.setHalignment(lbl_time, HPos.LEFT);
         gridPane.add(datePicker, 0, 5);
-        GridPane.setHalignment(datePicker, HPos.LEFT); // Center align the DatePicker
+        GridPane.setHalignment(datePicker, HPos.LEFT);
         gridPane.add(tf_time, 0, 6);
-        GridPane.setHalignment(tf_time, HPos.CENTER); // Center align the TextField
+        GridPane.setHalignment(tf_time, HPos.CENTER);
 
         HBox currentTimeBox = new HBox(btn_useCurrentTime);
         currentTimeBox.setAlignment(Pos.CENTER);
         gridPane.add(currentTimeBox, 0, 7);
-        GridPane.setHalignment(currentTimeBox, HPos.CENTER); // Center align the HBox for the button
+        GridPane.setHalignment(currentTimeBox, HPos.CENTER);
 
         gridPane.add(btn_log, 0, 8, 2, 1);
-        GridPane.setHalignment(btn_log, HPos.CENTER); // Ensure button is centered across two columns
+        GridPane.setHalignment(btn_log, HPos.CENTER);
 
         borderPane.setPadding(new Insets(20));
         borderPane.setCenter(gridPane);
@@ -170,7 +170,12 @@ public class BeverageStatsPage extends A_Page {
 
         tf_time = new TextField();
         tf_time.setPromptText("Enter Time (HH:mm)");
+    }
 
+    private void setComboBox() {
+        unitComboBox = new ComboBox<>();
+        unitComboBox.getItems().addAll("cl", "ml", "l", "gallon", "oz");
+        unitComboBox.setValue("cl");
     }
 
     /**
@@ -274,6 +279,8 @@ public class BeverageStatsPage extends A_Page {
             return;
         }
 
+        amount = convertToCL(amount, unitComboBox.getValue());
+
         UserController userController = UserController.getInstance();
         int userId = userController.getId();
 
@@ -316,5 +323,22 @@ public class BeverageStatsPage extends A_Page {
         LocalTime currentTime = LocalTime.now();
         tf_time.setText(currentTime.format(DateTimeFormatter.ofPattern("HH:mm")));
         datePicker.setValue(currentDate);
+    }
+
+    private double convertToCL(double amount, String selectedUnit) {
+        switch (selectedUnit) {
+            case "cl":
+                return amount;
+            case "ml":
+                return amount / 10.0; //1 ml = 0.1 cl
+            case "l":
+                return amount * 100.0; //1 l = 100 cl
+            case "gallon":
+                return amount * 378.5411784; //1 gallon = 378.5411784 cl (US gallon)
+            case "oz":
+                return amount * 2.95735; //1 oz = 2.95735 cl (US fluid ounce)
+            default:
+                return 0.0;
+        }
     }
 }
