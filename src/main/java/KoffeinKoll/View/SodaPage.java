@@ -199,12 +199,12 @@ public class SodaPage extends A_Page {
      */
     private void makeMap() {
         sodaIdMap = new HashMap<>();
-        sodaIdMap.put("Pepsi Max", 9);
-        sodaIdMap.put("Pepsi Cola", 10);
-        sodaIdMap.put("Coke Zero", 11);
-        sodaIdMap.put("Diet Coke", 12);
-        sodaIdMap.put("Coca-Cola Classic", 13);
-        sodaIdMap.put("Mountain Dew", 14);
-        sodaIdMap.put("Dr. Pepper", 15);
+        sodaIdMap.put("Pepsi Max", 6);
+        sodaIdMap.put("Pepsi Cola", 7);
+        sodaIdMap.put("Coke Zero", 8);
+        sodaIdMap.put("Diet Coke", 9);
+        sodaIdMap.put("Coca-Cola Classic", 10);
+        sodaIdMap.put("Mountain Dew", 11);
+        sodaIdMap.put("Dr. Pepper", 12);
     }
 }

@@ -3,7 +3,6 @@ package KoffeinKoll.View;
 import com.jfoenix.controls.JFXButton;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -19,20 +18,23 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * BeverageMenuPage class represents the beverage menu page where users can choose their drinks.
- * It extends A_Page and implements methods to initialize UI components, set event handlers, and set the scene.
+ *
  */
-public class BeverageMenuPage extends A_Page {
-    private Map<String, Integer> beverageIdMap;
+public class EnergyDrinkPage extends A_Page {
+    private Map<String, Integer> energyDrinkIdMap;
     private Label lbl_subTitle;
-    private JFXButton btn_coffee;
-    private JFXButton btn_espresso1;
-    private JFXButton btn_espresso2;
-    private JFXButton btn_tea;
-    private JFXButton btn_mate;
-    private JFXButton btn_energyDrink;
-    private JFXButton btn_soda;
+    private JFXButton btn_redbull;
+    private JFXButton btn_powerking;
+    private JFXButton btn_prime;
+    private JFXButton btn_celsius;
+    private JFXButton btn_monster;
+    private JFXButton btn_nocco;
+    private JFXButton btn_goBack;
     private JFXButton btn_goHome;
+
+    public EnergyDrinkPage(Map<String, Integer> energyDrinkIdMap) {
+        this.energyDrinkIdMap = energyDrinkIdMap;
+    }
 
     /**
      * Initializes the UI components.
@@ -65,6 +67,7 @@ public class BeverageMenuPage extends A_Page {
      */
     @Override
     public void setEvents() {
+        btn_goBack.setOnAction(e -> goBack());
         btn_goHome.setOnAction(e -> goHome());
     }
 
@@ -94,22 +97,19 @@ public class BeverageMenuPage extends A_Page {
         gridPane.add(logoImageViewGreen, 0, 0);
         GridPane.setHalignment(logoImageViewGreen, HPos.CENTER);
 
-        gridPane.add(btn_coffee, 0, 1);
-        gridPane.add(btn_espresso1, 0, 2);
-        gridPane.add(btn_espresso2, 0, 3);
-        gridPane.add(btn_tea, 0, 4);
-        gridPane.add(btn_mate, 0, 5);
-        gridPane.add(btn_energyDrink, 0, 6);
-        gridPane.add(btn_soda, 0, 7);
+        gridPane.add(btn_redbull, 0, 1);
+        gridPane.add(btn_powerking, 0, 2);
+        gridPane.add(btn_prime, 0, 3);
+        gridPane.add(btn_celsius, 0, 4);
+        gridPane.add(btn_monster, 0, 5);
+        gridPane.add(btn_nocco, 0, 6);
 
         borderPane.setCenter(gridPane);
         BorderPane.setAlignment(gridPane, Pos.CENTER);
 
-        HBox buttonHBox = new HBox(20,btn_goHome);
+        HBox buttonHBox = new HBox(20,btn_goBack, btn_goHome);
         buttonHBox.setAlignment(Pos.CENTER);
-        //buttonHBox.getChildren().addAll(btn_goBack);
         gridPane.add(buttonHBox, 0, 18);
-        //borderPane.setBottom(buttonHBox);
     }
 
     /**
@@ -118,7 +118,7 @@ public class BeverageMenuPage extends A_Page {
      * @author Ida Nordenswan                                                                                         //AUTHOR
      */
     private void setLabels() {
-        lbl_subTitle = setLabelStyle("  Let's get started!\nChoose your drink:");
+        lbl_subTitle = setLabelStyle("  Choose your energy drink:");
         lbl_subTitle.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.ITALIC, 23));
     }
 
@@ -128,13 +128,15 @@ public class BeverageMenuPage extends A_Page {
      * @author Ida Nordenswan
      */
     private void setButtons() {
-        btn_coffee = createBeverageButton("Regular Coffee");
-        btn_espresso1 = createBeverageButton("Single Shot Espresso");
-        btn_espresso2 = createBeverageButton("Double Shot Espresso");
-        btn_tea = createBeverageButton("Tea");
-        btn_mate = createBeverageButton("Mate");
-        btn_energyDrink = createBeverageButton("Energy Drink");
-        btn_soda = createBeverageButton("Soda");
+        btn_redbull = createBeverageButton("Redbull");
+        btn_powerking = createBeverageButton("Powerking");
+        btn_prime = createBeverageButton("Prime");
+        btn_celsius = createBeverageButton("Celsius");
+        btn_monster = createBeverageButton("Monster");
+        btn_nocco = createBeverageButton("Nocco");
+
+        btn_goBack = new JFXButton("Go Back");
+        btn_goBack.setStyle(setButtonStyle());
 
         btn_goHome = new JFXButton("Home");
         btn_goHome.setStyle(setButtonStyle());
@@ -145,8 +147,8 @@ public class BeverageMenuPage extends A_Page {
      *
      * @author Ida Nordenswan.                                                                                     //AUTHOR
      */
-    private void goHome() {
-        changePage(new HomePage());
+    private void goBack() {
+        changePage(new BeverageMenuPage());
     }
 
     /**
@@ -161,15 +163,7 @@ public class BeverageMenuPage extends A_Page {
         btn_temp.setStyle(setButtonStyle());
         btn_temp.setMaxWidth(Double.MAX_VALUE);
         GridPane.setHalignment(btn_temp, HPos.CENTER);
-        if (btn_temp.getText().equals("Soda")) {
-            btn_temp.setOnAction(e -> changePage(new SodaPage(beverageIdMap)));
-        }
-        else if(btn_temp.getText().equals("Energy Drink")) {
-            btn_temp.setOnAction(e -> changePage(new EnergyDrinkPage(beverageIdMap)));
-        }
-        else {
-            btn_temp.setOnAction(e -> handleBeverageSelection(beverageName));
-        }
+        btn_temp.setOnAction(e -> handleBeverageSelection(beverageName));
         return btn_temp;
     }
 
@@ -180,8 +174,17 @@ public class BeverageMenuPage extends A_Page {
      * @author Ida Nordenswan                                                                                    //AUTHOR
      */
     private void handleBeverageSelection(String beverageName) {
-        int beverageId = beverageIdMap.get(beverageName);
+        int beverageId = energyDrinkIdMap.get(beverageName);
         changePage(new BeverageStatsPage(beverageId));
+    }
+
+    /**
+     * Going back to the home page.
+     *
+     * @author Ida Nordenswan.                                                                                     //AUTHOR
+     */
+    private void goHome() {
+        changePage(new HomePage());
     }
 
     /**
@@ -190,11 +193,12 @@ public class BeverageMenuPage extends A_Page {
      * @author Ida Nordenswan                                                                                       //AUTHOR
      */
     private void makeMap() {
-        beverageIdMap = new HashMap<>();
-        beverageIdMap.put("Regular Coffee", 1);
-        beverageIdMap.put("Single Shot Espresso", 2);
-        beverageIdMap.put("Double Shot Espresso", 3);
-        beverageIdMap.put("Tea", 4);
-        beverageIdMap.put("Mate", 5);
+        energyDrinkIdMap = new HashMap<>();
+        energyDrinkIdMap.put("Redbull", 13);
+        energyDrinkIdMap.put("Powerking", 14);
+        energyDrinkIdMap.put("Prime", 15);
+        energyDrinkIdMap.put("Celsius", 16);
+        energyDrinkIdMap.put("Monster", 17);
+        energyDrinkIdMap.put("Nocco", 18);
     }
 }
