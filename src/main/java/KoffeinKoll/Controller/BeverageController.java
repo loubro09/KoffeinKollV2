@@ -15,7 +15,7 @@ public class BeverageController {
      * Validates the amount of a beverage.
      * @param text The text representing the amount of the beverage.
      * @return True if the amount is valid, false otherwise.
-     * @author Ida Nordenswan, Elias Olsson                                                                                         //AUTHOR
+     * @author Ida Nordenswan, Elias Olsson
      */
     public boolean validateAmount(String text) {
         if (text == null || text.trim().isEmpty()) {
