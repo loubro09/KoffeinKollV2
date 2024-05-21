@@ -60,7 +60,8 @@ public class PercentageGauge extends StackPane {
         lbl_percentage.setFont(Font.font("Arial", 14));
         lbl_percentage.setTextFill(Color.DARKGREEN);
 
-        Tooltip tooltip2 = new Tooltip("This is how much of your daily recommended intake you have consumed today.");
+        Tooltip tooltip2 = new Tooltip("This is how much of your daily recommended intake you have " +
+                "consumed today.");
         tooltip2.setShowDelay(Duration.millis(10));
         tooltip2.setShowDuration(Duration.seconds(5));
         Tooltip.install(lbl_percentage, tooltip2);

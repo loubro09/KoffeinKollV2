@@ -43,7 +43,8 @@ public class BeverageController {
     public boolean insertUserHistory(int userId, int beverageId, LocalDateTime dateTime, double amount) {
         int newId = getMaxUserHistoryId() + 1;
 
-        String sql = "INSERT INTO userhistory (userhistory_id, user_id, beverage_id, date, amount) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO userhistory (userhistory_id, user_id, beverage_id, date, amount) " +
+                "VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {

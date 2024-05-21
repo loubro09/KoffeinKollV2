@@ -49,7 +49,8 @@ public class CustomGauge extends StackPane {
                         gauge.setValue(remainingTime - 1);
                     } else {
                         timeline.stop();
-                        showAlert("Caffeine Consumption", "Caffeine is metabolised!", Alert.AlertType.INFORMATION);
+                        showAlert("Caffeine Consumption", "Caffeine is metabolised!",
+                                Alert.AlertType.INFORMATION);
                     }
                 })
         );

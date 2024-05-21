@@ -102,18 +102,18 @@ public abstract class A_Page implements I_Page {
     @Override
     public String setButtonStyle() {
         String styleButtons = "-fx-background-color:\n" +
-                "            #090a0c,\n" +
-                "            linear-gradient(#8fbc8f 0%, #8fbc8f 20%, #8fbc8f 100%),\n" +
-                "            linear-gradient(#c0dbad, #8fbc8f),\n" +
-                "            radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));\n" +
-                "    -fx-background-radius: 5,4,3,5;\n" +
-                "    -fx-background-insets: 0,1,2,0;\n" +
-                "    -fx-text-fill: white;\n" +
-                "    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );\n" +
-                "    -fx-font-family: \"Arial\";\n" +
-                "    -fx-text-fill: linear-gradient(black, black);\n" +
-                "    -fx-font-size: 20px;\n" +
-                "    -fx-padding: 10 20 10 20;";
+                "#090a0c,\n" +
+                "linear-gradient(#8fbc8f 0%, #8fbc8f 20%, #8fbc8f 100%),\n" +
+                "linear-gradient(#c0dbad, #8fbc8f),\n" +
+                "radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));\n" +
+                "-fx-background-radius: 5,4,3,5;\n" +
+                "-fx-background-insets: 0,1,2,0;\n" +
+                "-fx-text-fill: white;\n" +
+                "-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );\n" +
+                "-fx-font-family: \"Arial\";\n" +
+                "-fx-text-fill: linear-gradient(black, black);\n" +
+                "-fx-font-size: 20px;\n" +
+                "-fx-padding: 10 20 10 20;";
         return styleButtons;
     }
 
@@ -134,7 +134,8 @@ public abstract class A_Page implements I_Page {
     public void setBackground() {
         Stop[] stops = new Stop[]{new Stop(0, Color.web("#c0dbad")), new Stop(1, Color.web("#fcf1cb"))};
         LinearGradient gradient = new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE, stops);
-        borderPane.setBackground(new javafx.scene.layout.Background(new javafx.scene.layout.BackgroundFill(gradient, null, null)));
+        borderPane.setBackground(new javafx.scene.layout.Background(new javafx.scene.layout.BackgroundFill
+                (gradient, null, null)));
 
         stage.setScene(scene);
         stage.show();

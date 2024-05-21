@@ -111,7 +111,8 @@ public class ProfilePage extends A_Page {
 
             if (dateOfBirth != null) {
                 if (!checkAge(dateOfBirth)) {
-                    showAlert("Error", "You have to be at least 15 years of age to use this application.", Alert.AlertType.ERROR);
+                    showAlert("Error", "You have to be at least 15 years of age to use this " +
+                            "application.", Alert.AlertType.ERROR);
                     return;
                 } else {
                     dateOfBirthText = dateOfBirth.format((formatter));
@@ -120,10 +121,12 @@ public class ProfilePage extends A_Page {
                 dateOfBirthText = null;
             }
 
-            boolean userUpdated = profileController.updateUser(userController.getId(), newHabit, weight, dateOfBirthText);
+            boolean userUpdated = profileController.updateUser(userController.getId(), newHabit, weight,
+                    dateOfBirthText);
 
             if (userUpdated) {
-                showAlert("Success", "User information updated successfully!", Alert.AlertType.INFORMATION);
+                showAlert("Success", "User information updated successfully!",
+                        Alert.AlertType.INFORMATION);
             } else {
                 showAlert("Error", "Failed to update user information.", Alert.AlertType.ERROR);
             }

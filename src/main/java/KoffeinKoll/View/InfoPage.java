@@ -122,15 +122,15 @@ public class InfoPage extends A_Page {
         String infoText = null;
         if (txt) {
             infoText = "Welcome to KoffeinKoll, Your Caffeine Companion!\n\n" +
-                    "KoffeinKoll is a desktop application designed to help you monitor your caffeine intake. Personalize your profile," +
-                    " log your consumption, and gain insights into your habits.\n\n" +
-                    "Whether you're optimizing lifestyle choices or aiming to reduce caffeine intake, KoffeinKoll is here for you. " +
-                    "Our app calculates your recommended daily intake, tracks consumption, and predicts caffeine processing time. " +
-                    "Join us in enhancing health and wellness, one sip at a time.\n\n" +
+                    "KoffeinKoll is a desktop application designed to help you monitor your caffeine intake. " +
+                    "Personalize your profile, log your consumption, and gain insights into your habits.\n\n" +
+                    "Whether you're optimizing lifestyle choices or aiming to reduce caffeine intake, KoffeinKoll is " +
+                    "here for you. Our app calculates your recommended daily intake, tracks consumption, and predicts" +
+                    " caffeine processing time. Join us in enhancing health and wellness, one sip at a time.\n\n" +
                     "**Disclaimer:** Please note that the methods used in KoffeinKoll are not scientifically proven. " +
                     "While we strive to provide accurate information and support healthy habits, individual responses " +
-                    "to caffeine may vary. It's always best to consult with a healthcare professional for personalized advice.\n\n" +
-                    "Created 2024\n" +
+                    "to caffeine may vary. It's always best to consult with a healthcare professional for " +
+                    "personalized advice.\n\n Created 2024\n" +
                     "Alanah Coleman, Elias Olsson, Kenan Al Tal, Louis Brown, and Ida Nordenswan";
 
         } else {
@@ -139,13 +139,16 @@ public class InfoPage extends A_Page {
 
             infoText =
                     "Caffeine Consumption Diagram:\n" +
-                            "This diagram offers a glimpse into your caffeine consumption habits across different timeframes. It includes two types " +
-                            "of charts:\n\n" + "Caffeine Diagram:\n" + "This chart displays your caffeine intake over the past week or month. It's" +
-                            " a useful tool for understanding your caffeine consumption patterns, allowing you to make adjustments if needed. It also " +
-                            "helps you track long-term trends and identify any changes in your consumption patterns over time.\n\n" + "Beverages Diagram:\n" +
-                            "This diagram categorizes and illustrates the types of drinks you've consumed. It gives you insights into the variety of " +
-                            "beverages you consume, helping you make more informed choices about your beverage preferences.\n\n" +
-                            "By exploring both diagrams, you can gain valuable insights into your caffeine intake habits, track your consumption " +
+                            "This diagram offers a glimpse into your caffeine consumption habits across " +
+                            "different timeframes. It includes two types of charts:\n\n" + "Caffeine Diagram:\n" + "This" +
+                            " chart displays your caffeine intake over the past week or month. It's" +
+                            " a useful tool for understanding your caffeine consumption patterns, allowing you to " +
+                            "make adjustments if needed. It also helps you track long-term trends and identify any " +
+                            "changes in your consumption patterns over time.\n\n" + "Beverages Diagram:\n" +
+                            "This diagram categorizes and illustrates the types of drinks you've consumed. It gives " +
+                            "you insights into the variety of beverages you consume, helping you make more informed " +
+                            "choices about your beverage preferences.\n\n By exploring both diagrams, you can " +
+                            "gain valuable insights into your caffeine intake habits, track your consumption " +
                             "trends, and make informed decisions to support a balanced and healthy lifestyle.";
 
         }

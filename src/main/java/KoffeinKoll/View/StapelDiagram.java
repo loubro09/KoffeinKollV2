@@ -76,7 +76,8 @@ public class StapelDiagram extends VBox {
         this.getChildren().add(1, barChart);
 
         lbl_title.setText(period + " Caffeine Consumption");
-        lbl_total.setText("Total Consumed: " + totalAmount + " mg. The equivalent of " + totalCups +" Cups of coffee" );
+        lbl_total.setText("Total Consumed: " + totalAmount + " mg. The equivalent of " + totalCups +" " +
+                "Cups of coffee" );
     }
 
     /**

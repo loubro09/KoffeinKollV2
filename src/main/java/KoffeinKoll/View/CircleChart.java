@@ -50,7 +50,8 @@ public class CircleChart extends VBox {
 
         data.forEach((name, count) -> {
             double percentage = count * 100.0 / totalAmount;
-            PieChart.Data slice = new PieChart.Data(name + " (" + String.format("%.1f%%", percentage) + ")", count);
+            PieChart.Data slice = new PieChart.Data(name + " (" + String.format("%.1f%%", percentage) + ")",
+                    count);
             chartData.add(slice);
         });
 

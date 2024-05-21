@@ -175,7 +175,8 @@ public class AlgorithmController {
      */
     private LocalTime lastLog() {
         //SQL query to retrieve the time of the last added row for the specified user and today's date
-        String sql = "SELECT date AS lastAddedTime FROM userhistory WHERE user_id = ? AND DATE(date) = ? ORDER BY date DESC LIMIT 1";
+        String sql = "SELECT date AS lastAddedTime FROM userhistory WHERE user_id = ? AND DATE(date) = ? " +
+                "ORDER BY date DESC LIMIT 1";
         try (
                 Connection conn = DatabaseConnection.getInstance().getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)
@@ -198,7 +199,8 @@ public class AlgorithmController {
 
 
     /**
-     * Half-life equation that calculates the time(in hours) it takes for caffeine to metabolize in the body, using the half-life constant for caffeine = 5.7h.
+     * Half-life equation that calculates the time(in hours) it takes for caffeine to metabolize in the body,
+     * using the half-life constant for caffeine = 5.7h.
      * @param c0 is the intitial caffeine contentration in milligrams.
      * @return the time (h) it takes for the caffeine to decrease to 1 milligram.
      * @author Ida Nordenswan

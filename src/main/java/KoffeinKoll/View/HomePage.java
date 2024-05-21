@@ -81,7 +81,8 @@ public class HomePage extends A_Page {
         mainContent.getChildren().addAll(logoImageViewGreen, customGauge);
         
         percentageGauge = new PercentageGauge();
-        percentageGauge.updateCaffeineLevel(algorithmController.getTotalCaffeineForDay(UserController.getInstance().getId()));
+        percentageGauge.updateCaffeineLevel(algorithmController.getTotalCaffeineForDay
+                (UserController.getInstance().getId()));
         mainContent.getChildren().add(percentageGauge);
 
         HBox buttonBox = new HBox();
@@ -174,18 +175,18 @@ public class HomePage extends A_Page {
      */
     private String beverageButtonStyle() {
         String style = "-fx-background-color:\n" +
-                "            #090a0c,\n" +
-                "            linear-gradient(#8fbc8f 0%, #8fbc8f 20%, #8fbc8f 100%),\n" +
-                "            linear-gradient(#8fbc8f, #8fbc8f),\n" +
-                "            radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));\n" +
-                "    -fx-background-radius: 5,4,3,5;\n" +
-                "    -fx-background-insets: 0,1,2,0;\n" +
-                "    -fx-text-fill: white;\n" +
-                "    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );\n" +
-                "    -fx-font-family: \"Arial\";\n" +
-                "    -fx-text-fill: linear-gradient(black, black);\n" +
-                "    -fx-font-size: 25px;\n" +
-                "    -fx-padding: 10 20 10 20;";
+                "#090a0c,\n" +
+                "linear-gradient(#8fbc8f 0%, #8fbc8f 20%, #8fbc8f 100%),\n" +
+                "linear-gradient(#8fbc8f, #8fbc8f),\n" +
+                "radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));\n" +
+                "-fx-background-radius: 5,4,3,5;\n" +
+                "-fx-background-insets: 0,1,2,0;\n" +
+                "-fx-text-fill: white;\n" +
+                "-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );\n" +
+                "-fx-font-family: \"Arial\";\n" +
+                "-fx-text-fill: linear-gradient(black, black);\n" +
+                "-fx-font-size: 25px;\n" +
+                "-fx-padding: 10 20 10 20;";
         return style;
     }
 }

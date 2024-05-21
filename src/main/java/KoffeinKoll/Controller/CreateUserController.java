@@ -26,7 +26,8 @@ public class CreateUserController {
         }
 
         if(!isUsernameValid(username)) {
-            showAlert("Error", "Username must be between 3 and 15 characters long.", Alert.AlertType.ERROR);
+            showAlert("Error", "Username must be between 3 and 15 characters long.",
+                    Alert.AlertType.ERROR);
             return false;
         }
 
@@ -37,7 +38,8 @@ public class CreateUserController {
             connection = DatabaseConnection.getInstance().getConnection();
 
             if (!isUniqueUsername(username, connection)) {
-                showAlert("Error", "This username is already chosen. Try another one!", Alert.AlertType.ERROR);
+                showAlert("Error", "This username is already chosen. Try another one!",
+                        Alert.AlertType.ERROR);
                 return false;
             }
 

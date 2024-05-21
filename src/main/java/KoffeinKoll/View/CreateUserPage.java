@@ -87,7 +87,8 @@ public class CreateUserPage extends A_Page {
             LocalDate dateOfBirth = datePicker.getValue();
 
 
-            if (username.isEmpty() || password.isEmpty() || weightText.isEmpty() || dateOfBirth == null || habit == null) {
+            if (username.isEmpty() || password.isEmpty() || weightText.isEmpty() || dateOfBirth == null ||
+                    habit == null) {
                 showAlert("Error", "All fields are required.", Alert.AlertType.ERROR);
 
                 //Mark empty fields with red color
@@ -111,7 +112,8 @@ public class CreateUserPage extends A_Page {
             }
 
             if (!checkAge(dateOfBirth)) {
-                showAlert("Error", "You have to be at least 15 years of age to use this application.", Alert.AlertType.ERROR);
+                showAlert("Error", "You have to be at least 15 years of age to use this " +
+                        "application.", Alert.AlertType.ERROR);
                 return;
             }
 
@@ -192,12 +194,14 @@ public class CreateUserPage extends A_Page {
         lbl_habit = setLabelStyle("How often do you consume caffeine drinks per day?");
         lbl_weight = setLabelStyle("Weight");
         lbl_dateOfBirth = setLabelStyle("Date of Birth");
-        lbl_passwordRequirements = setLabelStyle("Password must contain at least 8 characters, one capital letter, and one number.");
+        lbl_passwordRequirements = setLabelStyle("Password must contain at least 8 characters, one capital " +
+                "letter, and one number.");
         lbl_passwordRequirements.setFont(Font.font("Arial", 12));
 
 
         Tooltip tooltip1 = new Tooltip("\n" +
-                "Consistently consuming caffeine builds tolerance over time, enhancing your body's ability to handle it. \n");
+                "Consistently consuming caffeine builds tolerance over time, enhancing your body's " +
+                "ability to handle it. \n");
         tooltip1.setShowDelay(Duration.millis(10));
         tooltip1.setShowDuration(Duration.seconds(5));
         Tooltip.install(lbl_habit, tooltip1);

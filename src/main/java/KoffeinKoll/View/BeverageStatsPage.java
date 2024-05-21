@@ -198,7 +198,8 @@ public class BeverageStatsPage extends A_Page {
 
             if (enteredCaffeine > recommendedLimit) {
                 int excess = (int) (enteredCaffeine - recommendedLimit);
-                showAlert("Warning", "You have exceeded the recommended caffeine limit by " + excess + " mg", Alert.AlertType.WARNING);
+                showAlert("Warning", "You have exceeded the recommended caffeine limit by " +
+                        excess + " mg", Alert.AlertType.WARNING);
             }
         }
     }
@@ -230,9 +231,11 @@ public class BeverageStatsPage extends A_Page {
      */
     private void validateInputs() {
         if (!beverageController.validateAmount(tf_amountCL.getText())) {
-            showAlert("Invalid Amount in CL", "Please enter a valid amount in CL.", Alert.AlertType.ERROR);
+            showAlert("Invalid Amount in CL", "Please enter a valid amount in CL.",
+                    Alert.AlertType.ERROR);
         } else if (!validateDateTime()) {
-            showAlert("Invalid Time", "Please enter a valid date and time.", Alert.AlertType.ERROR);
+            showAlert("Invalid Time", "Please enter a valid date and time.",
+                    Alert.AlertType.ERROR);
         } else {
             processValidInputs();
         }
