@@ -82,7 +82,7 @@ public class InfoPage extends A_Page {
 
         titleBox.getChildren().add(logoImageViewGreen);
 
-        Label aboutTitleLabel = new Label("About Us");
+        Label aboutTitleLabel = new Label("About");
         aboutTitleLabel.setFont(Font.font("Arial", FontWeight.BOLD, 26));
         Color textColor = Color.rgb(0,70,0);
         aboutTitleLabel.setTextFill(textColor);
