@@ -30,7 +30,6 @@ public class CreateUserController {
             return false;
         }
 
-
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
@@ -82,7 +81,6 @@ public class CreateUserController {
             }
         }
     }
-
 
     /**
      * Checks if a password is valid.

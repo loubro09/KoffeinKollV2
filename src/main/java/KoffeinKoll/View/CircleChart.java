@@ -37,7 +37,6 @@ public class CircleChart extends VBox {
         this.setSpacing(10);
     }
 
-
     /**
      * Updates the chart's data based on the provided data map, period, and days.
      * @param data A map containing beverage names as keys and their corresponding consumption counts as values.

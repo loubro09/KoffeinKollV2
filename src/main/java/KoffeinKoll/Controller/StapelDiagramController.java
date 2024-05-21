@@ -48,7 +48,7 @@ public class StapelDiagramController {
      * @param userId The ID of the user.
      * @param days The number of days for the time period.
      * @return A map containing the caffeine consumption data for each date.
-     * @author Kenan Al Tal,
+     * @author Kenan Al Tal, Elias Olsson
      */
 
     private Map<String, Number> getLastDaysCaffeineConsumption(int userId, int days) {

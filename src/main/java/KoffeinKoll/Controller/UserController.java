@@ -1,6 +1,5 @@
 package KoffeinKoll.Controller;
 
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -149,7 +148,6 @@ public class UserController {
         }
         return id;
     }
-
 
     /**
      * Retrieves the habit of the user from the database.

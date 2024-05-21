@@ -28,6 +28,7 @@ public class CircleChartController {
     /**
      * Method to update the pie chart with the latest data.
      * @param days The number of days for which to retrieve beverage consumption data.
+     * @author Elias Olsson
      */
     public void updateDiagramData(int days) {
         Map<String, Integer> beverageData = getBeverageConsumptionLastDays(days);
@@ -41,6 +42,7 @@ public class CircleChartController {
      * Fetches beverage consumption data for the last X days from the database.
      * @param days The number of days for which to retrieve beverage consumption data.
      * @return A map containing beverage names as keys and their corresponding consumption counts as values.
+     * @author Elias Olsson
      */
     private Map<String, Integer> getBeverageConsumptionLastDays(int days) {
         Map<String, Integer> beverageData = new LinkedHashMap<>();
@@ -68,7 +70,7 @@ public class CircleChartController {
      * Method to show error alerts.
      * @param header The header text for the error alert.
      * @param content The content text for the error alert.
-     * @author Louis Brown
+     * @author Louis Brown , Elias Olsson
      */
     private void showErrorAlert(String header, String content) {
         Alert alert = new Alert(AlertType.ERROR);

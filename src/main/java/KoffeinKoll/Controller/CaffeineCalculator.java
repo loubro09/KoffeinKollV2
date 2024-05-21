@@ -15,7 +15,6 @@ public class CaffeineCalculator {
     private int currentDose;
     private AlgorithmController algorithmController;
 
-
     /**
      * Constructor for CaffeineCalculator
      *
@@ -40,12 +39,10 @@ public class CaffeineCalculator {
         return recommendedDose;
     }
 
-
     public int calculateExcessConsumption() {
         int excess = recommendedDose - currentDose;
         return excess;
     }
-
 
     /**
      * Calculates the recommended caffeine dose based on the user's habit
@@ -68,6 +65,5 @@ public class CaffeineCalculator {
         }
         return recommendedDose;
     }
-
 
 }

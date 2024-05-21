@@ -7,7 +7,7 @@ import java.sql.DriverManager;
 
 /**
  * The DatabaseConnection class manages the connection to the database.
- * @author Alanah Coleman
+ * @author Alanah Coleman , Elias Olsson
  */
 public class DatabaseConnection {
     private String url;
@@ -25,6 +25,7 @@ public class DatabaseConnection {
     /**
      * Retrieves the instance of DatabaseConnection.
      * @return The instance of DatabaseConnection.
+     * @author Elias Olsson
      */
     public static synchronized DatabaseConnection getInstance() {
         if (instance == null) {
@@ -36,6 +37,7 @@ public class DatabaseConnection {
     /**
      * Establishes a connection to the database.
      * @return The database connection.
+     * @author Elias Olsson
      */
     public Connection getConnection() {
         try {
@@ -49,6 +51,7 @@ public class DatabaseConnection {
 
     /**
      * Loads the database configuration from the configuration file.
+     * @author Elias Olsson, Alanah Coleman
      */
     private void loadConfiguration() {
         Properties props = new Properties();

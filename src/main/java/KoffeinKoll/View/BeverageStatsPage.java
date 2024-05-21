@@ -326,6 +326,13 @@ public class BeverageStatsPage extends A_Page {
         datePicker.setValue(currentDate);
     }
 
+    /**
+     * @param amount
+     * @param selectedUnit
+     * @return the seleceted unit in the right convertion
+     * @author Elias Olsson
+     */
+
     private double convertToCL(double amount, String selectedUnit) {
         switch (selectedUnit) {
             case "cl":
