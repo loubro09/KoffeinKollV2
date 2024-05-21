@@ -189,6 +189,7 @@ public class BeverageStatsPage extends A_Page {
         if (!enteredAmountText.isEmpty()) {
 
             double enteredAmount = Double.parseDouble(enteredAmountText);
+            enteredAmount = convertToCL(enteredAmount, unitComboBox.getValue());
             double caffeineConcentration = algorithmController.getBeverageConcentration(beverageID);
             double recommendedLimit = caffeineCalculator.calculateExcessConsumption();
 
