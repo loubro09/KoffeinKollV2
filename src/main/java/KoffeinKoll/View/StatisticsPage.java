@@ -10,7 +10,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-
 /**
  * StatisticsPage class represents the statistics page of the application.
  * It displays the chart and provides buttons for navigation.
@@ -67,7 +66,6 @@ public class StatisticsPage extends A_Page {
         setButtons();
     }
 
-
     /**
      * Sets up the event handlers for the buttons.
      *
@@ -117,7 +115,6 @@ public class StatisticsPage extends A_Page {
         btn_monthly.setStyle(setButtonStyle());
         btn_info.setStyle(setButtonStyle());
     }
-
 
     /**
      * Toggles between displaying the circle chart and the bar chart.

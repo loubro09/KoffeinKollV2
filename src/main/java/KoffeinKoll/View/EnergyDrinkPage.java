@@ -89,8 +89,6 @@ public class EnergyDrinkPage extends A_Page {
 
         mainContent.getChildren().add(logoImageViewGreen);
 
-
-
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.TOP_CENTER);
         gridPane.setVgap(10);

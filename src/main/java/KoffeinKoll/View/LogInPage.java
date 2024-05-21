@@ -102,12 +102,10 @@ public class LogInPage extends A_Page {
         topVBox.setAlignment(Pos.CENTER);
         topVBox.getChildren().add(logoImageView);
 
-
         borderPane = getBorderPane();
         borderPane.setPadding(new Insets(70));
         borderPane.setTop(topVBox);
         borderPane.setCenter(gridPane);
-
     }
 
     /**

@@ -64,7 +64,7 @@ public class SodaPage extends A_Page {
     /**
      * Sets event handlers for buttons.
      *
-     * @author Ida Nordenswan                                                                                        //AUTHOR
+     * @author Ida Nordenswan
      */
     @Override
     public void setEvents() {
@@ -75,7 +75,7 @@ public class SodaPage extends A_Page {
     /**
      * Sets up the scene layout.
      *
-     * @author Ida Nordenswan                                                                                        //AUTHOR
+     * @author Ida Nordenswan
      */
     @Override
     public void setScene() {
@@ -89,8 +89,6 @@ public class SodaPage extends A_Page {
         borderPane.setCenter(mainContent);
 
         mainContent.getChildren().add(logoImageViewGreen);
-
-
 
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.TOP_CENTER);
@@ -111,15 +109,13 @@ public class SodaPage extends A_Page {
 
         HBox buttonHBox = new HBox(20,btn_goBack, btn_goHome);
         buttonHBox.setAlignment(Pos.CENTER);
-        //buttonHBox.getChildren().addAll(btn_goBack);
         gridPane.add(buttonHBox, 0, 18);
-        //borderPane.setBottom(buttonHBox);
     }
 
     /**
      * Sets up labels.
      *
-     * @author Ida Nordenswan                                                                                         //AUTHOR
+     * @author Ida Nordenswan
      */
     private void setLabels() {
         lbl_subTitle = setLabelStyle("  Choose your soda:");
@@ -150,7 +146,7 @@ public class SodaPage extends A_Page {
     /**
      * Going back to the home page.
      *
-     * @author Ida Nordenswan.                                                                                     //AUTHOR
+     * @author Ida Nordenswan.
      */
     private void goBack() {
         changePage(new BeverageMenuPage());
@@ -161,7 +157,7 @@ public class SodaPage extends A_Page {
      *
      * @param beverageName beverage name.
      * @return JFXButton.
-     * @author Ida Nordenswan                                                                                        //AUTHOR
+     * @author Ida Nordenswan
      */
     private JFXButton createBeverageButton(String beverageName) {
         JFXButton btn_temp = new JFXButton(beverageName);
@@ -176,7 +172,7 @@ public class SodaPage extends A_Page {
      * Handles the selection of a beverage.
      *
      * @param beverageName The name of the selected beverage.
-     * @author Ida Nordenswan                                                                                    //AUTHOR
+     * @author Ida Nordenswan
      */
     private void handleBeverageSelection(String beverageName) {
         int beverageId = sodaIdMap.get(beverageName);
@@ -186,7 +182,7 @@ public class SodaPage extends A_Page {
     /**
      * Going back to the home page.
      *
-     * @author Ida Nordenswan.                                                                                     //AUTHOR
+     * @author Ida Nordenswan.
      */
     private void goHome() {
         changePage(new HomePage());
@@ -195,7 +191,7 @@ public class SodaPage extends A_Page {
     /**
      * Initializes the beverage ID map.
      *
-     * @author Ida Nordenswan                                                                                       //AUTHOR
+     * @author Ida Nordenswan
      */
     private void makeMap() {
         sodaIdMap = new HashMap<>();

@@ -26,7 +26,6 @@ public class PercentageGauge extends StackPane {
     private int recommendedAmount;
     private CaffeineCalculator caffeineCalculator;
 
-
     /**
      * Constructs percentage gauge.
      * Creating the functions and setting the labels for the gauge.

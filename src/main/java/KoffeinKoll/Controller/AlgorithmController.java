@@ -15,7 +15,7 @@ public class AlgorithmController {
 
     /**
      * Constructor for the Algorithmcontroller.
-     * @author Ida Nordensawn
+     * @author Ida Nordenswan
      */
 
     public AlgorithmController() {
@@ -26,7 +26,7 @@ public class AlgorithmController {
      * Updates the gauge when a new drink is registered by the user and updates the database with the max gauge time.
      * @param beverageId the Id of the logged drink.
      * @param beverageAmount the amount of beverage consumed(in centiliters).
-     * @author Ida Nordensawn, Louis Brown
+     * @author Ida Nordenswan, Louis Brown
      */
 
     public void updateGaugeNewLog(int beverageId, double beverageAmount) {
@@ -64,7 +64,7 @@ public class AlgorithmController {
     /**
      * Calculates the current value of the gauge. The current value is based on the last log time and current time.
      * @return the current value of the gauge.
-     * @author Ida Nordensawn, Louis Brown
+     * @author Ida Nordenswan, Louis Brown
      */
 
     public double currentGaugeValue() {
@@ -84,7 +84,7 @@ public class AlgorithmController {
      * Calculates the total amopunt of caffeine that the current user has consumed for the day.
      * @param userId Id of the user.
      * @return total caffein consumption of the day.
-     * @author Ida Nordensawn
+     * @author Ida Nordenswan
      *
      */
     public double getTotalCaffeineForDay(int userId) {
@@ -113,7 +113,7 @@ public class AlgorithmController {
     /**
      * Getter for the max gauge value. Retreives the value from the database for the current user.
      * @return maximum gauge value.
-     * @author Ida Nordensawn
+     * @author Ida Nordenswan
      */
     public double getMaxValue() {
         if (lastLog() == null) {
@@ -144,7 +144,7 @@ public class AlgorithmController {
      * Gets the corresponding caffeine concentration of the selected beverage.
      * @param beverageId the Id of the beverage.
      * @return the caffeine concentration of the selected beverage.
-     * @author Ida Nordensawn
+     * @author Ida Nordenswan
      */
     public double getBeverageConcentration(int beverageId){
         double concentration = 0.0;
@@ -171,7 +171,7 @@ public class AlgorithmController {
     /**
      * Checks the last drink log from the database for the current user at the current time.
      * @return the time of the last drink log.
-     * @author Ida Nordensawn, Louis Brown
+     * @author Ida Nordenswan, Louis Brown
      */
     private LocalTime lastLog() {
         //SQL query to retrieve the time of the last added row for the specified user and today's date
@@ -201,7 +201,7 @@ public class AlgorithmController {
      * Half-life equation that calculates the time(in hours) it takes for caffeine to metabolize in the body, using the half-life constant for caffeine = 5.7h.
      * @param c0 is the intitial caffeine contentration in milligrams.
      * @return the time (h) it takes for the caffeine to decrease to 1 milligram.
-     * @author Ida Nordensawn
+     * @author Ida Nordenswan
      */
     private double calculateTime(double c0) {
         double cF = 1; // mg

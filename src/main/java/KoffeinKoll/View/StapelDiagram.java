@@ -84,7 +84,6 @@ public class StapelDiagram extends VBox {
      *
      * @author Ida Nordenswan
      */
-
     private void initializeChart() {
         barChart.setTitle("Caffeine Consumption");
         xAxis.setLabel("Date");

@@ -13,8 +13,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.util.Duration;
 import javafx.scene.text.Text;
-import javafx.scene.control.TextField;
-import javafx.scene.paint.Color;
+
 /**
  * CustomGauge represents a custom gauge component used to visualize caffeine intake.
  * It extends StackPane and contains a Gauge from the Medusa library.
@@ -24,7 +23,6 @@ public class CustomGauge extends StackPane {
     private Timeline timeline;
     private static CustomGauge instance;
 
-
     /**
      * Constructs a CustomGauge object.
      * Initializes the gauge with default settings and adds it to the StackPane.
@@ -33,12 +31,10 @@ public class CustomGauge extends StackPane {
      */
     public CustomGauge() {
 
-
         gauge = new Gauge();
         gauge.setSkin(new SlimSkin(gauge));
         gauge.setBarColor(Color.DARKSEAGREEN);
         gauge.setTitle("Time Countdown: ");
-
 
         gauge.setMinValue(0);
         gauge.setMaxValue(0);
@@ -121,7 +117,7 @@ public class CustomGauge extends StackPane {
      * @param title     The title of the alert dialog.
      * @param content   The content of the alert dialog.
      * @param alertType The type of the alert
-     * @author Alanah
+     * @author Alanah Coleman
      */
     private void showAlert(String title, String content, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);

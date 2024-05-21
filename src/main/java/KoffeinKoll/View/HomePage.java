@@ -17,7 +17,6 @@ import javafx.geometry.Insets;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-
 /**
  * HomePage represents the main page of the KoffeinKoll application where users can view their statistics, access information,
  * log out, and log their beverage consumption.
