@@ -10,7 +10,7 @@ public class CaffeineCalculator {
     private int recommendedDose;
     final double CAFFEINE1_PER_KG = 2.0;
     final double CAFFEINE2_PER_KG = 3.0;
-    final double CAFFEINE3_PER_KG = 4.5;
+    final double CAFFEINE3_PER_KG = 4.0;
     private String habit;
     private int currentDose;
     private AlgorithmController algorithmController;
