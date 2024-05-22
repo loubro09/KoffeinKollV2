@@ -42,10 +42,8 @@ public class AlgorithmController {
 
         String sql = "UPDATE users SET current_max_gauge_time = ? WHERE user_id = ?";
 
-        try (
-                Connection conn = DatabaseConnection.getInstance().getConnection();
-                PreparedStatement stmt = conn.prepareStatement(sql)
-        ) {
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setDouble(1, newDrinkTime);
             stmt.setInt(2, UserController.getInstance().getId());
 

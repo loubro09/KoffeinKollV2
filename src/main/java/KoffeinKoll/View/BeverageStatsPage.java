@@ -179,6 +179,26 @@ public class BeverageStatsPage extends A_Page {
     }
 
     /**
+     * Sets up buttons.
+     *
+     * @author Elias Olsson
+     */
+    private void setButtons() {
+        btn_goBack = new JFXButton("Go Back");
+        btn_goBack.setStyle(setButtonStyle());
+
+        btn_goHome = new JFXButton("Home");
+        btn_goHome.setStyle(setButtonStyle());
+
+        btn_log = new JFXButton("Log Amount");
+        btn_log.setStyle(setButtonStyle());
+
+        btn_useCurrentTime = new JFXButton("Use Current Time");
+        btn_useCurrentTime.setStyle(setButtonStyle());
+
+    }
+
+    /**
      * Checks if the entered amount of beverage exceeds the recommended caffeine limit.
      * If the amount exceeds the limit, it displays a warning message.
      * @auhtor AlanahColeman
@@ -202,26 +222,6 @@ public class BeverageStatsPage extends A_Page {
                         excess + " mg", Alert.AlertType.WARNING);
             }
         }
-    }
-
-    /**
-     * Sets up buttons.
-     *
-     * @author Elias Olsson
-     */
-    private void setButtons() {
-        btn_goBack = new JFXButton("Go Back");
-        btn_goBack.setStyle(setButtonStyle());
-
-        btn_goHome = new JFXButton("Home");
-        btn_goHome.setStyle(setButtonStyle());
-
-        btn_log = new JFXButton("Log Amount");
-        btn_log.setStyle(setButtonStyle());
-
-        btn_useCurrentTime = new JFXButton("Use Current Time");
-        btn_useCurrentTime.setStyle(setButtonStyle());
-
     }
 
     /**

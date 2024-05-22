@@ -9,7 +9,6 @@ import java.sql.SQLException;
  * The UserController class manages user-related operations such as retrieving user information from the database.
  */
 public class UserController {
-    private int id;
     private String username;
     private double weight;
     private String habit;
@@ -46,16 +45,6 @@ public class UserController {
      */
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    /**
-     * Retrieves the username of the user.
-     *
-     * @return The username of the user.
-     * @author Alanah Coleman
-     */
-    public String getUsername() {
-        return username;
     }
 
     /**
