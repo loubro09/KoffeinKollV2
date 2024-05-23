@@ -186,7 +186,6 @@ public class AlgorithmController {
             if (rs.next()) {
                 return rs.getTime("lastAddedTime").toLocalTime();
             } else {
-                System.out.println("No rows found for user " + " today.");
                 return null;
             }
         } catch (SQLException e) {
