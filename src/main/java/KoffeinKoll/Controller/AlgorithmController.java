@@ -129,7 +129,6 @@ public class AlgorithmController {
             if (rs.next()) {
                 return rs.getInt("current_max_gauge_time");
             } else {
-                System.out.println("No currentMaxGaugeTime found for user ");
                 return 0;
             }
         } catch (SQLException e) {
@@ -154,13 +153,10 @@ public class AlgorithmController {
             ResultSet resultSet = statement.executeQuery();
             if(resultSet.next()) {
                 concentration = resultSet.getDouble("caffeine_concentration");
-                System.out.println("getBeverageConcentration: Caffeine concentration = " + concentration);
-            }else{
-                System.out.println("beverage cannot be found in database");
             }
-
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            System.out.println("AlgorithmController : getBeverageConcentration : SQL or Database error.");
         }
         return concentration;
     }

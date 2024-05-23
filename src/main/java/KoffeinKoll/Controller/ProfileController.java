@@ -70,7 +70,6 @@ public class ProfileController {
                 if (rowsAffected > 0) {
                     return true;
                 } else {
-                    System.out.println("Failed to update user profile.");
                     return false;
                 }
             } else {
