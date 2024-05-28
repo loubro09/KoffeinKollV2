@@ -74,8 +74,8 @@ public abstract class A_Page implements I_Page {
      */
     @Override
     public void setStageSize() {
-        stage.setWidth(800);
-        stage.setHeight(800);
+        stage.setWidth(1500);
+        stage.setHeight(900);
     }
 
     /**
@@ -191,7 +191,7 @@ public abstract class A_Page implements I_Page {
     protected void changePage(A_Page newPage) {
         newPage.initialPage(stage);
         stage.setScene(newPage.scene);
-        stage.setResizable(true);
+        stage.setResizable(false);
         stage.show();
     }
 
