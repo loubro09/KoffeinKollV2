@@ -43,7 +43,7 @@ public class CustomGauge extends StackPane {
         gauge.setAnimated(true);
 
         timeline = new Timeline(
-                new KeyFrame(Duration.hours(1), e -> {
+                new KeyFrame(Duration.minutes(1), e -> {
                     int remainingTime = (int) gauge.getValue();
                     if (remainingTime > 0) {
                         gauge.setValue(remainingTime - 1);
