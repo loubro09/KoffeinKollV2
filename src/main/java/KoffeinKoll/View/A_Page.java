@@ -34,7 +34,7 @@ public abstract class A_Page implements I_Page {
      */
     public void initialPage(Stage stage) {
         setStage(stage);
-        setStageSize();
+        setStageMaximized(); // Set stage to be maximized
         setWindowTitle();
         createBordePane();
         createScene();
@@ -42,7 +42,9 @@ public abstract class A_Page implements I_Page {
         setTitle();
         initializeUI();
     }
-
+    public void setStageMaximized() {
+        stage.setMaximized(true);
+    }
     /**
      * Retrieves the BorderPane layout of this page.
      *
