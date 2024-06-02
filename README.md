@@ -6,8 +6,6 @@ Disclaimer: Please note that the methods used in KoffeinKoll are not scientifica
 
  Getting Started
 
-Git-repository: https://github.com/loubro09/KoffeinKollV2
-
 1. Download JDK 21 if you haven"t already.
 2. Navigate to "Plugins" and ensure Maven is installed (should be listed as "Disable").
 3. If Maven is not installed, install it.
